@@ -140,6 +140,99 @@ export const debugScenarios: DebugScenario[] = [
       ],
     },
   },
+  {
+    id: "judge-false-positive",
+    title: "Judge False Positive",
+    difficulty: "hard",
+    symptom:
+      "An insight was marked verified, but a business reviewer flagged the conclusion as wrong.",
+    spans: [
+      {
+        id: "select-denominator",
+        name: "analysis.select_denominator",
+        type: "llm",
+        durationMs: 2100,
+        status: "warning",
+        summary:
+          "Generated code used all respondents instead of the filtered buyer segment.",
+        costUnits: 8,
+      },
+      {
+        id: "execute-analysis",
+        name: "sandbox.execute",
+        type: "sandbox",
+        durationMs: 3400,
+        status: "success",
+        summary: "Python executed successfully and produced a valid table.",
+        costUnits: 7,
+      },
+      {
+        id: "judge-code",
+        name: "judge.verify_execution",
+        type: "judge",
+        durationMs: 2800,
+        status: "success",
+        summary:
+          "Judge verified code execution but did not validate question intent.",
+        costUnits: 10,
+      },
+      {
+        id: "narrative",
+        name: "narrative.summarize",
+        type: "llm",
+        durationMs: 1800,
+        status: "failed",
+        summary:
+          "Narrative over-trusted the verified table and missed the denominator mismatch.",
+        costUnits: 5,
+      },
+    ],
+    choices: [
+      {
+        id: "execution-crash",
+        label: "The generated Python crashed before producing a table.",
+        explanation:
+          "The sandbox span succeeded, so this is not an execution failure.",
+      },
+      {
+        id: "semantic-judge-gap",
+        label:
+          "The judge checked execution but not semantic alignment to the question.",
+        explanation:
+          "Correct. The trace says the judge verified execution while denominator intent drifted.",
+      },
+      {
+        id: "chart-render",
+        label: "Chart rendering corrupted the table values.",
+        explanation: "No chart render span appears in this failure path.",
+      },
+      {
+        id: "retry-budget",
+        label: "Retry budget was exhausted before verification.",
+        explanation:
+          "The trace shows verification ran and passed the wrong criterion.",
+      },
+    ],
+    correctChoiceId: "semantic-judge-gap",
+    diagnosis:
+      "The verification path checked computational validity but not whether the selected denominator matched the business question.",
+    fix: "Add question-intent assertions, denominator-specific checks, and judge prompts that compare the generated calculation against the user's segment definition.",
+    proofIds: ["knit-sandbox-tasks", "representative-trace-label"],
+    publicLabel: challengePublicLabel,
+    reviewerSignoff: {
+      reviewer: "Ralph V2 challenge gate",
+      date: "2026-04-30",
+      decision: "approved",
+      checklist: [
+        "plausible distractors",
+        "non-obvious but sufficient trace clues",
+        "complete diagnosis and fix",
+        "source and confidentiality labels present",
+        "keyboard-operable static reveal",
+        "standalone hiring signal",
+      ],
+    },
+  },
 ];
 
 export const costModels: CostModel[] = [

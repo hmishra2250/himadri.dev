@@ -18,6 +18,9 @@ for (const path of [
   "/challenges",
   "/challenges/debug-this-agent",
   "/challenges/cost-anatomy",
+  "/challenges/dag-execution-simulator",
+  "/challenges/deck-ir-previewer",
+  "/hiring-packet",
   "/case-studies/agentic-market-research-platform",
 ]) {
   if (!publicPaths.has(path))

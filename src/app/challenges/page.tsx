@@ -21,6 +21,18 @@ const challenges = [
     description:
       "Toggle normalized cost models and see how routing, retries, sandbox reuse, and judge coverage change unit economics.",
   },
+  {
+    title: "DAG Execution Simulator",
+    href: "/challenges/dag-execution-simulator",
+    description:
+      "Step through a static research workflow and inspect why explicit state improves production AI recovery.",
+  },
+  {
+    title: "Deck IR Previewer",
+    href: "/challenges/deck-ir-previewer",
+    description:
+      "Edit a synthetic deck intermediate representation and preview inspectable slide structure.",
+  },
 ];
 
 export default function ChallengesPage() {
