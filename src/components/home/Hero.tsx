@@ -17,7 +17,10 @@ export function Hero() {
             <Link className="button primary" href="/case-studies">
               Explore systems I built
             </Link>
-            <Link className="button secondary" href="/contact">
+            <Link className="button secondary" href="/interview-me">
+              Interview me
+            </Link>
+            <Link className="button ghost" href="/contact">
               Start a conversation
             </Link>
             <a className="button ghost" href={profile.resumePath}>

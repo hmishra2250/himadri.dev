@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ForkCard } from "@/components/ui/ForkCard";
 import { SourceBadge } from "@/components/ui/SourceBadge";
 import type { CaseStudy } from "@/content/case-studies";
+import { flagshipDiagrams } from "@/content/diagrams";
 
 export function CaseStudyPage({ study }: { study: CaseStudy }) {
   return (
@@ -61,6 +62,39 @@ export function CaseStudyPage({ study }: { study: CaseStudy }) {
             ))}
           </div>
         </section>
+
+        {study.isFlagship ? (
+          <section
+            className="case-section"
+            id="system-diagrams"
+            aria-labelledby="diagram-heading"
+          >
+            <h2 id="diagram-heading">Improved system diagrams</h2>
+            <div className="diagram-grid">
+              {flagshipDiagrams.map((diagram) => (
+                <article className="diagram-card" key={diagram.id}>
+                  <h3>{diagram.title}</h3>
+                  <p>{diagram.caption}</p>
+                  <div className="diagram-flow" aria-label={diagram.caption}>
+                    {diagram.nodes.map((node, index) => (
+                      <div className="diagram-node" key={node.id}>
+                        <span>{String(index + 1).padStart(2, "0")}</span>
+                        <strong>{node.label}</strong>
+                        <p>{node.detail}</p>
+                      </div>
+                    ))}
+                  </div>
+                  <p className="confidentiality-note">{diagram.publicLabel}</p>
+                  <div className="source-list">
+                    {diagram.proofIds.map((proofId) => (
+                      <SourceBadge proofId={proofId} key={proofId} />
+                    ))}
+                  </div>
+                </article>
+              ))}
+            </div>
+          </section>
+        ) : null}
 
         <section
           className="case-section"

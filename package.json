@@ -14,7 +14,9 @@
     "validate:content": "tsx scripts/validate-content.ts",
     "validate:routes": "tsx scripts/validate-routes.ts",
     "test:links": "tsx scripts/check-links.ts",
-    "verify": "npm run typecheck && npm run lint && npm run format:check && npm run validate:content && npm run validate:routes && npm run build && npm run test:links"
+    "verify": "npm run typecheck && npm run lint && npm run format:check && npm run validate:content && npm run validate:routes && npm run validate:confidentiality && npm run build && npm run test:links && npm run test:routes-smoke",
+    "validate:confidentiality": "tsx scripts/validate-confidentiality.ts",
+    "test:routes-smoke": "tsx scripts/test-routes-smoke.ts"
   },
   "dependencies": {
     "@tailwindcss/postcss": "latest",

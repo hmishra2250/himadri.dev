@@ -19,7 +19,12 @@ export type DisplayContext =
   | "decision-theater"
   | "hiring-fit"
   | "resume"
-  | "source-card";
+  | "source-card"
+  | "interview"
+  | "challenge"
+  | "stack-opinion"
+  | "diagram"
+  | "assistant";
 
 export type ProofClaim = {
   id: string;

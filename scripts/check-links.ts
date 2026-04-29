@@ -1,4 +1,6 @@
+import { costModels, debugScenarios } from "../src/content/challenges";
 import { caseStudies } from "../src/content/case-studies";
+import { interviewAnswers } from "../src/content/interview";
 import { profile } from "../src/content/profile";
 import { publicRoutes, routeManifest } from "../src/lib/routes";
 
@@ -11,6 +13,11 @@ for (const path of [
   "/case-studies",
   "/resume",
   "/contact",
+  "/interview-me",
+  "/principles",
+  "/challenges",
+  "/challenges/debug-this-agent",
+  "/challenges/cost-anatomy",
   "/case-studies/agentic-market-research-platform",
 ]) {
   if (!publicPaths.has(path))
@@ -22,6 +29,22 @@ for (const study of caseStudies) {
   if (study.routeEnabled && !routePaths.has(path))
     errors.push(`Enabled case study route missing from manifest: ${path}`);
 }
+
+for (const answer of interviewAnswers) {
+  for (const source of answer.sourceCards) {
+    const path = source.href.split("#")[0];
+    if (!publicPaths.has(path) && !path.startsWith("/resume/")) {
+      errors.push(
+        `Interview source card links to non-public route: ${source.href}`,
+      );
+    }
+  }
+}
+
+if (debugScenarios.length < 1)
+  errors.push("At least one debug scenario is required");
+if (costModels.length < 3)
+  errors.push("Cost Anatomy requires three static states");
 
 if (
   !profile.resumePath.startsWith("/resume/") ||

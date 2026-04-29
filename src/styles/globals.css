@@ -613,3 +613,144 @@ li {
     animation-iteration-count: 1 !important;
   }
 }
+
+.interview-grid,
+.opinion-list,
+.challenge-grid,
+.source-card-grid,
+.diagram-grid,
+.choice-grid,
+.cost-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.interview-grid,
+.opinion-list,
+.diagram-grid {
+  margin-top: 2rem;
+}
+
+.evidence-card,
+.source-card,
+.choice-card,
+.reveal-card,
+.cost-panel,
+.cost-row,
+.diagram-card,
+.diagram-node {
+  border: 1px solid var(--border);
+  border-radius: 1.2rem;
+  background: rgba(255, 255, 255, 0.035);
+  padding: 1rem;
+}
+
+.evidence-card,
+.diagram-card,
+.cost-panel {
+  background: linear-gradient(
+    180deg,
+    rgba(17, 24, 39, 0.88),
+    rgba(13, 17, 23, 0.88)
+  );
+}
+
+.source-card-grid,
+.choice-grid,
+.challenge-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.choice-card.correct {
+  border-color: rgba(52, 211, 153, 0.5);
+  background: rgba(52, 211, 153, 0.07);
+}
+
+.reveal-card summary {
+  cursor: pointer;
+  color: var(--accent-blue);
+  font-weight: 700;
+}
+
+.challenge-trace {
+  margin: 2rem 0;
+}
+
+.toggle-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: 2rem 0 1rem;
+}
+
+.toggle {
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 0.75rem 1rem;
+  font: inherit;
+  font-weight: 700;
+}
+
+.toggle.active {
+  border-color: rgba(96, 165, 250, 0.5);
+  background: rgba(96, 165, 250, 0.12);
+  color: var(--text-primary);
+}
+
+.cost-panel {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: 1rem;
+}
+
+.cost-total {
+  color: var(--accent-blue);
+  font-family: var(--font-mono);
+  font-size: clamp(2.5rem, 8vw, 5rem);
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.cost-row {
+  display: grid;
+  grid-template-columns: minmax(180px, 0.8fr) auto minmax(220px, 1fr);
+  gap: 1rem;
+  align-items: start;
+}
+
+.diagram-flow {
+  display: grid;
+  gap: 0.75rem;
+  margin: 1rem 0;
+}
+
+.diagram-node span {
+  color: var(--accent-violet);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+}
+
+.diagram-node p {
+  color: var(--text-muted);
+  margin-bottom: 0;
+}
+
+@media (max-width: 900px) {
+  .source-card-grid,
+  .choice-grid,
+  .challenge-grid,
+  .cost-row,
+  .cost-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .cost-panel {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
