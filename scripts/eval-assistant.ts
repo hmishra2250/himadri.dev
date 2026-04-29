@@ -89,18 +89,40 @@ const passed =
   scores.nonFallbackSourceCardRate >= thresholds.nonFallbackSourceCardRate &&
   failures.length === 0;
 
+const reportPath = join(process.cwd(), ASSISTANT_EVAL_REPORT_PATH);
+const corpusHash = `sha256:${createHash("sha256").update(corpusText).digest("hex")}`;
+const evalHash = `sha256:${createHash("sha256").update(evalText).digest("hex")}`;
+let generatedAt = new Date().toISOString();
+if (existsSync(reportPath)) {
+  try {
+    const previous = JSON.parse(readFileSync(reportPath, "utf8")) as {
+      generatedAt?: string;
+      corpusHash?: string;
+      evalHash?: string;
+    };
+    if (
+      previous.corpusHash === corpusHash &&
+      previous.evalHash === evalHash &&
+      previous.generatedAt
+    ) {
+      generatedAt = previous.generatedAt;
+    }
+  } catch {
+    generatedAt = new Date().toISOString();
+  }
+}
+
 const report = {
-  generatedAt: new Date().toISOString(),
+  generatedAt,
   datasetSize: assistantEvalQuestions.length,
-  corpusHash: `sha256:${createHash("sha256").update(corpusText).digest("hex")}`,
-  evalHash: `sha256:${createHash("sha256").update(evalText).digest("hex")}`,
+  corpusHash,
+  evalHash,
   thresholds,
   scores,
   passed,
   failures,
 };
 
-const reportPath = join(process.cwd(), ASSISTANT_EVAL_REPORT_PATH);
 mkdirSync(dirname(reportPath), { recursive: true });
 writeFileSync(reportPath, `${JSON.stringify(report, null, 2)}\n`);
 
