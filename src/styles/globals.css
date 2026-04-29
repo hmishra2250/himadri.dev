@@ -754,3 +754,41 @@ li {
     flex-direction: column;
   }
 }
+
+.assistant-box {
+  display: grid;
+  gap: 1rem;
+  border: 1px solid var(--border);
+  border-radius: 1.25rem;
+  background: rgba(255, 255, 255, 0.035);
+  padding: 1rem;
+}
+
+.assistant-box label {
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+}
+
+.assistant-box textarea {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  background: rgba(0, 0, 0, 0.24);
+  color: var(--text-primary);
+  font: inherit;
+  padding: 1rem;
+  resize: vertical;
+}
+
+.assistant-response pre {
+  overflow-x: auto;
+  white-space: pre-wrap;
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  background: rgba(0, 0, 0, 0.24);
+  color: var(--text-secondary);
+  font-family: var(--font-sans);
+  padding: 1rem;
+}

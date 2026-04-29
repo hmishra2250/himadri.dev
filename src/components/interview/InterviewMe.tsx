@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { LiveAssistant } from "@/components/interview/LiveAssistant";
 import { SourceBadge } from "@/components/ui/SourceBadge";
 import {
   answerById,
@@ -52,9 +53,11 @@ export function InterviewMe() {
           })}
         </div>
         <p className="confidentiality-note">
-          Static curated mode. The V2 live assistant is intentionally gated
-          until corpus, eval, rate-limit, source-card, and privacy checks pass.
+          Static curated answers remain the primary source of truth. The V2
+          assistant below is source-grounded on the approved portfolio corpus
+          and returns fallbacks for unsupported or private questions.
         </p>
+        <LiveAssistant />
       </div>
     </section>
   );
