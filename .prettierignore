@@ -4,3 +4,7 @@ package-lock.json
 public/resume/*.pdf
 docs/**
 .omx/**
+
+# generated assistant reports
+reports/assistant-corpus/*.json
+reports/assistant-eval/*.json

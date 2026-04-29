@@ -1,0 +1,421 @@
+[
+  {
+    "id": "profile-positioning",
+    "title": "Profile positioning",
+    "sourceType": "resume",
+    "url": "/resume",
+    "text": "Himadri Mishra is a Senior AI Engineer. I turn messy human workflows into reliable, observable AI software across LLM orchestration, evaluation, analytics, deck automation, ML infrastructure, search, and computer vision. Best fit roles include Senior AI Engineer, AI Platform Engineer, LLM Systems Architect, and Founding AI Engineer.",
+    "tags": [
+      "role fit",
+      "profile",
+      "senior ai engineer",
+      "llm systems"
+    ],
+    "priority": 10,
+    "confidentialityLevel": "public"
+  },
+  {
+    "id": "metric-turnaround",
+    "title": "Report turnaround",
+    "sourceType": "metric",
+    "url": "/case-studies/agentic-market-research-platform",
+    "text": "48-72h → <1h Report turnaround. Consulting-grade market research reports with insights, charts, and native PPTX output.",
+    "tags": [
+      "metric",
+      "report turnaround",
+      "48-72h → <1h"
+    ],
+    "priority": 1,
+    "confidentialityLevel": "public"
+  },
+  {
+    "id": "metric-infra-cost",
+    "title": "ML infra cost reduction",
+    "sourceType": "metric",
+    "url": "/case-studies/ml-infra-rescue",
+    "text": "10x ML infra cost reduction. Production ML platform simplification after taking ownership of search, discovery, and recommendations.",
+    "tags": [
+      "metric",
+      "ml infra cost reduction",
+      "10x"
+    ],
+    "priority": 2,
+    "confidentialityLevel": "public"
+  },
+  {
+    "id": "metric-cv-accuracy",
+    "title": "CV accuracy lift",
+    "sourceType": "metric",
+    "url": "/case-studies/computer-vision-product-systems",
+    "text": "93% → 98% CV accuracy lift. Worksheet recognition improvement for education products used by real learners.",
+    "tags": [
+      "metric",
+      "cv accuracy lift",
+      "93% → 98%"
+    ],
+    "priority": 3,
+    "confidentialityLevel": "public"
+  },
+  {
+    "id": "metric-sandbox-tasks",
+    "title": "Sandbox tasks per report",
+    "sourceType": "metric",
+    "url": "/case-studies/agentic-market-research-platform",
+    "text": "30-50 Sandbox tasks per report. Persistent analytics sandbox execution with independent judge verification.",
+    "tags": [
+      "metric",
+      "sandbox tasks per report",
+      "30-50"
+    ],
+    "priority": 4,
+    "confidentialityLevel": "public"
+  },
+  {
+    "id": "metric-charts",
+    "title": "Charts per report",
+    "sourceType": "metric",
+    "url": "/case-studies/agentic-market-research-platform",
+    "text": "15-25 Charts per report. Highcharts visualizations generated with multi-threshold scoring.",
+    "tags": [
+      "metric",
+      "charts per report",
+      "15-25"
+    ],
+    "priority": 5,
+    "confidentialityLevel": "public"
+  },
+  {
+    "id": "metric-kaggle",
+    "title": "Global Kaggle rank",
+    "sourceType": "metric",
+    "url": "/resume",
+    "text": "Top 6% Global Kaggle rank. FIDE and Google Efficient Chess AI Challenge, 2025.",
+    "tags": [
+      "metric",
+      "global kaggle rank",
+      "top 6%"
+    ],
+    "priority": 6,
+    "confidentialityLevel": "public"
+  },
+  {
+    "id": "case-agentic-market-research-platform",
+    "title": "Agentic Market Research Platform",
+    "sourceType": "case-study",
+    "url": "/case-studies/agentic-market-research-platform",
+    "text": "Agentic Market Research Platform Raw survey data to verified insights, charts, and consulting-grade PPTX decks. Architected a production agentic research workflow that transformed analyst-heavy reporting into a verified AI execution pipeline. Market research reporting required analysts to process survey data, write insights, generate charts, validate findings, and assemble polished decks. The bottleneck was not text generation alone; the system needed numerical correctness, artifact quality, observability, and recovery boundaries. Senior AI Engineer / principal architect for India AI team LLM systems DAG orchestration Evals Sandbox execution Deck automation 48-72h → <1h report turnaround 30-50 sandboxed analytics tasks per report 15-25 Highcharts charts per report Multi-provider LLM routing and shared Python agent platform Raw survey data Data ingestion and schema normalization Task planning DAG execution LLM Python code generation Persistent sandbox execution Independent judge verification Insight synthesis Highcharts chart generation Visual quality scoring Deck intermediate representation HTML preview Native PPTX export Independent judge verification recomputed results in a separate sandbox path. Chart outputs passed multi-threshold quality scoring before deck assembly. Retry semantics were tied to task boundaries rather than vague agent state. OpenTelemetry and Langfuse made model calls, spans, failures, and cost inspectable. Task-level traces exposed latency, retries, and model routing behavior. Generated APIs and SSE streaming made execution state visible to product surfaces. The durable lesson is that production AI systems are less about an agent loop and more about explicit boundaries: typed inputs, executable artifacts, independent verification, observability, and unit economics.",
+    "tags": [
+      "knit",
+      "llm systems",
+      "dag orchestration",
+      "evals",
+      "sandbox execution",
+      "deck automation",
+      "case study"
+    ],
+    "priority": 10,
+    "confidentialityLevel": "sanitized"
+  },
+  {
+    "id": "case-ml-infra-rescue",
+    "title": "ML Infrastructure Rescue",
+    "sourceType": "case-study",
+    "url": "/case-studies/ml-infra-rescue",
+    "text": "ML Infrastructure Rescue Production ML platform ownership across cost, search, recommendations, and reliability. Took ownership of production ML systems after layoffs and reduced cost, complexity, and operational risk. The ML platform needed ownership across discovery, recommendations, search, Docker builds, Kubernetes usage, spot instance stability, and product experiments. Senior Research Engineer ML infra Kubernetes Search Recommendations Cost optimization 10x ML platform cost reduction 100x Kubernetes pod usage reduction 99% spot instance error reduction 50% Docker build-time reduction ML services Docker build pipeline Kubernetes deployment Spot compute Elasticsearch autocomplete Recommendations A/B testing Measured search relevance against the prior autocomplete solution. Tracked infrastructure cost and operational error reduction. Used production metrics and error behavior to prioritize high-impact infrastructure fixes. Senior ML ownership often means cleaning up cost, reliability, and product feedback loops, not only training models.",
+    "tags": [
+      "epic! for kids",
+      "ml infra",
+      "kubernetes",
+      "search",
+      "recommendations",
+      "cost optimization",
+      "case study"
+    ],
+    "priority": 7,
+    "confidentialityLevel": "sanitized"
+  },
+  {
+    "id": "case-computer-vision-product-systems",
+    "title": "Computer Vision Product Systems",
+    "sourceType": "case-study",
+    "url": "/case-studies/computer-vision-product-systems",
+    "text": "Computer Vision Product Systems Real-time CV systems for education products under device and usability constraints. Led CV systems that improved worksheet recognition accuracy and supported interactive learning workflows. Education products required reliable computer vision under varied lighting, paper positions, device constraints, and real-time interaction expectations. Senior Research Engineer / CV lead Computer vision Real-time ML Java deployment Education products 93% → 98% worksheet CV accuracy 80% IoU shaded-region detection 20% engagement improvement 99% manual tagging effort reduction Image/video input Detection and segmentation Post-processing Real-time inference Java deployment Product feedback Tracked worksheet recognition accuracy improvement and real-time shaded-region IoU. Product usage and engagement outcomes guided CV system iteration. This work proves ML product depth outside the LLM trend cycle: real users, device constraints, deployment, and feedback loops.",
+    "tags": [
+      "tangible play / osmo",
+      "computer vision",
+      "real-time ml",
+      "java deployment",
+      "education products",
+      "case study"
+    ],
+    "priority": 7,
+    "confidentialityLevel": "sanitized"
+  },
+  {
+    "id": "case-high-performance-ar-and-vision",
+    "title": "High-Performance AR and Vision",
+    "sourceType": "case-study",
+    "url": "/case-studies/high-performance-ar-and-vision",
+    "text": "High-Performance AR and Vision Low-level C++ vision and monocular depth research in an AR startup environment. Built and researched performance-sensitive vision primitives before the team transitioned to Osmo after acquisition. AR systems needed fast feature detection and research depth around monocular depth estimation. Deep Learning Engineer C++ ORB SLAM-style vision Monocular depth AR 20% faster ORB detector than ORB-SLAM baseline Camera input ORB feature detection Vision tracking primitives Depth estimation research AR product experiments Benchmarked detector speed against ORB-SLAM baseline. Performance measurement drove optimization choices. This work gives the portfolio low-level systems depth alongside modern LLM platform work.",
+    "tags": [
+      "whodat",
+      "c++",
+      "orb",
+      "slam-style vision",
+      "monocular depth",
+      "ar",
+      "case study"
+    ],
+    "priority": 7,
+    "confidentialityLevel": "sanitized"
+  },
+  {
+    "id": "principle-explicit-control-flow",
+    "title": "Production agents need explicit control flow.",
+    "sourceType": "principle",
+    "url": "/case-studies/agentic-market-research-platform#decision-theater",
+    "text": "Production agents need explicit control flow.. Free-form loops are useful for prototypes; production workflows need debuggable state, retries, dependency control, and observable execution.. Evidence: Built DAG-based orchestration for parallel AI insight execution.",
+    "tags": [
+      "principle",
+      "production agents need explicit control flow."
+    ],
+    "priority": 6,
+    "confidentialityLevel": "public"
+  },
+  {
+    "id": "principle-evaluation-path",
+    "title": "Every LLM output needs an evaluation path.",
+    "sourceType": "principle",
+    "url": "/case-studies/agentic-market-research-platform#evaluation",
+    "text": "Every LLM output needs an evaluation path.. If a system cannot verify outputs, it cannot be trusted for business-critical work.. Evidence: Implemented independent judge verification with separate sandbox execution.",
+    "tags": [
+      "principle",
+      "every llm output needs an evaluation path."
+    ],
+    "priority": 6,
+    "confidentialityLevel": "public"
+  },
+  {
+    "id": "principle-observability-product",
+    "title": "Observability is part of the product.",
+    "sourceType": "principle",
+    "url": "/case-studies/agentic-market-research-platform#observability",
+    "text": "Observability is part of the product.. LLM systems are not production-ready until prompts, calls, traces, failures, latency, cost, and business correctness can be inspected.. Evidence: Unified agents with Langfuse, OpenTelemetry, structured traces, and cost visibility.",
+    "tags": [
+      "principle",
+      "observability is part of the product."
+    ],
+    "priority": 6,
+    "confidentialityLevel": "public"
+  },
+  {
+    "id": "principle-intermediate-representations",
+    "title": "Intermediate representations make AI systems debuggable.",
+    "sourceType": "principle",
+    "url": "/case-studies/agentic-market-research-platform#architecture",
+    "text": "Intermediate representations make AI systems debuggable.. Direct generation is fragile. IRs create inspectable boundaries between reasoning, rendering, and export.. Evidence: Built memo-to-deck and HTML-to-native-PPTX pipeline around a deck IR.",
+    "tags": [
+      "principle",
+      "intermediate representations make ai systems debuggable."
+    ],
+    "priority": 6,
+    "confidentialityLevel": "public"
+  },
+  {
+    "id": "principle-unit-economics",
+    "title": "Cost and latency are product features.",
+    "sourceType": "principle",
+    "url": "/case-studies/ml-infra-rescue",
+    "text": "Cost and latency are product features.. A system that works but cannot be afforded or debugged is not production-ready.. Evidence: Reduced ML infra costs by 10x and designed reusable sandbox execution patterns.",
+    "tags": [
+      "principle",
+      "cost and latency are product features."
+    ],
+    "priority": 6,
+    "confidentialityLevel": "public"
+  },
+  {
+    "id": "opinion-explicit-boundaries",
+    "title": "Production agents need explicit boundaries.",
+    "sourceType": "principle",
+    "url": "/case-studies/agentic-market-research-platform#architecture",
+    "text": "Production agents need explicit boundaries.. Free-form loops are useful for exploration, but production systems need inspectable state, typed interfaces, retries, and failure recovery.. Autonomy is valuable only when the surrounding system makes behavior observable and recoverable.. Evidence: DAG orchestration and task-level execution in the market research platform.",
+    "tags": [
+      "opinion",
+      "production ai",
+      "explicit boundaries"
+    ],
+    "priority": 7,
+    "confidentialityLevel": "public"
+  },
+  {
+    "id": "opinion-frameworks-are-not-architecture",
+    "title": "Frameworks help prototypes, but architecture lives in boundaries.",
+    "sourceType": "principle",
+    "url": "/case-studies/agentic-market-research-platform#decision-theater",
+    "text": "Frameworks help prototypes, but architecture lives in boundaries.. LangChain and LangGraph can be useful, but durable systems need domain-specific evaluation, observability, retry, and cost boundaries.. The strongest question is not which library is fashionable. The question is where correctness, state, and recovery live.. Evidence: Shared Python agent platform with multi-provider routing, tracing, and generated APIs.",
+    "tags": [
+      "opinion",
+      "production ai",
+      "frameworks are not architecture"
+    ],
+    "priority": 7,
+    "confidentialityLevel": "public"
+  },
+  {
+    "id": "opinion-observability-beyond-prompts",
+    "title": "AI observability should be artifact-aware, not only prompt-aware.",
+    "sourceType": "principle",
+    "url": "/case-studies/agentic-market-research-platform#observability",
+    "text": "AI observability should be artifact-aware, not only prompt-aware.. Prompts matter, but debugging production AI needs spans, costs, retries, model routing, generated artifacts, and business correctness checks.. A pretty trace is not enough unless it helps explain and fix the failure mode.. Evidence: OpenTelemetry and Langfuse-backed instrumentation for AI workflow execution.",
+    "tags": [
+      "opinion",
+      "production ai",
+      "observability beyond prompts"
+    ],
+    "priority": 7,
+    "confidentialityLevel": "public"
+  },
+  {
+    "id": "opinion-intermediate-representations",
+    "title": "Intermediate representations make AI artifacts debuggable.",
+    "sourceType": "principle",
+    "url": "/case-studies/agentic-market-research-platform#architecture",
+    "text": "Intermediate representations make AI artifacts debuggable.. When AI generates complex deliverables, direct output is fragile. IRs make systems inspectable, testable, and renderer-agnostic.. Deck IR separated reasoning about slide structure from rendering into HTML preview and native PowerPoint.. Evidence: Deck IR to HTML preview to native PPTX export in the market research platform.",
+    "tags": [
+      "opinion",
+      "production ai",
+      "intermediate representations"
+    ],
+    "priority": 7,
+    "confidentialityLevel": "public"
+  },
+  {
+    "id": "opinion-unit-economics",
+    "title": "Unit economics are part of AI architecture.",
+    "sourceType": "principle",
+    "url": "/challenges/cost-anatomy",
+    "text": "Unit economics are part of AI architecture.. A workflow that works but cannot be afforded is not production-ready.. Cost controls belong in routing, caching, retry limits, judge coverage, and infra choices, not in a post-launch spreadsheet.. Evidence: ML infrastructure cost reduction and cost-aware AI workflow patterns.",
+    "tags": [
+      "opinion",
+      "production ai",
+      "unit economics"
+    ],
+    "priority": 7,
+    "confidentialityLevel": "public"
+  },
+  {
+    "id": "interview-explicit-boundaries",
+    "title": "Interview answer: explicit-boundaries",
+    "sourceType": "interview",
+    "url": "/interview-me",
+    "text": "The library is not the architecture. Production systems need explicit state, typed interfaces, retry boundaries, observability, evaluation hooks, and cost controls regardless of the orchestration framework. At Knit, the durable unit was a DAG of inspectable tasks, not a vague autonomous loop. Explicit workflows made parallel execution, retries, judge verification, and debugging practical. Frameworks can help, but production ownership lives in the domain-specific boundaries around them.",
+    "tags": [
+      "interview",
+      "role fit",
+      "answers"
+    ],
+    "priority": 8,
+    "confidentialityLevel": "public"
+  },
+  {
+    "id": "interview-cost-as-architecture",
+    "title": "Interview answer: cost-as-architecture",
+    "sourceType": "interview",
+    "url": "/interview-me",
+    "text": "I treat cost as an architectural constraint. Cost control comes from task classification, model routing, sandbox reuse, caching, selective judge coverage, retry limits, and visibility into unit economics. Knit required model routing, persistent sandbox reuse, and task-level observability. Epic required infrastructure ownership that reduced cost by 10x and pod usage by 100x. The Cost Anatomy challenge shows normalized cost units only, never actual internal figures.",
+    "tags": [
+      "interview",
+      "role fit",
+      "answers"
+    ],
+    "priority": 8,
+    "confidentialityLevel": "public"
+  },
+  {
+    "id": "interview-verification-boundaries",
+    "title": "Interview answer: verification-boundaries",
+    "sourceType": "interview",
+    "url": "/interview-me",
+    "text": "I separate generation from verification. For analytics, that means executable artifacts, independent checks, source-linked outputs, and failure modes that can be inspected instead of trusted blindly. Generated Python gave analysis an executable audit path. Independent judge verification reduced self-confirming errors. Chart and narrative quality gates made artifact quality visible before deck assembly.",
+    "tags": [
+      "interview",
+      "role fit",
+      "answers"
+    ],
+    "priority": 8,
+    "confidentialityLevel": "public"
+  },
+  {
+    "id": "interview-full-stack-ownership",
+    "title": "Interview answer: full-stack-ownership",
+    "sourceType": "interview",
+    "url": "/interview-me",
+    "text": "My strongest work sits across product, backend, ML, data, frontend, and operations. I can connect model behavior to user-facing artifacts and production constraints. Knit combined LLM orchestration, Python execution, charting, Deck IR, APIs, streaming, and observability. Epic combined ML infra, Elasticsearch, recommendations, Kubernetes, and product experiments. Osmo combined computer vision, learning-product UX, data collection, and real-time constraints.",
+    "tags": [
+      "interview",
+      "role fit",
+      "answers"
+    ],
+    "priority": 8,
+    "confidentialityLevel": "public"
+  },
+  {
+    "id": "interview-risk-management",
+    "title": "Interview answer: risk-management",
+    "sourceType": "interview",
+    "url": "/interview-me",
+    "text": "The risk is that I can bias toward building robust systems when a team only needs a quick demo. I manage that by making scope gates explicit and choosing the lightest system that preserves correctness. V1 of this portfolio deliberately avoided a live assistant until content and evals were ready. I prefer static, typed, reviewable artifacts first, then add dynamic systems when the proof is stable. That same discipline applies to product work: prototype quickly, but do not confuse a prototype with the architecture.",
+    "tags": [
+      "interview",
+      "role fit",
+      "answers"
+    ],
+    "priority": 8,
+    "confidentialityLevel": "public"
+  },
+  {
+    "id": "interview-role-fit",
+    "title": "Interview answer: role-fit",
+    "sourceType": "interview",
+    "url": "/interview-me",
+    "text": "The strongest fit is a senior or founding AI engineering role where production LLM systems, evaluation, observability, workflow architecture, and full-stack execution matter. Best fit: AI Platform Engineer, Senior AI Engineer, LLM Systems Architect, or Founding AI Engineer. Strong environments: serious AI products, workflow automation, analytics, research tooling, infra-heavy AI applications. Less ideal: pure research roles, frontend-only roles, or teams optimizing for demos over production systems.",
+    "tags": [
+      "interview",
+      "role fit",
+      "answers"
+    ],
+    "priority": 8,
+    "confidentialityLevel": "public"
+  },
+  {
+    "id": "debug-wrong-model-routing",
+    "title": "Wrong Model Routing",
+    "sourceType": "challenge",
+    "url": "/challenges/debug-this-agent",
+    "text": "Wrong Model Routing. Report cost increased unexpectedly while quality stayed flat.. The routing policy treated summary rewrites like high-value reasoning tasks. Low-risk transforms should have used a cheaper model with explicit quality sampling.. Add task-class-based model routing, budget alerts per node type, and a regression test that fails when low-risk summary tasks use premium routes.",
+    "tags": [
+      "debugging",
+      "agent trace",
+      "model routing",
+      "challenge"
+    ],
+    "priority": 8,
+    "confidentialityLevel": "sanitized"
+  },
+  {
+    "id": "cost-anatomy",
+    "title": "Cost Anatomy",
+    "sourceType": "challenge",
+    "url": "/challenges/cost-anatomy",
+    "text": "Cost Anatomy uses representative normalized units. Naive implementation: 100 units. Every step uses expensive defaults, retries are broad, and verification lacks risk targeting. Optimized implementation: 42 units. Routing, caching, sandbox reuse, and selective verification remove most waste while preserving quality. Final production pattern: 27 units. The system spends on high-risk reasoning and verification while keeping low-value transforms cheap.",
+    "tags": [
+      "cost",
+      "unit economics",
+      "normalized units",
+      "challenge"
+    ],
+    "priority": 8,
+    "confidentialityLevel": "sanitized"
+  }
+]

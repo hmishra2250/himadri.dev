@@ -1,3 +1,5 @@
+import { existsSync, readFileSync } from "node:fs";
+import { join } from "node:path";
 import { costModels, debugScenarios } from "@/content/challenges";
 import { caseStudies } from "@/content/case-studies";
 import { flagshipDiagrams } from "@/content/diagrams";
@@ -12,6 +14,7 @@ import { principles } from "@/content/principles";
 import { proofClaims } from "@/content/proof";
 import { stackOpinions } from "@/content/stack-opinions";
 import { traceLabel } from "@/content/traces";
+import { ASSISTANT_EVAL_REPORT_PATH } from "@/lib/assistant/config";
 import {
   deferredRoutes,
   publicRoutes,
@@ -227,6 +230,33 @@ export function validateRoutes() {
   for (const path of robotsDisallowRoutes) {
     if (publicPaths.has(path))
       errors.push(`public route disallowed by robots: ${path}`);
+  }
+
+  const interviewApi = routeManifest.find(
+    (route) => route.path === "/api/interview",
+  );
+  if (interviewApi?.enabled) {
+    const reportPath = join(process.cwd(), ASSISTANT_EVAL_REPORT_PATH);
+    if (!existsSync(reportPath)) {
+      errors.push(
+        `assistant eval report missing: ${ASSISTANT_EVAL_REPORT_PATH}`,
+      );
+    } else {
+      const report = JSON.parse(readFileSync(reportPath, "utf8")) as {
+        passed?: boolean;
+        datasetSize?: number;
+        corpusHash?: string;
+        evalHash?: string;
+      };
+      if (report.passed !== true)
+        errors.push("assistant eval report did not pass");
+      if (!report.datasetSize || report.datasetSize < 40)
+        errors.push("assistant eval dataset must contain at least 40 cases");
+      if (!report.corpusHash || !report.evalHash)
+        errors.push(
+          "assistant eval report must include corpusHash and evalHash",
+        );
+    }
   }
   return errors;
 }

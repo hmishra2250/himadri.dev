@@ -14,9 +14,13 @@
     "validate:content": "tsx scripts/validate-content.ts",
     "validate:routes": "tsx scripts/validate-routes.ts",
     "test:links": "tsx scripts/check-links.ts",
-    "verify": "npm run typecheck && npm run lint && npm run format:check && npm run validate:content && npm run validate:routes && npm run validate:confidentiality && npm run build && npm run test:links && npm run test:routes-smoke",
+    "verify": "npm run typecheck && npm run lint && npm run format:check && npm run validate:content && npm run build:assistant-corpus && npm run validate:assistant-corpus && npm run eval:assistant && npm run validate:routes && npm run validate:confidentiality && npm run build && npm run test:links && npm run test:routes-smoke && npm run test:api",
     "validate:confidentiality": "tsx scripts/validate-confidentiality.ts",
-    "test:routes-smoke": "tsx scripts/test-routes-smoke.ts"
+    "test:routes-smoke": "tsx scripts/test-routes-smoke.ts",
+    "build:assistant-corpus": "tsx scripts/build-assistant-corpus.ts",
+    "validate:assistant-corpus": "tsx scripts/validate-assistant-corpus.ts",
+    "eval:assistant": "tsx scripts/eval-assistant.ts",
+    "test:api": "tsx scripts/test-api.ts"
   },
   "dependencies": {
     "@tailwindcss/postcss": "latest",

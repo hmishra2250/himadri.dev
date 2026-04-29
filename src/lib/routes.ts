@@ -205,7 +205,7 @@ export const routeManifest: RouteManifestEntry[] = [
     kind: "api",
     phase: "v2b",
     status: "internal",
-    enabled: false,
+    enabled: true,
     includeInSitemap: false,
     includeInNav: false,
     robotsPolicy: "noindex",
