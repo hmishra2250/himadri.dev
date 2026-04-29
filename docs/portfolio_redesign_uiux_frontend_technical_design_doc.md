@@ -351,7 +351,7 @@ Immediately establish identity, role, positioning, and top proof points.
 Himadri Mishra
 Senior AI Engineer building production-grade agentic systems.
 
-I turn messy human workflows into reliable, observable AI software — across LLM orchestration, evaluation, analytics, deck automation, ML infrastructure, search, and computer vision.
+I turn messy human workflows into reliable, observable AI software across LLM orchestration, evaluation, analytics, deck automation, ML infrastructure, search, and computer vision.
 ```
 
 ### Primary CTA
@@ -3286,4 +3286,307 @@ It should say:
 > Here is how I think. Here is what I built. Here are the tradeoffs. Here are the traces. Here are the costs. Here are the failures. Here is the evidence.
 
 That is the bar.
+
+---
+
+## 27. Execution Alignment Decisions
+
+This section resolves the remaining ambiguity before execution.
+
+## 27.1 Primary Conversion Target
+
+### V1 Primary Outcome
+
+V1 should optimize for:
+
+> Senior AI Engineer / AI Platform Engineer / LLM Systems Architect interviews where the first serious evaluator is a CTO, founder, VP Engineering, or senior AI/platform engineering leader.
+
+This is the primary target because it best matches the strongest proof in the portfolio:
+
+- Production LLM systems
+- Agentic workflow architecture
+- Evaluation and verification
+- Observability
+- Cost and infra ownership
+- Full-stack AI product execution
+
+### Secondary Outcome
+
+The secondary outcome is recruiter-friendly pass-through.
+
+Recruiters matter, but the site should not be optimized primarily for recruiters. A recruiter-friendly site is a byproduct of clear proof, strong metrics, and the Hiring Fit Matrix.
+
+### What V1 Is Not Primarily Optimizing For
+
+V1 is not primarily optimized for:
+
+- Generic ML engineer roles
+- Pure research roles
+- Frontend-only roles
+- Broad personal branding
+- Viral portfolio traffic
+- A flashy design showcase
+
+Those may happen, but they are not the main objective.
+
+## 27.2 Role Targeting Hierarchy
+
+Use this hierarchy when making copy, design, and scope decisions:
+
+```txt
+1. AI Platform / LLM Systems Architect-style senior roles
+2. Founding AI Engineer roles at serious AI startups
+3. Senior AI Engineer roles with production LLM ownership
+4. Applied AI engineering roles at strong product companies
+5. Recruiter screening and pass-through
+```
+
+If two design decisions conflict, choose the one that better convinces a technical evaluator, not the one that merely pleases a recruiter.
+
+## 27.3 V1 Locked Scope
+
+V1 must ship only the highest-signal persuasion system.
+
+### V1 Must Ship
+
+1. Hero with sharp positioning
+2. Live System Pulse with sanitized representative traces
+3. Proof Wall with contextual metrics
+4. How I Think section with evidence links
+5. Featured Agentic Market Research Platform case study
+6. Decision Theater preview
+7. Case Study Grid
+8. Hiring Fit Matrix
+9. Resume page or downloadable resume
+10. Contact CTA
+
+### V1 Should Not Ship
+
+1. Real RAG assistant
+2. Full Debug This Agent challenge
+3. Full Cost Anatomy simulator
+4. DAG simulator
+5. Deck IR editor
+6. Command palette
+7. Local search
+8. Heavy 3D
+9. Real sandbox execution
+10. Any feature that delays the flagship case study
+
+### V1.5 Should Ship
+
+1. Interview Me static mode
+2. Debug This Agent with one polished scenario
+3. Cost Anatomy with normalized static toggles
+4. Stack Opinions / Production AI Beliefs
+5. Improved diagrams for the flagship case study
+
+### V2 Should Ship
+
+1. Source-grounded Interview Me assistant
+2. Retrieval evals
+3. Multiple debug scenarios
+4. DAG simulator
+5. Deck IR previewer/editor
+6. Optional downloadable hiring packet
+
+## 27.4 Evidence Availability Assumptions
+
+Until explicit assets are approved, execution should assume the following:
+
+### Safe for V1
+
+- Resume-backed metrics
+- Sanitized architecture diagrams
+- Synthetic but realistic trace examples
+- Normalized cost units
+- Representative workflow examples
+- Public GitHub links
+- Public LinkedIn/GitHub/resume information
+- Written case studies with confidential details removed
+
+### Requires Explicit Approval Before Use
+
+- Actual Knit traces
+- Actual customer data
+- Internal prompts
+- Internal screenshots
+- Real dashboards
+- Real generated decks
+- Internal architecture diagrams
+- Any non-public cost numbers
+- Any company-specific proprietary implementation detail
+
+### Default Rule
+
+When in doubt, use a sanitized or synthetic representative artifact and label it clearly.
+
+Example label:
+
+```txt
+Sanitized representative trace. Customer data, private prompts, and internal implementation details omitted.
+```
+
+## 27.5 Confidentiality Boundaries
+
+The portfolio must not expose private company information.
+
+### Never Include
+
+- Customer names
+- Raw customer data
+- Survey datasets
+- Proprietary prompts
+- Internal evaluation rubrics
+- Non-public architecture screenshots
+- Internal dashboard screenshots
+- Exact internal cost figures
+- Private deck outputs
+- Internal code
+- Secrets, endpoints, tokens, keys, or infrastructure identifiers
+
+### Allowed With Sanitization
+
+- High-level architecture patterns
+- Representative traces
+- Normalized cost breakdowns
+- Simplified diagrams
+- Publicly safe metrics already present in the resume
+- Descriptions of technical decisions without exposing private implementation details
+
+### Cost Anatomy Rule
+
+Use normalized units, not actual company cost.
+
+Example:
+
+```txt
+Naive implementation: 100 units
+Optimized implementation: 42 units
+Final production pattern: 27 units
+```
+
+### Trace Rule
+
+Use plausible span names and timings, but do not imply they are direct production logs unless they are approved.
+
+## 27.6 Autonomy Boundaries
+
+A designer or engineer executing this plan may decide the following without asking:
+
+### Can Decide Independently
+
+- Layout details within the approved homepage order
+- Typography within the approved visual direction
+- Component spacing and responsive behavior
+- Card designs
+- Diagram visual style
+- Animation details, as long as they remain subtle
+- Copy tightening that preserves factual claims
+- Whether to simplify a section for clarity
+- Whether to cut low-signal features from V1
+- Static mock data for traces and challenges
+- Technical implementation details inside the approved stack
+
+### Must Ask Before Changing
+
+- Role positioning
+- Primary conversion target
+- Metrics
+- Company claims
+- Case study claims
+- Confidentiality assumptions
+- Adding real company screenshots or traces
+- Changing V1 scope materially
+- Introducing paid backend infrastructure
+- Using an actual LLM assistant in V1
+- Publishing anything that could reveal internal company details
+
+## 27.7 Success Criteria
+
+### V1 Is Done When
+
+V1 is done when the site is strong enough to send directly to a CTO, founder, VP Engineering, or senior AI platform lead and reasonably expect them to understand the following within 60 seconds:
+
+1. Himadri builds production AI systems, not demos.
+2. Himadri has concrete metrics and real outcomes.
+3. Himadri understands orchestration, evals, observability, and cost.
+4. Himadri has breadth across LLMs, infra, search, CV, and full-stack systems.
+5. Himadri is credible for senior AI/platform or founding AI engineer conversations.
+
+### Quantitative Product Quality Criteria
+
+- Lighthouse Performance: 90+
+- Accessibility: 95+
+- SEO: 95+
+- LCP below 2.5s
+- CLS below 0.1
+- Mobile layout works cleanly
+- No broken links
+- Resume download works
+- Contact path works
+
+### Qualitative Hiring Criteria
+
+A strong V1 should pass these tests:
+
+#### CTO Test
+
+A CTO should think:
+
+> I want to talk to this person about how they built these systems.
+
+#### Founder Test
+
+A founder should think:
+
+> This person could own our AI platform from zero to one.
+
+#### Recruiter Test
+
+A recruiter should be able to explain the candidate internally using the Hiring Fit Matrix.
+
+#### Skeptical Engineer Test
+
+A senior engineer should see enough tradeoffs, failure modes, and implementation realism to believe the work is not superficial.
+
+## 27.8 Pressure Pass
+
+Before building any feature, ask:
+
+```txt
+Does this increase trust with a CTO/founder evaluating a senior AI platform engineer?
+```
+
+If yes, build or keep it.
+
+If no, cut or defer it.
+
+Examples:
+
+```txt
+Live System Pulse: yes, because it signals observability and production AI identity.
+Decision Theater: yes, because it shows senior tradeoff judgment.
+Hiring Fit Matrix: yes, because it helps internal pitching.
+Command Palette: no, because it is cool but low hiring signal.
+Heavy 3D: no, unless it explains architecture better than a diagram.
+Real RAG assistant in V1: no, because hallucination risk is higher than the hiring signal.
+```
+
+## 27.9 Final Execution Rule
+
+When scope pressure appears, preserve this priority order:
+
+```txt
+1. Narrative clarity
+2. Resume-backed proof
+3. Flagship case study depth
+4. Senior decision-making signal
+5. Conversion clarity
+6. Visual polish
+7. Interactivity
+8. AI assistant features
+```
+
+The portfolio should launch as soon as it is credible, sharp, and technically persuasive. It does not need every interactive idea to be valuable.
 
