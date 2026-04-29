@@ -1,0 +1,40 @@
+{
+  "name": "himadri-dev-portfolio",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Evidence-first portfolio for senior AI/platform engineering roles.",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint . --max-warnings=0",
+    "format:check": "prettier --check .",
+    "format": "prettier --write .",
+    "validate:content": "tsx scripts/validate-content.ts",
+    "validate:routes": "tsx scripts/validate-routes.ts",
+    "test:links": "tsx scripts/check-links.ts",
+    "verify": "npm run typecheck && npm run lint && npm run format:check && npm run validate:content && npm run validate:routes && npm run build && npm run test:links"
+  },
+  "dependencies": {
+    "@tailwindcss/postcss": "latest",
+    "next": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "tailwindcss": "latest"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "latest",
+    "@types/node": "latest",
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "eslint": "latest",
+    "eslint-config-next": "latest",
+    "prettier": "latest",
+    "tsx": "latest",
+    "typescript": "latest"
+  },
+  "overrides": {
+    "postcss": "^8.5.10"
+  }
+}
