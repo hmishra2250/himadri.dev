@@ -8,5 +8,5 @@ export const ASSISTANT_CORPUS_PATH =
   "reports/assistant-corpus/portfolio-chunks.json";
 
 export function assistantApiEnabled() {
-  return process.env[ASSISTANT_SERVER_ENABLE_FLAG] !== "0";
+  return process.env[ASSISTANT_SERVER_ENABLE_FLAG] === "1";
 }

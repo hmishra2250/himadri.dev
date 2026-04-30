@@ -2,7 +2,7 @@ import { costModels, debugScenarios } from "../src/content/challenges";
 import { caseStudies } from "../src/content/case-studies";
 import { interviewAnswers } from "../src/content/interview";
 import { profile } from "../src/content/profile";
-import { publicRoutes, routeManifest } from "../src/lib/routes";
+import { publicRoutes, routeManifest, routeIsEnabled } from "../src/lib/routes";
 
 const errors: string[] = [];
 const routePaths = new Set(routeManifest.map((route) => route.path));
@@ -18,13 +18,16 @@ for (const path of [
   "/challenges",
   "/challenges/debug-this-agent",
   "/challenges/cost-anatomy",
-  "/challenges/dag-execution-simulator",
-  "/challenges/deck-ir-previewer",
-  "/hiring-packet",
   "/case-studies/agentic-market-research-platform",
 ]) {
   if (!publicPaths.has(path))
     errors.push(`Required public path missing: ${path}`);
+}
+
+for (const route of routeManifest) {
+  if (!route.enabled && (route.includeInSitemap || route.includeInNav)) {
+    errors.push(`Disabled route exposed in sitemap or nav: ${route.path}`);
+  }
 }
 
 for (const study of caseStudies) {
@@ -46,8 +49,14 @@ for (const answer of interviewAnswers) {
 
 if (debugScenarios.length < 1)
   errors.push("At least one debug scenario is required");
+if (!routeIsEnabled("/challenges/debug-this-agent")) {
+  errors.push("Debug This Agent route must stay enabled for V1.5");
+}
 if (costModels.length < 3)
   errors.push("Cost Anatomy requires three static states");
+if (!routeIsEnabled("/challenges/cost-anatomy")) {
+  errors.push("Cost Anatomy route must stay enabled for V1.5");
+}
 
 if (
   !profile.resumePath.startsWith("/resume/") ||

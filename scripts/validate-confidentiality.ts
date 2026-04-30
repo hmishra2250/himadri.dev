@@ -1,5 +1,5 @@
-import { readFileSync } from "node:fs";
-import { join } from "node:path";
+import { readdirSync, readFileSync, statSync } from "node:fs";
+import { extname, join } from "node:path";
 import { costModels, debugScenarios } from "../src/content/challenges";
 import { flagshipDiagrams } from "../src/content/diagrams";
 import { proofClaims } from "../src/content/proof";
@@ -48,13 +48,34 @@ for (const diagram of flagshipDiagrams) {
   }
 }
 
-const sourceBadge = readFileSync(
-  join(process.cwd(), "src/components/ui/SourceBadge.tsx"),
-  "utf8",
-);
-if (sourceBadge.includes("\u2014")) {
-  errors.push("SourceBadge contains an em dash");
+const emDashScanRoots = [
+  "src/content",
+  "src/components",
+  "src/app",
+  "AGENTS.md",
+  "docs/plans/README.md",
+  "docs/plans/portfolio-gap-remediation-ralplan.md",
+  "docs/plans/prd-portfolio-gap-remediation.md",
+  "docs/plans/test-spec-portfolio-gap-remediation.md",
+];
+const emDashExtensions = new Set([".ts", ".tsx", ".md"]);
+const ignoredPathParts = new Set(["node_modules", ".next", ".git", "reports"]);
+
+function scanForEmDash(path: string) {
+  if (path.split("/").some((part) => ignoredPathParts.has(part))) return;
+  const absolute = join(process.cwd(), path);
+  const stat = statSync(absolute);
+  if (stat.isDirectory()) {
+    for (const child of readdirSync(absolute))
+      scanForEmDash(`${path}/${child}`);
+    return;
+  }
+  if (!emDashExtensions.has(extname(path))) return;
+  const text = readFileSync(absolute, "utf8");
+  if (text.includes("\u2014")) errors.push(`${path} contains an em dash`);
 }
+
+for (const path of emDashScanRoots) scanForEmDash(path);
 
 if (errors.length > 0) {
   console.error("Confidentiality validation failed:");

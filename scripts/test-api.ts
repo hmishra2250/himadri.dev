@@ -1,8 +1,12 @@
 import { POST } from "../src/app/api/interview/route";
-import { ASSISTANT_MAX_QUESTION_CHARS } from "../src/lib/assistant/config";
+import {
+  ASSISTANT_MAX_QUESTION_CHARS,
+  ASSISTANT_SERVER_ENABLE_FLAG,
+} from "../src/lib/assistant/config";
 import { resetRateLimitForTests } from "../src/lib/assistant/rate-limit";
 
 const errors: string[] = [];
+const previousFlag = process.env[ASSISTANT_SERVER_ENABLE_FLAG];
 
 async function call(body: unknown, ip = "test-ip") {
   return POST(
@@ -26,6 +30,21 @@ async function expectStatus(name: string, body: unknown, status: number) {
 }
 
 async function main() {
+  delete process.env[ASSISTANT_SERVER_ENABLE_FLAG];
+  await expectStatus(
+    "disabled-by-default",
+    { question: "How does Himadri control LLM costs?" },
+    404,
+  );
+
+  process.env[ASSISTANT_SERVER_ENABLE_FLAG] = "0";
+  await expectStatus(
+    "disabled-by-zero",
+    { question: "How does Himadri control LLM costs?" },
+    404,
+  );
+
+  process.env[ASSISTANT_SERVER_ENABLE_FLAG] = "1";
   await expectStatus("missing-question", {}, 400);
   await expectStatus("non-string", { question: 42 }, 400);
   await expectStatus("empty", { question: "   " }, 400);
@@ -70,6 +89,10 @@ async function main() {
   }
   if (!rateLimited) errors.push("rate limit did not trigger");
 
+  if (previousFlag === undefined)
+    delete process.env[ASSISTANT_SERVER_ENABLE_FLAG];
+  else process.env[ASSISTANT_SERVER_ENABLE_FLAG] = previousFlag;
+
   if (errors.length > 0) {
     console.error("API tests failed:");
     for (const error of errors) console.error(`- ${error}`);
@@ -79,6 +102,9 @@ async function main() {
 }
 
 main().catch((error: unknown) => {
+  if (previousFlag === undefined)
+    delete process.env[ASSISTANT_SERVER_ENABLE_FLAG];
+  else process.env[ASSISTANT_SERVER_ENABLE_FLAG] = previousFlag;
   console.error(error);
   process.exit(1);
 });

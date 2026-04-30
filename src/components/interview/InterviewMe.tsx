@@ -6,8 +6,13 @@ import {
   interviewCategories,
   interviewQuestions,
 } from "@/content/interview";
+import { routeIsEnabled } from "@/lib/routes";
 
 export function InterviewMe() {
+  const liveAssistantEnabled =
+    process.env.NEXT_PUBLIC_ENABLE_INTERVIEW_ASSISTANT === "1" &&
+    routeIsEnabled("/api/interview");
+
   return (
     <section className="section-pad">
       <div className="container narrow">
@@ -53,11 +58,11 @@ export function InterviewMe() {
           })}
         </div>
         <p className="confidentiality-note">
-          Static curated answers remain the primary source of truth. The V2
-          assistant below is source-grounded on the approved portfolio corpus
-          and returns fallbacks for unsupported or private questions.
+          Static curated answers remain the primary source of truth. The live
+          assistant stays hidden until the API and assistant gates are
+          explicitly enabled.
         </p>
-        <LiveAssistant />
+        {liveAssistantEnabled ? <LiveAssistant /> : null}
       </div>
     </section>
   );

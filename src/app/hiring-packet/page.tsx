@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { assertRouteEnabled } from "@/lib/route-guards";
 import Link from "next/link";
 import { caseStudies } from "@/content/case-studies";
 import { metrics } from "@/content/metrics";
@@ -10,7 +11,10 @@ export const metadata: Metadata = {
     "A public-only summary packet for senior AI engineering and AI platform interviews.",
 };
 
+const routePath = "/hiring-packet";
+
 export default function HiringPacketPage() {
+  assertRouteEnabled(routePath);
   return (
     <section className="section-pad">
       <div className="container narrow">

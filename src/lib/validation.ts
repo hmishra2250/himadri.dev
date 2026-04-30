@@ -14,7 +14,11 @@ import { principles } from "@/content/principles";
 import { proofClaims } from "@/content/proof";
 import { stackOpinions } from "@/content/stack-opinions";
 import { traceLabel } from "@/content/traces";
-import { ASSISTANT_EVAL_REPORT_PATH } from "@/lib/assistant/config";
+import {
+  ASSISTANT_EVAL_REPORT_PATH,
+  ASSISTANT_SERVER_ENABLE_FLAG,
+  assistantApiEnabled,
+} from "@/lib/assistant/config";
 import {
   deferredRoutes,
   publicRoutes,
@@ -236,6 +240,11 @@ export function validateRoutes() {
     (route) => route.path === "/api/interview",
   );
   if (interviewApi?.enabled) {
+    if (!assistantApiEnabled()) {
+      errors.push(
+        `/api/interview is enabled but ${ASSISTANT_SERVER_ENABLE_FLAG} is not explicitly set to 1`,
+      );
+    }
     const reportPath = join(process.cwd(), ASSISTANT_EVAL_REPORT_PATH);
     if (!existsSync(reportPath)) {
       errors.push(
