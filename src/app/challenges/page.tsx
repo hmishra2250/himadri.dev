@@ -27,16 +27,16 @@ const challenges = [
   {
     title: "DAG Execution Simulator",
     href: "/challenges/dag-execution-simulator",
-    phase: "Deferred V2c gate",
+    phase: "V2c accepted simulator",
     description:
-      "Requires node edges, dependency state, user decisions, and browser QA before public exposure.",
+      "Step through dependency state, judge failure, recovery decisions, and downstream readiness in a synthetic workflow.",
   },
   {
     title: "Deck IR Previewer",
     href: "/challenges/deck-ir-previewer",
-    phase: "Deferred V2c gate",
+    phase: "V2c accepted simulator",
     description:
-      "Requires schema validation, error states, inspection features, and synthetic labels before public exposure.",
+      "Edit synthetic Deck IR, inspect validation errors, and switch between preview, outline, and speaker notes.",
   },
 ];
 
@@ -54,9 +54,9 @@ export default function ChallengesPage() {
         <p className="eyebrow">Interactive challenges</p>
         <h1>Production AI judgment you can inspect</h1>
         <p className="hero-subtitle">
-          V1.5 ships only static, sanitized challenges. They are designed to
-          reveal debugging judgment and unit economics without using private
-          data or live execution.
+          These static, sanitized challenges reveal debugging judgment, unit
+          economics, workflow dependency design, and artifact inspection without
+          using private data or live execution.
         </p>
         <p className="confidentiality-note">{challengePublicLabel}</p>
         <div className="challenge-grid">
