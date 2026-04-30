@@ -95,6 +95,26 @@ internal-facing. They cover:
 
 Use these files before implementing the next public-surface polish pass.
 
+### 5. Portfolio feedback remediation plan
+
+Read fifth:
+
+1. `portfolio-feedback-remediation-ralplan.md`
+
+This file plans the human-first polish pass after hands-on review of the current deployed and local UI found that parts of the site still felt over-explained, LLM-shaped, or visually uneven. It covers:
+
+- hero proof card cleanup and equal sizing
+- compact Live System Pulse safety copy
+- removal of repeated proof-theater labels
+- featured case study ownership language
+- challenge preview and Debug This Agent interaction cleanup
+- chat-first Interview Me presentation
+- human-readable hiring fit replacement
+- resume note removal
+- Highcharts principle reframing around artifact boundaries
+
+Use this plan before changing homepage proof areas, Interview Me chat presentation, challenge copy, or proof/source labels.
+
 ## How the plans were built incrementally
 
 1. The design doc and latest resume were committed as the initial source material.
@@ -112,6 +132,8 @@ Use these files before implementing the next public-surface polish pass.
 13. That remediation plan added a hard Phase 0 governance gate before any further UI, route, assistant, or simulator work.
 14. A later expert review by Claude Opus 4.6 audited design-doc adherence, UX copy, social preview readiness, nav, accessibility, and experiential impact.
 15. The expert review remediation ralplan translated those findings into an acceptance-contract plan with Architect and Critic approval.
+16. A later hands-on review focused on homepage proof density, assistant presentation, challenge value, and human-readable hiring signals.
+17. The portfolio feedback remediation ralplan converted that feedback into a surgical UI and copy plan without changing route, assistant, analytics, Gemini, confidentiality, or dependency gates.
 
 ## How to use these plans for new work
 
@@ -122,9 +144,10 @@ Use this decision path:
 3. If the change adds `/api/interview`, retrieval, evals, assistant behavior, DAG simulator, Deck IR previewer, or hiring packet generation, read the V2 plan, PRD, and test spec.
 4. If the change fixes current quality gaps, route exposure drift, assistant default-off behavior, challenge reveal mechanics, browser QA, or simulator gates, read the gap remediation plan, PRD, and test spec.
 5. If the change fixes expert-review UX gaps, Live System Pulse behavior, public copy, contact segmentation, social preview metadata, or homepage hierarchy, read the expert review and expert remediation plan.
-6. If route visibility changes, check `src/lib/routes.ts`, `src/app/sitemap.ts`, and `src/app/robots.ts` against the relevant plan.
-7. If content claims change, check `src/content/proof.ts` and run content validation.
-8. If a phase gate is not satisfied, keep the route deferred or disabled.
+6. If the change fixes homepage proof density, Interview Me chat presentation, challenge value, proof labels, hiring-fit language, or human copy polish, read `portfolio-feedback-remediation-ralplan.md`.
+7. If route visibility changes, check `src/lib/routes.ts`, `src/app/sitemap.ts`, and `src/app/robots.ts` against the relevant plan.
+8. If content claims change, check `src/content/proof.ts` and run content validation.
+9. If a phase gate is not satisfied, keep the route deferred or disabled.
 
 ## Artifact roles
 
