@@ -365,14 +365,6 @@ li {
   background: rgba(255, 255, 255, 0.035);
 }
 
-.hero-metrics strong {
-  display: block;
-  color: var(--text-primary);
-  font-size: clamp(1.65rem, 2.7vw, 2.7rem);
-  line-height: 1.03;
-  letter-spacing: -0.05em;
-}
-
 .metric-value {
   display: block;
   color: var(--text-primary);
@@ -381,9 +373,34 @@ li {
   letter-spacing: -0.05em;
 }
 
+.hero-metric-value {
+  font-size: clamp(1.45rem, 1.8vw, 1.85rem);
+  line-height: 1.04;
+}
+
+.metric-value-comparison {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  column-gap: 0.45rem;
+  row-gap: 0.12rem;
+}
+
+.metric-number,
+.metric-arrow {
+  color: var(--text-primary);
+  white-space: nowrap;
+}
+
 .hero-metrics span,
 .muted {
   color: var(--text-muted);
+}
+
+.hero-metrics .metric-value,
+.hero-metrics .metric-number,
+.hero-metrics .metric-arrow {
+  color: var(--text-primary);
 }
 
 .hero-metrics p {
@@ -512,11 +529,20 @@ li {
   padding: 1.25rem;
 }
 
+.metric-card {
+  min-height: 210px;
+  justify-content: space-between;
+}
+
 .metric-card > :last-child,
 .principle-card > :last-child,
 .case-card > :last-child,
 .contact-card > :last-child {
   margin-top: auto;
+}
+
+.metric-card > :last-child {
+  margin-top: 1.25rem;
 }
 
 .card-link:hover .metric-card,
@@ -1070,6 +1096,8 @@ li {
 }
 
 .live-assistant-section {
+  display: grid;
+  gap: 0.7rem;
   border-color: rgba(125, 211, 252, 0.28);
   background:
     radial-gradient(
@@ -1078,6 +1106,33 @@ li {
       transparent 34%
     ),
     rgba(255, 255, 255, 0.025);
+}
+
+.live-assistant-compact {
+  border: 1px solid rgba(125, 211, 252, 0.18);
+  border-radius: 1.75rem;
+  padding: clamp(1rem, 2.3vw, 1.5rem);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 22px 70px rgba(0, 0, 0, 0.24);
+}
+
+.interview-preview-chat {
+  max-width: 960px;
+}
+
+.live-assistant-section > h2 {
+  max-width: 100%;
+  font-size: clamp(1.55rem, 3vw, 2.2rem);
+  line-height: 1.05;
+}
+
+.live-assistant-section > .muted {
+  max-width: 58ch;
+}
+
+.live-assistant-compact > h2 {
+  font-size: clamp(1.45rem, 2.5vw, 2rem);
 }
 
 .chat-shell {
@@ -1132,6 +1187,7 @@ li {
 
 .sample-chip-row {
   gap: 0.6rem;
+  align-items: center;
 }
 
 .sample-chip {

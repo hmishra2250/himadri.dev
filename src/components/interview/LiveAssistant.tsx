@@ -12,10 +12,12 @@ const sampleQuestions = [
 
 type LiveAssistantProps = {
   analyticsRoute?: string;
+  compact?: boolean;
 };
 
 export function LiveAssistant({
   analyticsRoute = "/interview-me",
+  compact = false,
 }: LiveAssistantProps = {}) {
   const [question, setQuestion] = useState(sampleQuestions[0]);
   const [response, setResponse] = useState<InterviewResponse | null>(null);
@@ -62,7 +64,11 @@ export function LiveAssistant({
 
   return (
     <section
-      className="case-section live-assistant-section"
+      className={
+        compact
+          ? "live-assistant-section live-assistant-compact"
+          : "case-section live-assistant-section"
+      }
       aria-labelledby="live-assistant-heading"
     >
       <p className="eyebrow">Portfolio chat</p>

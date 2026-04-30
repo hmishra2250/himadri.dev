@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { profile } from "@/content/profile";
 import { metrics } from "@/content/metrics";
+import { MetricValue } from "@/components/ui/MetricValue";
 
 export function Hero() {
   const heroMetrics = metrics.slice(0, 4);
@@ -29,7 +30,7 @@ export function Hero() {
           <div className="hero-metrics">
             {heroMetrics.map((metric) => (
               <div key={metric.id}>
-                <strong>{metric.value}</strong>
+                <MetricValue value={metric.value} tone="hero" />
                 <span>{metric.label}</span>
                 <p>{metric.context}</p>
               </div>

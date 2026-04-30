@@ -20,7 +20,7 @@ export function InterviewMePreview() {
         />
         <div className="interview-preview-chat">
           {liveAssistantEnabled ? (
-            <LiveAssistant analyticsRoute="/" />
+            <LiveAssistant analyticsRoute="/" compact />
           ) : (
             <article className="assistant-box chat-shell">
               <p className="eyebrow">Portfolio chat</p>
