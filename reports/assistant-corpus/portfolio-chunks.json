@@ -235,6 +235,19 @@
     "confidentialityLevel": "public"
   },
   {
+    "id": "principle-know-when-not-ai",
+    "title": "A good AI system knows when not to use AI.",
+    "sourceType": "principle",
+    "url": "/case-studies/agentic-market-research-platform#evaluation",
+    "text": "A good AI system knows when not to use AI.. Use deterministic code, typed schemas, rules, and verification paths where they are more reliable than generation.. Evidence: Separated generated analysis from sandbox execution, typed artifacts, and independent verification.",
+    "tags": [
+      "principle",
+      "a good ai system knows when not to use ai."
+    ],
+    "priority": 6,
+    "confidentialityLevel": "public"
+  },
+  {
     "id": "opinion-explicit-boundaries",
     "title": "Production agents need explicit boundaries.",
     "sourceType": "principle",

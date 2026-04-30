@@ -58,9 +58,8 @@ export function InterviewMe() {
           })}
         </div>
         <p className="confidentiality-note">
-          Static curated answers remain the primary source of truth. The live
-          assistant stays hidden until the API and assistant gates are
-          explicitly enabled.
+          Static curated answers stay available alongside the optional live
+          assistant. Both rely on approved public or sanitized evidence.
         </p>
         {liveAssistantEnabled ? <LiveAssistant /> : null}
       </div>

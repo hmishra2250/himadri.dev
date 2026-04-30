@@ -56,7 +56,7 @@ export function LiveAssistant() {
 
   return (
     <section className="case-section" aria-labelledby="live-assistant-heading">
-      <p className="eyebrow">V2 source-grounded assistant</p>
+      <p className="eyebrow">Source-grounded assistant</p>
       <h2 id="live-assistant-heading">Ask the approved portfolio corpus</h2>
       <p className="muted">
         This live mode uses deterministic retrieval over approved public and
