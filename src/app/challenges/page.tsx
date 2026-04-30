@@ -13,28 +13,28 @@ const challenges = [
   {
     title: "Debug This Agent",
     href: "/challenges/debug-this-agent",
-    phase: "V1.5 challenge",
+    phase: "Trace diagnosis",
     description:
       "Inspect a representative trace, identify the root cause, and compare the diagnosis with the production fix.",
   },
   {
     title: "Cost Anatomy",
     href: "/challenges/cost-anatomy",
-    phase: "V1.5 challenge",
+    phase: "Cost architecture",
     description:
       "Toggle normalized cost models and see how routing, retries, sandbox reuse, and judge coverage change unit economics.",
   },
   {
     title: "DAG Execution Simulator",
     href: "/challenges/dag-execution-simulator",
-    phase: "V2c accepted simulator",
+    phase: "Workflow simulator",
     description:
       "Step through dependency state, judge failure, recovery decisions, and downstream readiness in a synthetic workflow.",
   },
   {
     title: "Deck IR Previewer",
     href: "/challenges/deck-ir-previewer",
-    phase: "V2c accepted simulator",
+    phase: "Artifact boundary simulator",
     description:
       "Edit synthetic Deck IR, inspect validation errors, and switch between preview, outline, and speaker notes.",
   },
@@ -54,9 +54,9 @@ export default function ChallengesPage() {
         <p className="eyebrow">Interactive challenges</p>
         <h1>Production AI judgment you can inspect</h1>
         <p className="hero-subtitle">
-          These static, sanitized challenges reveal debugging judgment, unit
-          economics, workflow dependency design, and artifact inspection without
-          using private data or live execution.
+          These sanitized challenges reveal debugging judgment, unit economics,
+          workflow dependency design, and artifact inspection without using
+          private data or live execution.
         </p>
         <p className="confidentiality-note">{challengePublicLabel}</p>
         <div className="challenge-grid">
@@ -75,10 +75,8 @@ export default function ChallengesPage() {
         </div>
         {deferredChallenges.length > 0 ? (
           <section className="case-section" aria-labelledby="deferred-title">
-            <p className="eyebrow">Phase-gated V2</p>
-            <h2 id="deferred-title">
-              Deferred until the simulator gate passes
-            </h2>
+            <p className="eyebrow">Future lab ideas</p>
+            <h2 id="deferred-title">Held until the interaction earns trust</h2>
             <div className="challenge-grid">
               {deferredChallenges.map((challenge) => (
                 <article className="case-card" key={challenge.href}>

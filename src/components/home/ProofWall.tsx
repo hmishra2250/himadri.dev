@@ -9,9 +9,10 @@ export function ProofWall() {
         <SectionHeader
           eyebrow="Proof wall"
           title="Metrics with context, not isolated numbers."
-          description="The strongest claims are resume-backed and tied to systems, constraints, and outcomes."
+          titleId="proof-title"
+          description="The strongest claims connect outcomes to systems, constraints, and evidence."
         />
-        <div className="metric-grid" id="proof-title">
+        <div className="metric-grid">
           {metrics.map((metric) => (
             <MetricCard metric={metric} key={metric.id} />
           ))}

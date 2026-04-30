@@ -10,9 +10,10 @@ export function DecisionTheaterPreview() {
         <SectionHeader
           eyebrow="Decision Theater"
           title="What was rejected matters as much as what shipped."
+          titleId="decision-title"
           description="Senior engineering signal comes from tradeoffs: control flow, verification, cost, artifact boundaries, and recovery behavior."
         />
-        <div className="decision-preview" id="decision-title">
+        <div className="decision-preview">
           {flagshipCaseStudy.decisions.slice(0, 2).map((fork) => (
             <ForkCard fork={fork} key={fork.title} />
           ))}

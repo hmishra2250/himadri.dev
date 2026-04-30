@@ -9,9 +9,10 @@ export function HiringFitMatrix() {
         <SectionHeader
           eyebrow="Hiring fit matrix"
           title="A recruiter can pitch it. A CTO can interrogate it."
+          titleId="fit-title"
           description="Each signal is tied to a concrete evidence path instead of a generic skill label."
         />
-        <div className="fit-table" id="fit-title">
+        <div className="fit-table">
           {hiringFit.map((item) => (
             <div className="fit-row" key={item.signal}>
               <strong>{item.signal}</strong>

@@ -14,9 +14,10 @@ export function HowIThink() {
         <SectionHeader
           eyebrow="How I think"
           title="Production AI is a systems discipline."
+          titleId="thinking-title"
           description="The best AI systems are observable, evaluable, controllable, and useful under real constraints."
         />
-        <div className="principle-grid" id="thinking-title">
+        <div className="principle-grid">
           {principles.map((principle) => (
             <article className="principle-card" key={principle.id}>
               <h3>{principle.title}</h3>

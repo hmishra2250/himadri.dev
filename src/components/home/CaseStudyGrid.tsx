@@ -9,9 +9,10 @@ export function CaseStudyGrid() {
         <SectionHeader
           eyebrow="Work"
           title="Breadth after flagship depth."
+          titleId="case-grid-title"
           description="LLM systems, infrastructure, search, computer vision, and low-level AR performance."
         />
-        <div className="case-grid" id="case-grid-title">
+        <div className="case-grid">
           {caseStudies.map((study) => (
             <article className="case-card" key={study.slug}>
               <div>

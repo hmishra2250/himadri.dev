@@ -29,9 +29,10 @@ export function ChallengesPreview() {
         <SectionHeader
           eyebrow="Interactive lab"
           title="Small simulations of the production AI problems I solve."
-          description="The live V1.5 challenges stay static and sanitized, but they force the visitor to inspect traces, cost tradeoffs, and failure modes instead of only reading claims."
+          titleId="challenges-preview-title"
+          description="Production AI systems fail in traces, costs, retries, verification gaps, and artifact boundaries. These challenges show how I think about those failures."
         />
-        <div className="challenge-grid" id="challenges-preview-title">
+        <div className="challenge-grid">
           {challengePreviews
             .filter((challenge) => routeIsEnabled(challenge.href))
             .map((challenge) => (
