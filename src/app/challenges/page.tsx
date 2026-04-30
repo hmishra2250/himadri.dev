@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { challengePublicLabel } from "@/content/challenges";
 import { routeIsEnabled } from "@/lib/routes";
 
 export const metadata: Metadata = {
@@ -13,28 +12,28 @@ const challenges = [
   {
     title: "Debug This Agent",
     href: "/challenges/debug-this-agent",
-    phase: "Trace diagnosis",
+    phase: "Guided trace diagnosis",
     description:
-      "Inspect a representative trace, identify the root cause, and compare the diagnosis with the production fix.",
+      "Follow the span clues, choose a root cause, then compare your answer with the diagnosis and production fix.",
   },
   {
     title: "Cost Anatomy",
     href: "/challenges/cost-anatomy",
-    phase: "Cost architecture",
+    phase: "Unit economics model",
     description:
-      "Toggle normalized cost models and see how routing, retries, sandbox reuse, and judge coverage change unit economics.",
+      "Toggle designs and see how routing, retries, sandbox reuse, and judge coverage move cost units.",
   },
   {
     title: "DAG Execution Simulator",
     href: "/challenges/dag-execution-simulator",
-    phase: "Workflow simulator",
+    phase: "Workflow recovery simulator",
     description:
-      "Step through dependency state, judge failure, recovery decisions, and downstream readiness in a synthetic workflow.",
+      "Step through dependency state, judge failure, recovery choices, and downstream readiness in a lightweight simulator.",
   },
   {
     title: "Deck IR Previewer",
     href: "/challenges/deck-ir-previewer",
-    phase: "Artifact boundary simulator",
+    phase: "Deck artifact inspector",
     description:
       "Edit synthetic Deck IR, inspect validation errors, and switch between preview, outline, and speaker notes.",
   },
@@ -54,11 +53,9 @@ export default function ChallengesPage() {
         <p className="eyebrow">Interactive challenges</p>
         <h1>Production AI judgment you can inspect</h1>
         <p className="hero-subtitle">
-          These sanitized challenges reveal debugging judgment, unit economics,
-          workflow dependency design, and artifact inspection without using
-          private data or live execution.
+          These labs are small by design: each one exposes a trace, cost model,
+          recovery decision, or artifact boundary you can inspect quickly.
         </p>
-        <p className="confidentiality-note">{challengePublicLabel}</p>
         <div className="challenge-grid">
           {enabledChallenges.map((challenge) => (
             <Link

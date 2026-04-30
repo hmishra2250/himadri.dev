@@ -305,10 +305,10 @@
   },
   {
     "id": "opinion-highcharts-for-ai-products",
-    "title": "Highcharts is underrated for AI products.",
+    "title": "Generated analytics need artifact boundaries.",
     "sourceType": "principle",
     "url": "/case-studies/agentic-market-research-platform#architecture",
-    "text": "Highcharts is underrated for AI products.. AI products often need trustworthy analytical artifacts more than novelty charts. Mature charting tools help turn generated analysis into reviewable product output.. The important part is not the library brand. It is the boundary between generated insight, chart specification, visual quality scoring, and final artifact rendering.. Evidence: 15-25 Highcharts charts per report with multi-threshold quality scoring in the market research workflow.",
+    "text": "Generated analytics need artifact boundaries.. AI products need generated analytical objects that can be inspected, edited in the web app, and translated into native presentation artifacts.. The hard part is joining generated Highcharts-style chart specs, editable web chart objects, quality checks, and native PPTX chart rendering without losing meaning.. Evidence: 15-25 Highcharts charts per report with multi-threshold quality scoring in the market research workflow.",
     "tags": [
       "opinion",
       "production ai",
@@ -406,7 +406,7 @@
     "title": "Interview answer: role-fit",
     "sourceType": "interview",
     "url": "/interview-me",
-    "text": "The strongest fit is a senior AI engineering role where production LLM systems, evaluation, observability, workflow architecture, and full-stack execution matter. Best fit: AI Platform Engineer, Senior AI Engineer, LLM Systems Architect, or Founding AI Engineer. Strong environments: serious AI products, workflow automation, analytics, research tooling, infra-heavy AI applications. Less ideal: pure research roles, frontend-only roles, or teams optimizing for demos over production systems.",
+    "text": "The strongest fit is a senior AI engineering role where production LLM systems, evaluation, observability, workflow architecture, and full-stack execution matter. Strong fit: AI Platform Engineer, Senior AI Engineer, or LLM Systems Architect. Strong environments: serious AI products, workflow automation, analytics, research tooling, infra-heavy AI applications. Less ideal: pure research roles, frontend-only roles, or teams optimizing for demos over production systems.",
     "tags": [
       "interview",
       "role fit",

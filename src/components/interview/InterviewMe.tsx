@@ -31,9 +31,6 @@ export function InterviewMe() {
                   {interviewCategories[question.category]}
                 </p>
                 <h2>{question.question}</h2>
-                <p className="muted">
-                  Best for: {question.recommendedAudience}
-                </p>
                 <p>{answer.summary}</p>
                 <ul className="check-list">
                   {answer.bullets.map((bullet) => (

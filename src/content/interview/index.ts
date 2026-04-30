@@ -127,7 +127,7 @@ export const interviewAnswers: InterviewAnswer[] = [
         title: "Cost Anatomy",
         href: "/challenges/cost-anatomy",
         snippet:
-          "Representative normalized model for AI workflow unit economics.",
+          "Workflow unit economics model for routing and verification tradeoffs.",
         proofIds: ["representative-trace-label"],
       },
     ],
@@ -196,15 +196,15 @@ export const interviewAnswers: InterviewAnswer[] = [
     summary:
       "The strongest fit is a senior AI engineering role where production LLM systems, evaluation, observability, workflow architecture, and full-stack execution matter.",
     bullets: [
-      "Best fit: AI Platform Engineer, Senior AI Engineer, LLM Systems Architect, or Founding AI Engineer.",
+      "Strong fit: AI Platform Engineer, Senior AI Engineer, or LLM Systems Architect.",
       "Strong environments: serious AI products, workflow automation, analytics, research tooling, infra-heavy AI applications.",
       "Less ideal: pure research roles, frontend-only roles, or teams optimizing for demos over production systems.",
     ],
     sourceCards: [
       {
-        title: "Hiring fit matrix",
+        title: "Where I am useful",
         href: "/#hiring-fit",
-        snippet: "Signals mapped to role fit and proof claims.",
+        snippet: "Signals mapped to practical role fit and shipped systems.",
         proofIds: [
           "knit-turnaround",
           "epic-cost-reduction",

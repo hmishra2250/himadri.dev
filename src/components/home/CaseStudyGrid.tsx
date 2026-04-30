@@ -2,12 +2,6 @@ import Link from "next/link";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { caseStudies } from "@/content/case-studies";
 
-function caseCardClass(slug: string) {
-  if (slug === "agentic-market-research-platform") return "case-card featured";
-  if (slug === "ml-infra-rescue") return "case-card priority";
-  return "case-card";
-}
-
 export function CaseStudyGrid() {
   return (
     <section className="section-pad" aria-labelledby="case-grid-title">
@@ -20,7 +14,7 @@ export function CaseStudyGrid() {
         />
         <div className="case-grid">
           {caseStudies.map((study) => (
-            <article className={caseCardClass(study.slug)} key={study.slug}>
+            <article className="case-card" key={study.slug}>
               <div>
                 <p className="eyebrow">{study.company}</p>
                 <h3>{study.title}</h3>

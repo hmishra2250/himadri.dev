@@ -7,13 +7,15 @@ const challengePreviews = [
     title: "Debug This Agent",
     href: "/challenges/debug-this-agent",
     description:
-      "Read a representative trace, diagnose the failure mode, and compare against the production fix.",
+      "Follow trace clues, choose the root cause, then see the diagnosis and production fix.",
+    payoff: "Trace clue to fix",
   },
   {
     title: "Cost Anatomy",
     href: "/challenges/cost-anatomy",
     description:
-      "Toggle normalized AI workflow cost models and inspect which architecture choices change unit economics.",
+      "Compare workflow designs and see how routing, retries, sandbox reuse, and judges move cost units.",
+    payoff: "Architecture to unit economics",
   },
 ];
 
@@ -28,9 +30,9 @@ export function ChallengesPreview() {
       <div className="container">
         <SectionHeader
           eyebrow="Interactive lab"
-          title="Small simulations of the production AI problems I solve."
+          title="Fast labs that reward production AI judgment."
           titleId="challenges-preview-title"
-          description="Production AI systems fail in traces, costs, retries, verification gaps, and artifact boundaries. These challenges show how I think about those failures."
+          description="Each lab gives you a visible artifact: a diagnosis, a cost shift, or a recovery decision."
         />
         <div className="challenge-grid">
           {challengePreviews
@@ -41,10 +43,10 @@ export function ChallengesPreview() {
                 href={challenge.href}
                 key={challenge.href}
               >
-                <p className="eyebrow">Diagnostic proof</p>
+                <p className="eyebrow">{challenge.payoff}</p>
                 <h3>{challenge.title}</h3>
                 <p>{challenge.description}</p>
-                <span className="button secondary">Open challenge</span>
+                <span className="button secondary">Try the lab</span>
               </Link>
             ))}
         </div>

@@ -2,6 +2,12 @@ import Link from "next/link";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { principles } from "@/content/principles";
 
+function principleCtaLabel(id: string) {
+  if (id === "unit-economics") return "Open cost model";
+  if (id === "intermediate-representations") return "See workflow";
+  return "Read case study";
+}
+
 export function HowIThink() {
   return (
     <section
@@ -23,7 +29,9 @@ export function HowIThink() {
               <p>{principle.statement}</p>
               <p className="evidence">Evidence: {principle.evidence}</p>
               <div className="card-footer-row">
-                <Link href={principle.href}>Inspect evidence</Link>
+                <Link href={principle.href}>
+                  {principleCtaLabel(principle.id)}
+                </Link>
               </div>
             </article>
           ))}

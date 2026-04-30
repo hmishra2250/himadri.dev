@@ -22,7 +22,7 @@ export function DecisionTheaterPreview() {
           className="button secondary"
           href={`/case-studies/${flagshipCaseStudy.slug}#decision-theater`}
         >
-          See all decisions
+          See Knit decision forks
         </Link>
       </div>
     </section>

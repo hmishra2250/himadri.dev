@@ -10,7 +10,13 @@ const sampleQuestions = [
   "What roles are the strongest fit?",
 ];
 
-export function LiveAssistant() {
+type LiveAssistantProps = {
+  analyticsRoute?: string;
+};
+
+export function LiveAssistant({
+  analyticsRoute = "/interview-me",
+}: LiveAssistantProps = {}) {
   const [question, setQuestion] = useState(sampleQuestions[0]);
   const [response, setResponse] = useState<InterviewResponse | null>(null);
   const [status, setStatus] = useState<"idle" | "loading" | "error">("idle");
@@ -18,7 +24,7 @@ export function LiveAssistant() {
 
   async function askAssistant(nextQuestion = question) {
     trackPortfolioEvent("assistant_question_submitted", {
-      route: "/interview-me",
+      route: analyticsRoute,
       source_section: "live_assistant",
     });
     setStatus("loading");
@@ -41,7 +47,7 @@ export function LiveAssistant() {
       setResponse(payload);
       if (payload.confidence === "insufficient_context") {
         trackPortfolioEvent("assistant_fallback_returned", {
-          route: "/interview-me",
+          route: analyticsRoute,
           source_section: "live_assistant",
         });
       }
@@ -55,24 +61,33 @@ export function LiveAssistant() {
   }
 
   return (
-    <section className="case-section" aria-labelledby="live-assistant-heading">
-      <p className="eyebrow">Source-grounded assistant</p>
-      <h2 id="live-assistant-heading">Ask the approved portfolio corpus</h2>
+    <section
+      className="case-section live-assistant-section"
+      aria-labelledby="live-assistant-heading"
+    >
+      <p className="eyebrow">Portfolio chat</p>
+      <h2 id="live-assistant-heading">
+        Ask the portfolio like an interview loop
+      </h2>
       <p className="muted">
-        This live mode uses deterministic retrieval over approved public and
-        sanitized chunks. It returns source cards and falls back when context is
-        insufficient.
+        Ask a hiring-style question and get a concise answer with links back to
+        the relevant public portfolio pages.
       </p>
-      <div className="assistant-box">
-        <label htmlFor="assistant-question">Question</label>
+      <div className="assistant-box chat-shell">
+        <div className="chat-message assistant">
+          Ask about orchestration, evals, cost controls, infra rescue, or where
+          the systems failed before they became reliable.
+        </div>
+        <label htmlFor="assistant-question">Your question</label>
         <textarea
+          className="chat-composer"
           id="assistant-question"
           maxLength={500}
           onChange={(event) => setQuestion(event.target.value)}
           rows={4}
           value={question}
         />
-        <div className="card-footer-row">
+        <div className="card-footer-row sample-chip-row">
           <button
             className="button primary"
             disabled={status === "loading"}
@@ -83,7 +98,7 @@ export function LiveAssistant() {
           </button>
           {sampleQuestions.map((sample) => (
             <button
-              className="button secondary"
+              className="sample-chip"
               key={sample}
               onClick={() => {
                 setQuestion(sample);
@@ -101,7 +116,7 @@ export function LiveAssistant() {
         {response ? (
           <div className="assistant-response" aria-live="polite">
             <p className="eyebrow">Confidence: {response.confidence}</p>
-            <pre>{response.answer}</pre>
+            <pre className="chat-message assistant">{response.answer}</pre>
             <div className="source-card-grid">
               {response.sources.map((source) => (
                 <a

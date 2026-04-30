@@ -13,12 +13,15 @@ export function DebugScenarioView() {
         <p className="eyebrow">Debug this agent</p>
         <h1>Multiple production AI failure modes</h1>
         <p className="hero-subtitle">
-          Inspect representative traces, choose the likely root cause, and
-          compare your diagnosis against production fixes.
+          Follow the trace clues, choose a root cause, then compare your answer
+          with the diagnosis and production fix.
         </p>
         {debugScenarios.map((scenario) => {
           const selectedChoiceId = answers[scenario.id];
           const answered = Boolean(selectedChoiceId);
+          const selected = scenario.choices.find(
+            (choice) => choice.id === selectedChoiceId,
+          );
           const correct = scenario.choices.find(
             (choice) => choice.id === scenario.correctChoiceId,
           );
@@ -27,7 +30,9 @@ export function DebugScenarioView() {
               <p className="eyebrow">{scenario.difficulty} scenario</p>
               <h2>{scenario.title}</h2>
               <p>{scenario.symptom}</p>
-              <p className="confidentiality-note">{scenario.publicLabel}</p>
+              <p className="confidentiality-note compact-label">
+                {scenario.publicLabel}
+              </p>
 
               <div
                 className="trace-rows challenge-trace"
@@ -45,7 +50,7 @@ export function DebugScenarioView() {
                 ))}
               </div>
 
-              <h3>Choose the likely root cause</h3>
+              <h3>Choose the root cause</h3>
               <div
                 className="choice-grid"
                 role="group"
@@ -83,24 +88,32 @@ export function DebugScenarioView() {
                       <p>
                         {answered
                           ? choice.explanation
-                          : "Choose this diagnosis"}
+                          : "Select this diagnosis"}
                       </p>
                     </button>
                   );
                 })}
               </div>
-              <details className="reveal-card" open={answered}>
-                <summary>Reveal diagnosis and fix</summary>
+              <details className="reveal-card result-panel" open={answered}>
+                <summary>Diagnosis result</summary>
                 {answered ? (
                   <>
                     <p>
+                      Your answer: <strong>{selected?.label}</strong>
+                    </p>
+                    <p>
                       Correct answer: <strong>{correct?.label}</strong>
                     </p>
+                    <h3>Why this matters</h3>
                     <p>{scenario.diagnosis}</p>
+                    <h3>Production fix</h3>
                     <p>{scenario.fix}</p>
                   </>
                 ) : (
-                  <p>Pick a diagnosis first, then compare your answer.</p>
+                  <p>
+                    Pick a diagnosis first, then compare your answer with the
+                    production fix.
+                  </p>
                 )}
               </details>
             </article>

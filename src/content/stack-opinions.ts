@@ -61,11 +61,11 @@ export const stackOpinions: StackOpinion[] = [
 
   {
     id: "highcharts-for-ai-products",
-    title: "Highcharts is underrated for AI products.",
+    title: "Generated analytics need artifact boundaries.",
     statement:
-      "AI products often need trustworthy analytical artifacts more than novelty charts. Mature charting tools help turn generated analysis into reviewable product output.",
+      "AI products need generated analytical objects that can be inspected, edited in the web app, and translated into native presentation artifacts.",
     nuance:
-      "The important part is not the library brand. It is the boundary between generated insight, chart specification, visual quality scoring, and final artifact rendering.",
+      "The hard part is joining generated Highcharts-style chart specs, editable web chart objects, quality checks, and native PPTX chart rendering without losing meaning.",
     evidence:
       "15-25 Highcharts charts per report with multi-threshold quality scoring in the market research workflow.",
     proofIds: ["knit-charts"],

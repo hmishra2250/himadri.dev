@@ -26,12 +26,12 @@ export function Hero() {
           </div>
         </div>
         <aside className="hero-panel" aria-label="Top proof points">
-          <p className="panel-title">Proof in the first scroll</p>
           <div className="hero-metrics">
             {heroMetrics.map((metric) => (
               <div key={metric.id}>
                 <strong>{metric.value}</strong>
                 <span>{metric.label}</span>
+                <p>{metric.context}</p>
               </div>
             ))}
           </div>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { costModels, challengePublicLabel } from "@/content/challenges";
+import { costModels } from "@/content/challenges";
 import { trackPortfolioEvent } from "@/lib/analytics";
 
 export function CostAnatomy() {
@@ -20,8 +20,8 @@ export function CostAnatomy() {
           become explicit.
         </p>
         <p className="confidentiality-note">
-          Representative normalized model. Exact company costs omitted.{" "}
-          {challengePublicLabel}
+          Representative model using normalized units. Customer data, private
+          prompts, internal traces, and exact company costs omitted.
         </p>
 
         <div className="toggle-row" role="group" aria-label="Cost model states">

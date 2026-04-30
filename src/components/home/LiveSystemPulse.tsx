@@ -1,4 +1,7 @@
-import { traceLabel, traceSpans } from "@/content/traces";
+import { traceSpans } from "@/content/traces";
+
+const homepageTraceLabel =
+  "Sanitized representative workflow trace, private details omitted.";
 
 export function LiveSystemPulse() {
   return (
@@ -12,7 +15,7 @@ export function LiveSystemPulse() {
             </div>
             <span className="status-pill">representative</span>
           </div>
-          <p className="trace-label">{traceLabel}</p>
+          <p className="trace-label">{homepageTraceLabel}</p>
           <div
             className="trace-rows"
             aria-label="Representative AI workflow trace spans"

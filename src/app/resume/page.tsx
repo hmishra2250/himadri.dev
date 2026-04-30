@@ -35,11 +35,6 @@ export default function ResumePage() {
             </article>
           ))}
         </div>
-        <p className="confidentiality-note">
-          Web contact surfaces emphasize email, LinkedIn, GitHub, and the resume
-          artifact. Additional personal contact exposure should be reviewed
-          before launch.
-        </p>
       </div>
     </section>
   );

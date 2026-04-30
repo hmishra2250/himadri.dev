@@ -1,6 +1,12 @@
 import Link from "next/link";
 import { stackOpinions } from "@/content/stack-opinions";
 
+function opinionCtaLabel(id: string) {
+  if (id === "unit-economics") return "Open cost model";
+  if (id === "highcharts-for-ai-products") return "See chart workflow";
+  return "Read related case study";
+}
+
 export function StackOpinions() {
   return (
     <section className="section-pad">
@@ -19,7 +25,9 @@ export function StackOpinions() {
               <p>{opinion.nuance}</p>
               <p className="muted">Evidence: {opinion.evidence}</p>
               <div className="card-footer-row">
-                <Link href={opinion.relatedHref}>Inspect the evidence</Link>
+                <Link href={opinion.relatedHref}>
+                  {opinionCtaLabel(opinion.id)}
+                </Link>
               </div>
             </article>
           ))}

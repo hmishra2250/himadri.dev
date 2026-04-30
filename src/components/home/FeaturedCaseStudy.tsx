@@ -10,6 +10,10 @@ export function FeaturedCaseStudy() {
           <h2 id="featured-case-study">{flagshipCaseStudy.title}</h2>
           <p className="section-description">{flagshipCaseStudy.subtitle}</p>
           <p>{flagshipCaseStudy.problem}</p>
+          <div className="ownership-callout">
+            <strong>Owned as {flagshipCaseStudy.role}</strong>
+            <span>{flagshipCaseStudy.metrics[0]}</span>
+          </div>
           <div className="tag-row">
             {flagshipCaseStudy.domains.map((domain) => (
               <span className="tag" key={domain}>
@@ -28,6 +32,10 @@ export function FeaturedCaseStudy() {
           className="architecture-card"
           aria-label="Simplified architecture preview"
         >
+          <div className="architecture-card-heading">
+            <p className="eyebrow">System I architected and shipped</p>
+            <h3>Workflow from raw survey data to native PPTX output</h3>
+          </div>
           {flagshipCaseStudy.architecture.slice(0, 9).map((step, index) => (
             <div className="architecture-step" key={step}>
               <span>{String(index + 1).padStart(2, "0")}</span>
