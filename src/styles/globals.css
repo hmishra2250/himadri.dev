@@ -650,6 +650,11 @@ li {
     flex-direction: column;
     padding: 1rem 0;
   }
+
+  .trace-head {
+    align-items: flex-start;
+    flex-direction: column;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
