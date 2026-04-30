@@ -36,7 +36,7 @@ Skipped routes by design:
 | ----------------------------------- | -------: | --------: | -------------------------------------------------------------- | ------------------- | --------------: | ---------------------- |
 | /                                   |   mobile |   390x844 | Senior AI Engineer building production-grade agentic systems.  | pass                |              42 | 1b4dc0392cb9cce0       |
 | /                                   |   tablet |  768x1024 | Senior AI Engineer building production-grade agentic systems.  | pass                |              42 | 7b7da2430256b14d       |
-| /                                   |  desktop | 1440x1000 | Senior AI Engineer building production-grade agentic systems.  | pass                |              42 | 5ecbf6c45c713a87       |
+| /                                   |  desktop | 1440x1000 | Senior AI Engineer building production-grade agentic systems.  | pass                |              42 | 0dc874bfab265d98       |
 | /interview-me                       |   mobile |   390x844 | Hard production AI questions, answered with sources            | pass                |              21 | a743a0ff87fc138c       |
 | /interview-me                       |   tablet |  768x1024 | Hard production AI questions, answered with sources            | pass                |              21 | 9a5fe0ea829c27e4       |
 | /interview-me                       |  desktop | 1440x1000 | Hard production AI questions, answered with sources            | pass                |              21 | 0e1d0ae14c028f00       |
@@ -49,9 +49,9 @@ Skipped routes by design:
 | /challenges/cost-anatomy            |   mobile |   390x844 | AI unit economics as an architecture problem                   | pass                |              17 | a68457d22321341d       |
 | /challenges/cost-anatomy            |   tablet |  768x1024 | AI unit economics as an architecture problem                   | pass                |              17 | 357cb5b725141603       |
 | /challenges/cost-anatomy            |  desktop | 1440x1000 | AI unit economics as an architecture problem                   | pass                |              17 | a0589402a3a445e0       |
-| /challenges/dag-execution-simulator |   mobile |   390x844 | Why explicit workflows beat vague agents in production         | pass                |              16 | d6017153123c0e7d       |
-| /challenges/dag-execution-simulator |   tablet |  768x1024 | Why explicit workflows beat vague agents in production         | pass                |              16 | ab79652930314455       |
-| /challenges/dag-execution-simulator |  desktop | 1440x1000 | Why explicit workflows beat vague agents in production         | pass                |              16 | b307acdab4e17511       |
+| /challenges/dag-execution-simulator |   mobile |   390x844 | Why explicit workflows beat vague agents in production         | pass                |              16 | 2c62438e59417679       |
+| /challenges/dag-execution-simulator |   tablet |  768x1024 | Why explicit workflows beat vague agents in production         | pass                |              16 | 95d5b9ce205ee8c2       |
+| /challenges/dag-execution-simulator |  desktop | 1440x1000 | Why explicit workflows beat vague agents in production         | pass                |              16 | 8344aee2548ab959       |
 | /challenges/deck-ir-previewer       |   mobile |   390x844 | Inspectable intermediate representation for AI-generated decks | pass                |              20 | abb0398c08c02ae6       |
 | /challenges/deck-ir-previewer       |   tablet |  768x1024 | Inspectable intermediate representation for AI-generated decks | pass                |              20 | e53d84750a62cdb3       |
 | /challenges/deck-ir-previewer       |  desktop | 1440x1000 | Inspectable intermediate representation for AI-generated decks | pass                |              20 | a653820310c540d7       |
@@ -71,9 +71,9 @@ Skipped routes by design:
 
 - Homepage, Interview Me, Challenges, Debug This Agent, Cost Anatomy, DAG, and Deck IR rendered their expected H1 copy in every checked viewport.
 - Debug This Agent exposes diagnosis choices as buttons and does not reveal the correct answer before a choice is selected.
-- Cost Anatomy exposes model states as buttons and keeps representative cost units visible.
-- DAG exposes native buttons for advancing, resetting, and choosing recovery behavior after the judge gate.
-- Deck IR exposes sample and inspection mode buttons plus a native textarea for keyboard editing.
+- Cost Anatomy exposes model states as buttons and exposes selected state through `aria-pressed`.
+- DAG exposes native buttons for advancing, resetting, and choosing recovery behavior after the judge gate. It now shows active, complete, queued, failed, and blocked state labels.
+- Deck IR exposes sample and inspection mode buttons with `aria-pressed` plus a native textarea for keyboard editing.
 - The nav and skip link were reachable before page-specific controls on all sampled keyboard paths.
 - The deferred hiring packet stayed unavailable. The assistant API stayed default-off.
 
