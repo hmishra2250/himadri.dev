@@ -1118,7 +1118,7 @@ li {
 }
 
 .interview-preview-chat {
-  max-width: 960px;
+  width: 100%;
 }
 
 .live-assistant-section > h2 {
