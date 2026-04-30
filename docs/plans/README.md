@@ -53,6 +53,25 @@ These files plan the post-V1 implementation:
 
 Use these files only after V1 is stable, or when preparing the next phase.
 
+### 3. Gap remediation plan
+
+Read third:
+
+1. `portfolio-gap-remediation-ralplan.md`
+2. `prd-portfolio-gap-remediation.md`
+3. `test-spec-portfolio-gap-remediation.md`
+
+These files plan the remediation pass after the blunt quality review found that the portfolio is credible but not yet differentiated enough. They cover:
+
+- hard Phase 0 route and governance gate
+- assistant API default-off policy
+- homepage parity gaps
+- challenge reveal and interaction quality
+- V2 assistant, DAG, Deck IR, and hiring packet gates
+- browser QA evidence and no-em-dash validation
+
+Use these files before any new implementation intended to close the current quality gaps.
+
 ## How the plans were built incrementally
 
 1. The design doc and latest resume were committed as the initial source material.
@@ -65,6 +84,9 @@ Use these files only after V1 is stable, or when preparing the next phase.
 8. A critic review requested tighter robots policy, challenge quality gates, eval report mechanics, API constants, and a deliberate V2 test plan.
 9. Those critic changes were applied, then the plan received approval.
 10. The approved V1.5 and V2 plan set was copied here beside the V1 plan set.
+11. A later quality review judged the implementation credible but not yet a game-changing artifact.
+12. A gap remediation ralplan was then created with Planner, Architect, and Critic review.
+13. That remediation plan added a hard Phase 0 governance gate before any further UI, route, assistant, or simulator work.
 
 ## How to use these plans for new work
 
@@ -73,9 +95,10 @@ Use this decision path:
 1. If the change affects the current shipped site, read the V1 system plan, PRD, and test spec first.
 2. If the change adds `/interview-me`, Stack Opinions, diagrams, or static challenges, read the V1.5 plan, PRD, and test spec.
 3. If the change adds `/api/interview`, retrieval, evals, assistant behavior, DAG simulator, Deck IR previewer, or hiring packet generation, read the V2 plan, PRD, and test spec.
-4. If route visibility changes, check `src/lib/routes.ts`, `src/app/sitemap.ts`, and `src/app/robots.ts` against the relevant plan.
-5. If content claims change, check `src/content/proof.ts` and run content validation.
-6. If a phase gate is not satisfied, keep the route deferred or disabled.
+4. If the change fixes current quality gaps, route exposure drift, assistant default-off behavior, challenge reveal mechanics, browser QA, or simulator gates, read the gap remediation plan, PRD, and test spec.
+5. If route visibility changes, check `src/lib/routes.ts`, `src/app/sitemap.ts`, and `src/app/robots.ts` against the relevant plan.
+6. If content claims change, check `src/content/proof.ts` and run content validation.
+7. If a phase gate is not satisfied, keep the route deferred or disabled.
 
 ## Artifact roles
 
