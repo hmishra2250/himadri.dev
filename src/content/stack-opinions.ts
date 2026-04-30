@@ -58,6 +58,19 @@ export const stackOpinions: StackOpinion[] = [
     proofIds: ["knit-charts"],
     relatedHref: "/case-studies/agentic-market-research-platform#architecture",
   },
+
+  {
+    id: "highcharts-for-ai-products",
+    title: "Highcharts is underrated for AI products.",
+    statement:
+      "AI products often need trustworthy analytical artifacts more than novelty charts. Mature charting tools help turn generated analysis into reviewable product output.",
+    nuance:
+      "The important part is not the library brand. It is the boundary between generated insight, chart specification, visual quality scoring, and final artifact rendering.",
+    evidence:
+      "15-25 Highcharts charts per report with multi-threshold quality scoring in the market research workflow.",
+    proofIds: ["knit-charts"],
+    relatedHref: "/case-studies/agentic-market-research-platform#architecture",
+  },
   {
     id: "unit-economics",
     title: "Unit economics are part of AI architecture.",

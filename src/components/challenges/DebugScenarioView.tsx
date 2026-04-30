@@ -1,7 +1,12 @@
+"use client";
+
+import { useState } from "react";
 import { SourceBadge } from "@/components/ui/SourceBadge";
 import { debugScenarios } from "@/content/challenges";
 
 export function DebugScenarioView() {
+  const [answers, setAnswers] = useState<Record<string, string>>({});
+
   return (
     <section className="section-pad">
       <div className="container narrow">
@@ -12,6 +17,8 @@ export function DebugScenarioView() {
           compare your diagnosis against production fixes.
         </p>
         {debugScenarios.map((scenario) => {
+          const selectedChoiceId = answers[scenario.id];
+          const answered = Boolean(selectedChoiceId);
           const correct = scenario.choices.find(
             (choice) => choice.id === scenario.correctChoiceId,
           );
@@ -39,28 +46,57 @@ export function DebugScenarioView() {
               </div>
 
               <h3>Choose the likely root cause</h3>
-              <div className="choice-grid">
-                {scenario.choices.map((choice) => (
-                  <article
-                    className={
-                      choice.id === scenario.correctChoiceId
-                        ? "choice-card correct"
-                        : "choice-card"
-                    }
-                    key={choice.id}
-                  >
-                    <h4>{choice.label}</h4>
-                    <p>{choice.explanation}</p>
-                  </article>
-                ))}
+              <div
+                className="choice-grid"
+                role="group"
+                aria-label="Diagnosis choices"
+              >
+                {scenario.choices.map((choice) => {
+                  const isSelected = selectedChoiceId === choice.id;
+                  const isCorrect = choice.id === scenario.correctChoiceId;
+                  const resultClass = answered
+                    ? isCorrect
+                      ? " correct"
+                      : isSelected
+                        ? " incorrect"
+                        : ""
+                    : "";
+                  return (
+                    <button
+                      aria-pressed={isSelected}
+                      className={`choice-card choice-button${resultClass}`}
+                      key={choice.id}
+                      onClick={() =>
+                        setAnswers((current) => ({
+                          ...current,
+                          [scenario.id]: choice.id,
+                        }))
+                      }
+                      type="button"
+                    >
+                      <h4>{choice.label}</h4>
+                      <p>
+                        {answered
+                          ? choice.explanation
+                          : "Choose this diagnosis"}
+                      </p>
+                    </button>
+                  );
+                })}
               </div>
-              <details className="reveal-card">
+              <details className="reveal-card" open={answered}>
                 <summary>Reveal diagnosis and fix</summary>
-                <p>
-                  Correct answer: <strong>{correct?.label}</strong>
-                </p>
-                <p>{scenario.diagnosis}</p>
-                <p>{scenario.fix}</p>
+                {answered ? (
+                  <>
+                    <p>
+                      Correct answer: <strong>{correct?.label}</strong>
+                    </p>
+                    <p>{scenario.diagnosis}</p>
+                    <p>{scenario.fix}</p>
+                  </>
+                ) : (
+                  <p>Pick a diagnosis first, then compare your answer.</p>
+                )}
               </details>
               <div className="source-list">
                 {scenario.proofIds.map((proofId) => (

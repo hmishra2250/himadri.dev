@@ -843,3 +843,21 @@ li {
     grid-template-columns: 1fr;
   }
 }
+
+.choice-button {
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  text-align: left;
+}
+
+.choice-button:hover,
+.choice-button:focus-visible {
+  border-color: rgba(96, 165, 250, 0.5);
+  background: rgba(96, 165, 250, 0.08);
+}
+
+.choice-card.incorrect {
+  border-color: rgba(248, 113, 113, 0.45);
+  background: rgba(248, 113, 113, 0.07);
+}
