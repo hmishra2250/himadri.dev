@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { ForkCard } from "@/components/ui/ForkCard";
-import { SourceBadge } from "@/components/ui/SourceBadge";
 import type { CaseStudy } from "@/content/case-studies";
 import { flagshipDiagrams } from "@/content/diagrams";
 
@@ -85,11 +84,6 @@ export function CaseStudyPage({ study }: { study: CaseStudy }) {
                     ))}
                   </div>
                   <p className="confidentiality-note">{diagram.publicLabel}</p>
-                  <div className="source-list">
-                    {diagram.proofIds.map((proofId) => (
-                      <SourceBadge proofId={proofId} key={proofId} />
-                    ))}
-                  </div>
                 </article>
               ))}
             </div>
@@ -135,11 +129,6 @@ export function CaseStudyPage({ study }: { study: CaseStudy }) {
         <section className="case-section" aria-labelledby="reflection-heading">
           <h2 id="reflection-heading">Reflection</h2>
           <p>{study.reflection}</p>
-          <div className="source-list">
-            {study.proofIds.map((proofId) => (
-              <SourceBadge proofId={proofId} key={proofId} />
-            ))}
-          </div>
           <p className="confidentiality-note">
             This case study uses sanitized architecture and representative
             examples. It excludes confidential prompts, customer data,

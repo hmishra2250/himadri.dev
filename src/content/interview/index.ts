@@ -47,14 +47,14 @@ export const interviewQuestions: InterviewQuestion[] = [
     category: "architecture",
     question: "Why should we not just use LangGraph for orchestration?",
     answerId: "explicit-boundaries",
-    recommendedAudience: "CTO or AI platform lead",
+    recommendedAudience: "AI platform lead",
   },
   {
     id: "control-llm-costs",
     category: "cost-infra",
     question: "How do you control LLM and ML infrastructure costs?",
     answerId: "cost-as-architecture",
-    recommendedAudience: "Founder or VP Engineering",
+    recommendedAudience: "VP Engineering or platform lead",
   },
   {
     id: "avoid-hallucinated-insights",
@@ -69,7 +69,7 @@ export const interviewQuestions: InterviewQuestion[] = [
     category: "full-stack",
     question: "Can you own the whole product path, not only the model layer?",
     answerId: "full-stack-ownership",
-    recommendedAudience: "Founder or hiring manager",
+    recommendedAudience: "Hiring manager",
   },
   {
     id: "weakness-or-risk",
@@ -83,7 +83,7 @@ export const interviewQuestions: InterviewQuestion[] = [
     category: "role-fit",
     question: "What roles are the strongest fit?",
     answerId: "role-fit",
-    recommendedAudience: "Recruiter or founder",
+    recommendedAudience: "Recruiter or hiring lead",
   },
 ];
 
@@ -194,7 +194,7 @@ export const interviewAnswers: InterviewAnswer[] = [
   {
     id: "role-fit",
     summary:
-      "The strongest fit is a senior or founding AI engineering role where production LLM systems, evaluation, observability, workflow architecture, and full-stack execution matter.",
+      "The strongest fit is a senior AI engineering role where production LLM systems, evaluation, observability, workflow architecture, and full-stack execution matter.",
     bullets: [
       "Best fit: AI Platform Engineer, Senior AI Engineer, LLM Systems Architect, or Founding AI Engineer.",
       "Strong environments: serious AI products, workflow automation, analytics, research tooling, infra-heavy AI applications.",

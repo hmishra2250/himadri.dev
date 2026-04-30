@@ -10,9 +10,8 @@ export function ContactCTA() {
           Need someone to own production AI architecture?
         </h2>
         <p>
-          I am best matched with senior AI/platform, LLM systems, and founding
-          AI engineer conversations where reliability, evals, observability, and
-          cost matter.
+          I am best matched with senior AI/platform and LLM systems roles where
+          reliability, evals, observability, and cost matter.
         </p>
         <div className="hero-actions">
           <Link className="button primary" href="/contact">

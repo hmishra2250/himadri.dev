@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { SourceBadge } from "@/components/ui/SourceBadge";
 import { trackPortfolioEvent } from "@/lib/analytics";
 import { debugScenarios } from "@/content/challenges";
 
@@ -104,11 +103,6 @@ export function DebugScenarioView() {
                   <p>Pick a diagnosis first, then compare your answer.</p>
                 )}
               </details>
-              <div className="source-list">
-                {scenario.proofIds.map((proofId) => (
-                  <SourceBadge proofId={proofId} key={proofId} />
-                ))}
-              </div>
             </article>
           );
         })}

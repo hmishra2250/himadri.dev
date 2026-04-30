@@ -4,27 +4,50 @@ import { profile } from "@/content/profile";
 export const metadata: Metadata = {
   title: "Contact",
   description:
-    "Contact Himadri Mishra for senior AI engineering, AI platform, and founding AI engineer conversations.",
+    "Contact Himadri Mishra for senior AI engineering, AI platform, and production LLM systems conversations.",
 };
+
+const contactActions = [
+  {
+    label: "Email",
+    value: profile.email,
+    href: `mailto:${profile.email}`,
+  },
+  {
+    label: "LinkedIn",
+    value: "linkedin.com/in/hmishra2250",
+    href: profile.linkedin,
+  },
+  {
+    label: "GitHub",
+    value: "github.com/hmishra2250",
+    href: profile.github,
+  },
+  {
+    label: "Resume",
+    value: "Download PDF",
+    href: profile.resumePath,
+  },
+];
 
 const contactPaths = [
   {
-    audience: "Founder or CTO",
+    audience: "Product leadership",
     nextStep:
-      "Send the product workflow, current AI bottleneck, and what needs to be production-ready in the next quarter.",
+      "Share the workflow, production bottleneck, and what needs to become reliable next.",
   },
   {
-    audience: "Engineering leader",
+    audience: "Engineering leadership",
     nextStep:
-      "Share the platform scope, eval gaps, observability needs, and whether the role owns architecture or execution.",
+      "Share the platform scope, eval gaps, observability needs, and ownership model.",
   },
   {
-    audience: "Recruiter",
+    audience: "Recruiting",
     nextStep:
-      "Start with the role level, interview loop, compensation range, and which proof points matter most.",
+      "Start with the role level, interview loop, compensation range, and strongest proof points to review.",
   },
   {
-    audience: "Technical collaborator",
+    audience: "Technical collaboration",
     nextStep:
       "Point me to the system, failure mode, or prototype where a second architecture review would help.",
   },
@@ -32,39 +55,32 @@ const contactPaths = [
 
 export default function ContactPage() {
   return (
-    <section className="section-pad">
+    <section className="section-pad contact-section">
       <div className="container narrow contact-page">
         <p className="eyebrow">Contact</p>
-        <h1>Best fit: serious production AI systems conversations.</h1>
+        <h1>Build, harden, or review production AI systems.</h1>
         <p className="hero-subtitle">
-          I am most useful where agentic workflows, evals, observability, cost,
-          infra, and full-stack product execution all matter.
+          Reach out for senior AI engineering, AI platform, LLM systems, or
+          production AI systems conversations.
         </p>
-        <div className="contact-grid">
-          {contactPaths.map((path) => (
-            <article className="contact-card" key={path.audience}>
-              <span>{path.audience}</span>
-              <strong>{path.nextStep}</strong>
-            </article>
+        <div className="contact-grid contact-actions">
+          {contactActions.map((action) => (
+            <a className="contact-card" href={action.href} key={action.label}>
+              <span>{action.label}</span>
+              <strong>{action.value}</strong>
+            </a>
           ))}
         </div>
-        <div className="contact-grid">
-          <a className="contact-card" href={`mailto:${profile.email}`}>
-            <span>Email</span>
-            <strong>{profile.email}</strong>
-          </a>
-          <a className="contact-card" href={profile.linkedin}>
-            <span>LinkedIn</span>
-            <strong>linkedin.com/in/hmishra2250</strong>
-          </a>
-          <a className="contact-card" href={profile.github}>
-            <span>GitHub</span>
-            <strong>github.com/hmishra2250</strong>
-          </a>
-          <a className="contact-card" href={profile.resumePath}>
-            <span>Resume</span>
-            <strong>Download PDF</strong>
-          </a>
+        <div className="contact-use-cases" aria-labelledby="contact-use-cases">
+          <h2 id="contact-use-cases">Useful context to include</h2>
+          <div className="contact-grid">
+            {contactPaths.map((path) => (
+              <article className="contact-card" key={path.audience}>
+                <span>{path.audience}</span>
+                <strong>{path.nextStep}</strong>
+              </article>
+            ))}
+          </div>
         </div>
       </div>
     </section>

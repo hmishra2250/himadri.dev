@@ -33,6 +33,15 @@ export function CaseStudyGrid() {
                   </span>
                 ))}
               </div>
+              {study.metrics.length > 0 ? (
+                <div className="metric-chip-row" aria-label="Selected metrics">
+                  {study.metrics.slice(0, 2).map((metric) => (
+                    <span className="metric-chip" key={metric}>
+                      {metric}
+                    </span>
+                  ))}
+                </div>
+              ) : null}
               {study.routeEnabled ? (
                 <Link href={`/case-studies/${study.slug}`}>
                   Read case study

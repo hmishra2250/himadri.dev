@@ -5,6 +5,7 @@ import { GoogleAnalytics } from "@/components/analytics/GoogleAnalytics";
 import { Footer } from "@/components/layout/Footer";
 import { Navbar } from "@/components/layout/Navbar";
 import { siteConfig } from "@/lib/metadata";
+import { buildRootJsonLd, escapeJsonLd } from "@/lib/structured-data";
 
 const geist = Geist({
   subsets: ["latin"],
@@ -60,6 +61,7 @@ export default function RootLayout({
     process.env.ENABLE_ANALYTICS === "1" &&
     process.env.NEXT_PUBLIC_ANALYTICS_PROVIDER === "google_analytics" &&
     Boolean(gaMeasurementId);
+  const jsonLd = escapeJsonLd(JSON.stringify(buildRootJsonLd()));
 
   return (
     <html lang="en" className={`${geist.variable} ${geistMono.variable}`}>
@@ -70,6 +72,10 @@ export default function RootLayout({
         <Navbar />
         <main id="main-content">{children}</main>
         <Footer />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: jsonLd }}
+        />
         {analyticsEnabled && gaMeasurementId ? (
           <GoogleAnalytics measurementId={gaMeasurementId} />
         ) : null}

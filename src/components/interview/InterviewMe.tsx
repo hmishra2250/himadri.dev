@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { LiveAssistant } from "@/components/interview/LiveAssistant";
-import { SourceBadge } from "@/components/ui/SourceBadge";
 import {
   answerById,
   interviewCategories,
@@ -20,8 +19,9 @@ export function InterviewMe() {
         <h1>Hard production AI questions, answered with sources</h1>
         <p className="hero-subtitle">
           Static curated answers for architecture reviews, technical interviews,
-          founder screens, and senior AI platform conversations.
+          role-fit screens, and senior AI platform conversations.
         </p>
+        {liveAssistantEnabled ? <LiveAssistant /> : null}
         <div className="interview-grid">
           {interviewQuestions.map((question) => {
             const answer = answerById(question.answerId);
@@ -45,11 +45,6 @@ export function InterviewMe() {
                     <div className="source-card" key={source.title}>
                       <Link href={source.href}>{source.title}</Link>
                       <p>{source.snippet}</p>
-                      <div className="source-list">
-                        {source.proofIds.map((proofId) => (
-                          <SourceBadge proofId={proofId} key={proofId} />
-                        ))}
-                      </div>
                     </div>
                   ))}
                 </div>
@@ -61,7 +56,6 @@ export function InterviewMe() {
           Static curated answers stay available alongside the optional live
           assistant. Both rely on approved public or sanitized evidence.
         </p>
-        {liveAssistantEnabled ? <LiveAssistant /> : null}
       </div>
     </section>
   );

@@ -406,7 +406,7 @@
     "title": "Interview answer: role-fit",
     "sourceType": "interview",
     "url": "/interview-me",
-    "text": "The strongest fit is a senior or founding AI engineering role where production LLM systems, evaluation, observability, workflow architecture, and full-stack execution matter. Best fit: AI Platform Engineer, Senior AI Engineer, LLM Systems Architect, or Founding AI Engineer. Strong environments: serious AI products, workflow automation, analytics, research tooling, infra-heavy AI applications. Less ideal: pure research roles, frontend-only roles, or teams optimizing for demos over production systems.",
+    "text": "The strongest fit is a senior AI engineering role where production LLM systems, evaluation, observability, workflow architecture, and full-stack execution matter. Best fit: AI Platform Engineer, Senior AI Engineer, LLM Systems Architect, or Founding AI Engineer. Strong environments: serious AI products, workflow automation, analytics, research tooling, infra-heavy AI applications. Less ideal: pure research roles, frontend-only roles, or teams optimizing for demos over production systems.",
     "tags": [
       "interview",
       "role fit",

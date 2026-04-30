@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { SourceBadge } from "@/components/ui/SourceBadge";
 import { stackOpinions } from "@/content/stack-opinions";
 
 export function StackOpinions() {
@@ -21,9 +20,6 @@ export function StackOpinions() {
               <p className="muted">Evidence: {opinion.evidence}</p>
               <div className="card-footer-row">
                 <Link href={opinion.relatedHref}>Inspect the evidence</Link>
-                {opinion.proofIds.map((proofId) => (
-                  <SourceBadge proofId={proofId} key={proofId} />
-                ))}
               </div>
             </article>
           ))}

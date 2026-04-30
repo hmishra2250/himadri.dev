@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { SourceBadge } from "@/components/ui/SourceBadge";
 import type { Metric } from "@/content/metrics";
 
 export function MetricCard({ metric }: { metric: Metric }) {
@@ -8,7 +7,6 @@ export function MetricCard({ metric }: { metric: Metric }) {
       <div className="metric-value">{metric.value}</div>
       <h3>{metric.label}</h3>
       <p>{metric.context}</p>
-      <SourceBadge proofId={metric.proofId} />
     </article>
   );
 

@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { SourceBadge } from "@/components/ui/SourceBadge";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { principles } from "@/content/principles";
 
@@ -24,7 +23,6 @@ export function HowIThink() {
               <p>{principle.statement}</p>
               <p className="evidence">Evidence: {principle.evidence}</p>
               <div className="card-footer-row">
-                <SourceBadge proofId={principle.proofId} />
                 <Link href={principle.href}>Inspect evidence</Link>
               </div>
             </article>
