@@ -35,7 +35,8 @@ The current portfolio has strong proof, clear positioning, and good build discip
 10. DAG and Deck IR V2c acceptance gates.
 11. Optional hiring packet gate.
 12. Gemini Flash server-side assistant option, gated behind explicit env flags and evals.
-13. Analytics and observability placeholders with privacy-safe provider gates.
+13. Google Analytics 4 event placeholders with privacy-safe event rules.
+14. Sentry and observability vendors explicitly deferred.
 
 ### Out of scope until explicit approval
 
@@ -126,17 +127,18 @@ Acceptance:
 - Evidence includes viewport matrix, keyboard paths, reduced-motion check, screenshots or notes, owner, and date.
 - Any browser automation dependency is dev-only and explicitly approved.
 
-### R9: Gemini, analytics, and observability readiness
+### R9: Gemini and Google Analytics readiness
 
-The repo should include prospective environment keys without committing real secrets. Gemini, analytics, and Sentry remain disabled until explicit implementation approval.
+The repo should include prospective environment keys without committing real secrets. Gemini remains disabled until explicit implementation approval. Google Analytics 4 is the selected analytics provider, but event collection remains disabled until implemented and configured. Sentry is deferred.
 
 Acceptance:
 
-- `.env.example` lists Gemini, analytics, and Sentry variables with placeholder values.
+- `.env.example` lists Gemini and Google Analytics variables with placeholder values.
 - `.env.local` can be used locally for real values and remains ignored.
 - Gemini key is server-only and never uses a `NEXT_PUBLIC_` prefix.
-- Analytics keys use `NEXT_PUBLIC_` only when browser exposure is expected.
-- Assistant prompts and private messages are not logged into analytics or observability tools.
+- Google Analytics measurement ID uses `NEXT_PUBLIC_GA_MEASUREMENT_ID` because it is browser-visible by design.
+- Analytics events never include full assistant prompts, contact messages, emails, names, private content, or confidential content.
+- Sentry variables are not required for the current remediation scope.
 
 ## Non-goals
 

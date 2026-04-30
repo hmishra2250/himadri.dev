@@ -172,7 +172,7 @@ Track:
 4. LCP below 2.5 seconds
 5. CLS below 0.1
 
-## Gemini, analytics, and observability tests
+## Gemini and Google Analytics tests
 
 Before implementing Gemini-powered assistant behavior, verify:
 
@@ -183,17 +183,16 @@ Before implementing Gemini-powered assistant behavior, verify:
 5. Assistant responses still include source cards.
 6. No full assistant question is logged by default.
 
-Before implementing analytics, verify:
+Before implementing Google Analytics, verify:
 
-1. Provider is explicitly selected.
-2. No private prompt, contact message, email, or confidential content is sent as an event payload.
-3. User-facing analytics keys use `NEXT_PUBLIC_` only when browser exposure is intended.
+1. `NEXT_PUBLIC_ANALYTICS_PROVIDER=google_analytics`.
+2. `NEXT_PUBLIC_GA_MEASUREMENT_ID` is present for browser-side GA4.
+3. `ENABLE_ANALYTICS === "1"` gates event sending.
+4. Only approved event names are emitted.
+5. No private prompt, contact message, email, name, or confidential content is sent as an event payload.
+6. Event parameters are limited to route, feature id, scenario id, challenge id, source section, and boolean outcome.
 
-Before implementing Sentry, verify:
-
-1. DSN and environment variables are placeholders in `.env.example`.
-2. Request bodies and assistant prompts are scrubbed.
-3. Sentry is disabled locally unless explicitly enabled.
+Sentry and observability vendors are deferred. The test suite should fail if Sentry SDKs or Sentry environment requirements are introduced before a later approval.
 
 ## Release evidence package
 

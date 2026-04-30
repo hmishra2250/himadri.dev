@@ -281,17 +281,34 @@ The deterministic assistant remains the fallback if Gemini is disabled, rate-lim
 
 ### Analytics recommendation
 
-Do not add analytics during Phase 0. Keep placeholders ready, then choose one provider later:
+Use Google Analytics 4 as the only planned analytics provider. Do not plan Vercel Analytics, Plausible, PostHog, or other analytics providers unless a later decision changes this.
 
-1. Vercel Analytics for simple pageview analytics if the app deploys on Vercel.
-2. Plausible for privacy-friendly external analytics if a domain-based script is preferred.
-3. PostHog only if event funnels are truly needed, such as interview assistant usage and challenge completion.
+Implementation direction:
 
-Analytics must not capture full assistant questions, private messages, emails, or confidential content.
+1. Use the official Next.js third-party Google Analytics integration or a minimal `gtag.js` wrapper.
+2. Gate analytics with `ENABLE_ANALYTICS === "1"` and `NEXT_PUBLIC_GA_MEASUREMENT_ID`.
+3. Track only coarse portfolio events.
+4. Do not send full assistant questions, contact messages, emails, names, IP-derived identity, private content, or confidential content as event parameters.
+
+Allowed GA4 event names:
+
+1. `resume_download_clicked`
+2. `contact_cta_clicked`
+3. `case_study_opened`
+4. `interview_static_question_opened`
+5. `assistant_question_submitted` with no question text
+6. `assistant_fallback_returned`
+7. `challenge_opened`
+8. `debug_choice_submitted` with scenario id and correctness only
+9. `cost_model_toggled`
+10. `dag_step_advanced`
+11. `deck_ir_sample_selected`
+
+Allowed event parameters are limited to route, feature id, scenario id, challenge id, source section, and boolean outcome.
 
 ### Observability recommendation
 
-Use Sentry only if runtime error visibility is needed after launch. If enabled, scrub request bodies and never capture full assistant prompts or private contact messages.
+Pass on Sentry for now. Do not plan Sentry, session replay, error tracking SDKs, or observability vendors in the current remediation scope. Reconsider only after launch if real production errors justify it.
 
 ### Environment template policy
 
