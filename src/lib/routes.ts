@@ -205,7 +205,7 @@ export const routeManifest: RouteManifestEntry[] = [
     kind: "api",
     phase: "v2b",
     status: "internal",
-    enabled: false,
+    enabled: process.env.ENABLE_INTERVIEW_ASSISTANT_API === "1",
     includeInSitemap: false,
     includeInNav: false,
     robotsPolicy: "noindex",

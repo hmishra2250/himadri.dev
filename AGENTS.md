@@ -58,7 +58,7 @@ Enabled public routes:
 
 Internal or disabled routes:
 
-- `/api/interview` exists but is disabled unless `ENABLE_INTERVIEW_ASSISTANT_API=1`.
+- `/api/interview` is an internal route for the live assistant. It must stay out of sitemap and nav, and it only serves when `ENABLE_INTERVIEW_ASSISTANT_API=1`.
 - `/hiring-packet` is deferred and must stay out of sitemap, nav, and public links unless explicitly promoted.
 
 ## Route rules
@@ -116,7 +116,7 @@ Allowed content types:
 
 ## Assistant and Gemini gates
 
-- `/api/interview` must remain disabled unless `ENABLE_INTERVIEW_ASSISTANT_API=1`.
+- `/api/interview` must remain internal and must only serve when `ENABLE_INTERVIEW_ASSISTANT_API=1`.
 - Live assistant UI must remain hidden unless `NEXT_PUBLIC_ENABLE_INTERVIEW_ASSISTANT=1` and the route manifest allows `/api/interview`.
 - Gemini may run only server-side through `GEMINI_API_KEY` and `ENABLE_GEMINI_ASSISTANT=1`.
 - Never expose `GEMINI_API_KEY` through a `NEXT_PUBLIC_` variable.
