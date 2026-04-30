@@ -21,3 +21,4 @@ Scope: visual issues reported from local screenshots around hero metrics, proof 
 - `home-desktop.png`
 - `home-mobile.png`
 - `interview-desktop.png`
+- `interview-compact-desktop.png`, updated after applying compact chat treatment to the full Interview Me route.

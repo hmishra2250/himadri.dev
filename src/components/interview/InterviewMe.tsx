@@ -21,7 +21,7 @@ export function InterviewMe() {
           Static curated answers for architecture reviews, technical interviews,
           role-fit screens, and senior AI platform conversations.
         </p>
-        {liveAssistantEnabled ? <LiveAssistant /> : null}
+        {liveAssistantEnabled ? <LiveAssistant compact /> : null}
         <div className="interview-grid">
           {interviewQuestions.map((question) => {
             const answer = answerById(question.answerId);
