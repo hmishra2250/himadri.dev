@@ -439,6 +439,21 @@ li {
   border-color: rgba(96, 165, 250, 0.36);
 }
 
+.case-card.featured {
+  grid-column: span 2;
+  border-color: rgba(96, 165, 250, 0.28);
+  background: linear-gradient(
+    135deg,
+    rgba(96, 165, 250, 0.12),
+    rgba(17, 24, 39, 0.9) 42%,
+    rgba(13, 17, 23, 0.9)
+  );
+}
+
+.case-card.priority {
+  border-color: rgba(52, 211, 153, 0.24);
+}
+
 .evidence {
   color: var(--text-primary);
 }
@@ -594,6 +609,10 @@ li {
   .case-grid,
   .contact-page .contact-grid {
     grid-template-columns: 1fr;
+  }
+
+  .case-card.featured {
+    grid-column: auto;
   }
 
   .trace-row {

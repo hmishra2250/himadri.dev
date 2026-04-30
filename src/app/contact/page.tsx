@@ -7,6 +7,29 @@ export const metadata: Metadata = {
     "Contact Himadri Mishra for senior AI engineering, AI platform, and founding AI engineer conversations.",
 };
 
+const contactPaths = [
+  {
+    audience: "Founder or CTO",
+    nextStep:
+      "Send the product workflow, current AI bottleneck, and what needs to be production-ready in the next quarter.",
+  },
+  {
+    audience: "Engineering leader",
+    nextStep:
+      "Share the platform scope, eval gaps, observability needs, and whether the role owns architecture or execution.",
+  },
+  {
+    audience: "Recruiter",
+    nextStep:
+      "Start with the role level, interview loop, compensation range, and which proof points matter most.",
+  },
+  {
+    audience: "Technical collaborator",
+    nextStep:
+      "Point me to the system, failure mode, or prototype where a second architecture review would help.",
+  },
+];
+
 export default function ContactPage() {
   return (
     <section className="section-pad">
@@ -17,6 +40,14 @@ export default function ContactPage() {
           I am most useful where agentic workflows, evals, observability, cost,
           infra, and full-stack product execution all matter.
         </p>
+        <div className="contact-grid">
+          {contactPaths.map((path) => (
+            <article className="contact-card" key={path.audience}>
+              <span>{path.audience}</span>
+              <strong>{path.nextStep}</strong>
+            </article>
+          ))}
+        </div>
         <div className="contact-grid">
           <a className="contact-card" href={`mailto:${profile.email}`}>
             <span>Email</span>

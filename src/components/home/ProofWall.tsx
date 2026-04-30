@@ -3,6 +3,10 @@ import { SectionHeader } from "@/components/ui/SectionHeader";
 import { metrics } from "@/content/metrics";
 
 export function ProofWall() {
+  const primaryMetrics = [...metrics]
+    .sort((left, right) => left.priority - right.priority)
+    .slice(0, 4);
+
   return (
     <section className="section-pad" aria-labelledby="proof-title">
       <div className="container">
@@ -13,7 +17,7 @@ export function ProofWall() {
           description="The strongest claims connect outcomes to systems, constraints, and evidence."
         />
         <div className="metric-grid">
-          {metrics.map((metric) => (
+          {primaryMetrics.map((metric) => (
             <MetricCard metric={metric} key={metric.id} />
           ))}
         </div>
