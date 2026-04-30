@@ -72,6 +72,29 @@ These files plan the remediation pass after the blunt quality review found that 
 
 Use these files before any new implementation intended to close the current quality gaps.
 
+### 4. Expert review remediation plan
+
+Read fourth:
+
+1. `claude_opus_v2_review.md`
+2. `portfolio-expert-review-remediation-ralplan.md`
+
+These files plan the remediation pass after an external expert review found that
+the foundation is strong but the experiential layer is still too static and
+internal-facing. They cover:
+
+- Live System Pulse copy, animation, trace labels, and 375px mobile layout
+- nav decluttering without route rollback
+- hero CTA reduction
+- visitor-facing copy cleanup
+- shared `SectionHeader` accessibility repair
+- missing hiring-fit signals and the non-AI principle
+- contact segmentation
+- proof and case-study hierarchy
+- share-ready OG image metadata
+
+Use these files before implementing the next public-surface polish pass.
+
 ## How the plans were built incrementally
 
 1. The design doc and latest resume were committed as the initial source material.
@@ -87,6 +110,8 @@ Use these files before any new implementation intended to close the current qual
 11. A later quality review judged the implementation credible but not yet a game-changing artifact.
 12. A gap remediation ralplan was then created with Planner, Architect, and Critic review.
 13. That remediation plan added a hard Phase 0 governance gate before any further UI, route, assistant, or simulator work.
+14. A later expert review by Claude Opus 4.6 audited design-doc adherence, UX copy, social preview readiness, nav, accessibility, and experiential impact.
+15. The expert review remediation ralplan translated those findings into an acceptance-contract plan with Architect and Critic approval.
 
 ## How to use these plans for new work
 
@@ -96,9 +121,10 @@ Use this decision path:
 2. If the change adds `/interview-me`, Stack Opinions, diagrams, or static challenges, read the V1.5 plan, PRD, and test spec.
 3. If the change adds `/api/interview`, retrieval, evals, assistant behavior, DAG simulator, Deck IR previewer, or hiring packet generation, read the V2 plan, PRD, and test spec.
 4. If the change fixes current quality gaps, route exposure drift, assistant default-off behavior, challenge reveal mechanics, browser QA, or simulator gates, read the gap remediation plan, PRD, and test spec.
-5. If route visibility changes, check `src/lib/routes.ts`, `src/app/sitemap.ts`, and `src/app/robots.ts` against the relevant plan.
-6. If content claims change, check `src/content/proof.ts` and run content validation.
-7. If a phase gate is not satisfied, keep the route deferred or disabled.
+5. If the change fixes expert-review UX gaps, Live System Pulse behavior, public copy, contact segmentation, social preview metadata, or homepage hierarchy, read the expert review and expert remediation plan.
+6. If route visibility changes, check `src/lib/routes.ts`, `src/app/sitemap.ts`, and `src/app/robots.ts` against the relevant plan.
+7. If content claims change, check `src/content/proof.ts` and run content validation.
+8. If a phase gate is not satisfied, keep the route deferred or disabled.
 
 ## Artifact roles
 
