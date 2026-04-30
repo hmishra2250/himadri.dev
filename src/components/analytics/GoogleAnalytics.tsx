@@ -8,9 +8,28 @@ export function GoogleAnalytics({ measurementId }: { measurementId: string }) {
   const pathname = usePathname();
 
   useEffect(() => {
-    window.gtag?.("config", measurementId, {
-      page_path: pathname,
-    });
+    let cancelled = false;
+
+    function sendPageView(attempt = 0) {
+      if (cancelled) return;
+      if (window.gtag) {
+        window.gtag("event", "page_view", {
+          page_location: window.location.href,
+          page_path: pathname,
+          page_title: document.title,
+        });
+        return;
+      }
+      if (attempt < 20) {
+        window.setTimeout(() => sendPageView(attempt + 1), 250);
+      }
+    }
+
+    sendPageView();
+
+    return () => {
+      cancelled = true;
+    };
   }, [measurementId, pathname]);
 
   return (
