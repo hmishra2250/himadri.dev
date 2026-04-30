@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { costModels, challengePublicLabel } from "@/content/challenges";
+import { trackPortfolioEvent } from "@/lib/analytics";
 
 export function CostAnatomy() {
   const [selectedId, setSelectedId] = useState(costModels[0]?.id ?? "");
@@ -28,7 +29,13 @@ export function CostAnatomy() {
             <button
               className={model.id === selected.id ? "toggle active" : "toggle"}
               key={model.id}
-              onClick={() => setSelectedId(model.id)}
+              onClick={() => {
+                setSelectedId(model.id);
+                trackPortfolioEvent("cost_model_toggled", {
+                  route: "/challenges/cost-anatomy",
+                  feature_id: model.id,
+                });
+              }}
               type="button"
             >
               {model.label}

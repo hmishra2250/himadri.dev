@@ -291,6 +291,20 @@
     "confidentialityLevel": "public"
   },
   {
+    "id": "opinion-highcharts-for-ai-products",
+    "title": "Highcharts is underrated for AI products.",
+    "sourceType": "principle",
+    "url": "/case-studies/agentic-market-research-platform#architecture",
+    "text": "Highcharts is underrated for AI products.. AI products often need trustworthy analytical artifacts more than novelty charts. Mature charting tools help turn generated analysis into reviewable product output.. The important part is not the library brand. It is the boundary between generated insight, chart specification, visual quality scoring, and final artifact rendering.. Evidence: 15-25 Highcharts charts per report with multi-threshold quality scoring in the market research workflow.",
+    "tags": [
+      "opinion",
+      "production ai",
+      "highcharts for ai products"
+    ],
+    "priority": 7,
+    "confidentialityLevel": "public"
+  },
+  {
     "id": "opinion-unit-economics",
     "title": "Unit economics are part of AI architecture.",
     "sourceType": "principle",

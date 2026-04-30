@@ -3,7 +3,7 @@ import {
   ASSISTANT_MAX_QUESTION_CHARS,
   assistantApiEnabled,
 } from "@/lib/assistant/config";
-import { answerInterviewQuestion } from "@/lib/assistant/answer";
+import { answerInterviewQuestionForApi } from "@/lib/assistant/api-answer";
 import { checkRateLimit } from "@/lib/assistant/rate-limit";
 
 export async function POST(request: Request) {
@@ -61,7 +61,7 @@ export async function POST(request: Request) {
     );
   }
 
-  const response = answerInterviewQuestion(trimmed);
+  const response = await answerInterviewQuestionForApi(trimmed);
   return NextResponse.json(response, {
     headers: {
       "Cache-Control": "no-store",

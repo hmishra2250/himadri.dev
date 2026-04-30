@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import type { InterviewResponse } from "@/lib/assistant/answer";
+import { trackPortfolioEvent } from "@/lib/analytics";
 
 const sampleQuestions = [
   "How does Himadri control LLM costs?",
@@ -16,6 +17,10 @@ export function LiveAssistant() {
   const [error, setError] = useState("");
 
   async function askAssistant(nextQuestion = question) {
+    trackPortfolioEvent("assistant_question_submitted", {
+      route: "/interview-me",
+      source_section: "live_assistant",
+    });
     setStatus("loading");
     setError("");
     setResponse(null);
@@ -34,6 +39,12 @@ export function LiveAssistant() {
         );
       }
       setResponse(payload);
+      if (payload.confidence === "insufficient_context") {
+        trackPortfolioEvent("assistant_fallback_returned", {
+          route: "/interview-me",
+          source_section: "live_assistant",
+        });
+      }
       setStatus("idle");
     } catch (caught) {
       setError(

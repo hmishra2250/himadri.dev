@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { SourceBadge } from "@/components/ui/SourceBadge";
+import { trackPortfolioEvent } from "@/lib/analytics";
 import { debugScenarios } from "@/content/challenges";
 
 export function DebugScenarioView() {
@@ -66,12 +67,17 @@ export function DebugScenarioView() {
                       aria-pressed={isSelected}
                       className={`choice-card choice-button${resultClass}`}
                       key={choice.id}
-                      onClick={() =>
+                      onClick={() => {
                         setAnswers((current) => ({
                           ...current,
                           [scenario.id]: choice.id,
-                        }))
-                      }
+                        }));
+                        trackPortfolioEvent("debug_choice_submitted", {
+                          route: "/challenges/debug-this-agent",
+                          scenario_id: scenario.id,
+                          outcome: isCorrect,
+                        });
+                      }}
                       type="button"
                     >
                       <h4>{choice.label}</h4>

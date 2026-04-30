@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import "@/styles/globals.css";
+import { GoogleAnalytics } from "@/components/analytics/GoogleAnalytics";
 import { Footer } from "@/components/layout/Footer";
 import { Navbar } from "@/components/layout/Navbar";
 import { siteConfig } from "@/lib/metadata";
@@ -40,6 +41,12 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  const gaMeasurementId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
+  const analyticsEnabled =
+    process.env.ENABLE_ANALYTICS === "1" &&
+    process.env.NEXT_PUBLIC_ANALYTICS_PROVIDER === "google_analytics" &&
+    Boolean(gaMeasurementId);
+
   return (
     <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable}`}>
       <body>
@@ -49,6 +56,9 @@ export default function RootLayout({
         <Navbar />
         <main id="main-content">{children}</main>
         <Footer />
+        {analyticsEnabled && gaMeasurementId ? (
+          <GoogleAnalytics measurementId={gaMeasurementId} />
+        ) : null}
       </body>
     </html>
   );
