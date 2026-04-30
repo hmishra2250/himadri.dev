@@ -352,18 +352,35 @@ li {
 }
 
 .trace-row {
+  --trace-index: 0;
   justify-content: start;
   grid-template-columns: auto minmax(180px, 1fr) 70px 110px 90px minmax(
       220px,
       1.4fr
     );
   display: grid;
+  opacity: 0;
+  transform: translateY(0.45rem);
+  animation: trace-reveal 520ms ease forwards;
+  animation-delay: calc(var(--trace-index) * 140ms);
   padding: 0.72rem 0.85rem;
   border: 1px solid var(--border);
   border-radius: 0.8rem;
   background: rgba(0, 0, 0, 0.2);
   color: var(--text-muted);
   font-size: 0.82rem;
+}
+
+@keyframes trace-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(0.45rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .trace-row code {
@@ -580,13 +597,26 @@ li {
   }
 
   .trace-row {
-    grid-template-columns: auto 1fr;
+    grid-template-columns: auto minmax(0, 1fr);
   }
 
-  .trace-row span:not(.trace-dot),
-  .trace-row strong,
+  .trace-row code,
+  .trace-field,
   .trace-row em {
     grid-column: 2;
+  }
+
+  .trace-field::before {
+    margin-right: 0.4rem;
+    color: var(--muted-dark);
+    content: attr(data-label) ":";
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+  }
+
+  .trace-row em {
+    max-width: 100%;
   }
 
   .fork-options,
@@ -611,6 +641,11 @@ li {
     transition-duration: 0.01ms !important;
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
+  }
+
+  .trace-row {
+    opacity: 1;
+    transform: none;
   }
 }
 

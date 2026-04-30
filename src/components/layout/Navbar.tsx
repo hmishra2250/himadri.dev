@@ -11,7 +11,6 @@ export function Navbar() {
           <span>{profile.name}</span>
         </Link>
         <div className="nav-links">
-          <Link href="/#thinking">Thinking</Link>
           {navRoutes.map((route) => (
             <Link href={route.path} key={route.path}>
               {route.label}

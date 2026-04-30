@@ -8,9 +8,7 @@ export function LiveSystemPulse() {
           <div className="trace-head">
             <div>
               <p className="eyebrow">Live System Pulse</p>
-              <h2 id="pulse-title">
-                A calm observability strip, not a fake sci-fi dashboard.
-              </h2>
+              <h2 id="pulse-title">Representative production AI trace</h2>
             </div>
             <span className="status-pill">representative</span>
           </div>
@@ -19,16 +17,26 @@ export function LiveSystemPulse() {
             className="trace-rows"
             aria-label="Representative AI workflow trace spans"
           >
-            {traceSpans.map((span) => (
-              <div className="trace-row" key={span.id}>
+            {traceSpans.map((span, index) => (
+              <div
+                className="trace-row"
+                key={span.id}
+                style={{ "--trace-index": index } as React.CSSProperties}
+              >
                 <span
                   className={`trace-dot ${span.status}`}
                   aria-hidden="true"
                 />
                 <code>{span.name}</code>
-                <span>{span.duration}</span>
-                <span>{span.model ?? span.type}</span>
-                <strong>{span.status}</strong>
+                <span className="trace-field" data-label="duration">
+                  {span.duration}
+                </span>
+                <span className="trace-field" data-label="model">
+                  {span.model ?? span.type}
+                </span>
+                <strong className="trace-field" data-label="status">
+                  {span.status}
+                </strong>
                 <em>{span.summary}</em>
               </div>
             ))}
