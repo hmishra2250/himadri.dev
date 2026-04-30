@@ -18,6 +18,18 @@ export const hiringFit: HiringFit[] = [
     proofId: "knit-observability-platform",
   },
   {
+    signal: "Can build full-stack AI products",
+    evidence:
+      "REST APIs, SSE streaming, Deck IR workflows, and multi-provider model routing in one product platform.",
+    proofId: "knit-observability-platform",
+  },
+  {
+    signal: "Understands observability",
+    evidence:
+      "OpenTelemetry, Langfuse, structured traces, cost visibility, and inspectable execution boundaries.",
+    proofId: "knit-observability-platform",
+  },
+  {
     signal: "Understands evals and reliability",
     evidence:
       "Judge verification and multi-threshold chart quality scoring around generated analysis artifacts.",
@@ -34,6 +46,12 @@ export const hiringFit: HiringFit[] = [
     evidence:
       "Computer vision systems for education products, including 93% to 98% worksheet accuracy improvement.",
     proofId: "osmo-cv-accuracy",
+  },
+  {
+    signal: "Can operate as senior IC",
+    evidence:
+      "Owned platform-level architecture decisions across orchestration, observability, APIs, and artifact generation.",
+    proofId: "knit-observability-platform",
   },
   {
     signal: "Has low-level performance depth",

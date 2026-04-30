@@ -58,4 +58,14 @@ export const principles: Principle[] = [
     proofId: "epic-cost-reduction",
     href: "/case-studies/ml-infra-rescue",
   },
+  {
+    id: "know-when-not-ai",
+    title: "A good AI system knows when not to use AI.",
+    statement:
+      "Use deterministic code, typed schemas, rules, and verification paths where they are more reliable than generation.",
+    evidence:
+      "Separated generated analysis from sandbox execution, typed artifacts, and independent verification.",
+    proofId: "knit-sandbox-tasks",
+    href: "/case-studies/agentic-market-research-platform#evaluation",
+  },
 ];
