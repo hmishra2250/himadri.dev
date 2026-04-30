@@ -1,0 +1,176 @@
+[
+  {
+    "route": "/",
+    "label": "mobile375",
+    "innerWidth": 375,
+    "bodyScrollWidth": 375,
+    "docScrollWidth": 375,
+    "h1": "Senior AI Engineer building production-grade agentic systems.",
+    "nav": [
+      "HMHimadri Mishra",
+      "Work",
+      "Resume",
+      "Contact",
+      "Interview Me",
+      "Principles",
+      "Challenges"
+    ],
+    "heroButtons": [
+      "Explore systems I built",
+      "Interview me",
+      "Download resume",
+      "Contact Himadri",
+      "Email directly",
+      "Download resume"
+    ],
+    "internalJargon": false,
+    "offenders": []
+  },
+  {
+    "route": "/",
+    "label": "desktop1440",
+    "innerWidth": 1440,
+    "bodyScrollWidth": 1425,
+    "docScrollWidth": 1425,
+    "h1": "Senior AI Engineer building production-grade agentic systems.",
+    "nav": [
+      "HMHimadri Mishra",
+      "Work",
+      "Resume",
+      "Contact",
+      "Interview Me",
+      "Principles",
+      "Challenges"
+    ],
+    "heroButtons": [
+      "Explore systems I built",
+      "Interview me",
+      "Download resume",
+      "Contact Himadri",
+      "Email directly",
+      "Download resume"
+    ],
+    "internalJargon": false,
+    "offenders": []
+  },
+  {
+    "route": "/contact",
+    "label": "mobile375",
+    "innerWidth": 375,
+    "bodyScrollWidth": 375,
+    "docScrollWidth": 375,
+    "h1": "Best fit: serious production AI systems conversations.",
+    "nav": [
+      "HMHimadri Mishra",
+      "Work",
+      "Resume",
+      "Contact",
+      "Interview Me",
+      "Principles",
+      "Challenges"
+    ],
+    "heroButtons": [],
+    "internalJargon": false,
+    "offenders": []
+  },
+  {
+    "route": "/contact",
+    "label": "desktop1440",
+    "innerWidth": 1440,
+    "bodyScrollWidth": 1440,
+    "docScrollWidth": 1440,
+    "h1": "Best fit: serious production AI systems conversations.",
+    "nav": [
+      "HMHimadri Mishra",
+      "Work",
+      "Resume",
+      "Contact",
+      "Interview Me",
+      "Principles",
+      "Challenges"
+    ],
+    "heroButtons": [],
+    "internalJargon": false,
+    "offenders": []
+  },
+  {
+    "route": "/challenges",
+    "label": "mobile375",
+    "innerWidth": 375,
+    "bodyScrollWidth": 375,
+    "docScrollWidth": 375,
+    "h1": "Production AI judgment you can inspect",
+    "nav": [
+      "HMHimadri Mishra",
+      "Work",
+      "Resume",
+      "Contact",
+      "Interview Me",
+      "Principles",
+      "Challenges"
+    ],
+    "heroButtons": [],
+    "internalJargon": false,
+    "offenders": []
+  },
+  {
+    "route": "/challenges",
+    "label": "desktop1440",
+    "innerWidth": 1440,
+    "bodyScrollWidth": 1440,
+    "docScrollWidth": 1440,
+    "h1": "Production AI judgment you can inspect",
+    "nav": [
+      "HMHimadri Mishra",
+      "Work",
+      "Resume",
+      "Contact",
+      "Interview Me",
+      "Principles",
+      "Challenges"
+    ],
+    "heroButtons": [],
+    "internalJargon": false,
+    "offenders": []
+  },
+  {
+    "route": "/interview-me",
+    "label": "mobile375",
+    "innerWidth": 375,
+    "bodyScrollWidth": 375,
+    "docScrollWidth": 375,
+    "h1": "Hard production AI questions, answered with sources",
+    "nav": [
+      "HMHimadri Mishra",
+      "Work",
+      "Resume",
+      "Contact",
+      "Interview Me",
+      "Principles",
+      "Challenges"
+    ],
+    "heroButtons": [],
+    "internalJargon": false,
+    "offenders": []
+  },
+  {
+    "route": "/interview-me",
+    "label": "desktop1440",
+    "innerWidth": 1440,
+    "bodyScrollWidth": 1440,
+    "docScrollWidth": 1440,
+    "h1": "Hard production AI questions, answered with sources",
+    "nav": [
+      "HMHimadri Mishra",
+      "Work",
+      "Resume",
+      "Contact",
+      "Interview Me",
+      "Principles",
+      "Challenges"
+    ],
+    "heroButtons": [],
+    "internalJargon": false,
+    "offenders": []
+  }
+]

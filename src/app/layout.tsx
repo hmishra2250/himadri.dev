@@ -1,19 +1,19 @@
 import type { Metadata } from "next";
-import { Inter, JetBrains_Mono } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
 import "@/styles/globals.css";
 import { GoogleAnalytics } from "@/components/analytics/GoogleAnalytics";
 import { Footer } from "@/components/layout/Footer";
 import { Navbar } from "@/components/layout/Navbar";
 import { siteConfig } from "@/lib/metadata";
 
-const inter = Inter({
+const geist = Geist({
   subsets: ["latin"],
-  variable: "--font-sans",
+  variable: "--font-geist-sans",
   display: "swap",
 });
-const jetbrainsMono = JetBrains_Mono({
+const geistMono = Geist_Mono({
   subsets: ["latin"],
-  variable: "--font-mono",
+  variable: "--font-geist-mono",
   display: "swap",
 });
 
@@ -62,7 +62,7 @@ export default function RootLayout({
     Boolean(gaMeasurementId);
 
   return (
-    <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable}`}>
+    <html lang="en" className={`${geist.variable} ${geistMono.variable}`}>
       <body>
         <a className="skip-link" href="#main-content">
           Skip to content
