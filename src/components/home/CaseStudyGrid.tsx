@@ -3,8 +3,7 @@ import { SectionHeader } from "@/components/ui/SectionHeader";
 import { caseStudies } from "@/content/case-studies";
 
 function caseCardClass(slug: string) {
-  if (slug === "agentic-market-research-platform")
-    return "case-card featured";
+  if (slug === "agentic-market-research-platform") return "case-card featured";
   if (slug === "ml-infra-rescue") return "case-card priority";
   return "case-card";
 }

@@ -127,7 +127,7 @@ export const debugScenarios: DebugScenario[] = [
     proofIds: ["knit-observability-platform", "representative-trace-label"],
     publicLabel: challengePublicLabel,
     reviewerSignoff: {
-      reviewer: "Ralplan critic gate",
+      reviewer: "Planning review",
       date: "2026-04-30",
       decision: "approved",
       checklist: [
@@ -220,7 +220,7 @@ export const debugScenarios: DebugScenario[] = [
     proofIds: ["knit-sandbox-tasks", "representative-trace-label"],
     publicLabel: challengePublicLabel,
     reviewerSignoff: {
-      reviewer: "Ralph V2 challenge gate",
+      reviewer: "Challenge review",
       date: "2026-04-30",
       decision: "approved",
       checklist: [
