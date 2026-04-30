@@ -27,6 +27,7 @@ export function CostAnatomy() {
         <div className="toggle-row" role="group" aria-label="Cost model states">
           {costModels.map((model) => (
             <button
+              aria-pressed={model.id === selected.id}
               className={model.id === selected.id ? "toggle active" : "toggle"}
               key={model.id}
               onClick={() => {

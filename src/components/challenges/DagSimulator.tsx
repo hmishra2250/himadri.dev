@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import { trackPortfolioEvent } from "@/lib/analytics";
 
 type DagDecision = "retry" | "skip" | null;
+type DagStatus = "complete" | "active" | "queued" | "failed" | "blocked";
 
 const nodes = [
   {
@@ -64,7 +65,11 @@ const nodes = [
   },
 ] as const;
 
-function nodeStatus(index: number, step: number, decision: DagDecision) {
+function nodeStatus(
+  index: number,
+  step: number,
+  decision: DagDecision,
+): DagStatus {
   const judgeIndex = nodes.findIndex((node) => node.id === "judge_verify");
   if (index < step) return "complete";
   if (index === judgeIndex && step === judgeIndex && decision === null)
@@ -167,9 +172,20 @@ export function DagSimulator() {
             <article className={`dag-node ${item.status}`} key={item.id}>
               <span>{item.id}</span>
               <h3>{item.label}</h3>
-              <p>Status: {item.status}</p>
+              <p>
+                Status:{" "}
+                <strong className={`status-pill ${item.status}`}>
+                  {item.status}
+                </strong>
+              </p>
               <p>
                 Depends on: {item.deps.length ? item.deps.join(", ") : "start"}
+              </p>
+              <p>
+                Incoming edge:{" "}
+                {item.deps.length
+                  ? `${item.deps.join(" + ")} -> ${item.id}`
+                  : `start -> ${item.id}`}
               </p>
               <p>
                 {item.latency} · {item.cost}

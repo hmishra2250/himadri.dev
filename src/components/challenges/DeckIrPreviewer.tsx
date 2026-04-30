@@ -113,6 +113,7 @@ export function DeckIrPreviewer() {
         <div className="toggle-row" role="group" aria-label="Deck IR samples">
           {samples.map((sample) => (
             <button
+              aria-pressed={sample.id === sampleId}
               className={sample.id === sampleId ? "toggle active" : "toggle"}
               key={sample.id}
               onClick={() => loadSample(sample.id)}
@@ -129,6 +130,7 @@ export function DeckIrPreviewer() {
         >
           {(["preview", "outline", "notes"] as const).map((nextMode) => (
             <button
+              aria-pressed={mode === nextMode}
               className={mode === nextMode ? "toggle active" : "toggle"}
               key={nextMode}
               onClick={() => setMode(nextMode)}
