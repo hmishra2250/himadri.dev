@@ -1,11 +1,7 @@
-import type { Metadata } from "next";
+import { buildPageMetadata } from "@/lib/seo";
 import { CaseStudyGrid } from "@/components/home/CaseStudyGrid";
 
-export const metadata: Metadata = {
-  title: "Case Studies",
-  description:
-    "Production AI systems, ML infrastructure, computer vision, and AR/vision case studies from Himadri Mishra.",
-};
+export const metadata = buildPageMetadata("/case-studies");
 
 export default function CaseStudiesPage() {
   return <CaseStudyGrid />;
