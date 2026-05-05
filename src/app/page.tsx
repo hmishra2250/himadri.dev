@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { buildPageMetadata } from "@/lib/seo";
 import { CaseStudyGrid } from "@/components/home/CaseStudyGrid";
 import { ChallengesPreview } from "@/components/home/ChallengesPreview";
@@ -12,6 +13,8 @@ import { LiveSystemPulse } from "@/components/home/LiveSystemPulse";
 import { ProofWall } from "@/components/home/ProofWall";
 export const metadata = buildPageMetadata("/");
 
+
+export const metadata: Metadata = buildPageMetadata("/");
 
 export default function Home() {
   return (

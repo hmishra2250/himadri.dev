@@ -1,8 +1,9 @@
+import type { Metadata } from "next";
 import { buildPageMetadata } from "@/lib/seo";
 import { metrics } from "@/content/metrics";
 import { profile } from "@/content/profile";
 
-export const metadata = buildPageMetadata("/resume");
+export const metadata: Metadata = buildPageMetadata("/resume");
 
 export default function ResumePage() {
   return (

@@ -1,7 +1,8 @@
+import type { Metadata } from "next";
 import { buildPageMetadata } from "@/lib/seo";
 import { profile } from "@/content/profile";
 
-export const metadata = buildPageMetadata("/contact");
+export const metadata: Metadata = buildPageMetadata("/contact");
 
 const contactActions = [
   {

@@ -1,8 +1,9 @@
+import type { Metadata } from "next";
 import { buildPageMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { routeIsEnabled } from "@/lib/routes";
 
-export const metadata = buildPageMetadata("/challenges");
+export const metadata: Metadata = buildPageMetadata("/challenges");
 
 const challenges = [
   {
