@@ -36,6 +36,7 @@ const allowedKeys = new Set([
   "inLanguage",
   "isPartOf",
   "about",
+  "mainEntity",
   "itemListElement",
   "position",
   "item",
@@ -182,6 +183,23 @@ if (Array.isArray(rootGraph)) {
     if (!rootTypes.has(requiredType)) {
       errors.push(`root JSON-LD missing ${requiredType}`);
     }
+  }
+
+  const profilePage = rootGraph.find(
+    (node) =>
+      node &&
+      typeof node === "object" &&
+      !Array.isArray(node) &&
+      node["@type"] === "ProfilePage",
+  );
+  if (
+    !profilePage ||
+    typeof profilePage !== "object" ||
+    Array.isArray(profilePage) ||
+    JSON.stringify(profilePage["mainEntity"]) !==
+      JSON.stringify({ "@id": `${siteConfig.url}/#person` })
+  ) {
+    errors.push("root ProfilePage must reference the Person as mainEntity");
   }
 }
 

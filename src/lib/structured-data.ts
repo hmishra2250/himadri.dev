@@ -88,14 +88,16 @@ export function buildWebSiteJsonLd(): JsonLdObject {
 
 export function buildWebPageJsonLd(path: string): JsonLdObject {
   const seo = getRouteSeo(path);
+  const isProfilePage = path === "/";
   return {
-    "@type": path === "/" ? "ProfilePage" : "WebPage",
+    "@type": isProfilePage ? "ProfilePage" : "WebPage",
     "@id": buildPageId(path),
     name: seo.title,
     description: seo.description,
     url: buildCanonicalUrl(path),
     isPartOf: { "@id": websiteId },
     about: { "@id": personId },
+    ...(isProfilePage ? { mainEntity: { "@id": personId } } : {}),
     inLanguage: "en",
   };
 }
