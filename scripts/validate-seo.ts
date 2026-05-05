@@ -60,7 +60,7 @@ for (const entry of routeSeoEntries) {
   }
   titles.set(entry.title, entry.path);
 
-  if (entry.title.includes("—") || entry.description.includes("—")) {
+  if (entry.title.includes("\u2014") || entry.description.includes("\u2014")) {
     errors.push(`${entry.path} contains an em dash in authored SEO strings`);
   }
 
@@ -100,7 +100,8 @@ if (JSON.stringify(firstSitemap) !== JSON.stringify(secondSitemap)) {
 for (const entry of firstSitemap) {
   const url = typeof entry.url === "string" ? entry.url : String(entry.url);
   const path = new URL(url).pathname;
-  if (!publicPaths.has(path)) errors.push(`sitemap contains non-public path: ${path}`);
+  if (!publicPaths.has(path))
+    errors.push(`sitemap contains non-public path: ${path}`);
   if (path === "/api/interview" || path === "/hiring-packet") {
     errors.push(`sitemap contains forbidden path: ${path}`);
   }

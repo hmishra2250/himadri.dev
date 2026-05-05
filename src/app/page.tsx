@@ -11,8 +11,6 @@ import { HowIThink } from "@/components/home/HowIThink";
 import { InterviewMePreview } from "@/components/home/InterviewMePreview";
 import { LiveSystemPulse } from "@/components/home/LiveSystemPulse";
 import { ProofWall } from "@/components/home/ProofWall";
-export const metadata = buildPageMetadata("/");
-
 
 export const metadata: Metadata = buildPageMetadata("/");
 

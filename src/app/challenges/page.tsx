@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { buildPageMetadata } from "@/lib/seo";
+import { RouteJsonLd } from "@/components/seo/RouteJsonLd";
 import Link from "next/link";
 import { routeIsEnabled } from "@/lib/routes";
 
@@ -45,44 +46,50 @@ export default function ChallengesPage() {
   );
 
   return (
-    <section className="section-pad">
-      <div className="container narrow">
-        <p className="eyebrow">Interactive challenges</p>
-        <h1>Production AI judgment you can inspect</h1>
-        <p className="hero-subtitle">
-          These labs are small by design: each one exposes a trace, cost model,
-          recovery decision, or artifact boundary you can inspect quickly.
-        </p>
-        <div className="challenge-grid">
-          {enabledChallenges.map((challenge) => (
-            <Link
-              className="case-card"
-              href={challenge.href}
-              key={challenge.href}
-            >
-              <p className="eyebrow">{challenge.phase}</p>
-              <h2>{challenge.title}</h2>
-              <p>{challenge.description}</p>
-              <span className="button secondary">Open challenge</span>
-            </Link>
-          ))}
+    <>
+      <RouteJsonLd path="/challenges" />
+      <section className="section-pad">
+        <div className="container narrow">
+          <p className="eyebrow">Interactive challenges</p>
+          <h1>Production AI judgment you can inspect</h1>
+          <p className="hero-subtitle">
+            These labs are small by design: each one exposes a trace, cost
+            model, recovery decision, or artifact boundary you can inspect
+            quickly.
+          </p>
+          <div className="challenge-grid">
+            {enabledChallenges.map((challenge) => (
+              <Link
+                className="case-card"
+                href={challenge.href}
+                key={challenge.href}
+              >
+                <p className="eyebrow">{challenge.phase}</p>
+                <h2>{challenge.title}</h2>
+                <p>{challenge.description}</p>
+                <span className="button secondary">Open challenge</span>
+              </Link>
+            ))}
+          </div>
+          {deferredChallenges.length > 0 ? (
+            <section className="case-section" aria-labelledby="deferred-title">
+              <p className="eyebrow">Future lab ideas</p>
+              <h2 id="deferred-title">
+                Held until the interaction earns trust
+              </h2>
+              <div className="challenge-grid">
+                {deferredChallenges.map((challenge) => (
+                  <article className="case-card" key={challenge.href}>
+                    <p className="eyebrow">{challenge.phase}</p>
+                    <h3>{challenge.title}</h3>
+                    <p>{challenge.description}</p>
+                  </article>
+                ))}
+              </div>
+            </section>
+          ) : null}
         </div>
-        {deferredChallenges.length > 0 ? (
-          <section className="case-section" aria-labelledby="deferred-title">
-            <p className="eyebrow">Future lab ideas</p>
-            <h2 id="deferred-title">Held until the interaction earns trust</h2>
-            <div className="challenge-grid">
-              {deferredChallenges.map((challenge) => (
-                <article className="case-card" key={challenge.href}>
-                  <p className="eyebrow">{challenge.phase}</p>
-                  <h3>{challenge.title}</h3>
-                  <p>{challenge.description}</p>
-                </article>
-              ))}
-            </div>
-          </section>
-        ) : null}
-      </div>
-    </section>
+      </section>
+    </>
   );
 }

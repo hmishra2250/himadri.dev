@@ -54,7 +54,10 @@ export async function POST(request: Request) {
   }
 
   if (!payload || typeof payload !== "object" || !("question" in payload)) {
-    return interviewJsonResponse({ error: "Missing question." }, { status: 400 });
+    return interviewJsonResponse(
+      { error: "Missing question." },
+      { status: 400 },
+    );
   }
 
   const question = (payload as { question: unknown }).question;

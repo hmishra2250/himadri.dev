@@ -42,7 +42,7 @@ function buildBreadcrumbJsonLd(path: string): JsonLdObject | null {
   ];
 
   let currentPath = "";
-  segments.forEach((segment, index) => {
+  segments.forEach((segment) => {
     currentPath = `${currentPath}/${segment}`;
     const isPublic = publicRoutes.some((route) => route.path === currentPath);
     if (!isPublic) return;
@@ -114,7 +114,11 @@ export function buildRouteJsonLd(path: string): JsonLdObject {
 export function buildRootJsonLd(): JsonLdObject {
   return {
     "@context": "https://schema.org",
-    "@graph": [buildPersonJsonLd(), buildWebSiteJsonLd(), buildWebPageJsonLd("/")],
+    "@graph": [
+      buildPersonJsonLd(),
+      buildWebSiteJsonLd(),
+      buildWebPageJsonLd("/"),
+    ],
   };
 }
 

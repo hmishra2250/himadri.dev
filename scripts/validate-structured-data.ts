@@ -1,6 +1,8 @@
 import { profile } from "@/content/profile";
 import { siteConfig } from "@/lib/metadata";
-import { buildRootJsonLd } from "@/lib/structured-data";
+import { buildCanonicalUrl } from "@/lib/seo";
+import { publicRoutes } from "@/lib/routes";
+import { buildRootJsonLd, buildRouteJsonLd } from "@/lib/structured-data";
 
 type JsonValue =
   | string
@@ -10,7 +12,13 @@ type JsonValue =
   | JsonValue[]
   | { [key: string]: JsonValue };
 
-const jsonLd = buildRootJsonLd();
+const jsonLdDocuments = [
+  { label: "root", value: buildRootJsonLd() },
+  ...publicRoutes.map((route) => ({
+    label: route.path,
+    value: buildRouteJsonLd(route.path),
+  })),
+];
 const errors: string[] = [];
 
 const allowedKeys = new Set([
@@ -26,10 +34,32 @@ const allowedKeys = new Set([
   "sameAs",
   "publisher",
   "inLanguage",
+  "isPartOf",
+  "about",
+  "itemListElement",
+  "position",
+  "item",
 ]);
 
-const allowedTypes = new Set(["Person", "WebSite"]);
-const allowedSitePaths = new Set(["/", "/#person", "/#website"]);
+const allowedTypes = new Set([
+  "Person",
+  "WebSite",
+  "ProfilePage",
+  "WebPage",
+  "BreadcrumbList",
+  "ListItem",
+]);
+const allowedSitePaths = new Set<string>([
+  "/",
+  "/#person",
+  "/#website",
+  "/#profilepage",
+]);
+for (const route of publicRoutes) {
+  allowedSitePaths.add(route.path);
+  allowedSitePaths.add(`${route.path}#webpage`);
+  allowedSitePaths.add(`${route.path}#breadcrumb`);
+}
 const allowedExternalValues = new Set([
   "https://schema.org",
   profile.linkedin,
@@ -110,35 +140,66 @@ function walk(value: JsonValue, path: Array<string | number> = []) {
   }
 }
 
-if (jsonLd["@context"] !== "https://schema.org") {
-  errors.push("root @context must be https://schema.org");
-}
+for (const document of jsonLdDocuments) {
+  const jsonLd = document.value;
+  if (jsonLd["@context"] !== "https://schema.org") {
+    errors.push(`${document.label} @context must be https://schema.org`);
+  }
 
-const graph = jsonLd["@graph"];
-if (!Array.isArray(graph)) {
-  errors.push("root @graph must be an array");
-} else {
-  if (graph.length !== 2)
-    errors.push("root @graph must contain Person and WebSite nodes");
-  const types = new Set<string>();
-  for (const node of graph) {
-    if (!node || typeof node !== "object" || Array.isArray(node)) {
-      errors.push("each @graph entry must be an object");
-      continue;
-    }
-    const type = node["@type"];
-    if (typeof type !== "string" || !allowedTypes.has(type)) {
-      errors.push(`unsafe @graph node type: ${String(type)}`);
-    } else {
-      types.add(type);
+  const graph = jsonLd["@graph"];
+  if (!Array.isArray(graph)) {
+    errors.push(`${document.label} @graph must be an array`);
+  } else {
+    for (const node of graph) {
+      if (!node || typeof node !== "object" || Array.isArray(node)) {
+        errors.push(`${document.label} @graph entries must be objects`);
+        continue;
+      }
+      const type = node["@type"];
+      if (typeof type !== "string" || !allowedTypes.has(type)) {
+        errors.push(
+          `${document.label} has unsafe @graph node type: ${String(type)}`,
+        );
+      }
     }
   }
-  for (const type of allowedTypes) {
-    if (!types.has(type)) errors.push(`missing @graph node type: ${type}`);
+
+  walk(jsonLd, [document.label]);
+}
+
+const rootGraph = buildRootJsonLd()["@graph"];
+if (Array.isArray(rootGraph)) {
+  const rootTypes = new Set(
+    rootGraph
+      .map((node) =>
+        node && typeof node === "object" && !Array.isArray(node)
+          ? node["@type"]
+          : null,
+      )
+      .filter(Boolean),
+  );
+  for (const requiredType of ["Person", "WebSite", "ProfilePage"]) {
+    if (!rootTypes.has(requiredType)) {
+      errors.push(`root JSON-LD missing ${requiredType}`);
+    }
   }
 }
 
-walk(jsonLd);
+for (const route of publicRoutes) {
+  const routeJsonLd = buildRouteJsonLd(route.path);
+  const graph = routeJsonLd["@graph"];
+  if (!Array.isArray(graph)) continue;
+  const pageId =
+    route.path === "/"
+      ? `${buildCanonicalUrl("/")}#profilepage`
+      : `${buildCanonicalUrl(route.path)}#webpage`;
+  if (!JSON.stringify(graph).includes(pageId)) {
+    errors.push(`${route.path} route JSON-LD missing page node`);
+  }
+  if (route.path !== "/" && !JSON.stringify(graph).includes("BreadcrumbList")) {
+    errors.push(`${route.path} route JSON-LD missing breadcrumb node`);
+  }
+}
 
 if (errors.length > 0) {
   console.error("Structured data validation failed:");

@@ -298,3 +298,17 @@ For parallel execution:
 - Lane 4: docs runbook and internal-link copy pass.
 
 The final integration owner must run full verification before commit.
+
+## Implementation completion status
+
+Updated during the team implementation pass on 2026-05-05.
+
+- [x] Phase 1: SEO registry and metadata builders implemented in `src/lib/seo.ts`.
+- [x] Phase 2: Public page metadata migrated to the route-bound SEO registry.
+- [x] Phase 3: Sitemap uses stable route `lastModified` values instead of runtime dates.
+- [x] Phase 4: `/api/interview` emits noindex and nofollow robot headers on API response paths, with API tests updated.
+- [x] Phase 5: Conservative JSON-LD helpers added for profile, web page, and breadcrumb data.
+- [x] Phase 6: SEO and structured-data validators cover route leakage, canonical paths, private strings, and deterministic sitemap output.
+- [x] Phase 7: Public route JSON-LD rendering added for nested public pages and route discoverability hygiene preserved.
+- [x] Phase 8: Search Console and indexing runbook added at `docs/seo-search-console-runbook.md`.
+- [x] Acceptance criteria: covered by `npm run validate:seo`, `npm run validate:structured-data`, `npm run test:api`, route validation, confidentiality validation, lint, format, and build verification.

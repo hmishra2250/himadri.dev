@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { CaseStudyPage } from "@/components/case-study/CaseStudyPage";
+import { RouteJsonLd } from "@/components/seo/RouteJsonLd";
 import { caseStudies, getCaseStudy } from "@/content/case-studies";
 import { buildPageMetadata } from "@/lib/seo";
 
@@ -24,5 +25,10 @@ export default async function CaseStudyRoute({ params }: PageProps) {
   const { slug } = await params;
   const study = getCaseStudy(slug);
   if (!study) notFound();
-  return <CaseStudyPage study={study} />;
+  return (
+    <>
+      <RouteJsonLd path={`/case-studies/${study.slug}`} />
+      <CaseStudyPage study={study} />
+    </>
+  );
 }
