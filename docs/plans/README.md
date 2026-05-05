@@ -115,6 +115,25 @@ This file plans the human-first polish pass after hands-on review of the current
 
 Use this plan before changing homepage proof areas, Interview Me chat presentation, challenge copy, or proof/source labels.
 
+
+### 6. SEO and indexing compliance plan
+
+Read sixth:
+
+1. `portfolio-seo-indexing-compliance-ralplan.md`
+
+This file plans the 2026 SEO and indexing compliance pass. It covers:
+
+- route-bound SEO metadata and canonical URLs
+- deterministic sitemap dates
+- robots and Search Console readiness
+- conservative structured data
+- `/api/interview` noindex response headers
+- heading and internal-link hygiene
+- people-first content quality without SEO theater
+
+Use this plan before changing metadata, sitemap, robots, structured data, Search Console docs, SEO validators, or public route discoverability.
+
 ## How the plans were built incrementally
 
 1. The design doc and latest resume were committed as the initial source material.
@@ -134,6 +153,8 @@ Use this plan before changing homepage proof areas, Interview Me chat presentati
 15. The expert review remediation ralplan translated those findings into an acceptance-contract plan with Architect and Critic approval.
 16. A later hands-on review focused on homepage proof density, assistant presentation, challenge value, and human-readable hiring signals.
 17. The portfolio feedback remediation ralplan converted that feedback into a surgical UI and copy plan without changing route, assistant, analytics, Gemini, confidentiality, or dependency gates.
+18. A later SEO and indexing review separated current Google-supported technical hygiene from outdated SEO tactics.
+19. The SEO and indexing compliance ralplan converted that review into a route-governed metadata, sitemap, robots, structured data, API noindex, Search Console, and people-first content plan.
 
 ## How to use these plans for new work
 
@@ -145,9 +166,10 @@ Use this decision path:
 4. If the change fixes current quality gaps, route exposure drift, assistant default-off behavior, challenge reveal mechanics, browser QA, or simulator gates, read the gap remediation plan, PRD, and test spec.
 5. If the change fixes expert-review UX gaps, Live System Pulse behavior, public copy, contact segmentation, social preview metadata, or homepage hierarchy, read the expert review and expert remediation plan.
 6. If the change fixes homepage proof density, Interview Me chat presentation, challenge value, proof labels, hiring-fit language, or human copy polish, read `portfolio-feedback-remediation-ralplan.md`.
-7. If route visibility changes, check `src/lib/routes.ts`, `src/app/sitemap.ts`, and `src/app/robots.ts` against the relevant plan.
-8. If content claims change, check `src/content/proof.ts` and run content validation.
-9. If a phase gate is not satisfied, keep the route deferred or disabled.
+7. If the change affects metadata, sitemap, robots, structured data, Search Console readiness, SEO validation, or public route discoverability, read `portfolio-seo-indexing-compliance-ralplan.md`.
+8. If route visibility changes, check `src/lib/routes.ts`, `src/app/sitemap.ts`, and `src/app/robots.ts` against the relevant plan.
+9. If content claims change, check `src/content/proof.ts` and run content validation.
+10. If a phase gate is not satisfied, keep the route deferred or disabled.
 
 ## Artifact roles
 
