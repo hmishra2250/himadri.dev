@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
-import { caseStudies } from "@/content/case-studies";
 import { siteConfig } from "@/lib/metadata";
-import { publicRoutes } from "@/lib/routes";
+import { publicRoutes, routeManifest } from "@/lib/routes";
 
 export type RouteSeo = {
   path: string;
@@ -13,166 +12,183 @@ export type RouteSeo = {
   lastModified: string;
 };
 
-const SEO_LAST_MODIFIED = "2026-05-05T00:00:00.000Z";
+const sharedLastModified = "2026-05-01";
 
-const staticRouteSeo = {
+const routeSeoData = {
   "/": {
-    path: "/",
-    title: siteConfig.title,
-    description: siteConfig.description,
+    title: "Himadri Mishra | Senior AI Engineer",
+    description:
+      "Senior AI Engineer building production grade agentic systems across LLM orchestration, evaluation, observability, ML infrastructure, search, and computer vision.",
     canonicalPath: "/",
-    openGraphTitle: siteConfig.title,
-    openGraphDescription: siteConfig.description,
-    lastModified: SEO_LAST_MODIFIED,
+    openGraphTitle: "Himadri Mishra | Senior AI Engineer",
+    openGraphDescription:
+      "Evidence first portfolio for senior AI engineering, AI platform, and production LLM systems work.",
+    lastModified: sharedLastModified,
   },
   "/case-studies": {
-    path: "/case-studies",
-    title: "Case Studies",
+    title: "AI Case Studies",
     description:
       "Production AI systems, ML infrastructure, computer vision, and AR vision case studies from Himadri Mishra.",
     canonicalPath: "/case-studies",
-    openGraphTitle: "Case Studies | Himadri Mishra",
+    openGraphTitle: "Production AI case studies",
     openGraphDescription:
-      "Evidence-backed case studies across production AI systems, ML infrastructure, computer vision, and AR vision work.",
-    lastModified: SEO_LAST_MODIFIED,
+      "Evidence backed AI systems work across agentic research workflows, ML platforms, computer vision, and AR vision products.",
+    lastModified: sharedLastModified,
+  },
+  "/case-studies/agentic-market-research-platform": {
+    title: "Agentic Research Platform Case Study",
+    description:
+      "Case study on a production agentic research workflow for verified insights, charts, and consulting grade PPTX decks.",
+    canonicalPath: "/case-studies/agentic-market-research-platform",
+    openGraphTitle: "Agentic research platform case study",
+    openGraphDescription:
+      "How a production AI workflow used DAG execution, sandboxed analytics, independent judging, and deck automation.",
+    lastModified: sharedLastModified,
+  },
+  "/case-studies/ml-infra-rescue": {
+    title: "ML Infrastructure Rescue Case Study",
+    description:
+      "Case study on production ML platform ownership across cost, search, recommendations, infrastructure, and reliability.",
+    canonicalPath: "/case-studies/ml-infra-rescue",
+    openGraphTitle: "ML infrastructure rescue case study",
+    openGraphDescription:
+      "Production ML platform work covering cost reduction, Kubernetes simplification, search, recommendations, and reliability.",
+    lastModified: sharedLastModified,
+  },
+  "/case-studies/computer-vision-product-systems": {
+    title: "Computer Vision Product Systems Case Study",
+    description:
+      "Case study on real time computer vision systems for education products under device, latency, and usability constraints.",
+    canonicalPath: "/case-studies/computer-vision-product-systems",
+    openGraphTitle: "Computer vision product systems case study",
+    openGraphDescription:
+      "Production computer vision systems for education products with real time constraints and product feedback loops.",
+    lastModified: sharedLastModified,
+  },
+  "/case-studies/high-performance-ar-and-vision": {
+    title: "High Performance AR and Vision Case Study",
+    description:
+      "Case study on high performance AR and vision systems built under mobile, latency, and product interaction constraints.",
+    canonicalPath: "/case-studies/high-performance-ar-and-vision",
+    openGraphTitle: "High performance AR and vision case study",
+    openGraphDescription:
+      "AR and vision engineering work shaped by mobile performance, reliability, and interactive product constraints.",
+    lastModified: sharedLastModified,
   },
   "/resume": {
-    path: "/resume",
-    title: "Resume",
+    title: "Resume and Proof Summary",
     description:
-      "Resume and proof summary for Himadri Mishra, Senior AI Engineer.",
+      "Resume and proof summary for Himadri Mishra, Senior AI Engineer focused on production AI systems and AI platforms.",
     canonicalPath: "/resume",
-    openGraphTitle: "Resume | Himadri Mishra",
+    openGraphTitle: "Resume and proof summary",
     openGraphDescription:
-      "Download the latest resume and review evidence-backed senior AI engineering proof points.",
-    lastModified: SEO_LAST_MODIFIED,
+      "Download the latest resume and review concise senior AI engineering proof points.",
+    lastModified: sharedLastModified,
   },
   "/contact": {
-    path: "/contact",
-    title: "Contact",
+    title: "Contact Himadri Mishra",
     description:
-      "Contact Himadri Mishra for senior AI engineering, AI platform, and production LLM systems conversations.",
+      "Contact Himadri Mishra for senior AI engineering, AI platform, LLM systems, and production AI systems conversations.",
     canonicalPath: "/contact",
-    openGraphTitle: "Contact | Himadri Mishra",
+    openGraphTitle: "Contact Himadri Mishra",
     openGraphDescription:
-      "Reach Himadri Mishra for production AI systems, AI platform, and senior engineering conversations.",
-    lastModified: SEO_LAST_MODIFIED,
+      "Reach out about senior AI engineering, AI platform, LLM systems, and production AI system reviews.",
+    lastModified: sharedLastModified,
   },
   "/interview-me": {
-    path: "/interview-me",
-    title: "Interview Me",
+    title: "Interview Himadri with Source Cards",
     description:
-      "Curated answers to hard production AI and architecture questions with source cards.",
+      "Curated answers to hard production AI and architecture questions with source cards and visible evidence links.",
     canonicalPath: "/interview-me",
-    openGraphTitle: "Interview Me | Himadri Mishra",
+    openGraphTitle: "Interview Himadri with source cards",
     openGraphDescription:
-      "Source-backed answers to production AI, architecture, evaluation, cost, and platform interview questions.",
-    lastModified: SEO_LAST_MODIFIED,
+      "Hard production AI questions answered with source cards, evidence links, and safe assistant boundaries.",
+    lastModified: sharedLastModified,
   },
   "/principles": {
-    path: "/principles",
     title: "Production AI Principles",
     description:
-      "Evidence-backed production AI beliefs about agents, evals, observability, cost, and architecture.",
+      "Evidence backed production AI beliefs about agents, evals, observability, cost, reliability, and architecture.",
     canonicalPath: "/principles",
-    openGraphTitle: "Production AI Principles | Himadri Mishra",
+    openGraphTitle: "Production AI principles",
     openGraphDescription:
-      "Operational principles for production AI systems, agents, evals, observability, and cost control.",
-    lastModified: SEO_LAST_MODIFIED,
+      "Practical engineering principles for agents, evals, observability, cost control, and production AI architecture.",
+    lastModified: sharedLastModified,
   },
   "/challenges": {
-    path: "/challenges",
-    title: "Interactive Challenges",
+    title: "Interactive AI Challenges",
     description:
-      "Static production AI challenges for debugging and cost architecture review.",
+      "Static production AI challenges for debugging, cost architecture, workflow recovery, and deck artifact review.",
     canonicalPath: "/challenges",
-    openGraphTitle: "Interactive Challenges | Himadri Mishra",
+    openGraphTitle: "Interactive production AI challenges",
     openGraphDescription:
-      "Inspectable production AI challenges for debugging traces, cost architecture, workflow recovery, and artifact validation.",
-    lastModified: SEO_LAST_MODIFIED,
+      "Inspect small production AI labs for trace debugging, cost design, workflow recovery, and deck IR review.",
+    lastModified: sharedLastModified,
   },
   "/challenges/debug-this-agent": {
-    path: "/challenges/debug-this-agent",
-    title: "Debug This Agent",
+    title: "Debug This Agent Challenge",
     description:
-      "Inspect a representative AI workflow trace and identify the production failure mode.",
+      "Inspect a representative AI workflow trace and identify the production failure mode behind the agent behavior.",
     canonicalPath: "/challenges/debug-this-agent",
-    openGraphTitle: "Debug This Agent | Himadri Mishra",
+    openGraphTitle: "Debug This Agent challenge",
     openGraphDescription:
-      "Practice production AI debugging with representative traces, root-cause choices, and visible fixes.",
-    lastModified: SEO_LAST_MODIFIED,
+      "A representative trace diagnosis lab for production AI workflow failure modes.",
+    lastModified: sharedLastModified,
   },
   "/challenges/cost-anatomy": {
-    path: "/challenges/cost-anatomy",
-    title: "Cost Anatomy",
+    title: "Cost Anatomy Challenge",
     description:
-      "A normalized static model of AI workflow unit economics and production cost controls.",
+      "A normalized static model of AI workflow unit economics and production cost control tradeoffs.",
     canonicalPath: "/challenges/cost-anatomy",
-    openGraphTitle: "Cost Anatomy | Himadri Mishra",
+    openGraphTitle: "Cost Anatomy challenge",
     openGraphDescription:
-      "Inspect how routing, retries, sandbox reuse, and judge coverage change AI workflow cost units.",
-    lastModified: SEO_LAST_MODIFIED,
+      "Inspect how routing, retries, sandbox reuse, and judge coverage move normalized AI workflow cost units.",
+    lastModified: sharedLastModified,
   },
   "/challenges/dag-execution-simulator": {
-    path: "/challenges/dag-execution-simulator",
-    title: "DAG Execution Simulator",
+    title: "DAG Execution Simulator Challenge",
     description:
-      "A static simulator explaining explicit production AI workflow execution.",
+      "A static simulator explaining explicit production AI workflow execution, recovery, and downstream readiness.",
     canonicalPath: "/challenges/dag-execution-simulator",
-    openGraphTitle: "DAG Execution Simulator | Himadri Mishra",
+    openGraphTitle: "DAG Execution Simulator challenge",
     openGraphDescription:
-      "Step through explicit workflow dependencies, judge failures, recovery choices, and downstream readiness.",
-    lastModified: SEO_LAST_MODIFIED,
+      "Step through workflow state, judge failure, recovery choices, and downstream readiness in a static simulator.",
+    lastModified: sharedLastModified,
   },
   "/challenges/deck-ir-previewer": {
-    path: "/challenges/deck-ir-previewer",
-    title: "Deck IR Previewer",
+    title: "Deck IR Previewer Challenge",
     description:
-      "A synthetic Deck IR previewer showing inspectable AI-generated artifact structure.",
+      "A synthetic Deck IR previewer showing inspectable AI generated artifact structure, validation, and preview boundaries.",
     canonicalPath: "/challenges/deck-ir-previewer",
-    openGraphTitle: "Deck IR Previewer | Himadri Mishra",
+    openGraphTitle: "Deck IR Previewer challenge",
     openGraphDescription:
-      "Inspect synthetic deck intermediate representation, validation errors, outline structure, and speaker notes.",
-    lastModified: SEO_LAST_MODIFIED,
+      "Inspect synthetic deck intermediate representation, validation warnings, outline, preview, and speaker notes.",
+    lastModified: sharedLastModified,
   },
-} satisfies Record<string, RouteSeo>;
+} satisfies Record<string, Omit<RouteSeo, "path">>;
 
-const caseStudyRouteSeo = Object.fromEntries(
-  caseStudies
-    .filter((study) => study.routeEnabled)
-    .map((study) => {
-      const path = `/case-studies/${study.slug}`;
-      return [
-        path,
-        {
-          path,
-          title: study.title,
-          description: study.subtitle,
-          canonicalPath: path,
-          openGraphTitle: `${study.title} | Himadri Mishra`,
-          openGraphDescription: study.summary,
-          lastModified: SEO_LAST_MODIFIED,
-        },
-      ];
-    }),
-) as Record<string, RouteSeo>;
+export const routeSeoEntries: RouteSeo[] = Object.entries(routeSeoData).map(
+  ([path, seo]) => ({ path, ...seo }),
+);
 
-export const routeSeoRegistry = {
-  ...staticRouteSeo,
-  ...caseStudyRouteSeo,
-} satisfies Record<string, RouteSeo>;
-
-export function buildCanonicalUrl(path: string) {
-  return new URL(path, siteConfig.url).toString();
-}
+const routeSeoByPath = new Map(
+  routeSeoEntries.map((entry) => [entry.path, entry] as const),
+);
 
 export function getRouteSeo(path: string): RouteSeo {
-  const seo = routeSeoRegistry[path];
+  const seo = routeSeoByPath.get(path);
   if (!seo) throw new Error(`Missing SEO registry entry for route: ${path}`);
   return seo;
 }
 
-export function buildOpenGraphMetadata(path: string): NonNullable<Metadata["openGraph"]> {
+export function buildCanonicalUrl(path: string): string {
+  if (!path.startsWith("/")) {
+    throw new Error(`Canonical path must start with /: ${path}`);
+  }
+  return new URL(path, siteConfig.url).toString();
+}
+
+export function buildOpenGraphMetadata(path: string): Metadata["openGraph"] {
   const seo = getRouteSeo(path);
   return {
     title: seo.openGraphTitle,
@@ -194,15 +210,48 @@ export function buildOpenGraphMetadata(path: string): NonNullable<Metadata["open
 export function buildPageMetadata(path: string): Metadata {
   const seo = getRouteSeo(path);
   return {
-    title: seo.title,
+    title: path === "/" ? { absolute: seo.title } : seo.title,
     description: seo.description,
     alternates: {
-      canonical: seo.canonicalPath,
+      canonical: buildCanonicalUrl(seo.canonicalPath),
     },
     openGraph: buildOpenGraphMetadata(path),
+    twitter: {
+      card: "summary_large_image",
+      title: seo.openGraphTitle,
+      description: seo.openGraphDescription,
+      images: [
+        {
+          url: "/og-image.png",
+          alt: "Himadri Mishra, senior AI engineer building production agentic systems.",
+        },
+      ],
+    },
   };
 }
 
-export function getPublicRouteSeo() {
-  return publicRoutes.map((route) => getRouteSeo(route.path));
+export function assertSeoRegistryMatchesPublicRoutes(): string[] {
+  const errors: string[] = [];
+  const publicPaths = new Set(publicRoutes.map((route) => route.path));
+  const manifestPaths = new Set(routeManifest.map((route) => route.path));
+
+  for (const route of publicRoutes) {
+    if (!routeSeoByPath.has(route.path)) {
+      errors.push(`public route missing SEO registry entry: ${route.path}`);
+    }
+  }
+
+  for (const entry of routeSeoEntries) {
+    if (!manifestPaths.has(entry.path)) {
+      errors.push(`SEO registry contains unknown route: ${entry.path}`);
+    }
+    if (!publicPaths.has(entry.path)) {
+      errors.push(`SEO registry contains non-public route: ${entry.path}`);
+    }
+    if (entry.canonicalPath !== entry.path) {
+      errors.push(`SEO canonical path must match route path: ${entry.path}`);
+    }
+  }
+
+  return errors;
 }
