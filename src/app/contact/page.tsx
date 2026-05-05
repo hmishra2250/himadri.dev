@@ -1,11 +1,7 @@
-import type { Metadata } from "next";
+import { buildPageMetadata } from "@/lib/seo";
 import { profile } from "@/content/profile";
 
-export const metadata: Metadata = {
-  title: "Contact",
-  description:
-    "Contact Himadri Mishra for senior AI engineering, AI platform, and production LLM systems conversations.",
-};
+export const metadata = buildPageMetadata("/contact");
 
 const contactActions = [
   {

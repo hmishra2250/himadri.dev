@@ -1,12 +1,8 @@
-import type { Metadata } from "next";
+import { buildPageMetadata } from "@/lib/seo";
 import { metrics } from "@/content/metrics";
 import { profile } from "@/content/profile";
 
-export const metadata: Metadata = {
-  title: "Resume",
-  description:
-    "Resume and proof summary for Himadri Mishra, Senior AI Engineer.",
-};
+export const metadata = buildPageMetadata("/resume");
 
 export default function ResumePage() {
   return (

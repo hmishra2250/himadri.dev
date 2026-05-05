@@ -1,12 +1,8 @@
-import type { Metadata } from "next";
+import { buildPageMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { routeIsEnabled } from "@/lib/routes";
 
-export const metadata: Metadata = {
-  title: "Interactive Challenges",
-  description:
-    "Static production AI challenges for debugging and cost architecture review.",
-};
+export const metadata = buildPageMetadata("/challenges");
 
 const challenges = [
   {
