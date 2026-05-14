@@ -5,6 +5,7 @@ export type RobotsPolicy = "allow" | "disallow" | "noindex";
 export type RouteOwnerFeature =
   | "core"
   | "case-study"
+  | "profile"
   | "interview"
   | "challenge"
   | "assistant"

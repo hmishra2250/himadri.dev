@@ -3,10 +3,12 @@
 Date: 2026-05-14
 
 Subjects:
+
 - Himadri Mishra: https://www.himadri.dev, https://github.com/hmishra2250, local resume at `public/resume/Himadri_Latest_Resume_April_2026.pdf`
 - Shreyansh Singh: https://shreyansh26.github.io, https://github.com/shreyansh26, CV at https://shreyansh26.github.io/assets/pdf/resume/Resume_Shreyansh.pdf
 
 Evidence captured locally:
+
 - `reports/portfolio-comparison/screenshots/himadri-local-desktop.png`
 - `reports/portfolio-comparison/screenshots/himadri-local-mobile.png`
 - `reports/portfolio-comparison/screenshots/shreyansh-desktop.png`
@@ -54,6 +56,7 @@ Your desktop homepage wins on product design and senior positioning. The first f
 Shreyansh's homepage wins on immediate biographical credibility. It is visually simpler, almost academic, but it quickly tells the reader who he is, what he does, what he writes, when he was promoted, and where to inspect deeper work.
 
 Recommendation: keep your high-end system-design homepage, but add a compact "current proof trail" block in the first or second fold:
+
 - Latest technical notes
 - Latest public repo artifacts
 - Latest case-study additions
@@ -71,6 +74,7 @@ Your mobile rendering currently has a serious issue: the captured local mobile s
 Shreyansh's mobile page is not elegant, but it is readable enough and keeps a simple content flow. It also exposes his face and bio immediately. Screenshot: `reports/portfolio-comparison/screenshots/shreyansh-mobile.png`
 
 Recommendation:
+
 1. Fix mobile overflow before any new visual work.
 2. Reduce hero heading size or clamp line length at mobile widths.
 3. Collapse nav into a proper mobile menu or two-line controlled layout.
@@ -83,6 +87,7 @@ Your content architecture is much stronger. `proof.ts`, metrics tied to proof cl
 Shreyansh's architecture is simpler. The site is a Jekyll-style academic blog with posts/projects/publications. The strength is not the website system. The strength is the density of artifacts behind it.
 
 Recommendation: do not copy his site structure wholesale. Instead, import his strongest mechanism: public compounding. Add a "Field Notes" or "Engineering Notes" section with 6-10 serious technical writeups tied to your actual strengths:
+
 - DAG orchestration for AI workflows
 - Sandbox-executed analytics vs LLM-only analysis
 - Judge verification patterns for generated code
@@ -99,6 +104,7 @@ Recommendation: do not copy his site structure wholesale. Instead, import his st
 Your proof claims are strong, but they are employment/resume-backed. That is valid, but it is harder for a stranger to independently inspect. Shreyansh gives reviewers more public handles: repos, posts, publications, citations, paper implementations, and visible repetition over time.
 
 Your portfolio should convert private production work into safe public artifacts:
+
 - sanitized architecture diagrams
 - short design docs
 - reduced reproductions
@@ -118,6 +124,7 @@ You have fewer public repos: 11 public repos, with older popular ML projects and
 This does not mean he is necessarily stronger in production engineering. It means his public evidence is more inspectable, broader, and more current in the exact hot zone of ML systems.
 
 Recommendation:
+
 - Create 3 public flagship repos, not 30 small ones.
 - Each should have a strong README, diagrams, tests, and benchmark artifacts.
 - Best candidates from your current work:
@@ -130,6 +137,7 @@ Recommendation:
 ### Shreyansh's visible arc
 
 His arc is extremely coherent:
+
 1. IIT BHU CSE, strong academic record.
 2. Early CTF/security/research/publications.
 3. Mastercard AI Garage applied research.
@@ -142,6 +150,7 @@ That coherence is the biggest lesson. Even if every title were ignored, the body
 ### Your visible arc
 
 Your arc is broader and more production-shaped:
+
 1. IIT BHU dual degree, strong academic record.
 2. UC Berkeley and Microsoft early signals.
 3. AR/CV work at Whodat and Osmo.
@@ -184,11 +193,12 @@ This is an inference, not a moral judgment.
 Short answer: not normal by large-company leveling norms, but plausible in a startup or high-growth AI org if the scope was real.
 
 His public timeline says:
+
 - 2022-01-03: joined Level AI as Machine Learning Engineer.
 - 2022-09-05: promoted to Senior ML Engineer.
 - 2023-05-20: promoted to Lead ML Engineer.
 - 2024-10-01: promoted to Principal ML Engineer.
-Source: https://shreyansh26.github.io/
+  Source: https://shreyansh26.github.io/
 
 By standardized large-company ladders, this is unusually fast. Levels.fyi's 2023 report describes Senior Engineer as typically 5+ years, Staff as typically 10+ years, and Principal as typically 15+ years, with Principal usually less than 3% of employees and some smaller companies having no one at that level. Source: https://www.levels.fyi/assets/pdfs/2023Report.pdf
 
@@ -197,6 +207,7 @@ LeadDev cautions that IC career trajectories are less standardized than manageme
 GitLab's public principal engineer description expects broad cross-team, department-level technical and organizational impact: strategic roadmaps, proposals across several teams, mentoring domain experts, high-scope ambiguity, and measurable sub-department impact. Source: https://handbook.gitlab.com/job-description-library/engineering/development/management/principal-engineer/
 
 Interpretation:
+
 - If Level AI used a large-company calibration, Principal by late 2024 with roughly 4 years of post-graduation experience would be exceptional.
 - If Level AI used startup calibration, domain scarcity, early high ownership, and title acceleration, it is less surprising.
 - The title should be evaluated by scope: cross-team influence, production adoption, technical strategy, mentoring, organizational leverage, and business-critical impact.
