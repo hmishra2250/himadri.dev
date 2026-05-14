@@ -9,7 +9,7 @@ export type RouteOwnerFeature =
   | "challenge"
   | "assistant"
   | "principles"
-  | "notes";
+  | "profile";
 
 export type RouteManifestEntry = {
   path: string;
@@ -66,6 +66,20 @@ export const routeManifest: RouteManifestEntry[] = [
     requiresProofGate: true,
     label: "Agentic Market Research Platform",
     ownerFeature: "case-study",
+  },
+
+  {
+    path: "/about",
+    kind: "page",
+    phase: "v2c",
+    status: "required",
+    enabled: true,
+    includeInSitemap: true,
+    includeInNav: true,
+    robotsPolicy: "allow",
+    requiresProofGate: true,
+    label: "About",
+    ownerFeature: "profile",
   },
   {
     path: "/resume",

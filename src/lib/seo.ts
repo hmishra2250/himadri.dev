@@ -75,6 +75,16 @@ const routeSeoData = {
       "AR and vision engineering work shaped by mobile performance, reliability, and interactive product constraints.",
     lastModified: sharedLastModified,
   },
+  "/about": {
+    title: "About Himadri Mishra",
+    description:
+      "About Himadri Mishra, a senior AI engineer focused on production agentic systems, ML platforms, and evidence-backed AI product work.",
+    canonicalPath: "/about",
+    openGraphTitle: "About Himadri Mishra",
+    openGraphDescription:
+      "Proof-backed profile for senior AI engineering, production LLM systems, ML platform ownership, and computer vision product work.",
+    lastModified: sharedLastModified,
+  },
   "/resume": {
     title: "Resume and Proof Summary",
     description:

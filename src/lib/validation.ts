@@ -1,5 +1,6 @@
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
+import { aboutPage } from "@/content/about";
 import { costModels, debugScenarios } from "@/content/challenges";
 import { caseStudies } from "@/content/case-studies";
 import { flagshipDiagrams } from "@/content/diagrams";
@@ -80,6 +81,14 @@ export function validateContent() {
     if (study.routeEnabled && !study.summary)
       errors.push(`case study ${study.slug} missing summary`);
   });
+
+  aboutPage.proofCards.forEach((card) => {
+    checkProofRef(`about proof card ${card.id}`, card.proofId);
+    checkEnabledHref(`about proof card ${card.id}`, card.href);
+  });
+  aboutPage.ctas.forEach((cta) =>
+    checkEnabledHref(`about cta ${cta.label}`, cta.href),
+  );
 
   for (const question of interviewQuestions) {
     if (questionIds.has(question.id))
