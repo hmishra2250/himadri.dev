@@ -1411,10 +1411,18 @@ a.case-card.card-link:hover {
   margin: 1rem 0;
 }
 
+.diagram-node {
+  display: grid;
+  gap: 0.5rem;
+}
+
 .diagram-node span {
+  display: block;
   color: var(--status-green);
   font-family: var(--font-mono);
-  font-size: 0.8rem;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  line-height: 1;
 }
 
 .diagram-node p {
