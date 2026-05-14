@@ -45,7 +45,7 @@ export const proofClaims: ProofClaim[] = [
     id: "knit-turnaround",
     claim:
       "Reduced market research report turnaround from 48-72 hours to under 1 hour.",
-    sourcePath: "docs/Himadri_Latest_Resume_April_2026.pdf",
+    sourcePath: "public/resume/Himadri_Mishra_Resume.pdf",
     sourceLocator: "Knit experience, bullet 1",
     sourceType: "resume",
     confidence: "high",
@@ -58,7 +58,7 @@ export const proofClaims: ProofClaim[] = [
     id: "knit-sandbox-tasks",
     claim:
       "Reused a persistent E2B sandbox across 30-50 analytics tasks per report.",
-    sourcePath: "docs/Himadri_Latest_Resume_April_2026.pdf",
+    sourcePath: "public/resume/Himadri_Mishra_Resume.pdf",
     sourceLocator: "Knit experience, bullet 2",
     sourceType: "resume",
     confidence: "high",
@@ -71,7 +71,7 @@ export const proofClaims: ProofClaim[] = [
     id: "knit-charts",
     claim:
       "Produced 15-25 Highcharts charts per report with multi-threshold quality scoring.",
-    sourcePath: "docs/Himadri_Latest_Resume_April_2026.pdf",
+    sourcePath: "public/resume/Himadri_Mishra_Resume.pdf",
     sourceLocator: "Knit experience, bullet 3",
     sourceType: "resume",
     confidence: "high",
@@ -84,7 +84,7 @@ export const proofClaims: ProofClaim[] = [
     id: "knit-observability-platform",
     claim:
       "Unified agents on a shared platform with multi-provider LLM routing, OpenTelemetry, Langfuse, pgvector-backed RAG, SSE streaming, and generated REST APIs.",
-    sourcePath: "docs/Himadri_Latest_Resume_April_2026.pdf",
+    sourcePath: "public/resume/Himadri_Mishra_Resume.pdf",
     sourceLocator: "Knit experience, bullet 4",
     sourceType: "resume",
     confidence: "high",
@@ -97,7 +97,7 @@ export const proofClaims: ProofClaim[] = [
     id: "epic-cost-reduction",
     claim:
       "Reduced ML infrastructure platform cost by 10x after taking over production ML systems.",
-    sourcePath: "docs/Himadri_Latest_Resume_April_2026.pdf",
+    sourcePath: "public/resume/Himadri_Mishra_Resume.pdf",
     sourceLocator: "Epic! experience, bullet 2",
     sourceType: "resume",
     confidence: "high",
@@ -110,7 +110,7 @@ export const proofClaims: ProofClaim[] = [
     id: "epic-pod-reduction",
     claim:
       "Reduced Kubernetes pod usage by 100x and spot instance errors by 99%.",
-    sourcePath: "docs/Himadri_Latest_Resume_April_2026.pdf",
+    sourcePath: "public/resume/Himadri_Mishra_Resume.pdf",
     sourceLocator: "Epic! experience, bullet 2",
     sourceType: "resume",
     confidence: "high",
@@ -123,7 +123,7 @@ export const proofClaims: ProofClaim[] = [
     id: "epic-docker-build-time",
     claim:
       "Cut Docker build time by 50% while owning production ML infrastructure.",
-    sourcePath: "docs/Himadri_Latest_Resume_April_2026.pdf",
+    sourcePath: "public/resume/Himadri_Mishra_Resume.pdf",
     sourceLocator: "Epic! experience, bullet 2",
     sourceType: "resume",
     confidence: "high",
@@ -135,7 +135,7 @@ export const proofClaims: ProofClaim[] = [
   {
     id: "osmo-cv-accuracy",
     claim: "Raised worksheet computer-vision accuracy from 93% to 98%.",
-    sourcePath: "docs/Himadri_Latest_Resume_April_2026.pdf",
+    sourcePath: "public/resume/Himadri_Mishra_Resume.pdf",
     sourceLocator: "Tangible Play / Osmo experience, bullet 2",
     sourceType: "resume",
     confidence: "high",
@@ -148,7 +148,7 @@ export const proofClaims: ProofClaim[] = [
     id: "osmo-shaded-region-iou",
     claim:
       "Built a real-time U-Net shaded-region detection model achieving 80% IoU.",
-    sourcePath: "docs/Himadri_Latest_Resume_April_2026.pdf",
+    sourcePath: "public/resume/Himadri_Mishra_Resume.pdf",
     sourceLocator: "Tangible Play / Osmo experience, bullet 2",
     sourceType: "resume",
     confidence: "high",
@@ -161,7 +161,7 @@ export const proofClaims: ProofClaim[] = [
     id: "osmo-engagement-tagging",
     claim:
       "Boosted tracing-dots engagement by 20% and cut tagging manual effort by 99% through automation.",
-    sourcePath: "docs/Himadri_Latest_Resume_April_2026.pdf",
+    sourcePath: "public/resume/Himadri_Mishra_Resume.pdf",
     sourceLocator: "Tangible Play / Osmo experience, bullets 3-4",
     sourceType: "resume",
     confidence: "high",
@@ -173,7 +173,7 @@ export const proofClaims: ProofClaim[] = [
   {
     id: "whodat-orb",
     claim: "Built a C++ ORB detector 20% faster than the ORB-SLAM baseline.",
-    sourcePath: "docs/Himadri_Latest_Resume_April_2026.pdf",
+    sourcePath: "public/resume/Himadri_Mishra_Resume.pdf",
     sourceLocator: "Whodat experience",
     sourceType: "resume",
     confidence: "high",
@@ -186,7 +186,7 @@ export const proofClaims: ProofClaim[] = [
     id: "kaggle-top-six",
     claim:
       "Ranked top 6% globally in the Kaggle FIDE and Google Efficient Chess AI Challenge.",
-    sourcePath: "docs/Himadri_Latest_Resume_April_2026.pdf",
+    sourcePath: "public/resume/Himadri_Mishra_Resume.pdf",
     sourceLocator: "Projects and awards",
     sourceType: "resume",
     confidence: "high",
