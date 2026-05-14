@@ -827,9 +827,9 @@ a.case-card.card-link:hover {
 
 .architecture-step {
   display: grid;
-  gap: 0.35rem;
+  gap: 0.5rem;
   justify-content: start;
-  padding: 0.8rem;
+  padding: 1rem;
   border: 1px solid var(--border-1);
   border-radius: 8px;
   background: var(--surface-2);
@@ -838,7 +838,8 @@ a.case-card.card-link:hover {
 .architecture-step span {
   color: var(--status-green);
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: 11px;
+  letter-spacing: 0.04em;
 }
 
 /* ── Decision preview / fork cards ── */
