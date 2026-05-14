@@ -181,7 +181,7 @@ export function validateContent() {
   });
 
   aboutPage.proofCards.forEach((card) => {
-    checkProofRef(`about proof card ${card.id}`, card.proofId);
+    checkLocalProofRef(`about proof card ${card.id}`, card.proofId);
     checkEnabledHref(`about proof card ${card.id}`, card.href);
   });
   aboutPage.ctas.forEach((cta) =>
