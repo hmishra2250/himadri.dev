@@ -180,10 +180,6 @@ export function validateContent() {
       errors.push(`case study ${study.slug} missing summary`);
   });
 
-  aboutPage.proofCards.forEach((card) => {
-    checkLocalProofRef(`about proof card ${card.id}`, card.proofId);
-    checkEnabledHref(`about proof card ${card.id}`, card.href);
-  });
   aboutPage.ctas.forEach((cta) =>
     checkEnabledHref(`about cta ${cta.label}`, cta.href),
   );

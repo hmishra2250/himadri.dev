@@ -12,27 +12,27 @@ export type RouteSeo = {
   lastModified: string;
 };
 
-const sharedLastModified = "2026-05-01";
+const sharedLastModified = "2026-05-14";
 
 const routeSeoData = {
   "/": {
     title: "Himadri Mishra | Senior AI Engineer",
     description:
-      "Senior AI Engineer building production grade agentic systems across LLM orchestration, evaluation, observability, ML infrastructure, search, and computer vision.",
+      "Senior AI engineer with 8 years shipping production AI systems. LLM orchestration, agentic workflows, ML infrastructure, and cost optimization.",
     canonicalPath: "/",
     openGraphTitle: "Himadri Mishra | Senior AI Engineer",
     openGraphDescription:
-      "Evidence first portfolio for senior AI engineering, AI platform, and production LLM systems work.",
+      "Evidence-backed portfolio: agentic AI platforms, ML infrastructure, computer vision, and LLM systems built for production reliability.",
     lastModified: sharedLastModified,
   },
   "/case-studies": {
     title: "AI Case Studies",
     description:
-      "Production AI systems, ML infrastructure, computer vision, and AR vision case studies from Himadri Mishra.",
+      "Production AI case studies: agentic research platform, ML infrastructure rescue, computer vision, and AR engineering with metrics and trade-offs.",
     canonicalPath: "/case-studies",
     openGraphTitle: "Production AI case studies",
     openGraphDescription:
-      "Evidence backed AI systems work across agentic research workflows, ML platforms, computer vision, and AR vision products.",
+      "Four production AI systems dissected: agentic workflows, ML platform cost reduction, computer vision, and high-performance AR engineering.",
     lastModified: sharedLastModified,
   },
   "/case-studies/agentic-market-research-platform": {
@@ -78,21 +78,21 @@ const routeSeoData = {
   "/about": {
     title: "About Himadri Mishra",
     description:
-      "About Himadri Mishra, a senior AI engineer focused on production agentic systems, ML platforms, and evidence-backed AI product work.",
+      "IIT-BHU and UC Berkeley trained AI engineer. 8 years across computer vision, ML infrastructure, and agentic AI platforms at Microsoft, Osmo, Epic, and Knit.",
     canonicalPath: "/about",
     openGraphTitle: "About Himadri Mishra",
     openGraphDescription:
-      "Proof-backed profile for senior AI engineering, production LLM systems, ML platform ownership, and computer vision product work.",
+      "Career arc from IIT-BHU through Microsoft Research, UC Berkeley, and four production AI teams. Staff-level AI systems engineering.",
     lastModified: sharedLastModified,
   },
   "/resume": {
-    title: "Resume and Proof Summary",
+    title: "Resume",
     description:
-      "Resume and proof summary for Himadri Mishra, Senior AI Engineer focused on production AI systems and AI platforms.",
+      "Download resume for Himadri Mishra. Senior AI engineer specializing in LLM systems, agentic workflows, ML platform engineering, and production AI reliability.",
     canonicalPath: "/resume",
     openGraphTitle: "Resume and proof summary",
     openGraphDescription:
-      "Download the latest resume and review concise senior AI engineering proof points.",
+      "Resume and key metrics for a senior AI engineer with production LLM, agentic AI, and ML infrastructure experience.",
     lastModified: sharedLastModified,
   },
   "/contact": {

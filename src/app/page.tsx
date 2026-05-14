@@ -1,32 +1,22 @@
 import type { Metadata } from "next";
 import { buildPageMetadata } from "@/lib/seo";
+import { RouteJsonLd } from "@/components/seo/RouteJsonLd";
 import { CaseStudyGrid } from "@/components/home/CaseStudyGrid";
-import { ChallengesPreview } from "@/components/home/ChallengesPreview";
 import { ContactCTA } from "@/components/home/ContactCTA";
 import { DecisionTheaterPreview } from "@/components/home/DecisionTheaterPreview";
-import { FeaturedCaseStudy } from "@/components/home/FeaturedCaseStudy";
 import { Hero } from "@/components/home/Hero";
-import { HiringFitMatrix } from "@/components/home/HiringFitMatrix";
-import { HowIThink } from "@/components/home/HowIThink";
-import { InterviewMePreview } from "@/components/home/InterviewMePreview";
-import { LiveSystemPulse } from "@/components/home/LiveSystemPulse";
-import { ProofWall } from "@/components/home/ProofWall";
+import { LatestNotes } from "@/components/home/LatestNotes";
 
 export const metadata: Metadata = buildPageMetadata("/");
 
 export default function Home() {
   return (
     <>
+      <RouteJsonLd path="/" />
       <Hero />
-      <LiveSystemPulse />
-      <ProofWall />
-      <HowIThink />
-      <FeaturedCaseStudy />
-      <DecisionTheaterPreview />
       <CaseStudyGrid />
-      <ChallengesPreview />
-      <InterviewMePreview />
-      <HiringFitMatrix />
+      <LatestNotes />
+      <DecisionTheaterPreview />
       <ContactCTA />
     </>
   );

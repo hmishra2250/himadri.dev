@@ -1,30 +1,48 @@
 import type { Metadata } from "next";
+import type { LucideIcon } from "lucide-react";
+import { Mail, ExternalLink, FileDown } from "lucide-react";
 import { buildPageMetadata } from "@/lib/seo";
 import { RouteJsonLd } from "@/components/seo/RouteJsonLd";
 import { profile } from "@/content/profile";
+import { TrackedAnchor } from "@/components/ui/TrackedLink";
+import type { ApprovedAnalyticsEvent } from "@/lib/analytics";
 
 export const metadata: Metadata = buildPageMetadata("/contact");
 
-const contactActions = [
+const contactActions: {
+  label: string;
+  value: string;
+  href: string;
+  icon: LucideIcon;
+  event: ApprovedAnalyticsEvent;
+}[] = [
   {
     label: "Email",
     value: profile.email,
     href: `mailto:${profile.email}`,
+    icon: Mail,
+    event: "contact_cta_clicked",
   },
   {
     label: "LinkedIn",
     value: "linkedin.com/in/hmishra2250",
     href: profile.linkedin,
+    icon: ExternalLink,
+    event: "contact_cta_clicked",
   },
   {
     label: "GitHub",
     value: "github.com/hmishra2250",
     href: profile.github,
+    icon: ExternalLink,
+    event: "contact_cta_clicked",
   },
   {
     label: "Resume",
     value: "Download PDF",
     href: profile.resumePath,
+    icon: FileDown,
+    event: "resume_download_clicked",
   },
 ];
 
@@ -58,24 +76,31 @@ export default function ContactPage() {
       <section className="section-pad contact-section">
         <div className="container narrow contact-page">
           <p className="eyebrow">Contact</p>
-          <h1>Build, harden, or review production AI systems.</h1>
+          <h1 className="display-serif">Build, harden, or review <em>production</em> AI systems.</h1>
           <p className="hero-subtitle">
             Reach out for senior AI engineering, AI platform, LLM systems, or
             production AI systems conversations.
           </p>
           <div className="contact-grid contact-actions">
             {contactActions.map((action) => (
-              <a className="contact-card" href={action.href} key={action.label}>
+              <TrackedAnchor
+                className="contact-card"
+                href={action.href}
+                key={action.label}
+                eventName={action.event}
+                eventParams={{ source_section: "contact_page", feature_id: action.label.toLowerCase() }}
+              >
+                <action.icon className="icon icon-lg contact-card-icon" />
                 <span>{action.label}</span>
                 <strong>{action.value}</strong>
-              </a>
+              </TrackedAnchor>
             ))}
           </div>
           <div
             className="contact-use-cases"
             aria-labelledby="contact-use-cases"
           >
-            <h2 id="contact-use-cases">Useful context to include</h2>
+            <h2 id="contact-use-cases" className="display-serif">Useful context to <em>include.</em></h2>
             <div className="contact-grid">
               {contactPaths.map((path) => (
                 <article className="contact-card" key={path.audience}>

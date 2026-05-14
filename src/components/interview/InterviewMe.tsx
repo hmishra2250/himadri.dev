@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { LiveAssistant } from "@/components/interview/LiveAssistant";
 import {
   answerById,
@@ -16,7 +17,7 @@ export function InterviewMe() {
     <section className="section-pad">
       <div className="container narrow">
         <p className="eyebrow">Interview me</p>
-        <h1>Hard production AI questions, answered with sources</h1>
+        <h1 className="display-serif">Hard production AI questions, answered with <em>sources.</em></h1>
         <p className="hero-subtitle">
           Static curated answers for architecture reviews, technical interviews,
           role-fit screens, and senior AI platform conversations.
@@ -40,7 +41,10 @@ export function InterviewMe() {
                 <div className="source-card-grid">
                   {answer.sourceCards.map((source) => (
                     <div className="source-card" key={source.title}>
-                      <Link href={source.href}>{source.title}</Link>
+                      <Link href={source.href} className="link-with-icon">
+                        {source.title}
+                        <ArrowRight className="icon icon-sm" />
+                      </Link>
                       <p>{source.snippet}</p>
                     </div>
                   ))}

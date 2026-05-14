@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
 import { ForkCard } from "@/components/ui/ForkCard";
 import type { CaseStudy } from "@/content/case-studies";
 import { flagshipDiagrams } from "@/content/diagrams";
@@ -7,8 +8,9 @@ export function CaseStudyPage({ study }: { study: CaseStudy }) {
   return (
     <article className="section-pad case-study-page">
       <div className="container narrow">
-        <Link href="/case-studies" className="back-link">
-          ← All case studies
+        <Link href="/case-studies" className="back-link link-with-icon">
+          <ArrowLeft className="icon icon-sm" />
+          All case studies
         </Link>
         <header className="case-header">
           <p className="eyebrow">

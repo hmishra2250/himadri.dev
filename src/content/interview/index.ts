@@ -202,9 +202,9 @@ export const interviewAnswers: InterviewAnswer[] = [
     ],
     sourceCards: [
       {
-        title: "Where I am useful",
-        href: "/#hiring-fit",
-        snippet: "Signals mapped to practical role fit and shipped systems.",
+        title: "Case studies and proof points",
+        href: "/case-studies",
+        snippet: "Production systems across agentic AI, ML infrastructure, and computer vision.",
         proofIds: [
           "knit-turnaround",
           "epic-cost-reduction",

@@ -7,7 +7,9 @@ export function Navbar() {
     <header className="site-header">
       <nav className="container nav" aria-label="Primary navigation">
         <Link href="/" className="brand" aria-label="Himadri Mishra homepage">
-          <span className="brand-mark">HM</span>
+          <span className="brand-monogram" aria-hidden="true">
+            <span className="brand-bracket">[</span>HM<span className="brand-bracket">]</span>
+          </span>
           <span>{profile.name}</span>
         </Link>
         <div className="nav-links">

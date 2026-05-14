@@ -42,6 +42,15 @@ export const metrics: Metric[] = [
     priority: 3,
   },
   {
+    id: "kaggle",
+    value: "Top 6%",
+    label: "Global Kaggle rank",
+    context: "FIDE and Google Efficient Chess AI Challenge, 2025.",
+    proofId: "kaggle-top-six",
+    href: "/resume",
+    priority: 4,
+  },
+  {
     id: "sandbox-tasks",
     value: "30-50",
     label: "Sandbox tasks per report",
@@ -49,7 +58,7 @@ export const metrics: Metric[] = [
       "Persistent analytics sandbox execution with independent judge verification.",
     proofId: "knit-sandbox-tasks",
     href: "/case-studies/agentic-market-research-platform",
-    priority: 4,
+    priority: 5,
   },
   {
     id: "charts",
@@ -59,15 +68,6 @@ export const metrics: Metric[] = [
       "Highcharts visualizations generated with multi-threshold scoring.",
     proofId: "knit-charts",
     href: "/case-studies/agentic-market-research-platform",
-    priority: 5,
-  },
-  {
-    id: "kaggle",
-    value: "Top 6%",
-    label: "Global Kaggle rank",
-    context: "FIDE and Google Efficient Chess AI Challenge, 2025.",
-    proofId: "kaggle-top-six",
-    href: "/resume",
     priority: 6,
   },
 ];

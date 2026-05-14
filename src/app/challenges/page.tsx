@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
+import { ArrowRight } from "lucide-react";
 import { buildPageMetadata } from "@/lib/seo";
 import { RouteJsonLd } from "@/components/seo/RouteJsonLd";
-import Link from "next/link";
 import { routeIsEnabled } from "@/lib/routes";
+import { TrackedLink } from "@/components/ui/TrackedLink";
 
 export const metadata: Metadata = buildPageMetadata("/challenges");
 
@@ -51,7 +52,7 @@ export default function ChallengesPage() {
       <section className="section-pad">
         <div className="container narrow">
           <p className="eyebrow">Interactive challenges</p>
-          <h1>Production AI judgment you can inspect</h1>
+          <h1 className="display-serif">Production AI judgment you can <em>inspect.</em></h1>
           <p className="hero-subtitle">
             These labs are small by design: each one exposes a trace, cost
             model, recovery decision, or artifact boundary you can inspect
@@ -59,16 +60,18 @@ export default function ChallengesPage() {
           </p>
           <div className="challenge-grid">
             {enabledChallenges.map((challenge) => (
-              <Link
+              <TrackedLink
                 className="case-card"
                 href={challenge.href}
                 key={challenge.href}
+                eventName="challenge_opened"
+                eventParams={{ challenge_id: challenge.href }}
               >
                 <p className="eyebrow">{challenge.phase}</p>
                 <h2>{challenge.title}</h2>
                 <p>{challenge.description}</p>
-                <span className="button secondary">Open challenge</span>
-              </Link>
+                <span className="button secondary">Open challenge <ArrowRight className="icon icon-md" /></span>
+              </TrackedLink>
             ))}
           </div>
           {deferredChallenges.length > 0 ? (

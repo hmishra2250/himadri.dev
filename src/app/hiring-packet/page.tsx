@@ -9,6 +9,7 @@ export const metadata: Metadata = {
   title: "Hiring Packet",
   description:
     "A public-only summary packet for senior AI engineering and AI platform interviews.",
+  robots: { index: false, follow: false },
 };
 
 const routePath = "/hiring-packet";
@@ -19,7 +20,7 @@ export default function HiringPacketPage() {
     <section className="section-pad">
       <div className="container narrow">
         <p className="eyebrow">Hiring packet</p>
-        <h1>{profile.name}: senior AI engineering signal packet</h1>
+        <h1 className="display-serif">{profile.name}: senior AI engineering <em>signal</em> packet.</h1>
         <p className="hero-subtitle">
           A public-only summary assembled from resume-backed metrics, sanitized
           case studies, and approved portfolio content.

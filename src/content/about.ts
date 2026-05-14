@@ -1,82 +1,37 @@
 import { profile } from "@/content/profile";
-import { claimById } from "@/content/proof";
-
-export type AboutProofCard = {
-  id: string;
-  eyebrow: string;
-  title: string;
-  summary: string;
-  proofId: string;
-  href: string;
-};
 
 export type AboutOperatingPrinciple = {
   title: string;
   body: string;
 };
 
-const proofIds = {
-  agenticResearch: "knit-turnaround",
-  mlPlatform: "epic-cost-reduction",
-  visionSystems: "osmo-cv-accuracy",
-} as const;
-
 export const aboutPage = {
   eyebrow: "About",
-  title: "Production AI engineer with proof-backed systems range.",
-  intro: profile.positioning,
+  title: "8 years building AI systems that survive production.",
+  intro: "I've worked across computer vision, ML infrastructure, search systems, and agentic AI platforms. My focus is the part most teams skip: making AI workflows observable, evaluable, recoverable, and affordable.",
   summary:
-    "I work best where AI prototypes need to become reliable products: explicit workflows, observable model calls, evaluation loops, retrievable evidence, and product surfaces that explain what the system did.",
-  proofCards: [
-    {
-      id: "agentic-research",
-      eyebrow: "Agentic systems",
-      title: "Research workflows that produce reviewable artifacts",
-      summary:
-        "Built around source tracking, sandboxed analysis, chart generation, independent judging, and deck-ready outputs rather than opaque chat transcripts.",
-      proofId: proofIds.agenticResearch,
-      href: "/case-studies/agentic-market-research-platform",
-    },
-    {
-      id: "ml-platform",
-      eyebrow: "Platform ownership",
-      title: "ML infrastructure work tied to operational outcomes",
-      summary:
-        "Comfortable taking ownership of production ML systems where cost, reliability, Kubernetes operations, search, and recommendation behavior all interact.",
-      proofId: proofIds.mlPlatform,
-      href: "/case-studies/ml-infra-rescue",
-    },
-    {
-      id: "vision-products",
-      eyebrow: "Computer vision",
-      title: "Vision systems shaped by product constraints",
-      summary:
-        "Experience connecting model quality, latency, device constraints, and user-facing education workflows instead of treating CV as an isolated model problem.",
-      proofId: proofIds.visionSystems,
-      href: "/case-studies/computer-vision-product-systems",
-    },
-  ] satisfies AboutProofCard[],
+    "I'm currently looking for Staff/Principal AI engineering roles where reliability and cost matter as much as capability.",
   principles: [
     {
-      title: "Make claims traceable",
-      body: "Public pages should point back to approved proof metadata, source cards, or visibly labeled representative artifacts.",
+      title: "I trace every claim to evidence",
+      body: "Public pages point to approved proof, source cards, or clearly labeled representative artifacts. I don't make claims I can't back.",
     },
     {
-      title: "Prefer explicit workflows",
-      body: "For production AI, I favor inspectable DAGs, recovery states, evals, and logs over unstructured prompt chains.",
+      title: "I prefer explicit workflows",
+      body: "DAGs, recovery states, evals, and logs over unstructured prompt chains. If I can't debug it, I won't ship it.",
     },
     {
-      title: "Design for handoff",
-      body: "The work is only durable when another engineer can understand the contract, failure mode, and evidence trail.",
+      title: "I design for the next engineer",
+      body: "The work only lasts when someone else can understand the contract, failure mode, and evidence trail without asking me.",
     },
   ] satisfies AboutOperatingPrinciple[],
   ctas: [
     {
-      label: "Review case studies",
+      label: "See my work",
       href: "/case-studies",
     },
     {
-      label: "Interview with source cards",
+      label: "Ask me anything",
       href: "/interview-me",
     },
     {
@@ -86,7 +41,15 @@ export const aboutPage = {
   ],
 };
 
-export const aboutProofClaims = aboutPage.proofCards.map((card) => ({
-  ...card,
-  proof: claimById(card.proofId),
-}));
+export const careerTimeline = [
+  { year: "2013-2018", event: "IIT-BHU Varanasi, Dual Degree in Computer Science (9.28/10)" },
+  { year: "2016", event: "Microsoft Research intern: dialog systems and chatbots" },
+  { year: "2017", event: "UC Berkeley research intern: neural programmer-interpreters (Prof. Dawn Song). SN Bose Scholar." },
+  { year: "2018-2019", event: "Whodat: built C++ ORB detector 20% faster than ORB-SLAM for AR products" },
+  { year: "2019-2023", event: "Osmo: CV technical lead across India and US teams. 93% → 98% worksheet recognition accuracy." },
+  { year: "2023-2024", event: "Epic! for Kids: owned ML platform post-layoffs. 10x infrastructure cost reduction." },
+  { year: "2025-2026", event: "Knit: principal architect for agentic market research platform. 48-72h → <1h report turnaround." },
+  { year: "2025", event: "Kaggle top 6% globally. Open-source ML projects." },
+  { year: "Now", event: "Open to Staff/Principal AI systems roles." },
+];
+

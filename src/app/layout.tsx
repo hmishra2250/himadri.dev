@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Instrument_Serif, Inter, JetBrains_Mono } from "next/font/google";
 import "@/styles/globals.css";
 import { GoogleAnalytics } from "@/components/analytics/GoogleAnalytics";
 import { Footer } from "@/components/layout/Footer";
@@ -7,14 +7,21 @@ import { Navbar } from "@/components/layout/Navbar";
 import { siteConfig } from "@/lib/metadata";
 import { buildRootJsonLd, escapeJsonLd } from "@/lib/structured-data";
 
-const geist = Geist({
+const instrumentSerif = Instrument_Serif({
+  weight: "400",
+  style: ["normal", "italic"],
   subsets: ["latin"],
-  variable: "--font-geist-sans",
+  variable: "--font-instrument-serif",
   display: "swap",
 });
-const geistMono = Geist_Mono({
+const inter = Inter({
   subsets: ["latin"],
-  variable: "--font-geist-mono",
+  variable: "--font-inter",
+  display: "swap",
+});
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-jetbrains-mono",
   display: "swap",
 });
 
@@ -64,7 +71,7 @@ export default function RootLayout({
   const jsonLd = escapeJsonLd(JSON.stringify(buildRootJsonLd()));
 
   return (
-    <html lang="en" className={`${geist.variable} ${geistMono.variable}`}>
+    <html lang="en" className={`${instrumentSerif.variable} ${inter.variable} ${jetbrainsMono.variable}`}>
       <body>
         <a className="skip-link" href="#main-content">
           Skip to content

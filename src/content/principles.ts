@@ -34,9 +34,9 @@ export const principles: Principle[] = [
     statement:
       "LLM systems are not production-ready until prompts, calls, traces, failures, latency, cost, and business correctness can be inspected.",
     evidence:
-      "Unified agents with Langfuse, OpenTelemetry, structured traces, and cost visibility.",
-    proofId: "knit-observability-platform",
-    href: "/case-studies/agentic-market-research-platform#observability",
+      "Unified ML platform observability across search, recommendations, and discovery at Epic!, then extended to LLM workflow tracing.",
+    proofId: "epic-cost-reduction",
+    href: "/case-studies/ml-infra-rescue",
   },
   {
     id: "intermediate-representations",
@@ -44,9 +44,9 @@ export const principles: Principle[] = [
     statement:
       "Direct generation is fragile. IRs create inspectable boundaries between reasoning, rendering, and export.",
     evidence:
-      "Built memo-to-deck and HTML-to-native-PPTX pipeline around a deck IR.",
-    proofId: "knit-observability-platform",
-    href: "/case-studies/agentic-market-research-platform#architecture",
+      "Built real-time CV pipelines with inspectable intermediate stages for worksheet recognition at Osmo, then applied IR patterns to deck generation.",
+    proofId: "osmo-cv-accuracy",
+    href: "/case-studies/computer-vision-product-systems",
   },
   {
     id: "unit-economics",

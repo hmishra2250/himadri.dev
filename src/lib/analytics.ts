@@ -2,7 +2,6 @@ export const approvedAnalyticsEvents = [
   "resume_download_clicked",
   "contact_cta_clicked",
   "case_study_opened",
-  "interview_static_question_opened",
   "assistant_question_submitted",
   "assistant_fallback_returned",
   "challenge_opened",

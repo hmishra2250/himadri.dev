@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { RouteJsonLd } from "@/components/seo/RouteJsonLd";
 import { notes } from "@/content/notes";
 import { buildPageMetadata } from "@/lib/seo";
@@ -13,7 +14,7 @@ export default function NotesPage() {
       <section className="section-pad">
         <div className="container narrow">
           <p className="eyebrow">Notes</p>
-          <h1>Field notes on production AI systems.</h1>
+          <h1 className="display-serif">Field notes on <em>production</em> AI systems.</h1>
           <p className="hero-subtitle">
             Short, public-safe notes about agent architecture, evaluation,
             observability, and cost control. Each note stays tied to approved
@@ -21,7 +22,7 @@ export default function NotesPage() {
           </p>
           <div className="opinion-list">
             {notes.map((note) => (
-              <article className="evidence-card" key={note.id}>
+              <article className="evidence-card" id={note.id} key={note.id}>
                 <p className="eyebrow">Public note</p>
                 <h2>{note.title}</h2>
                 <p className="evidence">{note.dek}</p>
@@ -45,8 +46,9 @@ export default function NotesPage() {
                 ) : null}
                 <div className="card-footer-row">
                   {note.relatedLinks.map((link) => (
-                    <Link href={link.href} key={link.href}>
+                    <Link href={link.href} key={link.href} className="link-with-icon">
                       {link.label}
+                      <ArrowRight className="icon icon-sm" />
                     </Link>
                   ))}
                 </div>

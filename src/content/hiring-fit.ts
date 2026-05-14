@@ -20,14 +20,14 @@ export const hiringFit: HiringFit[] = [
   {
     signal: "Can build full-stack AI products",
     evidence:
-      "REST APIs, SSE streaming, Deck IR workflows, and multi-provider model routing in one product platform.",
-    proofId: "knit-observability-platform",
+      "CV product pipeline at Osmo spanning model training, real-time inference, Java deployment, and education product integration across India and US teams.",
+    proofId: "osmo-cv-accuracy",
   },
   {
     signal: "Understands observability",
     evidence:
-      "OpenTelemetry, Langfuse, structured traces, cost visibility, and inspectable execution boundaries.",
-    proofId: "knit-observability-platform",
+      "Built unified observability for ML platform at Epic!, including cost visibility, search metrics, and recommendation quality tracking.",
+    proofId: "epic-cost-reduction",
   },
   {
     signal: "Understands evals and reliability",
@@ -50,8 +50,8 @@ export const hiringFit: HiringFit[] = [
   {
     signal: "Can operate as senior IC",
     evidence:
-      "Owned platform-level architecture decisions across orchestration, observability, APIs, and artifact generation.",
-    proofId: "knit-observability-platform",
+      "Owned end-to-end ML platform at Epic! post-layoffs: search, recommendations, discovery, infrastructure, cost, and reliability across the full stack.",
+    proofId: "epic-cost-reduction",
   },
   {
     signal: "Has low-level performance depth",

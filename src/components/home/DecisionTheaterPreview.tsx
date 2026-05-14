@@ -1,29 +1,35 @@
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { ForkCard } from "@/components/ui/ForkCard";
-import { SectionHeader } from "@/components/ui/SectionHeader";
 import { flagshipCaseStudy } from "@/content/case-studies";
 
 export function DecisionTheaterPreview() {
   return (
-    <section className="section-pad alt" aria-labelledby="decision-title">
+    <section className="section-pad" aria-labelledby="decision-title">
       <div className="container">
-        <SectionHeader
-          eyebrow="Decision Theater"
-          title="What was rejected matters as much as what shipped."
-          titleId="decision-title"
-          description="Senior engineering signal comes from tradeoffs: control flow, verification, cost, artifact boundaries, and recovery behavior."
-        />
+        <div className="section-header">
+          <p className="eyebrow">Decision theater</p>
+          <h2 id="decision-title" className="display-serif">
+            What I rejected matters as much as what I <em>shipped.</em>
+          </h2>
+          <p className="section-description">
+            Staff-level judgment shows in trade-offs, not just outcomes.
+          </p>
+        </div>
         <div className="decision-preview">
-          {flagshipCaseStudy.decisions.slice(0, 2).map((fork) => (
+          {flagshipCaseStudy.decisions.slice(0, 1).map((fork) => (
             <ForkCard fork={fork} key={fork.title} />
           ))}
         </div>
-        <Link
-          className="button secondary"
-          href={`/case-studies/${flagshipCaseStudy.slug}#decision-theater`}
-        >
-          See Knit decision forks
-        </Link>
+        <div className="card-footer-row">
+          <Link
+            className="button ghost"
+            href={`/case-studies/${flagshipCaseStudy.slug}#decision-theater`}
+          >
+            See more decisions
+            <ArrowRight className="icon icon-md" />
+          </Link>
+        </div>
       </div>
     </section>
   );
