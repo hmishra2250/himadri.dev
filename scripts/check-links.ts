@@ -1,3 +1,5 @@
+import { existsSync } from "node:fs";
+import { join } from "node:path";
 import { costModels, debugScenarios } from "../src/content/challenges";
 import { caseStudies } from "../src/content/case-studies";
 import { interviewAnswers } from "../src/content/interview";
@@ -63,6 +65,11 @@ if (
   !profile.resumePath.endsWith(".pdf")
 ) {
   errors.push(`Unexpected resume path: ${profile.resumePath}`);
+}
+
+const resumeAssetPath = join("public", profile.resumePath);
+if (!existsSync(resumeAssetPath)) {
+  errors.push(`Missing public resume asset: ${resumeAssetPath}`);
 }
 
 if (errors.length > 0) {

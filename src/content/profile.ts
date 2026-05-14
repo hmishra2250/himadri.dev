@@ -8,5 +8,5 @@ export const profile = {
   email: "himadri.jobhunt@gmail.com",
   linkedin: "https://linkedin.com/in/hmishra2250",
   github: "https://github.com/hmishra2250",
-  resumePath: "/resume/Himadri_Latest_Resume_April_2026.pdf",
+  resumePath: "/resume/Himadri_Mishra_Resume.pdf",
 };
