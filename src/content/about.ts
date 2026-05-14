@@ -59,18 +59,15 @@ export const aboutPage = {
   principles: [
     {
       title: "Make claims traceable",
-      body:
-        "Public pages should point back to approved proof metadata, source cards, or visibly labeled representative artifacts.",
+      body: "Public pages should point back to approved proof metadata, source cards, or visibly labeled representative artifacts.",
     },
     {
       title: "Prefer explicit workflows",
-      body:
-        "For production AI, I favor inspectable DAGs, recovery states, evals, and logs over unstructured prompt chains.",
+      body: "For production AI, I favor inspectable DAGs, recovery states, evals, and logs over unstructured prompt chains.",
     },
     {
       title: "Design for handoff",
-      body:
-        "The work is only durable when another engineer can understand the contract, failure mode, and evidence trail.",
+      body: "The work is only durable when another engineer can understand the contract, failure mode, and evidence trail.",
     },
   ] satisfies AboutOperatingPrinciple[],
   ctas: [
