@@ -1133,7 +1133,7 @@ a.case-card.card-link:hover {
   }
 
   .container {
-    width: min(100% - 1rem, 1200px);
+    width: min(100% - 2rem, 1200px);
   }
 
   .section-pad {
@@ -1168,7 +1168,7 @@ a.case-card.card-link:hover {
   }
 
   .hero-metrics {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .hero-actions {
@@ -1232,6 +1232,16 @@ a.case-card.card-link:hover {
   .trace-head {
     align-items: flex-start;
     flex-direction: column;
+  }
+
+  .footer-grid {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .footer-links {
+    flex-wrap: wrap;
   }
 }
 
@@ -1684,8 +1694,9 @@ a.case-card.card-link:hover {
   .nav-links {
     display: grid;
     width: 100%;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(4, auto);
     gap: 0.45rem 0.8rem;
+    justify-content: flex-start;
     overflow: visible;
   }
 
