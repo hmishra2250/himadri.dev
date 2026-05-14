@@ -43,13 +43,6 @@
     "tsx": "latest",
     "typescript": "latest"
   },
-  "browserslist": [
-    "Chrome >= 100",
-    "Firefox >= 100",
-    "Safari >= 15.4",
-    "Edge >= 100",
-    "iOS >= 15.4"
-  ],
   "overrides": {
     "postcss": "^8.5.10"
   }
