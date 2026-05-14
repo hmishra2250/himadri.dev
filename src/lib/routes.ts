@@ -8,7 +8,8 @@ export type RouteOwnerFeature =
   | "interview"
   | "challenge"
   | "assistant"
-  | "principles";
+  | "principles"
+  | "notes";
 
 export type RouteManifestEntry = {
   path: string;
@@ -157,6 +158,19 @@ export const routeManifest: RouteManifestEntry[] = [
     requiresProofGate: true,
     label: "Principles",
     ownerFeature: "principles",
+  },
+  {
+    path: "/notes",
+    kind: "page",
+    phase: "v2c",
+    status: "conditional",
+    enabled: true,
+    includeInSitemap: true,
+    includeInNav: true,
+    robotsPolicy: "allow",
+    requiresProofGate: true,
+    label: "Notes",
+    ownerFeature: "notes",
   },
   {
     path: "/challenges",

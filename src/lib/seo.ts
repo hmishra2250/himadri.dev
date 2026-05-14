@@ -115,6 +115,16 @@ const routeSeoData = {
       "Practical engineering principles for agents, evals, observability, cost control, and production AI architecture.",
     lastModified: sharedLastModified,
   },
+  "/notes": {
+    title: "Production AI Notes",
+    description:
+      "Public-safe notes on agent architecture, evaluation, observability, cost control, and evidence-backed production AI practice.",
+    canonicalPath: "/notes",
+    openGraphTitle: "Production AI notes",
+    openGraphDescription:
+      "Short notes on reliable AI systems with proof-backed claims and clear sanitized artifact labels.",
+    lastModified: sharedLastModified,
+  },
   "/challenges": {
     title: "Interactive AI Challenges",
     description:
