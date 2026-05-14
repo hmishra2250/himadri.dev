@@ -9,7 +9,7 @@ export type RouteOwnerFeature =
   | "challenge"
   | "assistant"
   | "principles"
-  | "profile";
+  | "notes";
 
 export type RouteManifestEntry = {
   path: string;
