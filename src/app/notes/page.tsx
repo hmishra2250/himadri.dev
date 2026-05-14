@@ -30,7 +30,10 @@ export default function NotesPage() {
                 ))}
                 <p className="muted">{note.publicLabel}</p>
                 {note.artifacts.length > 0 ? (
-                  <div className="metric-list" aria-label={`${note.title} artifacts`}>
+                  <div
+                    className="metric-list"
+                    aria-label={`${note.title} artifacts`}
+                  >
                     {note.artifacts.map((artifact) => (
                       <div className="metric-card" key={artifact.title}>
                         <span>{artifact.visibleLabel}</span>

@@ -17,6 +17,7 @@ for (const path of [
   "/contact",
   "/interview-me",
   "/principles",
+  "/notes",
   "/challenges",
   "/challenges/debug-this-agent",
   "/challenges/cost-anatomy",

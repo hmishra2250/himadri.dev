@@ -38,6 +38,7 @@ const publicPaths = new Set(publicRoutes.map((route) => route.path));
 for (const requiredPath of [
   "/interview-me",
   "/principles",
+  "/notes",
   "/challenges",
   "/challenges/debug-this-agent",
   "/challenges/cost-anatomy",

@@ -1,4 +1,8 @@
-export type NoteArtifactKind = "synthetic" | "sanitized" | "normalized" | "representative";
+export type NoteArtifactKind =
+  | "synthetic"
+  | "sanitized"
+  | "normalized"
+  | "representative";
 
 export type NoteArtifact = {
   title: string;

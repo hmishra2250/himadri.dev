@@ -11,8 +11,11 @@ import {
   interviewQuestions,
 } from "@/content/interview";
 import { metrics } from "@/content/metrics";
+import type { Note } from "@/content/notes";
+import { notes } from "@/content/notes";
 import { principles } from "@/content/principles";
 import { proofClaims } from "@/content/proof";
+import { profile } from "@/content/profile";
 import { stackOpinions } from "@/content/stack-opinions";
 import { traceLabel } from "@/content/traces";
 import {
@@ -22,6 +25,7 @@ import {
 } from "@/lib/assistant/config";
 import {
   deferredRoutes,
+  navRoutes,
   publicRoutes,
   requiredRoutes,
   robotsDisallowRoutes,
@@ -29,15 +33,111 @@ import {
   routeManifest,
 } from "@/lib/routes";
 
+const canonicalResumePath = "/resume/Himadri_Mishra_Resume.pdf";
+const directCurrencyPattern =
+  /(?:[$€£₹]\s?\d[\d,]*(?:\.\d+)?|\b(?:USD|EUR|GBP|INR)\s+\d[\d,]*(?:\.\d+)?(?:\/[a-z]+)?|\b\d[\d,]*(?:\.\d+)?\s+(?:dollars?|euros?|pounds?|rupees?)\b)/i;
+const metricLikeClaimPattern =
+  /\b\d+(?:\.\d+)?\s?(?:%|x|ms|k|m|users?|docs?|requests?|tokens?|charts?|tasks?|reports?|hours?)\b/i;
+function collectProofIds() {
+  return new Set(proofClaims.map((claim) => claim.id));
+}
+
+function checkProofRef(
+  errors: string[],
+  validProofIds: Set<string>,
+  owner: string,
+  proofId: string,
+) {
+  if (!validProofIds.has(proofId)) {
+    errors.push(`${owner} references missing proof claim: ${proofId}`);
+  }
+}
+
+function routePathFromHref(href: string) {
+  return href.split("#")[0];
+}
+
+function isApprovedNoteHref(href: string) {
+  if (href === canonicalResumePath) return true;
+  if (href === profile.github || href === profile.linkedin) return true;
+  if (/^https?:\/\//.test(href)) return false;
+
+  const routePath = routePathFromHref(href);
+  return (
+    routeIsEnabled(routePath) &&
+    publicRoutes.some((route) => route.path === routePath)
+  );
+}
+
+export function validateNoteDraft(note: Note) {
+  const errors: string[] = [];
+  const validProofIds = collectProofIds();
+  const owner = `note ${note.id}`;
+  const serialized = JSON.stringify(note);
+
+  if (!note.id) errors.push("note missing id");
+  if (!note.title) errors.push(`${owner} missing title`);
+  if (!note.dek) errors.push(`${owner} missing dek`);
+  if (note.body.length === 0) errors.push(`${owner} missing body`);
+  if (!note.publicLabel) errors.push(`${owner} missing public label`);
+
+  if (directCurrencyPattern.test(serialized)) {
+    errors.push(`${owner} contains direct currency or exact cost wording`);
+  }
+
+  if (metricLikeClaimPattern.test(serialized) && note.proofIds.length === 0) {
+    errors.push(`${owner} contains metric-like claims without proof metadata`);
+  }
+
+  for (const proofId of note.proofIds) {
+    checkProofRef(errors, validProofIds, owner, proofId);
+  }
+
+  for (const link of note.relatedLinks) {
+    if (!isApprovedNoteHref(link.href)) {
+      errors.push(
+        `${owner} links to unapproved route or profile: ${link.href}`,
+      );
+    }
+    if (
+      link.href.includes("/hiring-packet") ||
+      link.href.includes("/api/interview")
+    ) {
+      errors.push(
+        `${owner} links to forbidden internal or disabled path: ${link.href}`,
+      );
+    }
+    if (link.href.includes("Himadri_Latest_Resume_April_2026.pdf")) {
+      errors.push(`${owner} links to legacy dated resume path: ${link.href}`);
+    }
+  }
+
+  for (const artifact of note.artifacts) {
+    const label = artifact.visibleLabel.toLowerCase();
+    if (!artifact.visibleLabel.trim()) {
+      errors.push(`${owner} artifact ${artifact.title} missing visible label`);
+    }
+    if (!label.includes(artifact.kind)) {
+      errors.push(
+        `${owner} artifact ${artifact.title} label must include ${artifact.kind}`,
+      );
+    }
+  }
+
+  return errors;
+}
+
 export function validateContent() {
   const errors: string[] = [];
-  const ids = new Set<string>();
+  const ids = collectProofIds();
+  const seenProofIds = new Set<string>();
   const questionIds = new Set<string>();
   const answerIds = new Set(interviewAnswers.map((answer) => answer.id));
 
   for (const claim of proofClaims) {
-    if (ids.has(claim.id)) errors.push(`Duplicate proof claim id: ${claim.id}`);
-    ids.add(claim.id);
+    if (seenProofIds.has(claim.id))
+      errors.push(`Duplicate proof claim id: ${claim.id}`);
+    seenProofIds.add(claim.id);
     if (!claim.sourcePath) errors.push(`${claim.id} missing sourcePath`);
     if (!claim.sourceLocator) errors.push(`${claim.id} missing sourceLocator`);
     if (!claim.approvedForPublicUse)
@@ -52,10 +152,8 @@ export function validateContent() {
     }
   }
 
-  const checkProofRef = (owner: string, proofId: string) => {
-    if (!ids.has(proofId))
-      errors.push(`${owner} references missing proof claim: ${proofId}`);
-  };
+  const checkLocalProofRef = (owner: string, proofId: string) =>
+    checkProofRef(errors, ids, owner, proofId);
 
   const checkEnabledHref = (owner: string, href: string) => {
     if (href.startsWith("/resume/") && href.endsWith(".pdf")) return;
@@ -65,18 +163,18 @@ export function validateContent() {
   };
 
   metrics.forEach((metric) => {
-    checkProofRef(`metric ${metric.id}`, metric.proofId);
+    checkLocalProofRef(`metric ${metric.id}`, metric.proofId);
     if (!metric.context) errors.push(`metric ${metric.id} missing context`);
   });
   principles.forEach((principle) =>
-    checkProofRef(`principle ${principle.id}`, principle.proofId),
+    checkLocalProofRef(`principle ${principle.id}`, principle.proofId),
   );
   hiringFit.forEach((fit) =>
-    checkProofRef(`hiring fit ${fit.signal}`, fit.proofId),
+    checkLocalProofRef(`hiring fit ${fit.signal}`, fit.proofId),
   );
   caseStudies.forEach((study) => {
     study.proofIds.forEach((proofId) =>
-      checkProofRef(`case study ${study.slug}`, proofId),
+      checkLocalProofRef(`case study ${study.slug}`, proofId),
     );
     if (study.routeEnabled && !study.summary)
       errors.push(`case study ${study.slug} missing summary`);
@@ -110,7 +208,7 @@ export function validateContent() {
     for (const card of answer.sourceCards) {
       checkEnabledHref(`interview answer ${answer.id}`, card.href);
       card.proofIds.forEach((proofId) => {
-        checkProofRef(`interview source card ${card.title}`, proofId);
+        checkLocalProofRef(`interview source card ${card.title}`, proofId);
         const proof = proofClaims.find((claim) => claim.id === proofId);
         if (proof && !proof.approvedForPublicUse)
           errors.push(
@@ -125,7 +223,7 @@ export function validateContent() {
       errors.push(`stack opinion ${opinion.id} missing evidence`);
     checkEnabledHref(`stack opinion ${opinion.id}`, opinion.relatedHref);
     opinion.proofIds.forEach((proofId) =>
-      checkProofRef(`stack opinion ${opinion.id}`, proofId),
+      checkLocalProofRef(`stack opinion ${opinion.id}`, proofId),
     );
   }
 
@@ -154,7 +252,7 @@ export function validateContent() {
         `debug scenario ${scenario.id} missing approved reviewer signoff`,
       );
     scenario.proofIds.forEach((proofId) =>
-      checkProofRef(`debug scenario ${scenario.id}`, proofId),
+      checkLocalProofRef(`debug scenario ${scenario.id}`, proofId),
     );
   }
 
@@ -177,8 +275,12 @@ export function validateContent() {
     if (!diagram.publicLabel)
       errors.push(`diagram ${diagram.id} missing public label`);
     diagram.proofIds.forEach((proofId) =>
-      checkProofRef(`diagram ${diagram.id}`, proofId),
+      checkLocalProofRef(`diagram ${diagram.id}`, proofId),
     );
+  }
+
+  for (const note of notes) {
+    errors.push(...validateNoteDraft(note));
   }
 
   if (!traceLabel.toLowerCase().includes("sanitized representative")) {
@@ -220,6 +322,9 @@ export function validateRoutes() {
     ) {
       errors.push(`enabled page route is disallowed in robots: ${route.path}`);
     }
+  }
+  if (navRoutes.length > 9) {
+    errors.push(`nav exposes ${navRoutes.length} routes; maximum is 9`);
   }
   const publicPaths = new Set(publicRoutes.map((route) => route.path));
   for (const study of caseStudies.filter((item) => item.routeEnabled)) {
