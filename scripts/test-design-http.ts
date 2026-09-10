@@ -18,6 +18,31 @@ async function main() {
   const homeResponse = await fetch(base);
   assert.equal(homeResponse.status, 200);
   const home = await homeResponse.text();
+  const stylesheets = [
+    ...new Set(
+      [
+        ...home.matchAll(/<link\b[^>]*rel="stylesheet"[^>]*href="([^"]+)"/g),
+      ].map((match) => match[1].replace(/&amp;/g, "&")),
+    ),
+  ];
+  assert.ok(stylesheets.length, "Homepage references a stylesheet");
+  const styles: string[] = [];
+  for (const path of stylesheets) {
+    const response = await fetch(new URL(path, base));
+    assert.equal(response.status, 200, `Stylesheet ${path}`);
+    styles.push(await response.text());
+  }
+  const css = styles.join("\n");
+  assert.match(css, /--pearl:\s*#f6f7f8\b/i, "Deployed pearl shell");
+  assert.match(css, /--cobalt:\s*#2855d8\b/i, "Deployed cobalt accent");
+  for (const selector of [
+    ".home-page",
+    ".editorial-route",
+    ".contact-resume",
+    ".contact-linkedin",
+  ]) {
+    assert.ok(css.includes(selector), `Missing design styles: ${selector}`);
+  }
   const text = visibleText(home);
   for (const copy of [practice.eyebrow, practice.headline, practice.summary]) {
     assert.ok(text.includes(copy), `Missing approved hero copy: ${copy}`);
@@ -95,7 +120,7 @@ async function main() {
     }
   }
   console.log(
-    `Design HTTP contracts passed for ${publicRoutes.length} public routes, approved work copy, original portrait and five contact actions.`,
+    `Design HTTP contracts passed for ${publicRoutes.length} public routes, served design CSS, approved work copy, original portrait and five contact actions.`,
   );
 }
 
