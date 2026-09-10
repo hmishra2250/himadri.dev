@@ -52,7 +52,24 @@ assert.ok(
   home.includes("Simplified method illustration, not a production trace."),
 );
 assert.ok(home.includes("backend, frontend, ML and computer vision"));
+assert.ok(home.includes("More shipped agent systems."));
+assert.ok(home.includes('class="button primary" href="/case-studies"'));
+assert.equal((home.match(/class="system-link"/g) || []).length, 3);
 for (const system of currentWork.reviewedSystems) {
+  const tile = home.match(
+    new RegExp(
+      `<a[^>]+class="system-link"[^>]+href="/case-studies#${system.id}"[^>]*>([\\s\\S]*?)</a>`,
+    ),
+  )?.[1];
+  assert.ok(tile, `Whole-tile native link for ${system.id}`);
+  assert.ok(tile.includes(escape(system.title)));
+  assert.ok(tile.includes(escape(system.summary)));
+  assert.ok(tile.includes("Explore the system"));
+  assert.ok(
+    home.includes(
+      `aria-labelledby="${system.id}-preview-title ${system.id}-preview-action"`,
+    ),
+  );
   assert.ok(home.includes(`href="/case-studies#${system.id}"`));
   assert.deepEqual(
     validateInternalHrefFragment({

@@ -96,3 +96,12 @@
 - [x] Recent agent engineering is the homepage focus; older production work stays at the end of Work.
 - [x] Implement the flagship/row composition with both roles at the top and all broader work preserved in the archive.
 - [x] Publication decision: Keep scoped routing-study, journey-inventory and harness-coverage aggregates on Work, not in the introductory homepage highlights.
+
+## Shipped-work navigation refinement
+
+- Evidence: The owner's homepage screenshot shows three system links reading like a footnote, with no explanation of what opens. The separate archive button has weak visual connection to them.
+- Scope: Change only the additional shipped systems and Work gateway inside `SelectedWork`. Keep the flagship hierarchy, titles, archive anchors, proof labels and static rendering intact.
+- Design: Group the area in one restrained, cobalt-ruled panel. Give each system a full clickable tile with its existing evidence-backed summary and a visible exploration cue. These are navigation tiles, not decorative capability cards. Use three columns on desktop and one column on narrow screens.
+- Hierarchy: A clear section heading introduces the systems. Put the required disclosure below the tiles. Finish the same panel with a separated archive row and one cobalt primary action, making the full Work page the obvious next step.
+- Interaction: Entire tiles are native links. Essential copy stays visible without hover. Hover and keyboard focus use border/background contrast and underlined action text, without motion or nested controls.
+- Verification: First run existing privacy/curation regressions. Extend static markup and HTTP checks for summaries, complete clickable tiles, disclosures, valid destinations and the primary archive link. Run full verification and Safari visual/link checks before release.

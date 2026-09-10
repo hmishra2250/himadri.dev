@@ -77,13 +77,30 @@ export function SelectedWork() {
           })}
         </div>
         <div className="more-systems" aria-labelledby="more-systems-title">
-          <h3 id="more-systems-title">Also shipped</h3>
-          <ul>
+          <div className="more-systems-heading">
+            <p className="section-label">Shipped working versions</p>
+            <h3 id="more-systems-title">More shipped agent systems.</h3>
+            <p>
+              Explore the implementation and engineering decisions behind each
+              system.
+            </p>
+          </div>
+          <ul className="system-links">
             {currentWork.reviewedSystems.map((system) => (
               <li key={system.id}>
-                <Link href={`/case-studies#${system.id}`}>
-                  {system.title}
-                  <span aria-hidden="true"> ↗</span>
+                <Link
+                  className="system-link"
+                  href={`/case-studies#${system.id}`}
+                  aria-labelledby={`${system.id}-preview-title ${system.id}-preview-action`}
+                >
+                  <h4 id={`${system.id}-preview-title`}>{system.title}</h4>
+                  <p>{system.summary}</p>
+                  <span
+                    className="system-link-action"
+                    id={`${system.id}-preview-action`}
+                  >
+                    Explore the system <span aria-hidden="true">→</span>
+                  </span>
                 </Link>
               </li>
             ))}
@@ -91,15 +108,18 @@ export function SelectedWork() {
           <p className="work-source">
             {currentWork.reviewedSystems[0].publicLabel}
           </p>
-        </div>
-        <div className="work-archive-link">
-          <Link className="button secondary" href="/case-studies">
-            View all engineering work <span aria-hidden="true">→</span>
-          </Link>
-          <p>
-            Full technical detail, scoped results and broader work across
-            backend, frontend, ML and computer vision.
-          </p>
+          <div className="work-archive-link">
+            <div>
+              <h4>The complete engineering portfolio</h4>
+              <p>
+                Full technical detail, scoped results and broader work across
+                backend, frontend, ML and computer vision.
+              </p>
+            </div>
+            <Link className="button primary" href="/case-studies">
+              View all engineering work <span aria-hidden="true">→</span>
+            </Link>
+          </div>
         </div>
       </div>
     </section>

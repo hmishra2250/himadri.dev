@@ -79,8 +79,14 @@ async function main() {
       !text.includes(metric.value),
       `No historical metric on Home: ${metric.id}`,
     );
-  for (const system of currentWork.reviewedSystems)
+  for (const system of currentWork.reviewedSystems) {
     assert.ok(home.includes(`href="/case-studies#${system.id}"`));
+    assert.ok(text.includes(system.summary));
+    assert.ok(text.includes(system.publicLabel));
+  }
+  assert.equal((home.match(/class="system-link"/g) || []).length, 3);
+  assert.ok(home.includes('class="button primary" href="/case-studies"'));
+  assert.ok(text.includes("More shipped agent systems."));
   assert.ok(home.includes("project-feature"));
   assert.ok(text.includes("backend, frontend, ML and computer vision"));
   assert.equal((home.match(/<article\b/g) || []).length, 3);
