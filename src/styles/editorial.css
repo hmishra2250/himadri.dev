@@ -818,3 +818,39 @@
     padding: 16px 0 0;
   }
 }
+
+/* Resume: let the document lead, with optional saving kept alongside it. */
+.resume-route .resume-document-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 18px;
+  margin-bottom: 24px;
+}
+
+.resume-route .resume-document-title {
+  font-size: clamp(2rem, 3vw, 2.8rem);
+  margin: 0 0 8px;
+}
+
+.resume-route .resume-document-header p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.resume-document-viewer {
+  display: block;
+  width: 100%;
+  height: 80vh;
+  height: 80svh;
+  min-height: 480px;
+  border: 1px solid var(--hairline);
+  background: var(--pearl);
+}
+
+.resume-route .resume-preview-help {
+  margin-top: 16px;
+  font-size: 14px;
+  line-height: 1.5;
+}
