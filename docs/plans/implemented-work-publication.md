@@ -9,14 +9,14 @@
 
 ## Goal
 
-Publish richer implemented-work evidence without weakening the existing portfolio contract. The site should keep the approved three resume-backed recent-work columns intact, then make the newer implemented Agent Experience work primary on the homepage and Work index before ancillary private systems, public projects, and historical case studies.
+Publish richer implemented-work evidence without weakening the existing portfolio contract. The site should keep the approved three resume-backed recent-work columns intact, then make the newer implemented Agent Experience work primary on the homepage and Work index before additional shipped systems, public projects, and historical case studies.
 
 ## Page hierarchy
 
 1. Hero with current positioning.
 2. Existing three resume-backed work columns, unchanged.
 3. Implemented Agent Experience work as the primary recent-work publication block.
-4. Ancillary anonymized systems and public projects.
+4. Additional anonymized shipped systems and public projects.
 5. Selected historical AI product case study and earlier ML or computer vision work.
 6. About and Contact.
 
@@ -86,7 +86,7 @@ Allowed publication details for this work:
 ## Acceptance checklist
 
 - Existing three resume-backed work columns remain unchanged.
-- Six implemented-work cards appear before ancillary private systems and public projects on Home and Work index.
+- Six implemented-work cards appear before additional shipped systems and public projects on Home and Work index.
 - Every private or anonymous card shows status, scope, and publication label.
 - Experiment, shipped-system, and delivery-gate labels are visibly distinct in copy.
 - No unsupported conversion, parity, causal adoption, broad rollout, traffic, revenue, cost, or PR-count claims are introduced.
@@ -105,3 +105,7 @@ Verified on 2026-09-10:
 - `npm run test:design:http` passed against the local production build for all ten enabled public routes, served CSS, metric disclosures, original portrait and contact actions.
 - Independent code review approved the publication changes without findings.
 - Existing design preserved. Desktop/mobile screenshot QA was not completed because browser-connected automation was unavailable; HTTP rendering and asset checks are not a substitute for visual inspection.
+
+## Delivered-system classification correction
+
+The owner confirmed that working versions of all three additional systems have shipped. Present these as completed contributions under “Shipped systems”, with “Shipped working version” status on Home and Work. Remove earlier provisional deployment and integration blockers from public copy and update their proof note. Keep technical authority, attribution and privacy boundaries without implying a future completion obligation. Regression tests reject the old development-section framing and verify the new labels on rendered and served pages.

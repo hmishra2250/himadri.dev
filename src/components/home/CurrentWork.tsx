@@ -16,15 +16,15 @@ export function ReviewedSystems({
   return (
     <div className="work-stack current-work-block" aria-labelledby={titleId}>
       <div className="section-heading compact-heading">
-        <h2 id={titleId}>Systems in development.</h2>
+        <h2 id={titleId}>Shipped systems.</h2>
         <p>
-          Implementation work, with the boundary between built components and
-          production operation made explicit.
+          Working versions delivered across agent workflows, browser QA and
+          governed knowledge access.
         </p>
       </div>
       <div
         className="work-grid current-work-grid"
-        aria-label="Systems currently in development"
+        aria-label="Shipped engineering systems"
       >
         {currentWork.reviewedSystems.map((system) => (
           <article

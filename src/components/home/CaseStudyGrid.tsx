@@ -122,8 +122,8 @@ export function AllCaseStudies() {
           <div className="editorial-prose route-copy-stack">
             <h1 id="all-case-studies-title">Work.</h1>
             <p className="hero-subtitle">
-              Selected contributions, systems in development, and earlier
-              production work.
+              Selected contributions, shipped systems, and earlier production
+              work.
             </p>
           </div>
         </div>

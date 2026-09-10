@@ -18,11 +18,7 @@ const publicSources = new Map([
     "Local experiment",
   ],
 ]);
-const systemStatuses = new Set([
-  "Implemented foundations",
-  "Implemented components",
-  "Implemented service",
-]);
+const systemStatuses = new Set(["Shipped working version"]);
 const methodStatuses = new Set([
   "Completed experiments",
   "Shipped system",

@@ -99,6 +99,13 @@ async function main() {
     const html = await response.text();
     if (route.path === "/" || route.path === "/case-studies") {
       const rendered = visibleText(html);
+      assert.ok(rendered.includes("Shipped systems."));
+      assert.doesNotMatch(
+        rendered,
+        /systems (?:currently )?in development|not deployed|integration remains gated/i,
+      );
+      for (const system of currentWork.reviewedSystems)
+        assert.ok(rendered.includes(system.status));
       for (const metric of currentWorkMetrics)
         for (const copy of [metric.value, metric.label, metric.context])
           assert.ok(

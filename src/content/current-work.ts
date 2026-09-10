@@ -3,10 +3,7 @@ export type ReviewedSystem = {
   title: string;
   summary: string;
   work: string[];
-  status:
-    | "Implemented foundations"
-    | "Implemented components"
-    | "Implemented service";
+  status: "Shipped working version";
   limitations: string;
   proofId: string;
   publicLabel: string;
@@ -59,16 +56,17 @@ export const currentWork: CurrentWork = {
   reviewedSystems: [
     {
       id: "agent-delivery-platform-foundations",
-      title: "Agent delivery platform foundations",
+      title: "Agent delivery platform",
       summary:
-        "I built platform foundations for moving an agent task through execution, artifact review and human approval.",
+        "I built and shipped a working agent delivery platform, moving tasks through execution, artifact review and human approval.",
       work: [
         "Built shared state contracts for runs, artifacts, approvals, and reviewer decisions.",
         "Wired MCP orchestration and web review surfaces around the delivery flow.",
         "Added test fixtures and operator documentation for handoff and recovery.",
       ],
-      status: "Implemented foundations",
-      limitations: "Workflow templates are scaffolded, not deployed.",
+      status: "Shipped working version",
+      limitations:
+        "Delivered workflow orchestration and review; human approval remains an explicit boundary.",
       proofId: "current-agent-delivery-platform-foundations",
       publicLabel: reviewedWorkLabel,
     },
@@ -76,15 +74,15 @@ export const currentWork: CurrentWork = {
       id: "coding-agent-browser-qa-safeguards",
       title: "Coding-agent browser QA safeguards",
       summary:
-        "I worked on coding-agent safeguards: when browser checks should stop, what evidence to retain, and how a reviewer picks up the work.",
+        "I implemented and shipped coding-agent safeguards: when browser checks should stop, what evidence to retain, and how a reviewer picks up the work.",
       work: [
         "Implemented repeated-action and off-origin guards for browser-connected runs.",
         "Preserved budget and trace context for reviewer inspection.",
         "Kept generated outputs available when browser QA needed follow-up.",
       ],
-      status: "Implemented components",
+      status: "Shipped working version",
       limitations:
-        "Contributed components; end-to-end production integration remains gated.",
+        "Delivered safeguards and reviewer handoffs within a broader coding-agent system.",
       proofId: "current-coding-agent-browser-qa-safeguards",
       publicLabel: reviewedWorkLabel,
     },
@@ -92,13 +90,13 @@ export const currentWork: CurrentWork = {
       id: "governed-knowledge-mcp-service",
       title: "Governed knowledge MCP service",
       summary:
-        "I built a read-only interface for agents to retrieve structured knowledge and propose changes without granting them write access.",
+        "I built and shipped a read-only interface for agents to retrieve structured knowledge and propose changes without granting them write access.",
       work: [
         "Served structured context through a read-only MCP boundary.",
         "Built scan-runner and CI checks around repository review.",
         "Returned proposed updates without taking write authority.",
       ],
-      status: "Implemented service",
+      status: "Shipped working version",
       limitations:
         "External checks depend on access; public reproduction is limited.",
       proofId: "current-governed-knowledge-mcp-service",

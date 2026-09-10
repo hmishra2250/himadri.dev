@@ -9,7 +9,7 @@ Public routes are governed by `src/lib/routes.ts`. The primary visitor experienc
 Homepage sections:
 
 - `/#work`, resume-backed briefs and selected case-study context
-- Agent Experience engineering, scoped results, systems in development and public projects
+- Agent Experience engineering, scoped results, shipped systems and public projects
 - `/#about`, short background and focus
 - `/#contact`, direct email, GitHub and resume links
 

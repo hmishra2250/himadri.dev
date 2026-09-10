@@ -29,7 +29,7 @@
 
 - Primary navigation: Manifest-driven shell links only. Home is the narrative entry; Work links to the `#work` section and Work index; About, Resume, and Contact remain direct routes or anchors as configured by the route manifest.
 - Core routes/screens: Home, `/case-studies`, enabled case-study detail pages, `/about`, `/resume`, `/contact`, `/notes`, navigation, and footer.
-- Content hierarchy: Hero; existing resume-backed three-column recent work with a compact historical case-study link; implemented Agent Experience work; ancillary systems in development; public work links; About; Contact. The Work index shows recent columns, implemented engineering, ancillary systems, then historical case studies.
+- Content hierarchy: Hero; existing resume-backed three-column recent work with a compact historical case-study link; implemented Agent Experience work; ancillary shipped systems; public work links; About; Contact. The Work index shows recent columns, implemented engineering, ancillary systems, then historical case studies.
 
 ## Design principles
 

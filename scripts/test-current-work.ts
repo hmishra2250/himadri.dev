@@ -202,6 +202,14 @@ assert.equal(
   4,
 );
 
+for (const system of currentWork.reviewedSystems) {
+  assert.equal(system.status, "Shipped working version");
+  assert.doesNotMatch(
+    JSON.stringify(system),
+    /not deployed|integration remains gated|systems in development/i,
+  );
+}
+
 const homeHtml = renderToStaticMarkup(createElement(Home));
 const workHtml = renderToStaticMarkup(createElement(AllCaseStudies));
 function renderedText(text: string) {
@@ -246,9 +254,14 @@ for (const method of currentWork.methodCards) {
 }
 assert.ok(homeHtml.includes("Systems I implemented and shipped"));
 for (const html of [homeHtml, workHtml]) {
+  assert.ok(html.includes("Shipped systems."));
+  assert.doesNotMatch(
+    html,
+    /systems (?:currently )?in development|not deployed|integration remains gated/i,
+  );
   assert.ok(
     html.indexOf("Agent experience, end to end.") <
-      html.indexOf("Systems in development."),
+      html.indexOf("Shipped systems."),
   );
   for (const metric of currentWorkMetrics) {
     for (const text of [metric.value, metric.label, metric.context])

@@ -301,10 +301,9 @@ export const proofClaims: ProofClaim[] = [
   {
     id: "current-agent-delivery-platform-foundations",
     claim:
-      "Implemented foundations for an anonymous agent delivery platform, including orchestration boundaries, typed configuration, reusable scaffolding, testing shape and operator-facing documentation.",
+      "Built and shipped a working agent delivery platform with orchestration boundaries, typed configuration, artifact review, human approval and operator-facing documentation.",
     sourcePath: "docs/evidence/current-systems.md",
-    sourceLocator:
-      "Reviewed implementation category: Agent delivery platform foundations",
+    sourceLocator: "Reviewed implementation category: Agent delivery platform",
     sourceType: "sanitized-artifact",
     confidence: "medium",
     confidentialityLevel: "sanitized",
@@ -317,7 +316,7 @@ export const proofClaims: ProofClaim[] = [
   {
     id: "current-coding-agent-browser-qa-safeguards",
     claim:
-      "Contributed safeguards for coding-agent execution and browser-connected QA, including guard boundaries, trace preservation, reviewer handoff context and testable checkpoints.",
+      "Implemented and shipped safeguards for coding-agent execution and browser-connected QA, including guard boundaries, trace preservation, reviewer handoff context and testable checkpoints.",
     sourcePath: "docs/evidence/current-systems.md",
     sourceLocator:
       "Reviewed implementation category: Coding-agent browser QA safeguards",
@@ -333,7 +332,7 @@ export const proofClaims: ProofClaim[] = [
   {
     id: "current-governed-knowledge-mcp-service",
     claim:
-      "Implemented read-only knowledge tooling with an MCP server, scan runner, CI checks, structured context, invariant checks and proposed-change workflows.",
+      "Built and shipped read-only knowledge tooling with an MCP server, scan runner, CI checks, structured context, invariant checks and proposed-change workflows.",
     sourcePath: "docs/evidence/current-systems.md",
     sourceLocator:
       "Reviewed implementation category: Governed knowledge MCP service",
