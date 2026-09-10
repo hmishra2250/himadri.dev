@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { RouteJsonLd } from "@/components/seo/RouteJsonLd";
 import { notes } from "@/content/notes";
+import { profile } from "@/content/profile";
 import { buildPageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = buildPageMetadata("/notes");
@@ -22,6 +23,12 @@ export default function NotesPage() {
                 approved proof metadata and labels sanitized or synthetic
                 artifacts clearly.
               </p>
+              <div className="hero-actions">
+                <a className="button tertiary" href={profile.agentExperience}>
+                  Read the Agent Experience field guide{" "}
+                  <span aria-hidden="true">↗</span>
+                </a>
+              </div>
             </div>
           </div>
         </section>

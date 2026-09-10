@@ -1,3 +1,5 @@
+import { profile } from "@/content/profile";
+
 export type ReviewedSystem = {
   id: string;
   title: string;
@@ -114,7 +116,7 @@ export const currentWork: CurrentWork = {
       status: "Published guide",
       limitations:
         "Independent guidance, with explicit human-control boundaries.",
-      href: "https://agentexperience.tech/",
+      href: profile.agentExperience,
       proofId: "public-agent-experience-guide",
     },
     {

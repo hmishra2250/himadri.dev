@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { profile } from "@/content/profile";
-import { getNavHref, navRoutes } from "@/lib/routes";
+import { NavigationLinks } from "@/components/layout/NavigationLinks";
 
 export function Navbar() {
   return (
@@ -13,11 +13,7 @@ export function Navbar() {
           <span>{profile.name}</span>
         </Link>
         <div className="nav-links">
-          {navRoutes.map((route) => (
-            <Link href={getNavHref(route)} key={route.path}>
-              {route.label}
-            </Link>
-          ))}
+          <NavigationLinks />
         </div>
       </nav>
     </header>

@@ -141,6 +141,34 @@ async function main() {
         `${route.path}: navigation to ${destination}`,
       );
     }
+    const navHrefs = [...header.matchAll(/<a\b[^>]*href="([^"]+)"/g)].map(
+      (match) => match[1],
+    );
+    assert.deepEqual(
+      navHrefs.slice(1),
+      [
+        "/case-studies",
+        profile.agentExperience,
+        "/about",
+        "/resume",
+        "/contact",
+      ],
+      `${route.path}: external guide follows Work`,
+    );
+    assert.ok(
+      header.includes('aria-label="Agent Experience (external website)"'),
+      `${route.path}: external destination is named`,
+    );
+    const footer = html.match(/<footer\b[\s\S]*?<\/footer>/)?.[0];
+    assert.ok(
+      footer?.includes(`href="${profile.agentExperience}"`),
+      `${route.path}: footer links to field guide`,
+    );
+    if (route.path === "/notes") {
+      assert.ok(
+        visibleText(html).includes("Read the Agent Experience field guide"),
+      );
+    }
     const seo = getRouteSeo(route.path);
     const canonical = html.match(/<link rel="canonical" href="([^"]+)"/);
     assert.ok(canonical, `${route.path}: static canonical`);

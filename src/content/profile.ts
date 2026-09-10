@@ -9,5 +9,6 @@ export const profile = {
   linkedin: "https://linkedin.com/in/hmishra2250",
   github: "https://github.com/hmishra2250",
   x: "https://x.com/hmishra2250",
+  agentExperience: "https://agentexperience.tech/",
   resumePath: "/resume/Himadri_Mishra_Resume.pdf",
 };

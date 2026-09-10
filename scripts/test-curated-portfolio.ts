@@ -5,6 +5,9 @@ import { renderToStaticMarkup } from "react-dom/server";
 import Home from "../src/app/page";
 import { AllCaseStudies } from "../src/components/home/CaseStudyGrid";
 import { Navbar } from "../src/components/layout/Navbar";
+import { Footer } from "../src/components/layout/Footer";
+import NotesPage from "../src/app/notes/page";
+import sitemap from "../src/app/sitemap";
 import { selectedWork } from "../src/content/selected-work";
 import { currentWork } from "../src/content/current-work";
 import { practice } from "../src/content/practice";
@@ -17,6 +20,41 @@ import { validateInternalHrefFragment } from "./lib/fragment-links";
 const home = renderToStaticMarkup(createElement(Home));
 const work = renderToStaticMarkup(createElement(AllCaseStudies));
 const nav = renderToStaticMarkup(createElement(Navbar));
+const footer = renderToStaticMarkup(createElement(Footer));
+const axUrl = "https://agentexperience.tech/";
+for (const [name, markup] of [
+  ["header", nav],
+  ["footer", footer],
+]) {
+  const hrefs = [...markup.matchAll(/<a\b[^>]*href="([^"]+)"/g)].map(
+    (match) => match[1],
+  );
+  assert.deepEqual(
+    hrefs.slice(
+      hrefs.indexOf("/case-studies"),
+      hrefs.indexOf("/case-studies") + 5,
+    ),
+    ["/case-studies", axUrl, "/about", "/resume", "/contact"],
+    `${name}: shared navigation order`,
+  );
+  assert.equal(
+    hrefs.filter((href) => href === axUrl).length,
+    1,
+    `${name}: one external guide link`,
+  );
+  assert.match(markup, /aria-label="Agent Experience \(external website\)"/);
+  assert.match(markup, /Agent Experience <span aria-hidden="true">↗<\/span>/);
+}
+assert.ok(
+  sitemap().every((entry) => new URL(entry.url).hostname === "www.himadri.dev"),
+  "External navigation must not enter the portfolio sitemap",
+);
+const notesPage = renderToStaticMarkup(createElement(NotesPage));
+assert.ok(
+  notesPage.includes(`href="${axUrl}"`),
+  "Notes connects readers to the field guide",
+);
+
 // Keep authored website copy direct, including content behind disabled routes.
 const contractions =
   /\b(?:[a-z]+n['’]t|(?:i|you|we|they)['’](?:m|re|ve|ll|d)|(?:it|that|there|here|what|who|he|she|let)['’]s)\b/i;

@@ -1,6 +1,5 @@
-import Link from "next/link";
 import { profile } from "@/content/profile";
-import { getNavHref, navRoutes } from "@/lib/routes";
+import { NavigationLinks } from "@/components/layout/NavigationLinks";
 
 export function Footer() {
   return (
@@ -10,11 +9,7 @@ export function Footer() {
           &copy; {new Date().getFullYear()} {profile.name}
         </span>
         <div className="footer-links" aria-label="Footer links">
-          {navRoutes.map((route) => (
-            <Link href={getNavHref(route)} key={route.path}>
-              {route.label}
-            </Link>
-          ))}
+          <NavigationLinks />
           <a href={profile.github} target="_blank" rel="noopener noreferrer">
             GitHub
           </a>

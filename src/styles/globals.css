@@ -335,6 +335,11 @@ code {
   border-bottom: 1px solid transparent;
 }
 
+.nav-external {
+  gap: 4px;
+  white-space: nowrap;
+}
+
 .footer-links a {
   display: inline-flex;
   align-items: center;
@@ -1985,4 +1990,26 @@ h2 em {
 
 #main-content {
   flex: 1;
+}
+
+/* Keep the full external-site label visible without horizontal navigation scroll. */
+@media (max-width: 700px) {
+  .nav-links {
+    width: 100%;
+    justify-content: flex-start;
+    margin-left: 0;
+  }
+  html {
+    scroll-padding-top: 120px;
+  }
+}
+@media (max-width: 520px) {
+  .nav-links {
+    display: grid;
+    grid-template-columns: repeat(3, max-content);
+    gap: 0 16px;
+  }
+  html {
+    scroll-padding-top: 164px;
+  }
 }
