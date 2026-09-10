@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
+import { readFileSync, readdirSync } from "node:fs";
 import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import Home from "../src/app/page";
@@ -17,6 +17,27 @@ import { validateInternalHrefFragment } from "./lib/fragment-links";
 const home = renderToStaticMarkup(createElement(Home));
 const work = renderToStaticMarkup(createElement(AllCaseStudies));
 const nav = renderToStaticMarkup(createElement(Navbar));
+// Keep authored website copy direct, including content behind disabled routes.
+const contractions =
+  /\b(?:[a-z]+n['’]t|(?:i|you|we|they)['’](?:m|re|ve|ll|d)|(?:it|that|there|here|what|who|he|she|let)['’]s)\b/i;
+for (const root of ["src/content", "src/components", "src/app"]) {
+  for (const file of readdirSync(root, { recursive: true, encoding: "utf8" })) {
+    if (!/\.(?:tsx?|mdx?)$/.test(file)) continue;
+    const source = readFileSync(`${root}/${file}`, "utf8");
+    assert.doesNotMatch(
+      source,
+      /\u2014|&mdash;|&#8212;|&#x2014;/i,
+      `${file}: no em dashes`,
+    );
+    assert.doesNotMatch(
+      source.replace(/&(?:apos|rsquo|#39|#x27|#8217|#x2019);/gi, "'"),
+      contractions,
+      `${file}: no contractions`,
+    );
+  }
+}
+assert.ok(practice.summary.split(/\s+/).length <= 24, "A short, direct intro");
+
 assert.equal((home.match(/class="hero-text-link"/g) || []).length, 2);
 currentWork.methodCards.push({
   ...currentWork.methodCards[0],

@@ -9,3 +9,6 @@ docs/**
 reports/assistant-corpus/*.json
 reports/assistant-eval/*.json
 .claude/**
+
+# Local research captures, not authored website files
+.firecrawl/**

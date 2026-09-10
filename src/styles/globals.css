@@ -327,10 +327,20 @@ code {
 
 .nav-links a {
   display: inline-flex;
+  min-width: 44px;
   min-height: 44px;
   align-items: center;
+  justify-content: center;
   padding: 0 2px;
   border-bottom: 1px solid transparent;
+}
+
+.footer-links a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
 }
 
 .nav-links a:hover,

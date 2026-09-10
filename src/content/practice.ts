@@ -42,7 +42,7 @@ export const practice: Practice = {
   headline: "Agent Experience Engineer.",
   secondaryHeadline: "AI Product Engineer.",
   summary:
-    "I ship agent-facing tools and the systems behind them: MCP access, discovery and retrieval, state-based evaluation and evidence-grounded reporting.",
+    "I build tools agents can find and use. I ship the access, evaluation and reporting systems behind them.",
   engagements: [
     {
       id: "agent-facing-tools",

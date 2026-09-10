@@ -16,11 +16,11 @@ export const aboutPage = {
   principles: [
     {
       title: "I trace every claim to evidence",
-      body: "Public pages point to approved proof, source cards, or clearly labeled representative artifacts. I don't make claims I can't back.",
+      body: "Public pages point to approved proof, source cards, or clearly labeled representative artifacts. I do not make claims I cannot back.",
     },
     {
       title: "I prefer explicit workflows",
-      body: "DAGs, recovery states, evals, and logs over unstructured prompt chains. If I can't debug it, I won't ship it.",
+      body: "DAGs, recovery states, evals, and logs over unstructured prompt chains. If I cannot debug it, I will not ship it.",
     },
     {
       title: "I design for the next engineer",

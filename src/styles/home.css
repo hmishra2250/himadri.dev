@@ -53,7 +53,7 @@
   color: var(--graphite);
   font-size: clamp(36px, 4.2vw, 56px);
   font-weight: 400;
-  letter-spacing: -0.045em;
+  letter-spacing: -0.035em;
   line-height: 1.12;
 }
 .home-page h1 span {
@@ -122,7 +122,7 @@
 .home-page .project-status {
   font-family: var(--font-mono);
   color: var(--cobalt-dark);
-  font-size: 11px;
+  font-size: 12px;
   line-height: 1.5;
 }
 .home-page .project-copy h3 {
@@ -143,6 +143,9 @@
   line-height: 1.6;
 }
 .home-page .project-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
   justify-self: start;
   color: var(--cobalt-dark);
   font-size: 14px;
@@ -153,7 +156,7 @@
   margin: 0;
   font-family: var(--font-mono);
   color: var(--muted);
-  font-size: 11px;
+  font-size: 12px;
   line-height: 1.55;
 }
 .home-page .project-row .project-copy {
@@ -231,9 +234,9 @@
   color: var(--graphite-soft);
 }
 .home-page .evaluation-outline > p {
-  font-size: 11px;
+  font-size: 12px;
   line-height: 1.5;
-  color: var(--muted);
+  color: var(--graphite-soft);
 }
 .home-page .more-systems {
   margin-top: 12px;
@@ -305,6 +308,7 @@
   text-decoration: underline;
 }
 .home-page .more-systems > .work-source {
+  color: var(--graphite-soft);
   margin-top: 16px;
 }
 .home-page .work-archive-link {
@@ -370,9 +374,13 @@
   line-height: 1.55;
 }
 .home-page .writing-copy > .work-source {
-  font-size: 11px;
+  font-size: 12px;
 }
 .home-page .writing-copy > a {
+  display: inline-flex;
+  align-items: center;
+  justify-self: start;
+  min-height: 44px;
   font-size: 14px;
 }
 .home-page .about-grid p:last-child {
@@ -483,10 +491,10 @@
     padding: 26px 0;
   }
   .home-page .project-summary {
-    font-size: 15px;
+    font-size: 16px;
   }
   .home-page .project-engineering {
-    font-size: 12px;
+    font-size: 13px;
   }
   .home-page .evaluation-outline {
     padding: 20px;

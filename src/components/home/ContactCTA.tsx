@@ -12,7 +12,7 @@ export function ContactCTA() {
           Contact
         </h2>
         <div className="contact-copy">
-          <p>Send me what you&apos;re building.</p>
+          <p>Send me what you are building.</p>
           <ContactActions sourceSection="homepage_contact" />
         </div>
       </div>

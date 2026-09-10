@@ -102,7 +102,6 @@ export const routeManifest: RouteManifestEntry[] = [
     requiresProofGate: true,
     label: "About",
     ownerFeature: "profile",
-    navHref: "/#about",
   },
   {
     path: "/resume",
@@ -129,7 +128,6 @@ export const routeManifest: RouteManifestEntry[] = [
     requiresProofGate: false,
     label: "Contact",
     ownerFeature: "core",
-    navHref: "/#contact",
   },
   {
     path: "/case-studies/ml-infra-rescue",

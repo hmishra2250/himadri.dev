@@ -36,7 +36,7 @@ export function SelectedWork() {
       <div className="container work-stack">
         <div className="section-heading">
           <p className="section-label">Selected engineering</p>
-          <h2 id="work-title">Agent systems I’ve built.</h2>
+          <h2 id="work-title">Agent systems I have built.</h2>
         </div>
         <div className="selected-projects">
           {selectedWork.map((work, index) => {

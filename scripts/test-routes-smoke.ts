@@ -88,9 +88,9 @@ for (const route of routeManifest) {
 
 const navHrefExpectations = new Map<string, string>([
   ["/case-studies", "/case-studies"],
-  ["/about", "/#about"],
+  ["/about", "/about"],
   ["/resume", "/resume"],
-  ["/contact", "/#contact"],
+  ["/contact", "/contact"],
 ]);
 const navRoutePaths = new Set(navRoutes.map((route) => route.path));
 for (const [path, destination] of navHrefExpectations) {

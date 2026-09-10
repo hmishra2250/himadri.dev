@@ -123,6 +123,24 @@ async function main() {
       /\u2014|&mdash;|&#8212;|&#x2014;/i,
       `${route.path}: no em dashes`,
     );
+    assert.doesNotMatch(
+      visibleText(html),
+      /\b(?:[a-z]+n['’]t|(?:i|you|we|they)['’](?:m|re|ve|ll|d)|(?:it|that|there|here|what|who|he|she|let)['’]s)\b/i,
+      `${route.path}: no contractions`,
+    );
+    const header = html.match(/<header\b[\s\S]*?<\/header>/)?.[0];
+    assert.ok(header, `${route.path}: shared header is present`);
+    for (const destination of [
+      "/case-studies",
+      "/about",
+      "/resume",
+      "/contact",
+    ]) {
+      assert.ok(
+        header.includes(`href="${destination}"`),
+        `${route.path}: navigation to ${destination}`,
+      );
+    }
     const seo = getRouteSeo(route.path);
     const canonical = html.match(/<link rel="canonical" href="([^"]+)"/);
     assert.ok(canonical, `${route.path}: static canonical`);
