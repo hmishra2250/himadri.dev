@@ -58,7 +58,7 @@ export const proofClaims: ProofClaim[] = [
     id: "knit-sandbox-tasks",
     claim:
       "Built a sandboxed insight engine where LLMs generated and executed Python analyses across 30-50 tasks per report, with independent judge agents verifying each output.",
-    sourcePath: "public/resume/Himadri_Mishra_Resume.pdf",
+    sourcePath: "docs/evidence/resume-2026-09-07.pdf",
     sourceLocator: "Knit experience, bullet 2",
     sourceType: "resume",
     confidence: "high",
@@ -71,7 +71,7 @@ export const proofClaims: ProofClaim[] = [
     id: "knit-charts",
     claim:
       "Produced 15-25 Highcharts charts per report with multi-threshold quality scoring.",
-    sourcePath: "public/resume/Himadri_Mishra_Resume.pdf",
+    sourcePath: "docs/evidence/resume-2026-09-07.pdf",
     sourceLocator: "Knit experience, bullet 3",
     sourceType: "resume",
     confidence: "high",
@@ -84,7 +84,7 @@ export const proofClaims: ProofClaim[] = [
     id: "knit-observability-platform",
     claim:
       "Unified agents on a shared platform with multi-provider LLM routing, OpenTelemetry, Langfuse, pgvector-backed RAG, SSE streaming, and generated REST APIs.",
-    sourcePath: "public/resume/Himadri_Mishra_Resume.pdf",
+    sourcePath: "docs/evidence/resume-2026-09-07.pdf",
     sourceLocator: "Knit experience, bullet 4",
     sourceType: "resume",
     confidence: "high",
@@ -110,7 +110,7 @@ export const proofClaims: ProofClaim[] = [
     id: "epic-pod-reduction",
     claim:
       "Reduced Kubernetes pod usage by 100x and spot instance errors by 99%.",
-    sourcePath: "public/resume/Himadri_Mishra_Resume.pdf",
+    sourcePath: "docs/evidence/resume-2026-09-07.pdf",
     sourceLocator: "Epic! experience, bullet 2",
     sourceType: "resume",
     confidence: "high",
@@ -148,7 +148,7 @@ export const proofClaims: ProofClaim[] = [
     id: "osmo-shaded-region-iou",
     claim:
       "Built a real-time U-Net shaded-region detection model achieving 80% IoU.",
-    sourcePath: "public/resume/Himadri_Mishra_Resume.pdf",
+    sourcePath: "docs/evidence/resume-2026-09-07.pdf",
     sourceLocator: "Tangible Play / Osmo experience, bullet 1",
     sourceType: "resume",
     confidence: "high",
@@ -161,7 +161,7 @@ export const proofClaims: ProofClaim[] = [
     id: "osmo-engagement-tagging",
     claim:
       "Boosted tracing-dots engagement by 20% and cut tagging manual effort by 99% through automation.",
-    sourcePath: "public/resume/Himadri_Mishra_Resume.pdf",
+    sourcePath: "docs/evidence/resume-2026-09-07.pdf",
     sourceLocator: "Tangible Play / Osmo experience, bullet 2",
     sourceType: "resume",
     confidence: "high",
@@ -187,7 +187,7 @@ export const proofClaims: ProofClaim[] = [
     claim:
       "Ranked top 6% globally in the Kaggle FIDE and Google Efficient Chess AI Challenge.",
     sourcePath: "public/resume/Himadri_Mishra_Resume.pdf",
-    sourceLocator: "Education and awards",
+    sourceLocator: "Education and recognition",
     sourceType: "resume",
     confidence: "high",
     confidentialityLevel: "public",
@@ -215,7 +215,7 @@ export const proofClaims: ProofClaim[] = [
     claim:
       "Contributed to CLI, MCP and SDK interfaces, aligning tool descriptions, documentation navigation, routing behavior and API guidance.",
     sourcePath: "public/resume/Himadri_Mishra_Resume.pdf",
-    sourceLocator: "Current engineering work, bullet 1",
+    sourceLocator: "Firecrawl contract, bullet 1",
     sourceType: "resume",
     confidence: "high",
     confidentialityLevel: "public",
@@ -227,7 +227,7 @@ export const proofClaims: ProofClaim[] = [
     id: "recent-sdk-api-consistency",
     claim: "Contributed to SDK and API consistency for developer workflows.",
     sourcePath: "public/resume/Himadri_Mishra_Resume.pdf",
-    sourceLocator: "Current engineering work, bullet 2",
+    sourceLocator: "Firecrawl contract, bullet 2",
     sourceType: "resume",
     confidence: "high",
     confidentialityLevel: "public",
@@ -239,7 +239,7 @@ export const proofClaims: ProofClaim[] = [
     id: "recent-browser-session-tooling",
     claim: "Implemented browser-session entry points in MCP tooling.",
     sourcePath: "public/resume/Himadri_Mishra_Resume.pdf",
-    sourceLocator: "Current engineering work, bullet 3",
+    sourceLocator: "Firecrawl contract, bullet 3",
     sourceType: "resume",
     confidence: "high",
     confidentialityLevel: "public",
@@ -252,7 +252,7 @@ export const proofClaims: ProofClaim[] = [
     claim:
       "Repaired runtime request boundaries and recovery behavior with regression tests.",
     sourcePath: "public/resume/Himadri_Mishra_Resume.pdf",
-    sourceLocator: "Current engineering work, bullet 3",
+    sourceLocator: "Firecrawl contract, bullet 3",
     sourceType: "resume",
     confidence: "high",
     confidentialityLevel: "public",
@@ -264,7 +264,7 @@ export const proofClaims: ProofClaim[] = [
     id: "recent-mcp-runtime-migration",
     claim: "Migrated MCP server runtime behavior with smoke tests.",
     sourcePath: "public/resume/Himadri_Mishra_Resume.pdf",
-    sourceLocator: "Current engineering work, bullet 4",
+    sourceLocator: "Firecrawl contract, bullet 3",
     sourceType: "resume",
     confidence: "medium",
     confidentialityLevel: "public",
@@ -276,7 +276,7 @@ export const proofClaims: ProofClaim[] = [
     id: "recent-cli-credential-setup",
     claim: "Hardened CLI credential setup with regression tests.",
     sourcePath: "public/resume/Himadri_Mishra_Resume.pdf",
-    sourceLocator: "Current engineering work, bullet 4",
+    sourceLocator: "Firecrawl contract, bullet 2",
     sourceType: "resume",
     confidence: "medium",
     confidentialityLevel: "public",
@@ -287,9 +287,9 @@ export const proofClaims: ProofClaim[] = [
   {
     id: "recent-reviewed-ai-workflows",
     claim:
-      "Implemented retrieval-backed draft generation, claim checks and human-review gates, with supporting regression tests.",
+      "Built source-backed answers, claim checks and report drafts, with regression tests for citations, missing evidence and unsupported numbers.",
     sourcePath: "public/resume/Himadri_Mishra_Resume.pdf",
-    sourceLocator: "Current engineering work, bullet 5",
+    sourceLocator: "Mudita Studios contract, bullet 2",
     sourceType: "resume",
     confidence: "high",
     confidentialityLevel: "public",
