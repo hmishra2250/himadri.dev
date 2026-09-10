@@ -73,3 +73,34 @@ export const metrics: Metric[] = [
 ];
 
 export const metricProofs = metrics.map((metric) => claimById(metric.proofId));
+
+// Scoped private-source aggregates stay separate from the assistant's resume metrics.
+export const currentWorkMetrics: Metric[] = [
+  {
+    id: "routing-task-gain",
+    value: "~8 pp",
+    label: "Observed routing + completion gain",
+    context:
+      "76.3% to 83.9% across 118 matched task pairs and two clients. Directional controlled-study result, not statistically conclusive or a production conversion measure.",
+    proofId: "current-routing-study",
+    priority: 1,
+  },
+  {
+    id: "onboarding-surface-coverage",
+    value: "79",
+    label: "Mapped onboarding surfaces",
+    context:
+      "Integration and reader surfaces mapped to capability states, including held and no-card paths. Coverage, not 79 independent improvements.",
+    proofId: "current-journey-coverage",
+    priority: 2,
+  },
+  {
+    id: "agent-harness-coverage",
+    value: "6",
+    label: "Implemented agent-client adapters",
+    context:
+      "Shared evaluation contracts with client-specific transport support. Adapter coverage does not imply identical behavior.",
+    proofId: "current-harness-coverage",
+    priority: 3,
+  },
+];

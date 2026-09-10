@@ -37,10 +37,10 @@ export type Practice = {
 };
 
 export const practice: Practice = {
-  eyebrow: "AI systems and developer infrastructure",
-  headline: "I build AI products and developer tools.",
+  eyebrow: "AI product engineering and Agent Experience",
+  headline: "I build AI products and tools that agents can use.",
   summary:
-    "From MCP interfaces and SDKs to production AI workflows, I work on the boundaries that make software usable, testable and reliable.",
+    "From finding the right tool to checking the final result, I work across agent interfaces, stateful workflows, evaluation and recovery.",
   engagements: [
     {
       id: "agent-facing-tools",

@@ -297,6 +297,239 @@ export const proofClaims: ProofClaim[] = [
     publicLabelRequired: false,
     displayContexts: ["proof-wall", "hiring-fit", "interview"],
   },
+
+  {
+    id: "current-agent-delivery-platform-foundations",
+    claim:
+      "Implemented foundations for an anonymous agent delivery platform, including orchestration boundaries, typed configuration, reusable scaffolding, testing shape and operator-facing documentation.",
+    sourcePath: "docs/evidence/current-systems.md",
+    sourceLocator:
+      "Reviewed implementation category: Agent delivery platform foundations",
+    sourceType: "sanitized-artifact",
+    confidence: "medium",
+    confidentialityLevel: "sanitized",
+    approvedForPublicUse: true,
+    publicLabelRequired: true,
+    publicLabel:
+      "Anonymized implementation summary; underlying code is private.",
+    displayContexts: ["case-study", "source-card"],
+  },
+  {
+    id: "current-coding-agent-browser-qa-safeguards",
+    claim:
+      "Contributed safeguards for coding-agent execution and browser-connected QA, including guard boundaries, trace preservation, reviewer handoff context and testable checkpoints.",
+    sourcePath: "docs/evidence/current-systems.md",
+    sourceLocator:
+      "Reviewed implementation category: Coding-agent browser QA safeguards",
+    sourceType: "sanitized-artifact",
+    confidence: "medium",
+    confidentialityLevel: "sanitized",
+    approvedForPublicUse: true,
+    publicLabelRequired: true,
+    publicLabel:
+      "Anonymized implementation summary; underlying code is private.",
+    displayContexts: ["case-study", "source-card"],
+  },
+  {
+    id: "current-governed-knowledge-mcp-service",
+    claim:
+      "Implemented read-only knowledge tooling with an MCP server, scan runner, CI checks, structured context, invariant checks and proposed-change workflows.",
+    sourcePath: "docs/evidence/current-systems.md",
+    sourceLocator:
+      "Reviewed implementation category: Governed knowledge MCP service",
+    sourceType: "sanitized-artifact",
+    confidence: "medium",
+    confidentialityLevel: "sanitized",
+    approvedForPublicUse: true,
+    publicLabelRequired: true,
+    publicLabel:
+      "Anonymized implementation summary; underlying code is private.",
+    displayContexts: ["case-study", "source-card"],
+  },
+  {
+    id: "public-agent-experience-guide",
+    claim:
+      "Published a public Agent Experience field guide focused on agent discovery, task understanding, capability use, recovery and handoff.",
+    sourcePath: "https://agentexperience.tech/",
+    sourceLocator: "Home page and guide index",
+    sourceType: "public-profile",
+    confidence: "high",
+    confidentialityLevel: "public",
+    approvedForPublicUse: true,
+    publicLabelRequired: false,
+    displayContexts: ["case-study", "source-card"],
+  },
+  {
+    id: "public-agent-readiness-rubric",
+    claim:
+      "Published a draft structural rubric for agent readiness, with dimensions for discovery, structure, machine-readable content, action safety, recovery and policy signals.",
+    sourcePath: "https://agentexperience.tech/insights/agent-readiness-rubric/",
+    sourceLocator: "Rubric overview, scoring model and dimensions",
+    sourceType: "public-profile",
+    confidence: "high",
+    confidentialityLevel: "public",
+    approvedForPublicUse: true,
+    publicLabelRequired: false,
+    displayContexts: ["case-study", "source-card"],
+  },
+  {
+    id: "public-awesome-agent-experience",
+    claim:
+      "Maintains a curated public Agent Experience collection covering discovery, tool schemas, evaluation, human control, recovery and protocol design.",
+    sourcePath: "https://github.com/hmishra2250/awesome-agent-experience",
+    sourceLocator: "README scope criteria and source sections",
+    sourceType: "public-profile",
+    confidence: "high",
+    confidentialityLevel: "public",
+    approvedForPublicUse: true,
+    publicLabelRequired: false,
+    displayContexts: ["case-study", "source-card"],
+  },
+  {
+    id: "public-consumer-gpu-inference",
+    claim:
+      "Published a local inference experiment with reproducible scripts and documentation for running a large open model on consumer hardware, with hardware-specific limits.",
+    sourcePath: "https://github.com/hmishra2250/qwen-3.6-35b-consumer-gpu",
+    sourceLocator:
+      "README project overview, reproducibility notes and limitations",
+    sourceType: "public-profile",
+    confidence: "high",
+    confidentialityLevel: "public",
+    approvedForPublicUse: true,
+    publicLabelRequired: false,
+    displayContexts: ["case-study", "source-card"],
+  },
+  {
+    id: "method-agent-routing-surfaces",
+    claim:
+      "I built and evaluated capability-aware router cards so agents could choose the right installed tool and complete the task, not simply make more tool calls.",
+    sourcePath: "docs/evidence/current-methods.md",
+    sourceLocator: "Method category: Router cards and tool selection",
+    sourceType: "sanitized-artifact",
+    confidence: "medium",
+    confidentialityLevel: "sanitized",
+    approvedForPublicUse: true,
+    publicLabelRequired: true,
+    publicLabel: "Anonymized engineering summary; underlying work is private.",
+    displayContexts: ["case-study", "source-card"],
+  },
+
+  {
+    id: "method-auth-aware-onboarding",
+    claim:
+      "I implemented and shipped hosted MCP authentication and onboarding across account-connected, search-only and keyless entry points.",
+    sourcePath: "docs/evidence/current-methods.md",
+    sourceLocator: "Method category: MCP OAuth and auth-aware onboarding",
+    sourceType: "sanitized-artifact",
+    confidence: "medium",
+    confidentialityLevel: "sanitized",
+    approvedForPublicUse: true,
+    publicLabelRequired: true,
+    publicLabel: "Anonymized engineering summary; underlying work is private.",
+    displayContexts: ["case-study", "source-card"],
+  },
+
+  {
+    id: "method-discovery-retrieval-measurement",
+    claim:
+      "I owned and shipped measurement surfaces that show whether agents can find, retrieve and use a product, with evidence behind each reading.",
+    sourcePath: "docs/evidence/current-methods.md",
+    sourceLocator: "Method category: Discoverability and retrievability",
+    sourceType: "sanitized-artifact",
+    confidence: "medium",
+    confidentialityLevel: "sanitized",
+    approvedForPublicUse: true,
+    publicLabelRequired: true,
+    publicLabel: "Anonymized engineering summary; underlying work is private.",
+    displayContexts: ["case-study", "source-card"],
+  },
+
+  {
+    id: "method-multi-harness-ax-experiments",
+    claim:
+      "I built and shipped agent evaluation infrastructure for comparing discovery and usability across clients, models and tool surfaces.",
+    sourcePath: "docs/evidence/current-methods.md",
+    sourceLocator: "Method category: Multi-harness AX evaluation",
+    sourceType: "sanitized-artifact",
+    confidence: "medium",
+    confidentialityLevel: "sanitized",
+    approvedForPublicUse: true,
+    publicLabelRequired: true,
+    publicLabel: "Anonymized engineering summary; underlying work is private.",
+    displayContexts: ["case-study", "source-card"],
+  },
+
+  {
+    id: "method-coded-journey-paths",
+    claim:
+      "I introduced and implemented state-based journey testing: onboarding produces a capability state, and an A/B experiment consumes that state.",
+    sourcePath: "docs/evidence/current-methods.md",
+    sourceLocator: "Method category: Journey paths as executable state",
+    sourceType: "sanitized-artifact",
+    confidence: "medium",
+    confidentialityLevel: "sanitized",
+    approvedForPublicUse: true,
+    publicLabelRequired: true,
+    publicLabel: "Anonymized engineering summary; underlying work is private.",
+    displayContexts: ["case-study", "source-card"],
+  },
+
+  {
+    id: "method-evidence-grounded-insights",
+    claim:
+      "I built insight synthesis and shipped reporting that turns discovery, retrieval and journey evidence into reviewable product decisions.",
+    sourcePath: "docs/evidence/current-methods.md",
+    sourceLocator: "Method category: Evidence-grounded insight synthesis",
+    sourceType: "sanitized-artifact",
+    confidence: "medium",
+    confidentialityLevel: "sanitized",
+    approvedForPublicUse: true,
+    publicLabelRequired: true,
+    publicLabel: "Anonymized engineering summary; underlying work is private.",
+    displayContexts: ["case-study", "source-card"],
+  },
+  {
+    id: "current-routing-study",
+    claim:
+      "A controlled matched-pair study observed correct routing plus task completion rising from 90/118 to 99/118, a 7.63 percentage-point absolute gain across two clients. The result is directional, not statistically conclusive or a production conversion measure.",
+    sourcePath: "docs/evidence/current-work-results.md",
+    sourceLocator: "Controlled routing study",
+    sourceType: "sanitized-artifact",
+    confidence: "medium",
+    confidentialityLevel: "sanitized",
+    approvedForPublicUse: true,
+    publicLabelRequired: true,
+    publicLabel: "Anonymized engineering summary; underlying work is private.",
+    displayContexts: ["case-study", "source-card"],
+  },
+  {
+    id: "current-journey-coverage",
+    claim:
+      "Implemented a state-based inventory of 79 onboarding and integration surfaces, with held and no-card paths explicitly represented. This is coverage, not 79 successful experiments.",
+    sourcePath: "docs/evidence/current-work-results.md",
+    sourceLocator: "Journey inventory",
+    sourceType: "sanitized-artifact",
+    confidence: "medium",
+    confidentialityLevel: "sanitized",
+    approvedForPublicUse: true,
+    publicLabelRequired: true,
+    publicLabel: "Anonymized engineering summary; underlying work is private.",
+    displayContexts: ["case-study", "source-card"],
+  },
+  {
+    id: "current-harness-coverage",
+    claim:
+      "Implemented evaluation adapters for six agent clients, with client-specific transport support and evidence handling.",
+    sourcePath: "docs/evidence/current-work-results.md",
+    sourceLocator: "Harness coverage",
+    sourceType: "sanitized-artifact",
+    confidence: "medium",
+    confidentialityLevel: "sanitized",
+    approvedForPublicUse: true,
+    publicLabelRequired: true,
+    publicLabel: "Anonymized engineering summary; underlying work is private.",
+    displayContexts: ["case-study", "source-card"],
+  },
 ];
 
 export function claimById(id: string) {

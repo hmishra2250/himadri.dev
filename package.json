@@ -23,7 +23,7 @@
     "test:api": "tsx scripts/test-api.ts",
     "validate:structured-data": "tsx scripts/validate-structured-data.ts",
     "validate:seo": "tsx scripts/validate-seo.ts",
-    "test:privacy-contract": "tsx scripts/test-professional-presence-contracts.ts",
+    "test:privacy-contract": "tsx scripts/test-professional-presence-contracts.ts && tsx scripts/test-current-work.ts",
     "test:design:http": "tsx scripts/test-design-http.ts"
   },
   "dependencies": {

@@ -8,11 +8,11 @@ export type AboutOperatingPrinciple = {
 export const aboutPage = {
   eyebrow: "About",
   title:
-    "AI systems and developer infrastructure for teams that need inspectable work.",
+    "AI products, agent-facing tools, and the work between a request and a useful result.",
   intro:
-    "I've worked across agentic AI platforms, developer interfaces, ML infrastructure, search systems, and computer vision products. My focus is the part teams need after the demo: making AI workflows observable, evaluable, recoverable, and affordable.",
+    "I work on Agent Experience (AX): can an agent use a product to finish the task a person asked for? That means connecting discovery, access, tool use, checks and human handoffs, not just making a tool call succeed.",
   summary:
-    "The strongest conversations are about work that needs explicit orchestration, source-grounded artifacts, cost and latency tradeoffs, or an engineer who can leave behind a system others can operate.",
+    "My earlier work spans automated research, ML infrastructure, search and computer vision. I bring the same questions to agentic systems: does it work, what does it cost, how does it fail, and can the next engineer operate it?",
   principles: [
     {
       title: "I trace every claim to evidence",

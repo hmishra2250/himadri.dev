@@ -8,7 +8,8 @@ Public routes are governed by `src/lib/routes.ts`. The primary visitor experienc
 
 Homepage sections:
 
-- `/#work`, current work briefs and selected case-study context
+- `/#work`, resume-backed briefs and selected case-study context
+- Agent Experience engineering, scoped results, systems in development and public projects
 - `/#about`, short background and focus
 - `/#contact`, direct email, GitHub and resume links
 
@@ -66,8 +67,11 @@ http://127.0.0.1:3000
 Most public copy is typed data, not ad hoc page text.
 
 - `src/content/profile.ts`, name, headline, email, GitHub and canonical resume path
-- `src/content/practice.ts`, homepage practice copy and `recentWorkCases`
-- `src/content/proof.ts`, approved public proof claims backed by the current resume
+- `src/content/practice.ts`, homepage practice copy and resume-backed `recentWorkCases`
+- `src/content/current-work.ts`, qualified engineering summaries, public projects and completed evaluations
+- `docs/evidence/current-systems.md`, anonymized summary source, not independently reproducible public code
+- `docs/evidence/current-methods.md`, anonymized implemented and shipped engineering, with explicit experiment and operational limits
+- `src/content/proof.ts`, approved proof claims with resume, public artifact or sanitized-summary provenance
 - `src/content/metrics.ts`, public metrics tied to proof claims
 - `src/content/case-studies.ts`, compatible case-study reference pages
 - `src/content/about.ts`, about page content
@@ -76,8 +80,12 @@ Most public copy is typed data, not ad hoc page text.
 Rules to preserve:
 
 - Route, nav, sitemap and redirect behavior come from `src/lib/routes.ts`.
-- `recentWorkCases` is the homepage source of authority for current work briefs.
-- Public metrics and company-specific claims must stay tied to approved proof metadata and the current public resume.
+- `recentWorkCases` retains the canonical-resume-only proof contract.
+- New systems use a separate validated content lane with explicit maturity, scope limits and anonymized-summary labels. Public personal artifacts use reviewed public URLs.
+- Engineering cards distinguish shipped systems and reporting from completed experiments and implemented journey evaluation. Numeric evidence stays in the separately validated metrics lane.
+- Private-source systems and methods do not enter the assistant corpus; public positioning still uses the normal corpus build.
+- Approval-gated private findings, unconfirmed authorship and unbuilt plans stay out of public content.
+- Public metrics and company-specific claims must stay tied to approved proof metadata. Resume-backed metrics retain their existing source contract. Anonymous current-work aggregates use the separate `currentWorkMetrics` export and `docs/evidence/current-work-results.md`, with visible scope and uncertainty; they do not enter the assistant corpus.
 - Synthetic or sanitized examples must keep appropriate public labels.
 - Do not add private organization identities, raw customer data, secrets, proprietary prompts, internal rubrics, non-public screenshots or exact internal cost figures.
 

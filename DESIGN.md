@@ -1,32 +1,96 @@
-# Personal systems index
+# Design
 
-The approved direction is a light, work-forward engineering portfolio, not a product-marketing landing page. Recent anonymous engineering work is primary; historical case studies are supporting evidence.
+## Source of truth
 
-## Visual system
+- Status: Active
+- Last refreshed: 2026-09-10
+- Primary product surfaces: Home, Work index, enabled case-study detail routes, About, Resume, Contact, Notes, shared navigation, shared footer.
+- Evidence reviewed: `DESIGN.md`; `package.json`; `docs/portfolio_redesign_uiux_frontend_technical_design_doc.md`; `src/styles/globals.css`; `src/styles/home.css`; `src/styles/editorial.css`; `src/app/layout.tsx`; `src/app/page.tsx`; `src/components/layout/Navbar.tsx`; `src/components/layout/Footer.tsx`; `src/components/home/RecentWork.tsx`; `src/components/home/CurrentWork.tsx`; `src/components/home/CaseStudyGrid.tsx`; `src/content/current-work.ts`; `docs/evidence/current-systems.md`; `docs/evidence/current-methods.md`; `scripts/test-design-http.ts`; `scripts/test-current-work.ts`.
 
-- Pearl background `#f6f7f8`, graphite text `#14232c`, secondary text `#3d4d56`, muted text `#65737b`.
-- Cobalt accent `#2855d8`, darker interactive state `#1f43ae`.
-- Local Go Sans, real 400 and 700 faces; Go Mono for small section labels and verification notes. No serif display typography.
-- Flat hairline divisions, no decorative cards, gradients, fake dashboards or icon illustrations on the homepage.
-- A small original portrait, 144px desktop and 96px mobile, with the approved CSS crop. Do not regenerate or retouch the face.
-- Shared navigation and footer use the same light shell on every enabled public route. Navigation stays sticky and readable on mobile, wrapping as a group when needed.
+## Brand
 
-## Homepage composition
+- Personality: Calm, technical, evidence-first, work-forward, and senior. The site should feel like an engineer's publication surface, not a product-marketing landing page.
+- Trust signals: Resume-backed historical work, anonymous implemented-work summaries, public method labels, visible scope limits, route-level provenance gates, original portrait, source-grounded content, and restrained links to inspectable public work.
+- Avoid: Decorative cards, gradients, fake dashboards, generic SaaS illustration, unsupported superlatives, current-client identities, private traces, raw reports, exact costs, PR counts, private repo locators, and unsupported metrics.
 
-Compact portrait and copy hero, three equal work columns, a compact historical-work row, About, then Contact. Keep the approved typed practice content in full, including the two work bullets and distinct verification note for each item.
+## Product goals
 
-Recent work uses a modest mono label, not a competing display heading. Three columns share one top rule and vertical hairlines, then stack at 1100px and below to keep diagram labels readable. Diagrams are explicitly illustrative, line-only and contain no product guarantees. Use equal node heights, generous text padding, explicit workflow direction and clear request boundaries. No label may collide with a box or connector.
+- Goals: Help a CTO, founder, hiring manager, or AI platform lead quickly understand Himadri's ability to design, ship, evaluate, recover, and explain AI and developer systems.
+- Non-goals: Do not turn the site into a full product blog, a confidential work archive, a flashy portfolio template, or a public reproduction of private systems.
+- Success signals: Visitors can identify the primary recent work, understand which claims are shipped systems versus experiments versus delivery gates, reach public work and contact actions, and verify that private claims are scoped and anonymized.
 
-Historical work, About and Contact share a 220px label column and 30px gutter on desktop, then a single column on mobile. About and Contact labels have no trailing periods.
+## Personas and jobs
 
-Contact actions are consistent 44px-high filled buttons: Email in cobalt, GitHub in charcoal, Resume PDF in restrained red, X in black and LinkedIn in blue. On narrow screens Email spans the row; the other four actions form two columns. Keep text contrast at least 4.5:1 and visible keyboard focus.
+- Primary personas: Senior engineering hiring managers, startup founders, AI platform leads, applied AI team reviewers, technical recruiters, and collaborators evaluating public work.
+- User jobs: Assess technical depth, understand recency, inspect public artifacts, compare historical production experience with current agent-systems work, download the resume, and contact Himadri.
+- Key contexts of use: Fast desktop review during candidate screening, mobile resume triage, public profile follow-up, and targeted review of work examples from shared links.
 
-## Whole-site application
+## Information architecture
 
-About, Resume, Contact, Notes, the case-study index and all enabled case-study detail routes inherit the same typography, background, spacing, link treatment and shell. Keep useful detailed content, source labels, route anchors and existing interactive behavior. Do not simply invert the homepage while leaving dark secondary surfaces behind.
+- Primary navigation: Manifest-driven shell links only. Home is the narrative entry; Work links to the `#work` section and Work index; About, Resume, and Contact remain direct routes or anchors as configured by the route manifest.
+- Core routes/screens: Home, `/case-studies`, enabled case-study detail pages, `/about`, `/resume`, `/contact`, `/notes`, navigation, and footer.
+- Content hierarchy: Hero; existing resume-backed three-column recent work with a compact historical case-study link; implemented Agent Experience work; ancillary systems in development; public work links; About; Contact. The Work index shows recent columns, implemented engineering, ancillary systems, then historical case studies.
 
-The route manifest, proof metadata, assistant gates and analytics privacy rules remain authoritative. No current-client identities, private traces or new unsupported claims are introduced by this design.
+## Design principles
 
-## Verification
+- Principle 1: Evidence before ornament. Every visual choice should make scoped proof, status, and next action easier to read.
+- Principle 2: Publication, not pitch deck. The interface should read like a compact engineering record with strong hierarchy, not like a conversion funnel.
+- Tradeoffs: Prefer plain text, hairlines, source labels, and section rhythm over dense visual widgets. Preserve confidentiality even when a stronger claim would be more persuasive.
 
-Check the actual application at 1440px and 390px, plus narrow overflow checks. Verify typography, portrait identity, diagram padding, full work copy, contact targets, sticky navigation, secondary routes, contrast, route redirects and canonical PDF bytes. Run the repository verification suite before release. Mockup approval is not proof that the application matches it.
+## Visual language
+
+- Color: Keep pearl background `#f6f7f8`, graphite text `#14232c`, secondary graphite `#3d4d56`, muted text `#65737b`, cobalt accent `#2855d8`, and darker cobalt interactive state `#1f43ae`. Use semantic CSS variables from `src/styles/globals.css` rather than new isolated values.
+- Typography: Use local Go Sans for all primary text, with real 400 and 700 weights. Use Go Mono for small labels, status text, verification notes, section labels, and figure captions. Do not introduce serif display typography.
+- Spacing/layout rhythm: Keep the compact editorial rhythm: a centered container, strong section gaps, one top rule per work grid, and 220px label columns with 30px desktop gutters on secondary rows.
+- Shape/radius/elevation: Flat hairline divisions are the default. Avoid decorative card chrome. The approved portrait remains a small rounded frame, 144px desktop and 96px mobile, with the existing crop.
+- Motion: Minimal transitions for links, borders, background, and opacity using existing duration and easing variables. No animated dashboards or motion that competes with evidence labels.
+- Imagery/iconography: Keep the original portrait and line-only system sketches. Diagrams are illustrative, not product guarantees. They must have clear direction, equal node heights, and no text collisions.
+
+## Components
+
+- Existing components to reuse: `Navbar`, `Footer`, `Hero`, `RecentWork`, `ReviewedSystems`, `EvaluationPractice`, `PublicWork`, `CaseStudyGrid`, `AllCaseStudies`, `ContactCTA`, `ContactActions`, `TrackedLink`, and `SystemSketch`.
+- New/changed components: No new visual system is required for implemented-work publication. If cards need richer evidence callouts, extend existing `work-column`, `work-status`, `verification`, and `work-source` patterns instead of introducing a separate card language.
+- Variants and states: Work cards must show title, status, summary, scope or limitation, and public label when sourced from anonymous or private work. Links use existing hover underline, visible focus ring, and manifest-safe hrefs. Contact actions stay 44px high with existing color roles.
+- Token/component ownership: `src/styles/globals.css` owns tokens; `home.css` owns homepage composition; `editorial.css` owns route-level editorial surfaces. `src/lib/routes.ts` remains the route authority.
+
+## Accessibility
+
+- Target standard: WCAG 2.1 AA practical baseline for text contrast, landmarks, headings, focus, and keyboard navigation.
+- Keyboard/focus behavior: Preserve the skip link, one `main` landmark, sticky navigation, and visible `:focus-visible` outline. All public links and contact actions must be reachable by keyboard.
+- Contrast/readability: Text and buttons must stay at least 4.5:1 where required. Cobalt labels are acceptable only on the pearl shell or similarly light backgrounds.
+- Screen-reader semantics: Use semantic `section`, `article`, `h1`, `h2`, `h3`, `nav`, `main`, and `footer` landmarks. Each section needs an accessible heading or label. Avoid status-only color communication.
+- Reduced motion and sensory considerations: Keep motion minimal enough that reduced-motion overrides are rarely needed. If new animation is added, provide a `prefers-reduced-motion` fallback.
+
+## Responsive behavior
+
+- Supported breakpoints/devices: Desktop around 1440px, wide desktop above 1441px, tablet and narrow layouts at 1100px and below, and mobile around 390px.
+- Layout adaptations: Three-column work grids stack at 1100px and below. Hero portrait and copy collapse cleanly on mobile. Historical, About, and Contact rows move from the 220px label column to one column.
+- Touch/hover differences: Do not rely on hover to reveal essential information. Link affordances and focus states must remain visible on touch and keyboard.
+
+## Interaction states
+
+- Loading: Static portfolio content should render without custom loading states. Dynamic assistant behavior remains gated and is not part of the public design unless enabled by environment flags.
+- Empty: Do not publish empty routes, coming-soon pages, or placeholder cards.
+- Error: Failed optional integrations should preserve deterministic, source-grounded fallbacks and avoid exposing private data.
+- Success: Successful navigation, contact actions, resume download, and public project links should use standard link behavior with analytics limited to coarse portfolio events.
+- Disabled: Disabled, deferred, retired, internal, and API routes must stay out of public navigation and sitemap.
+- Offline/slow network, if applicable: Core content should remain server-rendered and readable without client-side hydration-dependent disclosure.
+
+## Content voice
+
+- Tone: Specific, measured, technical, and personally accountable.
+- Terminology: Use explicit labels such as implemented service, shipped system, controlled experiment, technical design, anonymized summary, public project, scope, and limitation.
+- Microcopy rules: No em dashes in authored content. Avoid vague claims. Scope every private or anonymous work claim. Distinguish shipped systems from experiments and delivery gates. Do not imply conversion, hosted-client parity, transport parity, causal adoption, or broad production rollout unless the proof model explicitly supports it.
+
+## Implementation constraints
+
+- Framework/styling system: Next.js App Router, TypeScript, React, Tailwind import path, local CSS files by route surface, and local Go font files through `next/font/local`.
+- Design-token constraints: Use existing CSS custom properties and component classes. Do not add dependencies or a new design-system abstraction without an approved plan.
+- Performance constraints: Keep graph, editor, assistant, and interactive work route-local. The homepage critical path should stay lightweight, mostly server-rendered, and free of decorative client widgets.
+- Compatibility constraints: Route manifest, proof metadata, confidentiality validation, assistant gates, and analytics privacy rules remain authoritative over presentation desires.
+- Test/screenshot expectations: For release, run design HTTP contracts, privacy/current-work tests, route and content validation, full repository verification, HTTP asset checks, and desktop plus mobile visual inspection when available.
+
+## Open questions
+
+- [ ] Future owner / low impact: Should the Work index eventually become the canonical implemented-work archive, or stay a mirror of homepage evidence?
+- [x] Publication decision: Render the approved routing-study, journey-inventory and harness-coverage aggregates with visible limits and separate proof metadata.

@@ -2,9 +2,9 @@ import { profile } from "@/content/profile";
 
 export const siteConfig = {
   name: "Himadri Mishra",
-  title: "Himadri Mishra | AI Systems and Developer Infrastructure",
+  title: "Himadri Mishra | AI Product Engineering and Agent Experience",
   description:
-    "AI systems and developer infrastructure engineer helping teams with agent-facing tools, production AI workflows, evaluation, observability, ML infrastructure, and cost controls.",
+    "AI product engineer working across Agent Experience, MCP and developer tools, agentic workflows, evaluation and recovery, grounded in ML infrastructure, search and computer vision.",
   url: "https://www.himadri.dev",
   author: profile.name,
 };

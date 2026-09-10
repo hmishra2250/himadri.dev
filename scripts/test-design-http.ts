@@ -1,5 +1,7 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
+import { currentWork } from "../src/content/current-work";
+import { currentWorkMetrics } from "../src/content/metrics";
 import { practice } from "../src/content/practice";
 import { profile } from "../src/content/profile";
 import { publicRoutes } from "../src/lib/routes";
@@ -61,6 +63,20 @@ async function main() {
       assert.ok(text.includes(copy), `Missing approved work copy: ${copy}`);
     }
   }
+  for (const item of [
+    ...currentWork.reviewedSystems,
+    ...currentWork.methodCards,
+  ]) {
+    for (const copy of [
+      item.title,
+      item.summary,
+      item.status,
+      item.limitations,
+      item.publicLabel,
+    ]) {
+      assert.ok(text.includes(copy), `Missing current work copy: ${copy}`);
+    }
+  }
   assert.equal((home.match(/<figcaption\b/g) || []).length, 3);
   assert.equal((text.match(/Illustrative system sketch/g) || []).length, 3);
   assert.ok(
@@ -81,6 +97,15 @@ async function main() {
     const response = await fetch(`${base}${route.path}`);
     assert.equal(response.status, 200, route.path);
     const html = await response.text();
+    if (route.path === "/" || route.path === "/case-studies") {
+      const rendered = visibleText(html);
+      for (const metric of currentWorkMetrics)
+        for (const copy of [metric.value, metric.label, metric.context])
+          assert.ok(
+            rendered.includes(copy),
+            `${route.path}: missing metric disclosure ${copy}`,
+          );
+    }
     assert.equal(
       (html.match(/<main\b/g) || []).length,
       1,

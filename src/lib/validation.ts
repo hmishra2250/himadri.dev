@@ -10,10 +10,12 @@ import {
   interviewAnswers,
   interviewQuestions,
 } from "@/content/interview";
-import { metrics } from "@/content/metrics";
+import { metrics, currentWorkMetrics } from "@/content/metrics";
 import type { Note } from "@/content/notes";
 import { notes } from "@/content/notes";
 import { practice } from "@/content/practice";
+import { currentWork } from "@/content/current-work";
+import { validateCurrentWork } from "@/lib/current-work-validation";
 import { principles } from "@/content/principles";
 import { proofClaims } from "@/content/proof";
 import { profile } from "@/content/profile";
@@ -161,6 +163,7 @@ export function validateContent() {
     checkProofRef(errors, ids, owner, proofId);
 
   errors.push(...validatePracticeContract(practice, proofClaims));
+  errors.push(...validateCurrentWork(currentWork, proofClaims));
 
   const checkEnabledHref = (owner: string, href: string) => {
     if (href.startsWith("/resume/") && href.endsWith(".pdf")) return;
@@ -169,7 +172,7 @@ export function validateContent() {
       errors.push(`${owner} links to disabled route: ${href}`);
   };
 
-  metrics.forEach((metric) => {
+  [...metrics, ...currentWorkMetrics].forEach((metric) => {
     checkLocalProofRef(`metric ${metric.id}`, metric.proofId);
     if (!metric.context) errors.push(`metric ${metric.id} missing context`);
   });

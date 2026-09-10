@@ -4,6 +4,12 @@ import { RouteJsonLd } from "@/components/seo/RouteJsonLd";
 import { ContactCTA } from "@/components/home/ContactCTA";
 import { Hero } from "@/components/home/Hero";
 import { RecentWork } from "@/components/home/RecentWork";
+import {
+  EvaluationPractice,
+  PublicWork,
+  ReviewedSystems,
+} from "@/components/home/CurrentWork";
+import { aboutPage } from "@/content/about";
 
 export const metadata: Metadata = buildPageMetadata("/");
 
@@ -14,6 +20,13 @@ export default function Home() {
       <div className="home-page">
         <Hero />
         <RecentWork />
+        <EvaluationPractice />
+        <section className="work-section" aria-labelledby="systems-title">
+          <div className="container work-stack">
+            <ReviewedSystems />
+          </div>
+        </section>
+        <PublicWork />
         <section
           className="about-section"
           id="about"
@@ -24,12 +37,7 @@ export default function Home() {
               About
             </h2>
             <div>
-              <p>
-                I am an AI systems engineer working across agent workflows,
-                developer interfaces, ML infrastructure, search, and computer
-                vision. I care about software that can be inspected, tested,
-                recovered, and handed over.
-              </p>
+              <p>{aboutPage.summary}</p>
             </div>
           </div>
         </section>

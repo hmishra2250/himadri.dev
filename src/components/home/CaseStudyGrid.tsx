@@ -3,6 +3,10 @@ import {
   SystemSketch,
   type SystemSketchVariant,
 } from "@/components/home/SystemSketch";
+import {
+  EvaluationPractice,
+  ReviewedSystems,
+} from "@/components/home/CurrentWork";
 import { TrackedLink } from "@/components/ui/TrackedLink";
 import { caseStudies, type CaseStudy } from "@/content/case-studies";
 import { practice, type RecentWorkCase } from "@/content/practice";
@@ -118,7 +122,8 @@ export function AllCaseStudies() {
           <div className="editorial-prose route-copy-stack">
             <h1 id="all-case-studies-title">Work.</h1>
             <p className="hero-subtitle">
-              Selected contributions and production systems.
+              Selected contributions, systems in development, and earlier
+              production work.
             </p>
           </div>
         </div>
@@ -140,6 +145,17 @@ export function AllCaseStudies() {
               <RecentWorkColumn brief={brief} key={brief.id} />
             ))}
           </div>
+        </div>
+      </section>
+
+      <EvaluationPractice
+        titleId="case-index-evaluation-title"
+        className="route-section evaluation-practice"
+      />
+
+      <section className="route-section" aria-labelledby="work-systems-title">
+        <div className="container work-stack">
+          <ReviewedSystems titleId="work-systems-title" />
         </div>
       </section>
 

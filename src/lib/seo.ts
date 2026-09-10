@@ -17,24 +17,24 @@ const professionalPresenceLastModified = "2026-09-07";
 
 const routeSeoData = {
   "/": {
-    title: "Himadri Mishra | AI Systems and Developer Infrastructure",
+    title: "Himadri Mishra | AI Product Engineering and Agent Experience",
     description:
-      "AI systems and developer infrastructure for agent-facing tools, CLI, MCP, SDK/API consistency, production AI workflows, evaluation, observability, and ML platform reliability.",
+      "AI product engineering across Agent Experience, MCP and developer tools, stateful workflows, evaluation and recovery. Explore selected work and public projects.",
     canonicalPath: "/",
-    openGraphTitle: "Himadri Mishra | AI systems and developer infrastructure",
+    openGraphTitle: "Himadri Mishra | AI products and agent-facing tools",
     openGraphDescription:
-      "Evidence-backed portfolio for agent-facing developer tools, production AI workflows, ML infrastructure, computer vision, and reliability work.",
-    lastModified: professionalPresenceLastModified,
+      "Selected engineering work, qualified implementation summaries and public projects in Agent Experience, agentic systems and AI product engineering.",
+    lastModified: "2026-09-10",
   },
   "/case-studies": {
     title: "AI Case Studies",
     description:
-      "Production AI case studies: agentic research platform, ML infrastructure rescue, computer vision, and AR engineering with metrics and trade-offs.",
+      "Selected agent-facing tools and implementation summaries, alongside production AI, ML infrastructure, computer vision and AR case studies.",
     canonicalPath: "/case-studies",
     openGraphTitle: "Production AI case studies",
     openGraphDescription:
-      "Four production AI systems dissected: agentic workflows, ML platform cost reduction, computer vision, and high-performance AR engineering.",
-    lastModified: sharedLastModified,
+      "Recent agentic systems with explicit implementation limits, plus earlier production AI, ML infrastructure and computer vision work.",
+    lastModified: "2026-09-10",
   },
   "/case-studies/agentic-market-research-platform": {
     title: "Agentic Research Platform Case Study",
@@ -79,12 +79,12 @@ const routeSeoData = {
   "/about": {
     title: "About Himadri Mishra",
     description:
-      "IIT-BHU and UC Berkeley trained AI engineer working across agent-facing developer infrastructure, production AI workflows, ML infrastructure, search, and computer vision systems.",
+      "AI product engineer focused on Agent Experience, agentic systems and evaluation, with a background in ML infrastructure, search and computer vision.",
     canonicalPath: "/about",
     openGraphTitle: "About Himadri Mishra",
     openGraphDescription:
       "Career arc from IIT-BHU through Microsoft, UC Berkeley, and production AI, ML infrastructure, search, and computer vision systems.",
-    lastModified: professionalPresenceLastModified,
+    lastModified: "2026-09-10",
   },
   "/resume": {
     title: "Resume",
