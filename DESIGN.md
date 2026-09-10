@@ -27,9 +27,9 @@
 
 ## Information architecture
 
-- Primary navigation: Manifest-driven shell links only. Home is the narrative entry; Work links to the `#work` section and Work index; About, Resume, and Contact remain direct routes or anchors as configured by the route manifest.
+- Primary navigation: Manifest-driven shell links only. Home is the narrative entry; Work links directly to the complete `/case-studies` archive; About, Resume, and Contact remain direct routes or anchors as configured by the route manifest.
 - Core routes/screens: Home, `/case-studies`, enabled case-study detail pages, `/about`, `/resume`, `/contact`, `/notes`, navigation, and footer.
-- Content hierarchy: Hero; existing resume-backed three-column recent work with a compact historical case-study link; implemented Agent Experience work; ancillary shipped systems; public work links; About; Contact. The Work index shows recent columns, implemented engineering, ancillary systems, then historical case studies.
+- Content hierarchy: Home is curated: Hero, three Selected work highlights, contextual Writing feature, About and Contact. Work is the full archive: Agent tools and evaluation, AI workflows and safeguards, Production case studies, Writing and open source. See `docs/plans/curated-portfolio.md`, which supersedes the earlier mirrored-homepage publication layout.
 
 ## Design principles
 
@@ -44,11 +44,11 @@
 - Spacing/layout rhythm: Keep the compact editorial rhythm: a centered container, strong section gaps, one top rule per work grid, and 220px label columns with 30px desktop gutters on secondary rows.
 - Shape/radius/elevation: Flat hairline divisions are the default. Avoid decorative card chrome. The approved portrait remains a small rounded frame, 144px desktop and 96px mobile, with the existing crop.
 - Motion: Minimal transitions for links, borders, background, and opacity using existing duration and easing variables. No animated dashboards or motion that competes with evidence labels.
-- Imagery/iconography: Keep the original portrait and line-only system sketches. Diagrams are illustrative, not product guarantees. They must have clear direction, equal node heights, and no text collisions.
+- Imagery/iconography: Keep the original portrait. Omit decorative system sketches from the introductory cards; technical diagrams belong with detailed case studies. Diagrams remain illustrative, not product guarantees.
 
 ## Components
 
-- Existing components to reuse: `Navbar`, `Footer`, `Hero`, `RecentWork`, `ReviewedSystems`, `EvaluationPractice`, `PublicWork`, `CaseStudyGrid`, `AllCaseStudies`, `ContactCTA`, `ContactActions`, `TrackedLink`, and `SystemSketch`.
+- Existing components to reuse: `Navbar`, `Footer`, `Hero`, `SelectedWork`, `WritingFeature`, `ReviewedSystems`, `AgentToolsAndEvaluation`, `PublicWork`, `AllCaseStudies`, `ContactCTA`, `ContactActions`, `TrackedLink`.
 - New/changed components: No new visual system is required for implemented-work publication. If cards need richer evidence callouts, extend existing `work-column`, `work-status`, `verification`, and `work-source` patterns instead of introducing a separate card language.
 - Variants and states: Work cards must show title, status, summary, scope or limitation, and public label when sourced from anonymous or private work. Links use existing hover underline, visible focus ring, and manifest-safe hrefs. Contact actions stay 44px high with existing color roles.
 - Token/component ownership: `src/styles/globals.css` owns tokens; `home.css` owns homepage composition; `editorial.css` owns route-level editorial surfaces. `src/lib/routes.ts` remains the route authority.
@@ -64,7 +64,7 @@
 ## Responsive behavior
 
 - Supported breakpoints/devices: Desktop around 1440px, wide desktop above 1441px, tablet and narrow layouts at 1100px and below, and mobile around 390px.
-- Layout adaptations: Three-column work grids stack at 1100px and below. Hero portrait and copy collapse cleanly on mobile. Historical, About, and Contact rows move from the 220px label column to one column.
+- Layout adaptations: Homepage highlight columns stack at 1100px and below; detailed Work grids stack at 900px. Hero portrait and copy collapse cleanly on mobile. Historical, About, and Contact rows move from the 220px label column to one column.
 - Touch/hover differences: Do not rely on hover to reveal essential information. Link affordances and focus states must remain visible on touch and keyboard.
 
 ## Interaction states
@@ -86,11 +86,11 @@
 
 - Framework/styling system: Next.js App Router, TypeScript, React, Tailwind import path, local CSS files by route surface, and local Go font files through `next/font/local`.
 - Design-token constraints: Use existing CSS custom properties and component classes. Do not add dependencies or a new design-system abstraction without an approved plan.
-- Performance constraints: Keep graph, editor, assistant, and interactive work route-local. The homepage critical path should stay lightweight, mostly server-rendered, and free of decorative client widgets.
+- Performance constraints: Keep graph, editor, assistant, and interactive work route-local. Home and Work must be prerendered at build time, with content, links and proof disclosures present before JavaScript. Keep the homepage lightweight and free of decorative client widgets.
 - Compatibility constraints: Route manifest, proof metadata, confidentiality validation, assistant gates, and analytics privacy rules remain authoritative over presentation desires.
 - Test/screenshot expectations: For release, run design HTTP contracts, privacy/current-work tests, route and content validation, full repository verification, HTTP asset checks, and desktop plus mobile visual inspection when available.
 
 ## Open questions
 
-- [ ] Future owner / low impact: Should the Work index eventually become the canonical implemented-work archive, or stay a mirror of homepage evidence?
-- [x] Publication decision: Render the approved routing-study, journey-inventory and harness-coverage aggregates with visible limits and separate proof metadata.
+- [x] Work is the complete archive; Home intentionally presents only three highlights and one writing feature.
+- [x] Publication decision: Keep scoped routing-study, journey-inventory and harness-coverage aggregates on Work, not in the introductory homepage highlights.

@@ -2,7 +2,6 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
-import Home from "../src/app/page";
 import { AllCaseStudies } from "../src/components/home/CaseStudyGrid";
 import { currentWork, type CurrentWork } from "../src/content/current-work";
 import { proofClaims, type ProofClaim } from "../src/content/proof";
@@ -210,12 +209,11 @@ for (const system of currentWork.reviewedSystems) {
   );
 }
 
-const homeHtml = renderToStaticMarkup(createElement(Home));
 const workHtml = renderToStaticMarkup(createElement(AllCaseStudies));
 function renderedText(text: string) {
   return renderToStaticMarkup(createElement("span", null, text)).slice(6, -7);
 }
-for (const html of [homeHtml, workHtml]) {
+for (const html of [workHtml]) {
   for (const system of currentWork.reviewedSystems) {
     for (const text of [
       system.title,
@@ -231,9 +229,9 @@ for (const html of [homeHtml, workHtml]) {
   }
 }
 for (const project of currentWork.publicProjects) {
-  assert.ok(homeHtml.includes(`href="${project.href}"`));
-  assert.ok(homeHtml.includes(renderedText(project.status)));
-  assert.ok(homeHtml.includes(renderedText(project.limitations)));
+  assert.ok(workHtml.includes(`href="${project.href}"`));
+  assert.ok(workHtml.includes(renderedText(project.status)));
+  assert.ok(workHtml.includes(renderedText(project.limitations)));
 }
 for (const method of currentWork.methodCards) {
   for (const text of [
@@ -244,7 +242,7 @@ for (const method of currentWork.methodCards) {
     method.publicLabel,
     ...method.details,
   ]) {
-    for (const html of [homeHtml, workHtml]) {
+    for (const html of [workHtml]) {
       assert.ok(
         html.includes(renderedText(text)),
         `rendered method missing ${text}`,
@@ -252,17 +250,12 @@ for (const method of currentWork.methodCards) {
     }
   }
 }
-assert.ok(homeHtml.includes("Systems I implemented and shipped"));
-for (const html of [homeHtml, workHtml]) {
-  assert.ok(html.includes("Shipped systems."));
-  assert.doesNotMatch(
-    html,
-    /systems (?:currently )?in development|not deployed|integration remains gated/i,
-  );
-  assert.ok(
-    html.indexOf("Agent experience, end to end.") <
-      html.indexOf("Shipped systems."),
-  );
+assert.ok(workHtml.includes("AI workflows and safeguards."));
+assert.doesNotMatch(
+  workHtml,
+  /systems (?:currently )?in development|not deployed|integration remains gated/i,
+);
+for (const html of [workHtml]) {
   for (const metric of currentWorkMetrics) {
     for (const text of [metric.value, metric.label, metric.context])
       assert.ok(

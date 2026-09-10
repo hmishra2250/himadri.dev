@@ -3,13 +3,10 @@ import { buildPageMetadata } from "@/lib/seo";
 import { RouteJsonLd } from "@/components/seo/RouteJsonLd";
 import { ContactCTA } from "@/components/home/ContactCTA";
 import { Hero } from "@/components/home/Hero";
-import { RecentWork } from "@/components/home/RecentWork";
-import {
-  EvaluationPractice,
-  PublicWork,
-  ReviewedSystems,
-} from "@/components/home/CurrentWork";
+import { SelectedWork, WritingFeature } from "@/components/home/SelectedWork";
 import { aboutPage } from "@/content/about";
+
+export const dynamic = "error";
 
 export const metadata: Metadata = buildPageMetadata("/");
 
@@ -19,14 +16,8 @@ export default function Home() {
       <RouteJsonLd path="/" />
       <div className="home-page">
         <Hero />
-        <RecentWork />
-        <EvaluationPractice />
-        <section className="work-section" aria-labelledby="systems-title">
-          <div className="container work-stack">
-            <ReviewedSystems />
-          </div>
-        </section>
-        <PublicWork />
+        <SelectedWork />
+        <WritingFeature />
         <section
           className="about-section"
           id="about"

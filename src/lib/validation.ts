@@ -14,6 +14,7 @@ import { metrics, currentWorkMetrics } from "@/content/metrics";
 import type { Note } from "@/content/notes";
 import { notes } from "@/content/notes";
 import { practice } from "@/content/practice";
+import { selectedWork } from "@/content/selected-work";
 import { currentWork } from "@/content/current-work";
 import { validateCurrentWork } from "@/lib/current-work-validation";
 import { principles } from "@/content/principles";
@@ -171,6 +172,27 @@ export function validateContent() {
     if (!routeIsEnabled(routePath))
       errors.push(`${owner} links to disabled route: ${href}`);
   };
+
+  for (const work of selectedWork) {
+    if (
+      !work.title ||
+      !work.summary ||
+      !work.linkLabel ||
+      !work.proofIds.length
+    )
+      errors.push(`selected work ${work.id} missing content or proof`);
+    checkEnabledHref(`selected work ${work.id}`, work.href);
+    for (const id of work.proofIds) {
+      checkLocalProofRef(`selected work ${work.id}`, id);
+      if (!proofClaims.find((proof) => proof.id === id)?.approvedForPublicUse)
+        errors.push(`selected work ${work.id} requires approved proof`);
+    }
+    if (work.metricId) {
+      const metric = metrics.find((entry) => entry.id === work.metricId);
+      if (!metric || !work.proofIds.includes(metric.proofId))
+        errors.push(`selected work ${work.id} missing metric proof`);
+    }
+  }
 
   [...metrics, ...currentWorkMetrics].forEach((metric) => {
     checkLocalProofRef(`metric ${metric.id}`, metric.proofId);

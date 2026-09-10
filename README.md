@@ -8,27 +8,11 @@ Public routes are governed by `src/lib/routes.ts`. The primary visitor experienc
 
 Homepage sections:
 
-- `/#work`, resume-backed briefs and selected case-study context
-- Agent Experience engineering, scoped results, shipped systems and public projects
-- `/#about`, short background and focus
-- `/#contact`, direct email, GitHub and resume links
+- `/#work`, three selected highlights: agent tools, the production research platform and ML infrastructure
+- Writing, one contextual field-guide feature with a link to the complete public-project collection
+- `/#about` and `/#contact`, background and direct contact/resume actions
 
-Compatible reference pages remain available for direct links and search:
-
-- `/case-studies`, work index
-- `/case-studies/agentic-market-research-platform`
-- `/case-studies/ml-infra-rescue`
-- `/case-studies/computer-vision-product-systems`
-- `/case-studies/high-performance-ar-and-vision`
-- `/about`
-- `/contact`
-- `/resume`, minimal resume download page
-
-Secondary page:
-
-- `/notes`
-
-Navigation labels still come from the route manifest. `navHref` overrides send Work, About and Contact to homepage anchors while canonical SEO paths remain the standalone route paths. Retired Interview, Principles and Challenges routes redirect through `next.config.ts`, stay out of nav and sitemap, and remain marked noindex.
+The Work navigation opens `/case-studies`, the complete static archive. Its four chapters cover agent tools and evaluation, AI workflows and safeguards, production case studies, and writing/open source. Details and controlled-experiment results live there rather than being duplicated on Home.
 
 ## Stack
 
@@ -67,7 +51,8 @@ http://127.0.0.1:3000
 Most public copy is typed data, not ad hoc page text.
 
 - `src/content/profile.ts`, name, headline, email, GitHub and canonical resume path
-- `src/content/practice.ts`, homepage practice copy and resume-backed `recentWorkCases`
+- `src/content/practice.ts`, homepage introduction and resume-backed contribution briefs retained on Work
+- `src/content/selected-work.ts`, three proof-linked homepage highlights
 - `src/content/current-work.ts`, qualified engineering summaries, public projects and completed evaluations
 - `docs/evidence/current-systems.md`, anonymized summary source, not independently reproducible public code
 - `docs/evidence/current-methods.md`, anonymized implemented and shipped engineering, with explicit experiment and operational limits
@@ -80,7 +65,7 @@ Most public copy is typed data, not ad hoc page text.
 Rules to preserve:
 
 - Route, nav, sitemap and redirect behavior come from `src/lib/routes.ts`.
-- `recentWorkCases` retains the canonical-resume-only proof contract.
+- `recentWorkCases` retains the canonical-resume-only proof contract; placement on Work does not change that gate.
 - New systems use a separate validated content lane with explicit maturity, scope limits and anonymized-summary labels. Public personal artifacts use reviewed public URLs.
 - Engineering cards distinguish shipped systems and reporting from completed experiments and implemented journey evaluation. Numeric evidence stays in the separately validated metrics lane.
 - Private-source systems and methods do not enter the assistant corpus; public positioning still uses the normal corpus build.
@@ -151,3 +136,9 @@ Assistant corpus checks are still part of `npm run verify` because the internal 
 ## Deployment
 
 The project is configured for Vercel deployment from the connected repository. This README does not assert that any recent deployment has happened. Verify the current production state in Vercel before making release claims.
+
+## Static portfolio delivery
+
+Home and Work reject request-time content rendering and are prerendered at build time. `npm run build` checks the prerender manifest; `test:privacy-contract` checks the curated/full-archive split, proof references and Server Component source boundaries. `test:design:http` checks content and links in raw HTTP HTML with scripts removed, including metadata, disclosures and archive anchors. Core content does not depend on hydration, browser data fetching or client-side filters. Existing Next.js navigation and optional analytics are not a promise of zero JavaScript.
+
+The current information architecture is defined in `docs/plans/curated-portfolio.md` and `DESIGN.md`.

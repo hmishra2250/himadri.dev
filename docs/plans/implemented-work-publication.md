@@ -2,7 +2,7 @@
 
 ## Status
 
-- Status: Active publication design
+- Status: Evidence and publication constraints retained; page composition superseded by `curated-portfolio.md`
 - Owner: portfolio content and proof lanes
 - UI scope: No visual redesign, no new routes, no new dependencies
 - Privacy posture: Anonymous recent professional work is allowed only as scoped public-safe summaries. Public personal project names and links are allowed.

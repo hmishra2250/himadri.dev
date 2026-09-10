@@ -1,9 +1,12 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { currentWork } from "../src/content/current-work";
-import { currentWorkMetrics } from "../src/content/metrics";
+import { selectedWork } from "../src/content/selected-work";
+import { currentWorkMetrics, metrics } from "../src/content/metrics";
 import { practice } from "../src/content/practice";
 import { profile } from "../src/content/profile";
+import { buildCanonicalUrl, getRouteSeo } from "../src/lib/seo";
+import { claimById } from "../src/content/proof";
 import { publicRoutes } from "../src/lib/routes";
 
 const base = process.env.CHECK_BASE_URL || "http://127.0.0.1:3010";
@@ -14,6 +17,8 @@ function visibleText(markup: string) {
     .replace(/&(?:#x27|#39|apos);/g, "'")
     .replace(/&amp;/g, "&")
     .replace(/&quot;/g, '"')
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
     .replace(/\s+/g, " ");
 }
 async function main() {
@@ -49,36 +54,26 @@ async function main() {
   for (const copy of [practice.eyebrow, practice.headline, practice.summary]) {
     assert.ok(text.includes(copy), `Missing approved hero copy: ${copy}`);
   }
-  for (const item of practice.recentWorkCases) {
-    assert.ok(
-      home.includes(`id="${item.id}"`),
-      `Missing work anchor ${item.id}`,
-    );
-    for (const copy of [
-      item.title,
-      item.summary,
-      ...item.work,
-      item.verification,
-    ]) {
-      assert.ok(text.includes(copy), `Missing approved work copy: ${copy}`);
-    }
+  for (const item of selectedWork) {
+    assert.ok(home.includes(`id="${item.id}"`));
+    for (const copy of [item.title, item.summary, item.linkLabel])
+      assert.ok(text.includes(copy), `Missing static highlight ${copy}`);
+    assert.ok(home.includes(`href="${item.href}"`));
+    for (const proof of item.proofIds.map(claimById))
+      if (proof.publicLabelRequired)
+        assert.ok(text.includes(proof.publicLabel!));
+    const metric = metrics.find((entry) => entry.id === item.metricId);
+    if (metric)
+      for (const copy of [metric.value, metric.label, metric.context])
+        assert.ok(text.includes(copy), `Missing selected metric ${copy}`);
   }
-  for (const item of [
-    ...currentWork.reviewedSystems,
-    ...currentWork.methodCards,
-  ]) {
-    for (const copy of [
-      item.title,
-      item.summary,
-      item.status,
-      item.limitations,
-      item.publicLabel,
-    ]) {
-      assert.ok(text.includes(copy), `Missing current work copy: ${copy}`);
-    }
-  }
-  assert.equal((home.match(/<figcaption\b/g) || []).length, 3);
-  assert.equal((text.match(/Illustrative system sketch/g) || []).length, 3);
+  assert.equal((home.match(/<article\b/g) || []).length, 3);
+  assert.doesNotMatch(
+    text,
+    /Historical AI product system|Agent experience, end to end|Shipped systems\.|Explore my public work/,
+  );
+  assert.ok(text.includes(currentWork.publicProjects[0].summary));
+  assert.ok(home.includes('href="/case-studies"'));
   assert.ok(
     home.includes('class="home-page"'),
     "Homepage uses accepted design",
@@ -97,9 +92,65 @@ async function main() {
     const response = await fetch(`${base}${route.path}`);
     assert.equal(response.status, 200, route.path);
     const html = await response.text();
-    if (route.path === "/" || route.path === "/case-studies") {
+    const seo = getRouteSeo(route.path);
+    const canonical = html.match(/<link rel="canonical" href="([^"]+)"/);
+    assert.ok(canonical, `${route.path}: static canonical`);
+    assert.equal(
+      new URL(canonical[1]).href,
+      buildCanonicalUrl(seo.canonicalPath),
+      `${route.path}: canonical destination`,
+    );
+    const description = html.match(
+      /<meta name="description" content="([^"]+)"/,
+    );
+    assert.equal(
+      description && visibleText(description[1]),
+      seo.description,
+      `${route.path}: static description`,
+    );
+    assert.doesNotMatch(html, /<meta name="robots" content="[^"]*noindex/);
+    if (route.path === "/case-studies") {
       const rendered = visibleText(html);
-      assert.ok(rendered.includes("Shipped systems."));
+      assert.ok(rendered.includes("AI workflows and safeguards."));
+      for (const item of [
+        ...currentWork.reviewedSystems,
+        ...currentWork.methodCards,
+      ])
+        for (const copy of [
+          item.title,
+          item.summary,
+          item.status,
+          item.limitations,
+          item.publicLabel,
+        ])
+          assert.ok(rendered.includes(copy), `Missing archive copy ${copy}`);
+      for (const brief of practice.recentWorkCases) {
+        assert.ok(html.includes(`id="${brief.id}"`));
+        for (const copy of [
+          brief.title,
+          brief.summary,
+          ...brief.work,
+          brief.verification,
+        ])
+          assert.ok(rendered.includes(copy), `Missing contribution ${copy}`);
+      }
+      for (const project of currentWork.publicProjects) {
+        assert.ok(html.includes(`href="${project.href}"`));
+        for (const copy of [
+          project.title,
+          project.summary,
+          project.status,
+          project.limitations,
+        ])
+          assert.ok(rendered.includes(copy), `Missing public project ${copy}`);
+      }
+      for (const id of [
+        "agent-tools",
+        "ai-workflows",
+        "earlier-work",
+        "public-work",
+      ])
+        assert.ok(html.includes(`id="${id}"`));
       assert.doesNotMatch(
         rendered,
         /systems (?:currently )?in development|not deployed|integration remains gated/i,

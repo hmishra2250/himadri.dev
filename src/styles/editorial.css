@@ -664,3 +664,133 @@
   color: var(--cobalt-dark);
   font-family: var(--font-mono);
 }
+
+.editorial-route .work-contents {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 18px;
+  border-top: 1px solid var(--hairline-strong);
+  padding-top: 16px;
+}
+
+.editorial-route .work-contents a {
+  color: var(--cobalt-dark);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.45;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.editorial-route .work-contents a:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.editorial-route .supporting-contributions {
+  display: grid;
+  gap: 18px;
+  border-top: 1px solid var(--hairline-strong);
+  padding-top: 24px;
+}
+
+.editorial-route .supporting-contributions h3 {
+  max-width: none;
+  color: var(--graphite);
+  font-family: var(--font-sans);
+  font-size: clamp(20px, 1.8vw, 24px);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.14;
+}
+
+.editorial-route .compact-contribution-list {
+  display: grid;
+  gap: 0;
+  border-top: 1px solid var(--hairline-strong);
+}
+
+.editorial-route .supporting-contribution {
+  display: grid;
+  grid-template-columns: minmax(180px, 0.42fr) minmax(0, 0.74fr) minmax(0, 1fr);
+  gap: 18px;
+  align-items: start;
+  border-bottom: 1px solid var(--hairline);
+  padding: 18px 0;
+}
+
+.editorial-route .supporting-contribution h4,
+.editorial-route .earlier-title-block strong {
+  max-width: none;
+  color: var(--graphite);
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.editorial-route .supporting-contribution h4 {
+  margin: 0;
+}
+
+.editorial-route .supporting-contribution ul {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.editorial-route .supporting-contribution li {
+  position: relative;
+  padding-left: 18px;
+  color: var(--graphite-soft);
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.editorial-route .supporting-contribution li::before {
+  content: "";
+  position: absolute;
+  top: 0.72em;
+  left: 0;
+  width: 8px;
+  border-top: 1px solid var(--cobalt);
+}
+
+.editorial-route .supporting-contribution .verification {
+  margin-top: 0;
+}
+
+.editorial-route .earlier-label {
+  display: grid;
+  gap: 6px;
+}
+
+.editorial-route .earlier-label span,
+.editorial-route .earlier-title-block span {
+  color: var(--muted);
+  font-family: var(--font-sans);
+  font-size: 13px;
+  letter-spacing: normal;
+  line-height: 1.4;
+  text-transform: none;
+}
+
+.editorial-route .earlier-title-block {
+  display: grid;
+  gap: 6px;
+}
+
+@media (max-width: 900px) {
+  .editorial-route .work-contents {
+    gap: 9px 13px;
+  }
+
+  .editorial-route .supporting-contribution {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+}

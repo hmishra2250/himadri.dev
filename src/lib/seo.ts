@@ -27,13 +27,13 @@ const routeSeoData = {
     lastModified: "2026-09-10",
   },
   "/case-studies": {
-    title: "AI Case Studies",
+    title: "Engineering Work",
     description:
-      "Selected agent-facing tools and implementation summaries, alongside production AI, ML infrastructure, computer vision and AR case studies.",
+      "The complete work archive: agent tools, evaluation systems, shipped AI workflows, production AI and ML case studies, writing and open source.",
     canonicalPath: "/case-studies",
-    openGraphTitle: "Production AI case studies",
+    openGraphTitle: "Engineering work | Himadri Mishra",
     openGraphDescription:
-      "Recent agentic systems with explicit implementation limits, plus earlier production AI, ML infrastructure and computer vision work.",
+      "Agent tools and evaluation, AI workflows, production case studies, writing and open source, with technical details and scoped evidence.",
     lastModified: "2026-09-10",
   },
   "/case-studies/agentic-market-research-platform": {

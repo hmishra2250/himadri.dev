@@ -61,7 +61,6 @@ export const routeManifest: RouteManifestEntry[] = [
     requiresProofGate: true,
     label: "Work",
     ownerFeature: "case-study",
-    navHref: "/#work",
   },
   {
     path: "/case-studies/agentic-market-research-platform",

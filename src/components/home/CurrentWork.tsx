@@ -1,25 +1,85 @@
 import { currentWork } from "@/content/current-work";
-
 import { currentWorkMetrics } from "@/content/metrics";
 
 type SectionTitleProps = {
   titleId?: string;
 };
 
-type SectionShellProps = SectionTitleProps & {
-  className?: string;
-};
+function WorkMetric({ id }: { id: string }) {
+  const metric = currentWorkMetrics.find((entry) => entry.id === id);
 
-export function ReviewedSystems({
-  titleId = "systems-title",
+  if (!metric) throw new Error(`Missing current-work metric: ${id}`);
+
+  return (
+    <div className="work-metric">
+      <p>
+        <strong>{metric.value}</strong> {metric.label}
+      </p>
+      <p className="work-source">{metric.context}</p>
+    </div>
+  );
+}
+
+export function AgentToolsAndEvaluation({
+  titleId = "agent-tools-title",
 }: SectionTitleProps) {
   return (
     <div className="work-stack current-work-block" aria-labelledby={titleId}>
       <div className="section-heading compact-heading">
-        <h2 id={titleId}>Shipped systems.</h2>
+        <h2 className="modest-section-heading" id={titleId}>
+          Agent tools and evaluation.
+        </h2>
+        <p>
+          How agents find the right tool, get access and finish a task, plus the
+          evaluation and reporting systems I built to improve that journey.
+          Experimental gains are scoped to the tested tasks and clients.
+        </p>
+      </div>
+      <div
+        className="work-grid current-work-grid method-grid"
+        aria-label="Agent tools and evaluation work"
+      >
+        {currentWork.methodCards.map((method) => (
+          <article
+            className="work-column current-work-column method-card"
+            id={method.id}
+            key={method.id}
+          >
+            <p className="work-status">{method.status}</p>
+            <h3>{method.title}</h3>
+            <p className="work-summary">{method.summary}</p>
+            <ul>
+              {method.details.map((detail) => (
+                <li key={detail}>{detail}</li>
+              ))}
+            </ul>
+            {method.metricIds.map((id) => (
+              <WorkMetric id={id} key={id} />
+            ))}
+            <p className="verification">
+              <strong>Scope:</strong> {method.limitations}
+            </p>
+            <p className="work-source">{method.publicLabel}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export function ReviewedSystems({
+  titleId = "ai-workflows-title",
+}: SectionTitleProps) {
+  return (
+    <div className="work-stack current-work-block" aria-labelledby={titleId}>
+      <div className="section-heading compact-heading">
+        <h2 className="modest-section-heading" id={titleId}>
+          AI workflows and safeguards.
+        </h2>
         <p>
           Working versions delivered across agent workflows, browser QA and
-          governed knowledge access.
+          governed knowledge access. These are shipped systems, with explicit
+          human-control and access boundaries.
         </p>
       </div>
       <div
@@ -53,97 +113,34 @@ export function ReviewedSystems({
 
 export function PublicWork({
   titleId = "public-work-title",
-  className = "work-section public-work",
-}: SectionShellProps) {
+}: SectionTitleProps) {
   return (
-    <section className={className} aria-labelledby={titleId}>
-      <div className="container work-stack">
-        <div className="section-heading compact-heading">
-          <h2 id={titleId}>Explore my public work.</h2>
-          <p>Writing, tools and experiments you can inspect.</p>
-        </div>
-        <div
-          className="work-grid current-work-grid public-project-grid"
-          aria-label="Public work links"
-        >
-          {currentWork.publicProjects.map((project) => (
-            <article
-              className="work-column current-work-column public-project"
-              key={project.id}
-            >
-              <p className="work-status">{project.status}</p>
-              <h3>
-                <a href={project.href}>{project.title}</a>
-              </h3>
-              <p className="work-summary">{project.summary}</p>
-              <p className="work-source">{project.limitations}</p>
-            </article>
-          ))}
-        </div>
+    <div className="work-stack current-work-block" aria-labelledby={titleId}>
+      <div className="section-heading compact-heading">
+        <h2 className="modest-section-heading" id={titleId}>
+          Writing and open source.
+        </h2>
+        <p>Writing, tools and experiments you can read, use and inspect.</p>
       </div>
-    </section>
-  );
-}
-
-export function EvaluationPractice({
-  titleId = "evaluation-practice-title",
-  className = "work-section evaluation-practice",
-}: SectionShellProps) {
-  return (
-    <section className={className} aria-labelledby={titleId}>
-      <div className="container work-stack">
-        <div className="section-heading compact-heading">
-          <h2 id={titleId}>Agent experience, end to end.</h2>
-          <p>
-            Systems I implemented and shipped, plus completed evaluations of
-            routing and journey design. Experimental gains are scoped to the
-            tested tasks and clients.
-          </p>
-        </div>
-        <div
-          className="work-grid current-work-grid method-grid"
-          aria-label="Agent experience engineering work"
-        >
-          {currentWork.methodCards.map((method) => (
-            <article
-              className="work-column current-work-column method-card"
-              id={method.id}
-              key={method.id}
-            >
-              <p className="work-status">{method.status}</p>
-              <h3>{method.title}</h3>
-              <p className="work-summary">{method.summary}</p>
-              <ul>
-                {method.details.map((detail) => (
-                  <li key={detail}>{detail}</li>
-                ))}
-              </ul>
-              {method.metricIds.map((id) => {
-                const metric = currentWorkMetrics.find(
-                  (entry) => entry.id === id,
-                )!;
-                return (
-                  <div className="work-metric" key={id}>
-                    <p>
-                      <strong>{metric.value}</strong> {metric.label}
-                    </p>
-                    <p className="work-source">{metric.context}</p>
-                  </div>
-                );
-              })}
-              <p className="verification">
-                <strong>Scope:</strong> {method.limitations}
-              </p>
-              <p className="work-source">{method.publicLabel}</p>
-            </article>
-          ))}
-        </div>
-        <p>
-          <a href="https://agentexperience.tech/">
-            Read my Agent Experience field guide
-          </a>
-        </p>
+      <div
+        className="work-grid current-work-grid public-project-grid"
+        aria-label="Public work links"
+      >
+        {currentWork.publicProjects.map((project) => (
+          <article
+            className="work-column current-work-column public-project"
+            id={project.id}
+            key={project.id}
+          >
+            <p className="work-status">{project.status}</p>
+            <h3>
+              <a href={project.href}>{project.title}</a>
+            </h3>
+            <p className="work-summary">{project.summary}</p>
+            <p className="work-source">{project.limitations}</p>
+          </article>
+        ))}
       </div>
-    </section>
+    </div>
   );
 }

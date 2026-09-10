@@ -5,7 +5,7 @@
   "description": "Evidence-first portfolio for senior AI/platform engineering roles.",
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build && tsx scripts/test-static-portfolio.ts",
     "start": "next start",
     "typecheck": "tsc --noEmit",
     "lint": "eslint . --max-warnings=0",
@@ -23,7 +23,7 @@
     "test:api": "tsx scripts/test-api.ts",
     "validate:structured-data": "tsx scripts/validate-structured-data.ts",
     "validate:seo": "tsx scripts/validate-seo.ts",
-    "test:privacy-contract": "tsx scripts/test-professional-presence-contracts.ts && tsx scripts/test-current-work.ts",
+    "test:privacy-contract": "tsx scripts/test-professional-presence-contracts.ts && tsx scripts/test-current-work.ts && tsx scripts/test-curated-portfolio.ts",
     "test:design:http": "tsx scripts/test-design-http.ts"
   },
   "dependencies": {
