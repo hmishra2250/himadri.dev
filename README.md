@@ -8,11 +8,13 @@ Public routes are governed by `src/lib/routes.ts`. The primary visitor experienc
 
 Homepage sections:
 
-- `/#work`, three selected highlights: agent tools, the production research platform and ML infrastructure
+- `/#work`, recent agent engineering: state-based journey evaluation, MCP authentication/onboarding, and discovery/retrieval with insight reporting
 - Writing, one contextual field-guide feature with a link to the complete public-project collection
 - `/#about` and `/#contact`, background and direct contact/resume actions
 
-The Work navigation opens `/case-studies`, the complete static archive. Its four chapters cover agent tools and evaluation, AI workflows and safeguards, production case studies, and writing/open source. Details and controlled-experiment results live there rather than being duplicated on Home.
+Both Agent Experience Engineer and AI Product Engineer appear in the homepage headline. Broader backend, frontend, ML and computer-vision experience stays visible in the complete archive, without competing with the recent work.
+
+The Work navigation opens `/case-studies`, the complete static archive. Its four chapters cover agent tools and evaluation, AI workflows and safeguards, writing/open source, and broader engineering case studies. Details and controlled-experiment results live there rather than being duplicated on Home.
 
 ## Stack
 
@@ -141,4 +143,4 @@ The project is configured for Vercel deployment from the connected repository. T
 
 Home and Work reject request-time content rendering and are prerendered at build time. `npm run build` checks the prerender manifest; `test:privacy-contract` checks the curated/full-archive split, proof references and Server Component source boundaries. `test:design:http` checks content and links in raw HTTP HTML with scripts removed, including metadata, disclosures and archive anchors. Core content does not depend on hydration, browser data fetching or client-side filters. Existing Next.js navigation and optional analytics are not a promise of zero JavaScript.
 
-The current information architecture is defined in `docs/plans/curated-portfolio.md` and `DESIGN.md`.
+The current information architecture is defined in `docs/plans/agent-experience-first-design.md` and `DESIGN.md`.

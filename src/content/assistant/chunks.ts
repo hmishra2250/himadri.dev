@@ -32,7 +32,7 @@ export function buildPortfolioChunks(): PortfolioChunk[] {
     title: "Profile positioning",
     sourceType: "resume",
     url: "/resume",
-    text: `${profile.name} is a ${profile.role}. ${profile.positioning} Best fit work includes agent-facing developer tools, AI product workflows, AI platform engineering, LLM systems architecture, and ML platform reliability.`,
+    text: `${profile.name}. Role: ${profile.role}. ${profile.positioning} Best fit work includes agent-facing developer tools, AI product workflows, AI platform engineering, LLM systems architecture, and ML platform reliability.`,
     tags: ["role fit", "profile", "senior ai engineer", "llm systems"],
     priority: 10,
     confidentialityLevel: "public",

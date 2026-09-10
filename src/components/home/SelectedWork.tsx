@@ -1,8 +1,30 @@
 import Link from "next/link";
 import { selectedWork } from "@/content/selected-work";
 import { currentWork } from "@/content/current-work";
-import { metrics } from "@/content/metrics";
 import { claimById } from "@/content/proof";
+
+function EvaluationOutline() {
+  return (
+    <figure className="evaluation-outline">
+      <figcaption>Inside the evaluation</figcaption>
+      <ol>
+        <li>
+          <strong>Encode the starting state</strong>
+          <span>Installation, access and available tools</span>
+        </li>
+        <li>
+          <strong>Compare matched journeys</strong>
+          <span>Control and treatment, across clients</span>
+        </li>
+        <li>
+          <strong>Inspect the outcome</strong>
+          <span>Tool choice, task completion and failures</span>
+        </li>
+      </ol>
+      <p>Simplified method illustration, not a production trace.</p>
+    </figure>
+  );
+}
 
 export function SelectedWork() {
   return (
@@ -12,18 +34,12 @@ export function SelectedWork() {
       aria-labelledby="work-title"
     >
       <div className="container work-stack">
-        <div className="section-heading compact-heading">
-          <h2 id="work-title">Selected work.</h2>
-          <p>
-            Agent-facing products, production AI and the infrastructure behind
-            them.
-          </p>
+        <div className="section-heading">
+          <p className="section-label">Selected engineering</p>
+          <h2 id="work-title">Agent systems I’ve built.</h2>
         </div>
-        <div className="work-grid selected-work-grid">
-          {selectedWork.map((work) => {
-            const metric = metrics.find((entry) => entry.id === work.metricId);
-            if (work.metricId && !metric)
-              throw new Error(`Missing selected work metric: ${work.metricId}`);
+        <div className="selected-projects">
+          {selectedWork.map((work, index) => {
             const labels = [
               ...new Set(
                 work.proofIds
@@ -34,48 +50,55 @@ export function SelectedWork() {
             ];
             return (
               <article
-                className="work-column selected-work-card"
+                className={`selected-project ${index === 0 ? "project-feature" : "project-row"}`}
                 id={work.id}
                 key={work.id}
               >
-                <p className="section-label">{work.category}</p>
-                <h3>{work.title}</h3>
-                <p className="work-summary">{work.summary}</p>
-                <div className="selected-work-evidence">
-                  {metric ? (
-                    <>
-                      <p className="selected-result">{metric.value}</p>
-                      <p className="selected-result-label">{metric.label}</p>
-                      <p className="work-source">{metric.context}</p>
-                    </>
-                  ) : (
-                    <>
-                      <p className="selected-result">Shipped</p>
-                      <p className="selected-result-label">
-                        MCP authentication and onboarding
-                      </p>
-                    </>
-                  )}
+                <div className="project-copy">
+                  <p className="project-status">
+                    <span aria-hidden="true">0{index + 1} / </span>
+                    {work.category}
+                  </p>
+                  <h3>{work.title}</h3>
+                  <p className="project-summary">{work.summary}</p>
+                  <p className="project-engineering">{work.engineering}</p>
+                  <Link className="project-link" href={work.href}>
+                    {work.linkLabel} <span aria-hidden="true">↗</span>
+                  </Link>
                   {labels.map((label) => (
                     <p className="work-source" key={label}>
                       {label}
                     </p>
                   ))}
                 </div>
-                <Link className="selected-work-link" href={work.href}>
-                  {work.linkLabel} <span aria-hidden="true">↗</span>
-                </Link>
+                {index === 0 && <EvaluationOutline />}
               </article>
             );
           })}
         </div>
+        <div className="more-systems" aria-labelledby="more-systems-title">
+          <h3 id="more-systems-title">Also shipped</h3>
+          <ul>
+            {currentWork.reviewedSystems.map((system) => (
+              <li key={system.id}>
+                <Link href={`/case-studies#${system.id}`}>
+                  {system.title}
+                  <span aria-hidden="true"> ↗</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <p className="work-source">
+            {currentWork.reviewedSystems[0].publicLabel}
+          </p>
+        </div>
         <div className="work-archive-link">
           <Link className="button secondary" href="/case-studies">
-            View all work <span aria-hidden="true">→</span>
+            View all engineering work <span aria-hidden="true">→</span>
           </Link>
           <p>
-            Technical breakdowns, evaluation results, shipped systems and public
-            projects.
+            Full technical detail, scoped results and broader work across
+            backend, frontend, ML and computer vision.
           </p>
         </div>
       </div>
@@ -86,7 +109,8 @@ export function SelectedWork() {
 export function WritingFeature() {
   const guide = currentWork.publicProjects.find(
     (project) => project.id === "agent-experience-guide",
-  )!;
+  );
+  if (!guide) throw new Error("Missing Agent Experience field guide");
   return (
     <section className="writing-feature" aria-labelledby="writing-title">
       <div className="container secondary-grid writing-row">

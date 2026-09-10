@@ -17,14 +17,14 @@ const professionalPresenceLastModified = "2026-09-07";
 
 const routeSeoData = {
   "/": {
-    title: "Himadri Mishra | AI Product Engineering and Agent Experience",
+    title: "Himadri Mishra | Agent Experience Engineer & AI Product Engineer",
     description:
-      "AI product engineering across Agent Experience, MCP and developer tools, stateful workflows, evaluation and recovery. Explore selected work and public projects.",
+      "Agent Experience Engineer and AI Product Engineer. Shipped MCP access, discovery and retrieval systems, state-based agent evaluation and insight reporting.",
     canonicalPath: "/",
-    openGraphTitle: "Himadri Mishra | AI products and agent-facing tools",
+    openGraphTitle: "Himadri Mishra | Agent Experience & AI Product Engineer",
     openGraphDescription:
       "Selected engineering work, qualified implementation summaries and public projects in Agent Experience, agentic systems and AI product engineering.",
-    lastModified: "2026-09-10",
+    lastModified: "2026-09-11",
   },
   "/case-studies": {
     title: "Engineering Work",
@@ -34,7 +34,7 @@ const routeSeoData = {
     openGraphTitle: "Engineering work | Himadri Mishra",
     openGraphDescription:
       "Agent tools and evaluation, AI workflows, production case studies, writing and open source, with technical details and scoped evidence.",
-    lastModified: "2026-09-10",
+    lastModified: "2026-09-11",
   },
   "/case-studies/agentic-market-research-platform": {
     title: "Agentic Research Platform Case Study",
@@ -84,7 +84,7 @@ const routeSeoData = {
     openGraphTitle: "About Himadri Mishra",
     openGraphDescription:
       "Career arc from IIT-BHU through Microsoft, UC Berkeley, and production AI, ML infrastructure, search, and computer vision systems.",
-    lastModified: "2026-09-10",
+    lastModified: "2026-09-11",
   },
   "/resume": {
     title: "Resume",

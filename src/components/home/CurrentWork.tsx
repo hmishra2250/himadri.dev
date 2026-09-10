@@ -1,9 +1,38 @@
-import { currentWork } from "@/content/current-work";
+import { currentWork, type MethodCard } from "@/content/current-work";
 import { currentWorkMetrics } from "@/content/metrics";
 
 type SectionTitleProps = {
   titleId?: string;
 };
+
+const methodCardOrder = [
+  "multi-harness-ax-experiments",
+  "coded-journey-paths",
+  "agent-routing-surfaces",
+  "auth-aware-onboarding",
+  "discovery-retrieval-measurement",
+  "evidence-grounded-insights",
+] as const;
+
+function getOrderedMethodCards() {
+  for (const method of currentWork.methodCards) {
+    if (!methodCardOrder.some((id) => id === method.id)) {
+      throw new Error(`Unordered current-work method card: ${method.id}`);
+    }
+  }
+
+  const byId = new Map(
+    currentWork.methodCards.map((method) => [method.id, method]),
+  );
+
+  return methodCardOrder.map((id) => {
+    const method = byId.get(id);
+
+    if (!method) throw new Error(`Missing current-work method card: ${id}`);
+
+    return method;
+  });
+}
 
 function WorkMetric({ id }: { id: string }) {
   const metric = currentWorkMetrics.find((entry) => entry.id === id);
@@ -17,6 +46,39 @@ function WorkMetric({ id }: { id: string }) {
       </p>
       <p className="work-source">{metric.context}</p>
     </div>
+  );
+}
+
+function MethodCardBody({ method }: { method: MethodCard }) {
+  return (
+    <>
+      <p className="work-status">{method.status}</p>
+      <h3>{method.title}</h3>
+      <p className="work-summary">{method.summary}</p>
+      <ul>
+        {method.details.map((detail) => (
+          <li key={detail}>{detail}</li>
+        ))}
+      </ul>
+      {method.metricIds.map((id) => (
+        <WorkMetric id={id} key={id} />
+      ))}
+      <p className="verification">
+        <strong>Scope:</strong> {method.limitations}
+      </p>
+      <p className="work-source">{method.publicLabel}</p>
+    </>
+  );
+}
+
+function MethodCardArticle({ method }: { method: MethodCard }) {
+  return (
+    <article
+      className="work-column current-work-column method-card"
+      id={method.id}
+    >
+      <MethodCardBody method={method} />
+    </article>
   );
 }
 
@@ -39,28 +101,8 @@ export function AgentToolsAndEvaluation({
         className="work-grid current-work-grid method-grid"
         aria-label="Agent tools and evaluation work"
       >
-        {currentWork.methodCards.map((method) => (
-          <article
-            className="work-column current-work-column method-card"
-            id={method.id}
-            key={method.id}
-          >
-            <p className="work-status">{method.status}</p>
-            <h3>{method.title}</h3>
-            <p className="work-summary">{method.summary}</p>
-            <ul>
-              {method.details.map((detail) => (
-                <li key={detail}>{detail}</li>
-              ))}
-            </ul>
-            {method.metricIds.map((id) => (
-              <WorkMetric id={id} key={id} />
-            ))}
-            <p className="verification">
-              <strong>Scope:</strong> {method.limitations}
-            </p>
-            <p className="work-source">{method.publicLabel}</p>
-          </article>
+        {getOrderedMethodCards().map((method) => (
+          <MethodCardArticle method={method} key={method.id} />
         ))}
       </div>
     </div>

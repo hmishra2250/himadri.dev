@@ -1,7 +1,7 @@
 export const profile = {
   name: "Himadri Mishra",
-  role: "AI Product Engineer",
-  headline: "AI product engineering, Agent Experience and agentic systems.",
+  role: "Agent Experience Engineer and AI Product Engineer",
+  headline: "Agent Experience Engineer and AI Product Engineer.",
   positioning:
     "I build AI products and agent-facing tools, connecting discovery, access, execution, evaluation and recovery. My background in ML infrastructure, search and computer vision keeps that work grounded in reliability, latency and cost.",
   location: "Remote, India",

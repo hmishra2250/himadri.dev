@@ -3,54 +3,55 @@ export type SelectedWork = {
   category: string;
   title: string;
   summary: string;
+  engineering: string;
   href: string;
   linkLabel: string;
   proofIds: string[];
-  metricId?: string;
 };
 
-// A curated introduction, not another copy of the complete work archive.
+// Recent engineering establishes the identity; the full archive preserves breadth.
 export const selectedWork: SelectedWork[] = [
   {
-    id: "selected-agent-tools",
-    category: "Agent-facing products",
-    title: "Tools agents can use.",
+    id: "selected-agent-evaluation",
+    category: "Shipped evaluation platform · completed studies",
+    title: "Agent journeys, encoded as state.",
     summary:
-      "I shipped MCP authentication and onboarding, and built the discovery, routing and evaluation systems around them. The work connects getting access to choosing the right tool and checking the result.",
-    href: "/case-studies#agent-tools",
-    linkLabel: "Explore the agent tooling work",
+      "I turned onboarding journeys into executable capability states, then used them to compare tool routing and task completion across agent clients. I built the evaluation infrastructure, state-matched router cards and evidence capture needed to inspect which journeys worked better.",
+    engineering:
+      "Capability-state contracts, multi-client harnesses, matched A/B tasks and trace-backed outcome checks.",
+    href: "/case-studies#multi-harness-ax-experiments",
+    linkLabel: "Explore the evaluation engineering",
     proofIds: [
-      "method-auth-aware-onboarding",
-      "method-discovery-retrieval-measurement",
-      "method-agent-routing-surfaces",
+      "method-coded-journey-paths",
       "method-multi-harness-ax-experiments",
+      "method-agent-routing-surfaces",
     ],
   },
   {
-    id: "selected-research-platform",
-    category: "Production AI",
-    title: "Research turned into finished reports.",
+    id: "selected-mcp-access",
+    category: "Shipped system",
+    title: "MCP access and onboarding.",
     summary:
-      "I architected a production research workflow that connects analysis, independent checks, charts and report generation. The engineering challenge was making the whole output trustworthy, not just generating fluent text.",
-    href: "/case-studies/agentic-market-research-platform",
-    linkLabel: "Read the research platform case study",
+      "I shipped hosted MCP authentication across account-connected, search-only and keyless entry points, connecting authorization, token lifecycle and CLI setup with explicit recovery paths.",
+    engineering:
+      "OAuth, scoped access, headless setup, token and grant lifecycle, actionable recovery.",
+    href: "/case-studies#auth-aware-onboarding",
+    linkLabel: "Explore access and recovery",
+    proofIds: ["method-auth-aware-onboarding"],
+  },
+  {
+    id: "selected-product-intelligence",
+    category: "Shipped measurement and reporting",
+    title: "From discovery to grounded insights.",
+    summary:
+      "I built measurement for whether agents could find, retrieve and use a product, then built evidence-grounded insight reporting on top of those observations. The work connects evaluation banks and retrieval probes to synthesis, validation and recoverable reporting.",
+    engineering:
+      "Category, developer and goal-led evaluations, retrieval APIs, evidence bindings and checkpoint recovery.",
+    href: "/case-studies#discovery-retrieval-measurement",
+    linkLabel: "Explore measurement and insights",
     proofIds: [
-      "knit-turnaround",
-      "knit-sandbox-tasks",
-      "knit-charts",
-      "knit-observability-platform",
+      "method-discovery-retrieval-measurement",
+      "method-evidence-grounded-insights",
     ],
-    metricId: "turnaround",
-  },
-  {
-    id: "selected-ml-infrastructure",
-    category: "Production ML",
-    title: "ML infrastructure rebuilt for efficiency.",
-    summary:
-      "I took ownership of production ML infrastructure supporting search, discovery and recommendations, then simplified the platform to reduce cost and operational overhead.",
-    href: "/case-studies/ml-infra-rescue",
-    linkLabel: "Read the ML infrastructure case study",
-    proofIds: ["epic-cost-reduction", "epic-pod-reduction"],
-    metricId: "infra-cost",
   },
 ];

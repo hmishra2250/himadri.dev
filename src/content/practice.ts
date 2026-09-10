@@ -29,6 +29,7 @@ export type RecentWorkCase = {
 export type Practice = {
   eyebrow: string;
   headline: string;
+  secondaryHeadline: string;
   summary: string;
   engagements: PracticeEngagement[];
   recentContributions: PracticeContribution[];
@@ -37,10 +38,11 @@ export type Practice = {
 };
 
 export const practice: Practice = {
-  eyebrow: "AI product engineering and Agent Experience",
-  headline: "I build AI products and tools that agents can use.",
+  eyebrow: "Himadri Mishra",
+  headline: "Agent Experience Engineer.",
+  secondaryHeadline: "AI Product Engineer.",
   summary:
-    "From finding the right tool to checking the final result, I work across agent interfaces, stateful workflows, evaluation and recovery.",
+    "I ship agent-facing tools and the systems behind them: MCP access, discovery and retrieval, state-based evaluation and evidence-grounded reporting.",
   engagements: [
     {
       id: "agent-facing-tools",

@@ -20,11 +20,17 @@ export function Hero() {
         </span>
         <div className="hero-copy">
           <p className="eyebrow">{practice.eyebrow}</p>
-          <h1 id="hero-title">{practice.headline}</h1>
+          <h1 id="hero-title">
+            <span>{practice.headline}</span>{" "}
+            <span>{practice.secondaryHeadline}</span>
+          </h1>
           <p className="hero-summary">{practice.summary}</p>
           <div className="hero-actions" aria-label="Primary actions">
+            <a className="button primary" href="#work">
+              Explore my work <span aria-hidden="true">↓</span>
+            </a>
             <TrackedAnchor
-              className="button primary"
+              className="button secondary"
               href={`mailto:${profile.email}`}
               eventName="contact_cta_clicked"
               eventParams={{ source_section: "hero" }}
@@ -32,7 +38,7 @@ export function Hero() {
               Email Himadri
             </TrackedAnchor>
             <TrackedAnchor
-              className="button secondary"
+              className="hero-text-link"
               href={profile.resumePath}
               eventName="resume_download_clicked"
               eventParams={{ source_section: "hero" }}
@@ -40,7 +46,7 @@ export function Hero() {
               Download resume
             </TrackedAnchor>
             <a
-              className="button tertiary"
+              className="hero-text-link"
               href={profile.github}
               target="_blank"
               rel="noopener noreferrer"

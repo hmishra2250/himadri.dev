@@ -17,16 +17,71 @@ import { validateInternalHrefFragment } from "./lib/fragment-links";
 const home = renderToStaticMarkup(createElement(Home));
 const work = renderToStaticMarkup(createElement(AllCaseStudies));
 const nav = renderToStaticMarkup(createElement(Navbar));
+assert.equal((home.match(/class="hero-text-link"/g) || []).length, 2);
+currentWork.methodCards.push({
+  ...currentWork.methodCards[0],
+  id: "unlisted-method-fixture",
+});
+try {
+  assert.throws(
+    () => renderToStaticMarkup(createElement(AllCaseStudies)),
+    /Unordered current-work method card: unlisted-method-fixture/,
+  );
+} finally {
+  currentWork.methodCards.pop();
+}
 const escape = (text: string) =>
   renderToStaticMarkup(createElement("span", null, text)).slice(6, -7);
 assert.equal(selectedWork.length, 3);
+assert.ok(home.includes(escape(practice.headline)));
+assert.ok(home.includes(escape(practice.secondaryHeadline)));
+assert.equal(practice.headline, "Agent Experience Engineer.");
+assert.equal(practice.secondaryHeadline, "AI Product Engineer.");
+assert.ok(
+  selectedWork.every((item) =>
+    item.proofIds.every((id) => id.startsWith("method-")),
+  ),
+);
+for (const metric of metrics)
+  assert.ok(
+    !home.includes(escape(metric.value)),
+    `No historical homepage metric: ${metric.id}`,
+  );
+assert.ok(home.includes("project-feature"));
+assert.ok(
+  home.includes("Simplified method illustration, not a production trace."),
+);
+assert.ok(home.includes("backend, frontend, ML and computer vision"));
+for (const system of currentWork.reviewedSystems) {
+  assert.ok(home.includes(`href="/case-studies#${system.id}"`));
+  assert.deepEqual(
+    validateInternalHrefFragment({
+      href: `/case-studies#${system.id}`,
+      owner: system.id,
+    }),
+    [],
+  );
+}
+assert.ok(
+  validateInternalHrefFragment({
+    href: "/case-studies#nonexistent-ax-fragment",
+    owner: "negative fixture",
+  }).length > 0,
+);
+assert.ok(work.indexOf('id="public-work"') < work.indexOf('id="earlier-work"'));
 assert.equal((home.match(/<article\b/g) || []).length, 3);
 assert.ok(nav.includes('href="/case-studies"'));
 assert.ok(!nav.includes('href="/#work"'));
 assert.ok(home.includes('id="work"'));
 assert.ok(home.includes(escape(aboutPage.summary)));
 for (const item of selectedWork) {
-  for (const copy of [item.title, item.summary, item.linkLabel])
+  for (const copy of [
+    item.title,
+    item.summary,
+    item.engineering,
+    item.category,
+    item.linkLabel,
+  ])
     assert.ok(home.includes(escape(copy)));
   assert.ok(home.includes(`href="${item.href}"`));
   assert.deepEqual(
@@ -38,12 +93,6 @@ for (const item of selectedWork) {
     assert.ok(proof.approvedForPublicUse);
     if (proof.publicLabelRequired)
       assert.ok(home.includes(escape(proof.publicLabel!)));
-  }
-  if (item.metricId) {
-    const metric = metrics.find((entry) => entry.id === item.metricId)!;
-    assert.ok(item.proofIds.includes(metric.proofId));
-    for (const copy of [metric.value, metric.label, metric.context])
-      assert.ok(home.includes(escape(copy)));
   }
 }
 for (const item of [

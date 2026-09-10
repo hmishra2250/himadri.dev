@@ -43,7 +43,6 @@ function HistoricalCaseRow({ study }: { study: CaseStudy }) {
     <a
       href={`/case-studies/${study.slug}`}
       className="earlier-row secondary-grid compact-case-row"
-      aria-label={`${study.title} detailed case study`}
     >
       {content}
     </a>
@@ -69,8 +68,8 @@ export function AllCaseStudies() {
             <nav className="work-contents" aria-label="Work chapters">
               <a href="#agent-tools">Agent tools and evaluation</a>
               <a href="#ai-workflows">AI workflows and safeguards</a>
-              <a href="#earlier-work">Production case studies</a>
               <a href="#public-work">Writing and open source</a>
+              <a href="#earlier-work">Broader engineering work</a>
             </nav>
           </div>
         </div>
@@ -92,8 +91,9 @@ export function AllCaseStudies() {
                 Interface and runtime work.
               </h3>
               <p>
-                Additional contributions across developer interfaces, reviewed
-                workflows and recovery.
+                Additional contributions across developer interfaces, SDK/API
+                touchpoints, backend runtime recovery, web review surfaces and
+                frontend-facing workflow clarity.
               </p>
             </div>
             <div className="compact-contribution-list">
@@ -117,17 +117,28 @@ export function AllCaseStudies() {
 
       <section
         className="route-section"
+        id="public-work"
+        aria-labelledby="public-work-title"
+      >
+        <div className="container work-stack">
+          <PublicWork titleId="public-work-title" />
+        </div>
+      </section>
+
+      <section
+        className="route-section"
         id="earlier-work"
         aria-labelledby="earlier-work-title"
       >
         <div className="container work-stack">
           <div className="section-heading compact-heading">
             <h2 className="modest-section-heading" id="earlier-work-title">
-              Production case studies.
+              Broader engineering work.
             </h2>
             <p>
-              Detailed production work across AI reporting, ML infrastructure,
-              computer vision products and AR vision systems.
+              Earlier production case studies across AI reporting, ML
+              infrastructure, computer vision products and AR vision systems,
+              kept as supporting evidence behind the agent experience focus.
             </p>
           </div>
           <div className="all-case-list compact-case-list">
@@ -135,16 +146,6 @@ export function AllCaseStudies() {
               <HistoricalCaseRow study={study} key={study.slug} />
             ))}
           </div>
-        </div>
-      </section>
-
-      <section
-        className="route-section"
-        id="public-work"
-        aria-labelledby="public-work-title"
-      >
-        <div className="container work-stack">
-          <PublicWork titleId="public-work-title" />
         </div>
       </section>
     </div>

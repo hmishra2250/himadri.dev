@@ -178,6 +178,8 @@ export function validateContent() {
       !work.title ||
       !work.summary ||
       !work.linkLabel ||
+      !work.category ||
+      !work.engineering ||
       !work.proofIds.length
     )
       errors.push(`selected work ${work.id} missing content or proof`);
@@ -186,11 +188,6 @@ export function validateContent() {
       checkLocalProofRef(`selected work ${work.id}`, id);
       if (!proofClaims.find((proof) => proof.id === id)?.approvedForPublicUse)
         errors.push(`selected work ${work.id} requires approved proof`);
-    }
-    if (work.metricId) {
-      const metric = metrics.find((entry) => entry.id === work.metricId);
-      if (!metric || !work.proofIds.includes(metric.proofId))
-        errors.push(`selected work ${work.id} missing metric proof`);
     }
   }
 

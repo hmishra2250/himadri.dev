@@ -73,6 +73,8 @@ export function validatePracticeContract(
 
   if (!practice.eyebrow.trim()) errors.push("practice missing eyebrow");
   if (!practice.headline.trim()) errors.push("practice missing headline");
+  if (!practice.secondaryHeadline.trim())
+    errors.push("practice missing secondary headline");
   if (!practice.summary.trim()) errors.push("practice missing summary");
 
   if (practice.engagements.length === 0) {

@@ -1,5 +1,7 @@
 # Curated homepage and complete work archive
 
+Status: Homepage selection superseded by `agent-experience-first-design.md`. Static delivery and proof contracts remain applicable.
+
 ## Decision
 
 The homepage is an introduction, not an inventory. Replace overlapping recent-work, methods, shipped-systems and public-project grids with three selected highlights and one contextual writing feature. Preserve the portrait, approved pearl/cobalt typography, About and Contact. The existing Work route becomes the full archive, with direct navigation from the header.

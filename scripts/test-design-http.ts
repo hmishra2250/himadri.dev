@@ -51,22 +51,38 @@ async function main() {
     assert.ok(css.includes(selector), `Missing design styles: ${selector}`);
   }
   const text = visibleText(home);
-  for (const copy of [practice.eyebrow, practice.headline, practice.summary]) {
+  for (const copy of [
+    practice.eyebrow,
+    practice.headline,
+    practice.secondaryHeadline,
+    practice.summary,
+  ]) {
     assert.ok(text.includes(copy), `Missing approved hero copy: ${copy}`);
   }
   for (const item of selectedWork) {
     assert.ok(home.includes(`id="${item.id}"`));
-    for (const copy of [item.title, item.summary, item.linkLabel])
+    for (const copy of [
+      item.title,
+      item.summary,
+      item.engineering,
+      item.category,
+      item.linkLabel,
+    ])
       assert.ok(text.includes(copy), `Missing static highlight ${copy}`);
     assert.ok(home.includes(`href="${item.href}"`));
     for (const proof of item.proofIds.map(claimById))
       if (proof.publicLabelRequired)
         assert.ok(text.includes(proof.publicLabel!));
-    const metric = metrics.find((entry) => entry.id === item.metricId);
-    if (metric)
-      for (const copy of [metric.value, metric.label, metric.context])
-        assert.ok(text.includes(copy), `Missing selected metric ${copy}`);
   }
+  for (const metric of metrics)
+    assert.ok(
+      !text.includes(metric.value),
+      `No historical metric on Home: ${metric.id}`,
+    );
+  for (const system of currentWork.reviewedSystems)
+    assert.ok(home.includes(`href="/case-studies#${system.id}"`));
+  assert.ok(home.includes("project-feature"));
+  assert.ok(text.includes("backend, frontend, ML and computer vision"));
   assert.equal((home.match(/<article\b/g) || []).length, 3);
   assert.doesNotMatch(
     text,
@@ -92,6 +108,11 @@ async function main() {
     const response = await fetch(`${base}${route.path}`);
     assert.equal(response.status, 200, route.path);
     const html = await response.text();
+    assert.doesNotMatch(
+      visibleText(html),
+      /\u2014|&mdash;|&#8212;|&#x2014;/i,
+      `${route.path}: no em dashes`,
+    );
     const seo = getRouteSeo(route.path);
     const canonical = html.match(/<link rel="canonical" href="([^"]+)"/);
     assert.ok(canonical, `${route.path}: static canonical`);

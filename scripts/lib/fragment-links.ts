@@ -1,5 +1,8 @@
 import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
+import { createElement } from "react";
+import { renderToStaticMarkup } from "react-dom/server";
+import { AllCaseStudies } from "../../src/components/home/CaseStudyGrid";
 import { notes } from "../../src/content/notes";
 import { practice } from "../../src/content/practice";
 import { publicRoutes } from "../../src/lib/routes";
@@ -103,6 +106,15 @@ export function collectRouteFragments(routePath: string) {
     ) {
       for (const brief of practice.recentWorkCases) fragments.add(brief.id);
     }
+  }
+
+  // Work renders data-driven IDs. Inspect the actual markup rather than
+  // requiring duplicated literal IDs in production components.
+  if (routePath === "/case-studies") {
+    for (const id of extractLiteralIds(
+      renderToStaticMarkup(createElement(AllCaseStudies)),
+    ))
+      fragments.add(id);
   }
 
   if (routePath === "/notes") {
