@@ -37,28 +37,6 @@ export function AllCaseStudies() {
           aria-labelledby="agent-tools-title"
         >
           <AgentToolsAndEvaluation titleId="agent-tools-title" />
-          <div
-            className="work-supporting"
-            aria-labelledby="supporting-contributions-title"
-          >
-            <h3 id="supporting-contributions-title">Other tool and API work</h3>
-            {practice.recentWorkCases.map((brief) => (
-              <article
-                className="work-supporting-entry"
-                id={brief.id}
-                key={brief.id}
-              >
-                <h4>{brief.title}</h4>
-                <p>{brief.summary}</p>
-                <ul>
-                  {brief.work.map((item) => (
-                    <li key={item}>{item}</li>
-                  ))}
-                </ul>
-                <p className="work-disclosure">{brief.verification}</p>
-              </article>
-            ))}
-          </div>
         </section>
         <section
           className="work-index-section"
@@ -66,6 +44,19 @@ export function AllCaseStudies() {
           aria-labelledby="ai-workflows-title"
         >
           <ReviewedSystems titleId="ai-workflows-title" />
+          <div
+            className="work-supporting"
+            aria-labelledby="supporting-contributions-title"
+          >
+            <h3 id="supporting-contributions-title">Other work</h3>
+            <ul>
+              {practice.recentWorkCases.map((brief) => (
+                <li id={brief.id} key={brief.id}>
+                  <strong>{brief.title}:</strong> {brief.summary}
+                </li>
+              ))}
+            </ul>
+          </div>
         </section>
         <section
           className="work-index-section"

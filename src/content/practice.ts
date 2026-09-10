@@ -112,9 +112,9 @@ export const practice: Practice = {
   recentWorkCases: [
     {
       id: "interface-consistency-brief",
-      title: "Consistent CLI and SDK tools",
+      title: "CLI and SDK integration",
       summary:
-        "I made setup and API calls more consistent across the CLI, MCP tools and SDK.",
+        "Built SDK methods, fixed credential setup and aligned tool descriptions, routing and documentation.",
       work: [
         "Built SDK methods and fixed credential setup.",
         "Aligned tool descriptions, routing and docs.",
@@ -128,9 +128,9 @@ export const practice: Practice = {
     },
     {
       id: "reviewed-ai-workflows-brief",
-      title: "AI drafts with human review",
+      title: "Source checks and review",
       summary:
-        "I connected source retrieval, draft writing and claim checks, with a person approving the result.",
+        "Connected retrieved sources to generated drafts, checked claims and required human approval before treating the output as ready.",
       work: [
         "Added source context to draft generation.",
         "Checked claims before the human review step.",
@@ -140,9 +140,9 @@ export const practice: Practice = {
     },
     {
       id: "browser-runtime-boundaries-brief",
-      title: "MCP runtime and recovery",
+      title: "MCP runtime fixes",
       summary:
-        "I updated the MCP runtime, added browser sessions and fixed request recovery.",
+        "Updated the MCP runtime, added browser-session entry points and repaired request handling and recovery in the app and proxy.",
       work: [
         "Added browser entry points to the MCP tools.",
         "Fixed request handling in the app and proxy.",

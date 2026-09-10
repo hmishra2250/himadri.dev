@@ -124,12 +124,7 @@ for (const item of [
   assert.ok(work.includes(`id="${item.id}"`), `Work must retain ${item.id}`);
 }
 for (const brief of practice.recentWorkCases)
-  for (const copy of [
-    brief.title,
-    brief.summary,
-    ...brief.work,
-    brief.verification,
-  ])
+  for (const copy of [brief.title, brief.summary])
     assert.ok(work.includes(escape(copy)));
 for (const project of currentWork.publicProjects)
   assert.ok(work.includes(`href="${project.href}"`));
@@ -150,6 +145,16 @@ assert.equal(
   9,
 );
 assert.doesNotMatch(work, /<details|<button|\u2014|&mdash;/);
+const supportingWork = work
+  .split('id="supporting-contributions-title">Other work</h3>')[1]
+  ?.split("</ul>")[0];
+assert.ok(supportingWork, "Other work uses a short supporting list");
+assert.equal((supportingWork.match(/<li /g) || []).length, 3);
+assert.doesNotMatch(supportingWork, /<article|<h4|work-disclosure/);
+for (const brief of practice.recentWorkCases) {
+  assert.ok(!supportingWork.includes(escape(brief.verification)));
+}
+
 const words = (value: string) => value.trim().split(/\s+/).length;
 for (const method of currentWork.methodCards) {
   assert.ok(
@@ -205,6 +210,18 @@ for (const file of [
     /["']use client["']|useEffect|useState|fetch\(/,
   );
 }
+
+assert.ok(
+  work.indexOf('id="supporting-contributions-title"') >
+    work.indexOf('id="governed-knowledge-mcp-service"'),
+  "Supporting tool and API work follows all AI products",
+);
+assert.ok(
+  work.indexOf('id="supporting-contributions-title"') <
+    work.indexOf('id="public-work"'),
+  "Supporting tool and API work precedes public work",
+);
+
 console.log(
   "Curated homepage, complete archive, proof and static-content contracts passed.",
 );

@@ -143,6 +143,16 @@ async function main() {
     if (route.path === "/case-studies") {
       const rendered = visibleText(html);
       assert.ok(rendered.includes("AI products"));
+      assert.ok(
+        html.indexOf('id="supporting-contributions-title"') >
+          html.indexOf('id="governed-knowledge-mcp-service"'),
+        "Supporting work follows AI products in served HTML",
+      );
+      assert.ok(
+        html.indexOf('id="supporting-contributions-title"') <
+          html.indexOf('id="public-work"'),
+        "Supporting work precedes public work in served HTML",
+      );
       assert.ok(html.includes('class="work-index"'));
       assert.equal(
         (html.match(/class="work-record(?: work-record-featured)?"/g) || [])
@@ -167,12 +177,7 @@ async function main() {
           assert.ok(rendered.includes(copy), `Missing archive copy ${copy}`);
       for (const brief of practice.recentWorkCases) {
         assert.ok(html.includes(`id="${brief.id}"`));
-        for (const copy of [
-          brief.title,
-          brief.summary,
-          ...brief.work,
-          brief.verification,
-        ])
+        for (const copy of [brief.title, brief.summary])
           assert.ok(rendered.includes(copy), `Missing contribution ${copy}`);
       }
       for (const project of currentWork.publicProjects) {

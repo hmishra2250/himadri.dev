@@ -122,3 +122,7 @@
 Keep the current sequential card layout, stable anchors and static rendering. Plain language must explain the engineering, not make platform work sound like a small feature. Each agent-experience card should show the design idea and concrete implementation on the left, then impact and how it was checked on the right. Keep scope limits visible without repeating the full evidence report. Remove numeric result displays from these cards, while preserving the approved metric registry as source evidence.
 
 Implementation plan: extend the typed method content with impact and measurement fields; restore concrete architecture and execution details; replace numeric panels with labeled qualitative outcomes; update provenance and regression tests; verify static HTML, full checks and Safari desktop/narrow layouts. Baseline privacy and rendering contracts passed before this change.
+
+## Supporting work hierarchy
+
+AI products follow agent experience without an intervening supporting-work block. Other work sits below AI products as three plain list items, before public work. Preserve contribution anchors, proof links and detailed source records, but do not render repeated implementation bullets and test disclosures for these smaller contributions. The source-check entry describes retrieved context, generated drafts, claim checking and human approval; do not assign it to a specific historical product without evidence.

@@ -749,20 +749,19 @@
 .work-supporting {
   margin-top: 32px;
 }
-.work-supporting-entry,
 .work-public-entry,
 .work-earlier-entry {
   padding: 22px 0;
   border-bottom: 1px solid var(--hairline);
 }
-.work-supporting-entry > p,
 .work-public-entry > p:not(.work-status),
 .work-earlier-entry > p:not(.work-status) {
   margin-top: 10px;
   max-width: 76ch;
 }
-.work-supporting-entry ul {
-  max-width: 76ch;
+.work-index .work-supporting ul {
+  max-width: 86ch;
+  gap: 14px;
 }
 .work-public-list,
 .work-earlier-list {
