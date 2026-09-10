@@ -334,6 +334,12 @@
   gap: 24px;
 }
 
+.about-route .principle-record {
+  grid-template-columns: minmax(0, 1fr);
+  align-items: start;
+  gap: 8px;
+}
+
 .editorial-route .contact-context-row {
   display: grid;
   gap: 8px;

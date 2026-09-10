@@ -284,3 +284,12 @@ assert.ok(
 console.log(
   "Curated homepage, complete archive, proof and static-content contracts passed.",
 );
+
+// About prose must not inherit the title-plus-action grid used by other records.
+const aboutRecordCss = readFileSync("src/styles/editorial.css", "utf8").match(
+  /\.about-route \.principle-record\s*\{([^}]+)\}/,
+)?.[1];
+assert.ok(aboutRecordCss, "About principles need a route-scoped layout");
+assert.match(aboutRecordCss, /grid-template-columns:\s*minmax\(0, 1fr\)/);
+assert.match(aboutRecordCss, /gap:\s*8px/);
+assert.match(aboutRecordCss, /align-items:\s*start/);

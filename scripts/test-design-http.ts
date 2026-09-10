@@ -54,6 +54,11 @@ async function main() {
   ]) {
     assert.ok(css.includes(selector), `Missing design styles: ${selector}`);
   }
+  assert.match(
+    css,
+    /\.about-route \.principle-record\{[^}]*grid-template-columns:minmax\(0,1fr\)/,
+    "Served About principles stack without a competing auto-width column",
+  );
   const text = visibleText(home);
   for (const copy of [
     practice.eyebrow,
