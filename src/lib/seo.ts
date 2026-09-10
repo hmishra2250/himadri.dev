@@ -48,7 +48,7 @@ const routeSeoData = {
   "/resume": {
     title: "Resume",
     description:
-      "Download resume for Himadri Mishra. AI systems and developer infrastructure work across agent-facing tools, production AI workflows, ML platform engineering, and reliability.",
+      "Read or download the resume for Himadri Mishra. AI systems and developer infrastructure work across agent-facing tools, production AI workflows, ML platform engineering, and reliability.",
     canonicalPath: "/resume",
     openGraphTitle: "Resume and proof summary",
     openGraphDescription:
