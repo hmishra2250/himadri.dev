@@ -12,11 +12,12 @@ export default function AboutPage() {
   return (
     <>
       <RouteJsonLd path="/about" />
-      <div className="editorial-route about-route">
-        <section className="section-pad">
-          <div className="container">
-            <div className="editorial-prose">
-              <h1>{aboutPage.title}</h1>
+      <div className="editorial-route about-route route-shell">
+        <section className="route-hero" aria-labelledby="about-title">
+          <div className="container secondary-grid route-hero-grid">
+            <p className="eyebrow">{aboutPage.eyebrow}</p>
+            <div className="editorial-prose route-copy-stack">
+              <h1 id="about-title">{aboutPage.title}</h1>
               <p className="hero-subtitle">{aboutPage.intro}</p>
               <p className="section-description">{aboutPage.summary}</p>
               <div className="hero-actions" aria-label="About links">
@@ -36,7 +37,7 @@ export default function AboutPage() {
                   }
                   return (
                     <Link
-                      className="button primary"
+                      className="button tertiary"
                       href={cta.href}
                       key={cta.href}
                     >
@@ -49,18 +50,20 @@ export default function AboutPage() {
           </div>
         </section>
 
-        <section className="section-pad compact alt">
-          <div className="container">
-            <div className="section-header editorial-prose">
-              <h2>Where the work comes from.</h2>
-              <p className="section-description">
+        <section className="route-section" aria-labelledby="timeline-title">
+          <div className="container secondary-grid">
+            <div className="section-heading compact-heading">
+              <h2 className="modest-section-heading" id="timeline-title">
+                Where the work comes from.
+              </h2>
+              <p>
                 Public historical roles establish the proof base. Current-client
                 work is summarized only as broad capability themes.
               </p>
             </div>
-            <div className="timeline">
+            <div className="timeline editorial-list">
               {careerTimeline.map((entry) => (
-                <div className="timeline-entry" key={entry.year}>
+                <div className="timeline-entry editorial-row" key={entry.year}>
                   <span className="timeline-year">{entry.year}</span>
                   <span>{entry.event}</span>
                 </div>
@@ -69,32 +72,40 @@ export default function AboutPage() {
           </div>
         </section>
 
-        <section className="section-pad compact">
-          <div className="container">
-            <div className="section-header wide editorial-prose">
-              <h2>How I work with teams.</h2>
-              <p className="section-description">
+        <section className="route-section" aria-labelledby="approach-title">
+          <div className="container secondary-grid">
+            <div className="section-heading compact-heading">
+              <h2 className="modest-section-heading" id="approach-title">
+                How I work with teams.
+              </h2>
+              <p>
                 These are the practical habits I bring to AI systems, developer
                 infrastructure, and platform reliability work.
               </p>
             </div>
-            <div className="approach-grid">
-              {practice.approach.map((item) => (
-                <article className="approach-row" key={item.title}>
-                  <h3>{item.title}</h3>
-                  <p>{item.summary}</p>
-                </article>
-              ))}
-            </div>
-            <div className="principle-records">
-              {aboutPage.principles.map((principle) => (
-                <article className="principle-record" key={principle.title}>
-                  <div>
+            <div className="route-copy-stack">
+              <div className="approach-grid editorial-list">
+                {practice.approach.map((item) => (
+                  <article
+                    className="approach-row editorial-row"
+                    key={item.title}
+                  >
+                    <h3>{item.title}</h3>
+                    <p>{item.summary}</p>
+                  </article>
+                ))}
+              </div>
+              <div className="principle-records editorial-list">
+                {aboutPage.principles.map((principle) => (
+                  <article
+                    className="principle-record editorial-row"
+                    key={principle.title}
+                  >
                     <h3>{principle.title}</h3>
                     <p>{principle.body}</p>
-                  </div>
-                </article>
-              ))}
+                  </article>
+                ))}
+              </div>
             </div>
           </div>
         </section>

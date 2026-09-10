@@ -13,7 +13,7 @@ export function CaseStudyPage({ study }: { study: CaseStudy }) {
   ];
 
   return (
-    <article className="section-pad case-study-page">
+    <article className="editorial-route case-study-page route-shell">
       <div className="container case-layout">
         <aside className="case-outline" aria-label="Case study outline">
           <Link href="/case-studies" className="back-link">
@@ -28,8 +28,8 @@ export function CaseStudyPage({ study }: { study: CaseStudy }) {
           </nav>
         </aside>
 
-        <div className="case-main">
-          <header className="case-header">
+        <div className="case-main route-copy-stack">
+          <header className="case-header route-copy-stack">
             <div className="case-memo-topline">
               <span>{study.company}</span>
               <span>{study.period}</span>
@@ -47,23 +47,35 @@ export function CaseStudyPage({ study }: { study: CaseStudy }) {
           </header>
 
           <section className="case-section" aria-labelledby="summary-heading">
-            <h2 id="summary-heading">What changed.</h2>
-            <p>{study.summary}</p>
-            <div className="metric-list">
-              {study.metrics.map((metric) => (
-                <strong key={metric}>{metric}</strong>
-              ))}
+            <div className="secondary-grid">
+              <h2 className="modest-section-heading" id="summary-heading">
+                What changed.
+              </h2>
+              <div className="route-copy-stack">
+                <p>{study.summary}</p>
+                <div className="metric-list case-metric-list">
+                  {study.metrics.map((metric) => (
+                    <strong key={metric}>{metric}</strong>
+                  ))}
+                </div>
+              </div>
             </div>
           </section>
 
           <section className="case-section" aria-labelledby="problem-heading">
-            <h2 id="problem-heading">Problem and constraints.</h2>
-            <p>{study.problem}</p>
-            <ul className="check-list">
-              {study.constraints.map((constraint) => (
-                <li key={constraint}>{constraint}</li>
-              ))}
-            </ul>
+            <div className="secondary-grid">
+              <h2 className="modest-section-heading" id="problem-heading">
+                Problem and constraints.
+              </h2>
+              <div className="route-copy-stack">
+                <p>{study.problem}</p>
+                <ul className="check-list">
+                  {study.constraints.map((constraint) => (
+                    <li key={constraint}>{constraint}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
           </section>
 
           <section
@@ -71,14 +83,18 @@ export function CaseStudyPage({ study }: { study: CaseStudy }) {
             id="architecture"
             aria-labelledby="architecture-heading"
           >
-            <h2 id="architecture-heading">System boundary.</h2>
-            <div className="architecture-card full">
-              {study.architecture.map((step, index) => (
-                <div className="architecture-step" key={step}>
-                  <span>{String(index + 1).padStart(2, "0")}</span>
-                  <strong>{step}</strong>
-                </div>
-              ))}
+            <div className="secondary-grid">
+              <h2 className="modest-section-heading" id="architecture-heading">
+                System boundary.
+              </h2>
+              <div className="architecture-card full system-boundary-grid">
+                {study.architecture.map((step, index) => (
+                  <div className="architecture-step" key={step}>
+                    <span>{String(index + 1).padStart(2, "0")}</span>
+                    <strong>{step}</strong>
+                  </div>
+                ))}
+              </div>
             </div>
           </section>
 
@@ -88,26 +104,33 @@ export function CaseStudyPage({ study }: { study: CaseStudy }) {
               id="system-diagrams"
               aria-labelledby="diagram-heading"
             >
-              <h2 id="diagram-heading">Representative diagrams.</h2>
-              <div className="diagram-grid">
-                {flagshipDiagrams.map((diagram) => (
-                  <article className="diagram-card" key={diagram.id}>
-                    <h3>{diagram.title}</h3>
-                    <p>{diagram.caption}</p>
-                    <div className="diagram-flow" aria-label={diagram.caption}>
-                      {diagram.nodes.map((node, index) => (
-                        <div className="diagram-node" key={node.id}>
-                          <span>{String(index + 1).padStart(2, "0")}</span>
-                          <strong>{node.label}</strong>
-                          <p>{node.detail}</p>
-                        </div>
-                      ))}
-                    </div>
-                    <p className="confidentiality-note">
-                      {diagram.publicLabel}
-                    </p>
-                  </article>
-                ))}
+              <div className="secondary-grid">
+                <h2 className="modest-section-heading" id="diagram-heading">
+                  Representative diagrams.
+                </h2>
+                <div className="diagram-grid">
+                  {flagshipDiagrams.map((diagram) => (
+                    <article className="diagram-card" key={diagram.id}>
+                      <h3>{diagram.title}</h3>
+                      <p>{diagram.caption}</p>
+                      <div
+                        className="diagram-flow"
+                        aria-label={diagram.caption}
+                      >
+                        {diagram.nodes.map((node, index) => (
+                          <div className="diagram-node" key={node.id}>
+                            <span>{String(index + 1).padStart(2, "0")}</span>
+                            <strong>{node.label}</strong>
+                            <p>{node.detail}</p>
+                          </div>
+                        ))}
+                      </div>
+                      <p className="confidentiality-note">
+                        {diagram.publicLabel}
+                      </p>
+                    </article>
+                  ))}
+                </div>
               </div>
             </section>
           ) : null}
@@ -117,34 +140,42 @@ export function CaseStudyPage({ study }: { study: CaseStudy }) {
             id="decision-theater"
             aria-labelledby="decision-heading"
           >
-            <h2 id="decision-heading">Decision record.</h2>
-            <div className="decision-preview">
-              {study.decisions.map((fork) => (
-                <ForkCard fork={fork} key={fork.title} />
-              ))}
+            <div className="secondary-grid">
+              <h2 className="modest-section-heading" id="decision-heading">
+                Decision record.
+              </h2>
+              <div className="decision-preview">
+                {study.decisions.map((fork) => (
+                  <ForkCard fork={fork} key={fork.title} />
+                ))}
+              </div>
             </div>
           </section>
 
           <section
-            className="case-section split"
+            className="case-section"
             id="evaluation"
             aria-labelledby="evaluation-heading"
           >
-            <div>
-              <h2 id="evaluation-heading">Evaluation and reliability.</h2>
-              <ul className="check-list">
-                {study.evaluation.map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ul>
-            </div>
-            <div id="observability">
-              <h2>Observability and debugging.</h2>
-              <ul className="check-list">
-                {study.observability.map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ul>
+            <div className="secondary-grid">
+              <h2 className="modest-section-heading" id="evaluation-heading">
+                Evaluation and reliability.
+              </h2>
+              <div className="case-two-column">
+                <ul className="check-list">
+                  {study.evaluation.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+                <div id="observability" className="route-copy-stack">
+                  <h3>Observability and debugging.</h3>
+                  <ul className="check-list">
+                    {study.observability.map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
             </div>
           </section>
 
@@ -152,14 +183,20 @@ export function CaseStudyPage({ study }: { study: CaseStudy }) {
             className="case-section"
             aria-labelledby="reflection-heading"
           >
-            <h2 id="reflection-heading">Reflection.</h2>
-            <p>{study.reflection}</p>
-            <p className="confidentiality-note">
-              This case study uses sanitized architecture and representative
-              examples. It excludes confidential prompts, customer data,
-              proprietary datasets, private implementation details, and internal
-              traces.
-            </p>
+            <div className="secondary-grid">
+              <h2 className="modest-section-heading" id="reflection-heading">
+                Reflection.
+              </h2>
+              <div className="route-copy-stack">
+                <p>{study.reflection}</p>
+                <p className="confidentiality-note">
+                  This case study uses sanitized architecture and representative
+                  examples. It excludes confidential prompts, customer data,
+                  proprietary datasets, private implementation details, and
+                  internal traces.
+                </p>
+              </div>
+            </div>
           </section>
         </div>
       </div>

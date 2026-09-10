@@ -7,23 +7,6 @@ import { Navbar } from "@/components/layout/Navbar";
 import { siteConfig } from "@/lib/metadata";
 import { buildRootJsonLd, escapeJsonLd } from "@/lib/structured-data";
 
-const ebGaramond = localFont({
-  src: [
-    {
-      path: "./fonts/EBGaramond08-Regular.woff2",
-      weight: "400",
-      style: "normal",
-    },
-    {
-      path: "./fonts/EBGaramond08-Italic.woff2",
-      weight: "400",
-      style: "italic",
-    },
-  ],
-  variable: "--font-eb-garamond",
-  display: "swap",
-});
-
 const go = localFont({
   src: [
     {
@@ -100,10 +83,7 @@ export default function RootLayout({
   const jsonLd = escapeJsonLd(JSON.stringify(buildRootJsonLd()));
 
   return (
-    <html
-      lang="en"
-      className={`${ebGaramond.variable} ${go.variable} ${goMono.variable}`}
-    >
+    <html lang="en" className={`${go.variable} ${goMono.variable}`}>
       <body>
         <a className="skip-link" href="#main-content">
           Skip to content

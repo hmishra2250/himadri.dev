@@ -1,8 +1,18 @@
-import Link from "next/link";
 import { caseStudies } from "@/content/case-studies";
 import { practice } from "@/content/practice";
+import {
+  SystemSketch,
+  type SystemSketchVariant,
+} from "@/components/home/SystemSketch";
+import { TrackedLink } from "@/components/ui/TrackedLink";
 
 const aiProductSlug = "agentic-market-research-platform";
+
+const workSketches: Record<string, SystemSketchVariant> = {
+  "interface-consistency-brief": "interface-consistency-brief",
+  "reviewed-ai-workflows-brief": "reviewed-ai-workflows-brief",
+  "browser-runtime-boundaries-brief": "browser-runtime-boundaries-brief",
+};
 
 export function RecentWork() {
   const aiProductStudy = caseStudies.find(
@@ -10,49 +20,46 @@ export function RecentWork() {
   );
 
   return (
-    <section
-      className="section-pad compact recent-work"
-      id="work"
-      aria-labelledby="work-title"
-    >
+    <section className="work-section" id="work" aria-labelledby="work-title">
       <div className="container work-stack">
-        <div className="section-header compact-header work-intro">
+        <div className="section-heading compact-heading">
           <h2 id="work-title">Recent work.</h2>
-          <p className="section-description">
+          <p>
             AI and developer systems made easier to call, inspect, recover and
             hand over.
           </p>
         </div>
 
-        <div className="recent-work-list" aria-label="Recent engineering work">
+        <div className="work-grid" aria-label="Recent engineering work">
           {practice.recentWorkCases.map((brief) => (
-            <article className="recent-work-row" id={brief.id} key={brief.id}>
-              <div className="recent-work-title">
-                <h3>{brief.title}</h3>
-                <p>{brief.summary}</p>
-              </div>
-              <div className="recent-work-detail">
-                <ul>
-                  {brief.work.map((item) => (
-                    <li key={item}>{item}</li>
-                  ))}
-                </ul>
-                <p>{brief.verification}</p>
-              </div>
+            <article className="work-column" id={brief.id} key={brief.id}>
+              <SystemSketch variant={workSketches[brief.id]} />
+              <h3>{brief.title}</h3>
+              <p className="work-summary">{brief.summary}</p>
+              <ul>
+                {brief.work.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+              <p className="verification">{brief.verification}</p>
             </article>
           ))}
         </div>
 
         {aiProductStudy ? (
-          <Link
-            className="ai-product-link"
+          <TrackedLink
+            className="earlier-row secondary-grid"
             href={`/case-studies/${aiProductStudy.slug}`}
+            eventName="case_study_opened"
+            eventParams={{ feature_id: aiProductStudy.slug, route: "/" }}
           >
-            <span>Historical AI product system</span>
-            <strong>{aiProductStudy.title}</strong>
-            <p>{aiProductStudy.summary}</p>
-            <em>Detailed case study</em>
-          </Link>
+            <span className="earlier-label">Historical AI product system</span>
+            <span className="earlier-content">
+              <strong>{aiProductStudy.title}</strong>
+              <span className="earlier-summary">{aiProductStudy.summary}</span>
+              <em>Detailed case study</em>
+            </span>
+          </TrackedLink>
         ) : null}
       </div>
     </section>

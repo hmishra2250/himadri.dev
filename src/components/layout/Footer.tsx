@@ -18,6 +18,9 @@ export function Footer() {
           <a href={profile.github} target="_blank" rel="noopener noreferrer">
             GitHub
           </a>
+          <a href={profile.x} target="_blank" rel="noopener noreferrer">
+            X / Twitter
+          </a>
           <a href={profile.linkedin} target="_blank" rel="noopener noreferrer">
             LinkedIn
           </a>

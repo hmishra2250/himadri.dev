@@ -1,9 +1,35 @@
 import Link from "next/link";
-import { caseStudies, type CaseStudy } from "@/content/case-studies";
-import { practice } from "@/content/practice";
+import {
+  SystemSketch,
+  type SystemSketchVariant,
+} from "@/components/home/SystemSketch";
 import { TrackedLink } from "@/components/ui/TrackedLink";
+import { caseStudies, type CaseStudy } from "@/content/case-studies";
+import { practice, type RecentWorkCase } from "@/content/practice";
 
 const aiProductSlug = "agentic-market-research-platform";
+
+const workSketches: Record<string, SystemSketchVariant> = {
+  "interface-consistency-brief": "interface-consistency-brief",
+  "reviewed-ai-workflows-brief": "reviewed-ai-workflows-brief",
+  "browser-runtime-boundaries-brief": "browser-runtime-boundaries-brief",
+};
+
+function RecentWorkColumn({ brief }: { brief: RecentWorkCase }) {
+  return (
+    <article className="work-column" id={brief.id}>
+      <SystemSketch variant={workSketches[brief.id]} />
+      <h3>{brief.title}</h3>
+      <p className="work-summary">{brief.summary}</p>
+      <ul>
+        {brief.work.map((item) => (
+          <li key={item}>{item}</li>
+        ))}
+      </ul>
+      <p className="verification">{brief.verification}</p>
+    </article>
+  );
+}
 
 function HistoricalCaseRow({
   study,
@@ -14,28 +40,19 @@ function HistoricalCaseRow({
 }) {
   const content = (
     <>
-      <div className="case-memo-body">
-        <h3>{study.title}</h3>
-        <p>{study.summary}</p>
-      </div>
-      <dl className="case-memo-facts" aria-label="Selected case study facts">
-        <div>
-          <dt>Scope</dt>
-          <dd>{study.domains.slice(0, 3).join(" / ")}</dd>
-        </div>
-        <div>
-          <dt>Result</dt>
-          <dd>{study.metrics[0]}</dd>
-        </div>
-      </dl>
-      <span className="case-memo-link">Read case study</span>
+      <span className="earlier-label">{study.company}</span>
+      <span className="earlier-content">
+        <strong>{study.title}</strong>
+        <span className="earlier-summary">{study.summary}</span>
+        <span className="earlier-cta">Detailed case study</span>
+      </span>
     </>
   );
 
   return study.routeEnabled ? (
     <TrackedLink
       href={`/case-studies/${study.slug}`}
-      className="case-memo compact-case-row"
+      className="earlier-row secondary-grid compact-case-row"
       eventName="case_study_opened"
       eventParams={{
         feature_id: study.slug,
@@ -45,7 +62,9 @@ function HistoricalCaseRow({
       {content}
     </TrackedLink>
   ) : (
-    <article className="case-memo compact-case-row">{content}</article>
+    <article className="earlier-row secondary-grid compact-case-row">
+      {content}
+    </article>
   );
 }
 
@@ -58,13 +77,13 @@ export function CaseStudyGrid() {
 
   return (
     <section
-      className="section-pad selected-systems"
+      className="work-section selected-systems"
       aria-labelledby="case-grid-title"
     >
-      <div className="container selected-work-shell">
-        <div className="section-header compact-header">
+      <div className="container work-stack selected-work-shell">
+        <div className="section-heading compact-heading">
           <h2 id="case-grid-title">Selected AI product work.</h2>
-          <p className="section-description">
+          <p>
             A deeper production workflow example with architecture, decisions,
             and results.
           </p>
@@ -92,46 +111,45 @@ export function AllCaseStudies() {
   );
 
   return (
-    <section
-      className="section-pad selected-systems"
-      aria-labelledby="all-case-studies-title"
-    >
-      <div className="container case-index-shell">
-        <div className="section-header wide">
-          <h1 id="all-case-studies-title">Work.</h1>
-          <p className="section-description">
-            Selected contributions and production systems.
-          </p>
-        </div>
-
-        <div className="case-index-block" aria-labelledby="recent-briefs-title">
-          <div className="section-header compact-header">
-            <h2 id="recent-briefs-title">Recent engineering work.</h2>
+    <div className="editorial-route case-index-route route-shell">
+      <section className="route-hero" aria-labelledby="all-case-studies-title">
+        <div className="container secondary-grid route-hero-grid">
+          <p className="eyebrow">Work</p>
+          <div className="editorial-prose route-copy-stack">
+            <h1 id="all-case-studies-title">Work.</h1>
+            <p className="hero-subtitle">
+              Selected contributions and production systems.
+            </p>
           </div>
-          <div className="recent-work-list case-index-recent-list">
+        </div>
+      </section>
+
+      <section className="route-section" aria-labelledby="recent-briefs-title">
+        <div className="container work-stack">
+          <div className="section-heading compact-heading">
+            <h2 className="modest-section-heading" id="recent-briefs-title">
+              Recent engineering work.
+            </h2>
+            <p>
+              AI and developer systems made easier to call, inspect, recover and
+              hand over.
+            </p>
+          </div>
+          <div className="work-grid case-index-recent-list">
             {practice.recentWorkCases.map((brief) => (
-              <article className="recent-work-row" id={brief.id} key={brief.id}>
-                <div>
-                  <h3>{brief.title}</h3>
-                  <p>{brief.summary}</p>
-                </div>
-                <div className="recent-work-detail">
-                  <ul>
-                    {brief.work.map((item) => (
-                      <li key={item}>{item}</li>
-                    ))}
-                  </ul>
-                  <p>{brief.verification}</p>
-                </div>
-              </article>
+              <RecentWorkColumn brief={brief} key={brief.id} />
             ))}
           </div>
         </div>
+      </section>
 
-        {aiProductStudy ? (
-          <div className="case-index-block" aria-labelledby="ai-product-title">
-            <div className="section-header compact-header">
-              <h2 id="ai-product-title">AI product system.</h2>
+      {aiProductStudy ? (
+        <section className="route-section" aria-labelledby="ai-product-title">
+          <div className="container work-stack">
+            <div className="section-heading compact-heading">
+              <h2 className="modest-section-heading" id="ai-product-title">
+                AI product system.
+              </h2>
             </div>
             <div className="selected-systems-list">
               <HistoricalCaseRow
@@ -140,15 +158,17 @@ export function AllCaseStudies() {
               />
             </div>
           </div>
-        ) : null}
+        </section>
+      ) : null}
 
-        <div
-          className="case-index-block"
-          id="earlier-work"
-          aria-labelledby="earlier-work-title"
-        >
-          <div className="section-header compact-header">
-            <h2 id="earlier-work-title">
+      <section
+        className="route-section"
+        id="earlier-work"
+        aria-labelledby="earlier-work-title"
+      >
+        <div className="container work-stack">
+          <div className="section-heading compact-heading">
+            <h2 className="modest-section-heading" id="earlier-work-title">
               Earlier ML and computer vision work.
             </h2>
           </div>
@@ -162,7 +182,7 @@ export function AllCaseStudies() {
             ))}
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </div>
   );
 }

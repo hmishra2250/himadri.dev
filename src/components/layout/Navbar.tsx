@@ -5,11 +5,10 @@ import { getNavHref, navRoutes } from "@/lib/routes";
 export function Navbar() {
   return (
     <header className="site-header">
-      <nav className="container nav" aria-label="Primary navigation">
+      <nav className="container nav nav-shell" aria-label="Primary navigation">
         <Link href="/" className="brand" aria-label="Himadri Mishra homepage">
-          <span className="brand-monogram" aria-hidden="true">
-            <span className="brand-bracket">[</span>HM
-            <span className="brand-bracket">]</span>
+          <span className="brand-mark" aria-hidden="true">
+            HM
           </span>
           <span>{profile.name}</span>
         </Link>
