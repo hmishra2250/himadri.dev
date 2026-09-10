@@ -1,34 +1,18 @@
-import { notFound } from "next/navigation";
-import { CaseStudyPage } from "@/components/case-study/CaseStudyPage";
-import { RouteJsonLd } from "@/components/seo/RouteJsonLd";
-import { caseStudies, getCaseStudy } from "@/content/case-studies";
-import { buildPageMetadata } from "@/lib/seo";
+import { notFound, permanentRedirect } from "next/navigation";
+import { getRetiredRouteDestination, routeManifest } from "@/lib/routes";
+
+export const metadata = { robots: { index: false, follow: true } };
 
 type PageProps = {
   params: Promise<{ slug: string }>;
 };
 
-export function generateStaticParams() {
-  return caseStudies
-    .filter((study) => study.routeEnabled)
-    .map((study) => ({ slug: study.slug }));
-}
-
-export async function generateMetadata({ params }: PageProps) {
-  const { slug } = await params;
-  const study = getCaseStudy(slug);
-  if (!study) return {};
-  return buildPageMetadata(`/case-studies/${study.slug}`);
-}
-
 export default async function CaseStudyRoute({ params }: PageProps) {
   const { slug } = await params;
-  const study = getCaseStudy(slug);
-  if (!study) notFound();
-  return (
-    <>
-      <RouteJsonLd path={`/case-studies/${study.slug}`} />
-      <CaseStudyPage study={study} />
-    </>
-  );
+  const path = `/case-studies/${slug}`;
+  const route = routeManifest.find((entry) => entry.path === path);
+  if (route?.status === "retired") {
+    permanentRedirect(getRetiredRouteDestination(path));
+  }
+  notFound();
 }

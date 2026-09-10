@@ -250,7 +250,7 @@ for (const method of currentWork.methodCards) {
     }
   }
 }
-assert.ok(workHtml.includes("AI workflows and safeguards."));
+assert.ok(workHtml.includes("AI products"));
 assert.doesNotMatch(
   workHtml,
   /systems (?:currently )?in development|not deployed|integration remains gated/i,

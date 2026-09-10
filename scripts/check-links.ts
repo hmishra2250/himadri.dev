@@ -18,14 +18,7 @@ const errors: string[] = [];
 const routePaths = new Set(routeManifest.map((route) => route.path));
 const publicPaths = new Set(publicRoutes.map((route) => route.path));
 
-for (const path of [
-  "/",
-  "/case-studies",
-  "/resume",
-  "/contact",
-  "/notes",
-  "/case-studies/agentic-market-research-platform",
-]) {
+for (const path of ["/", "/case-studies", "/resume", "/contact", "/notes"]) {
   if (!publicPaths.has(path))
     errors.push(`Required public path missing: ${path}`);
 }
@@ -101,6 +94,10 @@ for (const retiredPath of [
   "/challenges/cost-anatomy",
   "/challenges/dag-execution-simulator",
   "/challenges/deck-ir-previewer",
+  "/case-studies/agentic-market-research-platform",
+  "/case-studies/ml-infra-rescue",
+  "/case-studies/computer-vision-product-systems",
+  "/case-studies/high-performance-ar-and-vision",
 ]) {
   if (routeIsEnabled(retiredPath)) {
     errors.push(`Retired route remains enabled: ${retiredPath}`);

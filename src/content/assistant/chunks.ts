@@ -51,12 +51,12 @@ export function buildPortfolioChunks(): PortfolioChunk[] {
     });
   }
 
-  for (const study of caseStudies.filter((item) => item.routeEnabled)) {
+  for (const study of caseStudies) {
     chunks.push({
       id: `case-${study.slug}`,
       title: study.title,
       sourceType: "case-study",
-      url: `/case-studies/${study.slug}`,
+      url: `/case-studies#${study.slug}`,
       text: [
         study.title,
         study.subtitle,

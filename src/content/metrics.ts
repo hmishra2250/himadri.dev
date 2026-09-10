@@ -18,7 +18,7 @@ export const metrics: Metric[] = [
     context:
       "Consulting-grade market research reports with insights, charts, and native PPTX output.",
     proofId: "knit-turnaround",
-    href: "/case-studies/agentic-market-research-platform",
+    href: "/case-studies#agentic-market-research-platform",
     priority: 1,
   },
   {
@@ -28,7 +28,7 @@ export const metrics: Metric[] = [
     context:
       "Production ML platform simplification after taking ownership of search, discovery, and recommendations.",
     proofId: "epic-cost-reduction",
-    href: "/case-studies/ml-infra-rescue",
+    href: "/case-studies#ml-infra-rescue",
     priority: 2,
   },
   {
@@ -38,7 +38,7 @@ export const metrics: Metric[] = [
     context:
       "Worksheet recognition improvement for education products used by real learners.",
     proofId: "osmo-cv-accuracy",
-    href: "/case-studies/computer-vision-product-systems",
+    href: "/case-studies#computer-vision-product-systems",
     priority: 3,
   },
   {
@@ -57,7 +57,7 @@ export const metrics: Metric[] = [
     context:
       "Sandboxed Python analysis across report tasks with independent judge verification.",
     proofId: "knit-sandbox-tasks",
-    href: "/case-studies/agentic-market-research-platform",
+    href: "/case-studies#agentic-market-research-platform",
     priority: 5,
   },
   {
@@ -67,7 +67,7 @@ export const metrics: Metric[] = [
     context:
       "Highcharts visualizations generated with multi-threshold scoring.",
     proofId: "knit-charts",
-    href: "/case-studies/agentic-market-research-platform",
+    href: "/case-studies#agentic-market-research-platform",
     priority: 6,
   },
 ];
@@ -79,27 +79,27 @@ export const currentWorkMetrics: Metric[] = [
   {
     id: "routing-task-gain",
     value: "~8 pp",
-    label: "Observed routing + completion gain",
+    label: "Routing and completion gain",
     context:
-      "76.3% to 83.9% across 118 matched task pairs and two clients. Directional controlled-study result, not statistically conclusive or a production conversion measure.",
+      "76.3% to 83.9% in a controlled test of 118 matched task pairs across two clients. A directional result, not statistically conclusive or a production conversion gain.",
     proofId: "current-routing-study",
     priority: 1,
   },
   {
     id: "onboarding-surface-coverage",
     value: "79",
-    label: "Mapped onboarding surfaces",
+    label: "Onboarding surfaces mapped",
     context:
-      "Integration and reader surfaces mapped to capability states, including held and no-card paths. Coverage, not 79 independent improvements.",
+      "Coverage of integration and reader setups, not a count of improvements.",
     proofId: "current-journey-coverage",
     priority: 2,
   },
   {
     id: "agent-harness-coverage",
     value: "6",
-    label: "Implemented agent-client adapters",
+    label: "Agent-client adapters built",
     context:
-      "Shared evaluation contracts with client-specific transport support. Adapter coverage does not imply identical behavior.",
+      "Built around shared test rules, with connection support handled separately for each client.",
     proofId: "current-harness-coverage",
     priority: 3,
   },

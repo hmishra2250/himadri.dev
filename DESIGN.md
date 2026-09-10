@@ -105,3 +105,14 @@
 - Hierarchy: A clear section heading introduces the systems. Put the required disclosure below the tiles. Finish the same panel with a separated archive row and one cobalt primary action, making the full Work page the obvious next step.
 - Interaction: Entire tiles are native links. Essential copy stays visible without hover. Hover and keyboard focus use border/background contrast and underlined action text, without motion or nested controls.
 - Verification: First run existing privacy/curation regressions. Extend static markup and HTTP checks for summaries, complete clickable tiles, disclosures, valid destinations and the primary archive link. Run full verification and Safari visual/link checks before release.
+
+## Work index readability reset
+
+- Evidence: The owner's Work screenshots show a duplicated title, an offset hero followed by left-aligned sections, three competing columns of long text, and verification notes separated from the work they describe.
+- Decision: Work becomes a compact index, not a collection of long case studies. Retire the four legacy detail routes with permanent redirects to their summaries on Work. Preserve the long-form source, proof records, current anchors and all work areas.
+- Reading order: One title, one short introduction, four clear section links. Use the same bounded left edge for the header, navigation and sections. Recent agent work comes first, followed by shipped AI products, public work and short earlier-work summaries.
+- Records: One primary record per row. Keep title, plain-language summary and short implementation bullets together. Scoped results sit beside that same record on wide screens and below it on phones. No three-column reading, hidden details, tab state or accordions.
+- Copy: Explain what I built and what it does in short sentences. Keep necessary terms such as MCP, OAuth and API, but remove stacked abstractions and repeated caveats. Keep claims and their limits visible; use normal sans-serif text, not paragraphs of monospace notes.
+- Supporting work: Use short, sequential entries rather than a title/summary/bullets layout spread across three columns. Earlier work stays secondary and has no detailed-study CTA.
+- Guardrails: Keep static HTML, one H1, meaningful headings, all approved proof references and private-source labels. No em dashes. Use Safari only. Preserve Home's approved hierarchy and avoid changing unrelated pages' styling.
+- Verification: Lock existing content/proof contracts before editing. Add regressions for one Work heading, all retained anchors, short copy, retired-detail redirects, and absence of the old multi-column structure. Check desktop and narrow Safari views plus full repository verification and live HTTP checks.

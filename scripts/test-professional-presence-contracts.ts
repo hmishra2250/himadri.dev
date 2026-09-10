@@ -109,34 +109,32 @@ assert(
 assert(!hiringPacket?.includeInNav, "/hiring-packet must stay out of nav");
 assert(!routeIsEnabled("/hiring-packet"), "/hiring-packet must not be enabled");
 
-const flagshipFragments = collectRouteFragments(
-  "/case-studies/agentic-market-research-platform",
-);
+const workIndexFragments = collectRouteFragments("/case-studies");
 for (const fragment of [
-  "architecture",
-  "decision-theater",
-  "evaluation",
-  "observability",
+  "agentic-market-research-platform",
+  "ml-infra-rescue",
+  "computer-vision-product-systems",
+  "high-performance-ar-and-vision",
 ]) {
   assert(
-    flagshipFragments.has(fragment),
-    `flagship case-study renderer must expose #${fragment}`,
+    workIndexFragments.has(fragment),
+    `work index must expose archived case anchor #${fragment}`,
   );
   assert(
     validateInternalHrefFragment({
-      href: `/case-studies/agentic-market-research-platform#${fragment}`,
-      owner: `fragment fixture ${fragment}`,
+      href: `/case-studies#${fragment}`,
+      owner: `case index fragment fixture ${fragment}`,
     }).length === 0,
-    `valid flagship fragment should pass: #${fragment}`,
+    `valid work index fragment should pass: #${fragment}`,
   );
 }
 assertIncludes(
   validateInternalHrefFragment({
-    href: "/case-studies/agentic-market-research-platform#not-a-real-fragment",
-    owner: "nonexistent fragment fixture",
+    href: "/case-studies#not-a-real-fragment",
+    owner: "nonexistent work fragment fixture",
   }),
   /missing fragment/,
-  "nonexistent fragment fixture",
+  "nonexistent work fragment fixture",
 );
 
 assert(

@@ -36,48 +36,48 @@ function getOrderedMethodCards() {
 
 function WorkMetric({ id }: { id: string }) {
   const metric = currentWorkMetrics.find((entry) => entry.id === id);
-
   if (!metric) throw new Error(`Missing current-work metric: ${id}`);
-
   return (
-    <div className="work-metric">
-      <p>
+    <div className="work-result">
+      <p className="work-result-label">
         <strong>{metric.value}</strong> {metric.label}
       </p>
-      <p className="work-source">{metric.context}</p>
+      <p>{metric.context}</p>
     </div>
   );
 }
 
-function MethodCardBody({ method }: { method: MethodCard }) {
-  return (
-    <>
-      <p className="work-status">{method.status}</p>
-      <h3>{method.title}</h3>
-      <p className="work-summary">{method.summary}</p>
-      <ul>
-        {method.details.map((detail) => (
-          <li key={detail}>{detail}</li>
-        ))}
-      </ul>
-      {method.metricIds.map((id) => (
-        <WorkMetric id={id} key={id} />
-      ))}
-      <p className="verification">
-        <strong>Scope:</strong> {method.limitations}
-      </p>
-      <p className="work-source">{method.publicLabel}</p>
-    </>
-  );
-}
-
-function MethodCardArticle({ method }: { method: MethodCard }) {
+function MethodCardArticle({
+  method,
+  featured,
+}: {
+  method: MethodCard;
+  featured: boolean;
+}) {
   return (
     <article
-      className="work-column current-work-column method-card"
+      className={`work-record${featured ? " work-record-featured" : ""}`}
       id={method.id}
     >
-      <MethodCardBody method={method} />
+      <div className="work-record-copy">
+        <p className="work-status">{method.status}</p>
+        <h3>{method.title}</h3>
+        <p>{method.summary}</p>
+        <ul>
+          {method.details.map((detail) => (
+            <li key={detail}>{detail}</li>
+          ))}
+        </ul>
+      </div>
+      <div className="work-evidence" aria-label="Results and limits">
+        {method.metricIds.map((id) => (
+          <WorkMetric id={id} key={id} />
+        ))}
+        <p className="work-scope">
+          {method.metricIds.length === 0 && <strong>Scope</strong>}
+          {method.limitations}
+        </p>
+      </div>
     </article>
   );
 }
@@ -86,23 +86,21 @@ export function AgentToolsAndEvaluation({
   titleId = "agent-tools-title",
 }: SectionTitleProps) {
   return (
-    <div className="work-stack current-work-block" aria-labelledby={titleId}>
-      <div className="section-heading compact-heading">
-        <h2 className="modest-section-heading" id={titleId}>
-          Agent tools and evaluation.
-        </h2>
-        <p>
-          How agents find the right tool, get access and finish a task, plus the
-          evaluation and reporting systems I built to improve that journey.
-          Experimental gains are scoped to the tested tasks and clients.
+    <div className="work-chapter">
+      <div className="work-section-heading">
+        <h2 id={titleId}>Agent experience</h2>
+        <p>Helping agents find tools, get access and finish tasks.</p>
+        <p className="work-disclosure">
+          {currentWork.methodCards[0].publicLabel}
         </p>
       </div>
-      <div
-        className="work-grid current-work-grid method-grid"
-        aria-label="Agent tools and evaluation work"
-      >
-        {getOrderedMethodCards().map((method) => (
-          <MethodCardArticle method={method} key={method.id} />
+      <div className="work-record-list">
+        {getOrderedMethodCards().map((method, index) => (
+          <MethodCardArticle
+            method={method}
+            featured={index < 3}
+            key={method.id}
+          />
         ))}
       </div>
     </div>
@@ -113,39 +111,33 @@ export function ReviewedSystems({
   titleId = "ai-workflows-title",
 }: SectionTitleProps) {
   return (
-    <div className="work-stack current-work-block" aria-labelledby={titleId}>
-      <div className="section-heading compact-heading">
-        <h2 className="modest-section-heading" id={titleId}>
-          AI workflows and safeguards.
-        </h2>
-        <p>
-          Working versions delivered across agent workflows, browser QA and
-          governed knowledge access. These are shipped systems, with explicit
-          human-control and access boundaries.
+    <div className="work-chapter">
+      <div className="work-section-heading">
+        <h2 id={titleId}>AI products</h2>
+        <p>Working systems for agent tasks, review and safe access.</p>
+        <p className="work-disclosure">
+          {currentWork.reviewedSystems[0].publicLabel}
         </p>
       </div>
-      <div
-        className="work-grid current-work-grid"
-        aria-label="Shipped engineering systems"
-      >
+      <div className="work-record-list">
         {currentWork.reviewedSystems.map((system) => (
-          <article
-            className="work-column current-work-column"
-            id={system.id}
-            key={system.id}
-          >
-            <p className="work-status">{system.status}</p>
-            <h3>{system.title}</h3>
-            <p className="work-summary">{system.summary}</p>
-            <ul>
-              {system.work.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
-            <p className="verification">
-              <strong>Scope:</strong> {system.limitations}
-            </p>
-            <p className="work-source">{system.publicLabel}</p>
+          <article className="work-record" id={system.id} key={system.id}>
+            <div className="work-record-copy">
+              <p className="work-status">{system.status}</p>
+              <h3>{system.title}</h3>
+              <p>{system.summary}</p>
+              <ul>
+                {system.work.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </div>
+            <div className="work-evidence">
+              <p className="work-scope">
+                <strong>What this covers</strong>
+                {system.limitations}
+              </p>
+            </div>
           </article>
         ))}
       </div>
@@ -157,29 +149,27 @@ export function PublicWork({
   titleId = "public-work-title",
 }: SectionTitleProps) {
   return (
-    <div className="work-stack current-work-block" aria-labelledby={titleId}>
-      <div className="section-heading compact-heading">
-        <h2 className="modest-section-heading" id={titleId}>
-          Writing and open source.
-        </h2>
-        <p>Writing, tools and experiments you can read, use and inspect.</p>
+    <div className="work-chapter">
+      <div className="work-section-heading">
+        <h2 id={titleId}>Public work</h2>
+        <p>Guides, code and experiments you can explore.</p>
       </div>
-      <div
-        className="work-grid current-work-grid public-project-grid"
-        aria-label="Public work links"
-      >
+      <div className="work-public-list">
         {currentWork.publicProjects.map((project) => (
           <article
-            className="work-column current-work-column public-project"
+            className="work-public-entry"
             id={project.id}
             key={project.id}
           >
             <p className="work-status">{project.status}</p>
             <h3>
-              <a href={project.href}>{project.title}</a>
+              <a href={project.href}>
+                {project.title}
+                <span aria-hidden="true"> ↗</span>
+              </a>
             </h3>
-            <p className="work-summary">{project.summary}</p>
-            <p className="work-source">{project.limitations}</p>
+            <p>{project.summary}</p>
+            <p className="work-disclosure">{project.limitations}</p>
           </article>
         ))}
       </div>

@@ -60,13 +60,13 @@ export const currentWork: CurrentWork = {
       summary:
         "I built and shipped a working agent delivery platform, moving tasks through execution, artifact review and human approval.",
       work: [
-        "Built shared state contracts for runs, artifacts, approvals, and reviewer decisions.",
-        "Wired MCP orchestration and web review surfaces around the delivery flow.",
-        "Added test fixtures and operator documentation for handoff and recovery.",
+        "Tracked runs, outputs, approvals and review decisions in shared state.",
+        "Connected MCP tools to a web interface for reviewing the work.",
+        "Added tests and docs for handoff and recovery.",
       ],
       status: "Shipped working version",
       limitations:
-        "Delivered workflow orchestration and review; human approval remains an explicit boundary.",
+        "Runs tasks and supports review. A person still approves the result.",
       proofId: "current-agent-delivery-platform-foundations",
       publicLabel: reviewedWorkLabel,
     },
@@ -76,13 +76,13 @@ export const currentWork: CurrentWork = {
       summary:
         "I implemented and shipped coding-agent safeguards: when browser checks should stop, what evidence to retain, and how a reviewer picks up the work.",
       work: [
-        "Implemented repeated-action and off-origin guards for browser-connected runs.",
-        "Preserved budget and trace context for reviewer inspection.",
-        "Kept generated outputs available when browser QA needed follow-up.",
+        "Added guards against repeated actions and leaving the allowed website.",
+        "Kept run traces and budget context for reviewers.",
+        "Kept generated outputs when browser checks needed follow-up.",
       ],
       status: "Shipped working version",
       limitations:
-        "Delivered safeguards and reviewer handoffs within a broader coding-agent system.",
+        "These safeguards are my work within a larger coding-agent system.",
       proofId: "current-coding-agent-browser-qa-safeguards",
       publicLabel: reviewedWorkLabel,
     },
@@ -92,13 +92,13 @@ export const currentWork: CurrentWork = {
       summary:
         "I built and shipped a read-only interface for agents to retrieve structured knowledge and propose changes without granting them write access.",
       work: [
-        "Served structured context through a read-only MCP boundary.",
-        "Built scan-runner and CI checks around repository review.",
-        "Returned proposed updates without taking write authority.",
+        "Let agents read structured knowledge through MCP.",
+        "Built repository scans and CI checks.",
+        "Let agents propose updates without write access.",
       ],
       status: "Shipped working version",
       limitations:
-        "External checks depend on access; public reproduction is limited.",
+        "Some checks need private access. The full service cannot be reproduced publicly.",
       proofId: "current-governed-knowledge-mcp-service",
       publicLabel: reviewedWorkLabel,
     },
@@ -119,7 +119,7 @@ export const currentWork: CurrentWork = {
       id: "agent-readiness-rubric",
       title: "Open Agent-Readiness Rubric",
       summary:
-        "A public draft rubric for inspecting discovery, structure, machine-readable content, action safety, recovery, and policy signals on agent-facing surfaces.",
+        "A draft checklist for making products easier for agents to find and use, with checks for safety and recovery.",
       status: "Draft rubric",
       limitations: "Draft checklist, not a certification.",
       href: "https://agentexperience.tech/insights/agent-readiness-rubric/",
@@ -129,7 +129,7 @@ export const currentWork: CurrentWork = {
       id: "awesome-agent-experience",
       title: "Awesome Agent Experience",
       summary:
-        "A curated public collection of agent experience sources covering tool use, discovery, protocols, evaluation, human control, recovery, and accessibility.",
+        "A collection of useful tools, papers and guides on how agents find and use products.",
       status: "Curated collection",
       limitations: "Curated resources; linked tools belong to their authors.",
       href: "https://github.com/hmishra2250/awesome-agent-experience",
@@ -139,7 +139,7 @@ export const currentWork: CurrentWork = {
       id: "consumer-gpu-inference",
       title: "Qwen on a consumer GPU",
       summary:
-        "A public local experiment with scripts and documentation for running a large open model on consumer hardware and recording reproducible evaluation artifacts.",
+        "Scripts and notes for running a large open model on a consumer GPU, with saved test results.",
       status: "Local experiment",
       limitations:
         "Results apply to the documented hardware and model configuration.",
@@ -150,16 +150,16 @@ export const currentWork: CurrentWork = {
   methodCards: [
     {
       id: "agent-routing-surfaces",
-      title: "Router cards and tool selection",
+      title: "Router cards and tool choice",
       status: "Completed experiments",
       summary:
-        "I built and evaluated capability-aware router cards so agents could choose the right installed tool and complete the task, not simply make more tool calls.",
+        "I built router cards that help agents choose an available tool and finish the task.",
       details: [
-        "Compared state-matched cards against no-card baselines using paired tasks, natural client discovery and explicit user-intent controls.",
-        "Used routing, task completion, safety and answer-quality checks to select useful interventions and reject ineffective or harmful defaults.",
+        "Compared cards with a no-card baseline using the same tasks and setups.",
+        "Checked tool choice, task completion, safety and answer quality before keeping a change.",
       ],
       limitations:
-        "The observed gain is specific to the tested states and clients; it does not establish a universal routing or conversion lift.",
+        "The gain applies to the tested setups and clients, not every tool or signup flow.",
       metricIds: ["routing-task-gain"],
       proofId: "method-agent-routing-surfaces",
       publicLabel:
@@ -167,16 +167,16 @@ export const currentWork: CurrentWork = {
     },
     {
       id: "auth-aware-onboarding",
-      title: "MCP OAuth and auth-aware onboarding",
+      title: "MCP login and onboarding",
       status: "Shipped system",
       summary:
-        "I implemented and shipped hosted MCP authentication and onboarding across account-connected, search-only and keyless entry points.",
+        "I shipped MCP login and setup for connected accounts, search-only access and keyless trials.",
       details: [
-        "Connected Web OAuth, token and grant lifecycle, MCP profiles, backend authorization and CLI setup into a cross-service flow.",
-        "Separated interactive account connection from headless access and limited trials, with actionable recovery when credentials, permissions or client capabilities blocked progress.",
+        "Connected OAuth, tokens, permissions and CLI setup across services.",
+        "Separated interactive login from headless access, with recovery steps when setup failed.",
       ],
       limitations:
-        "Live onboarding supports real usage; no signup-conversion improvement is claimed.",
+        "Used in live onboarding. No claim of higher signup conversion.",
       metricIds: [],
       proofId: "method-auth-aware-onboarding",
       publicLabel:
@@ -184,16 +184,16 @@ export const currentWork: CurrentWork = {
     },
     {
       id: "discovery-retrieval-measurement",
-      title: "Discoverability and retrievability",
+      title: "Discovery and retrieval tests",
       status: "Shipped system",
       summary:
-        "I owned and shipped measurement surfaces that show whether agents can find, retrieve and use a product, with evidence behind each reading.",
+        "I built tests and dashboards that show whether agents can find, read and use a product.",
       details: [
-        "Built versioned category, developer and goal-led evaluation banks, deterministic retrieval probes, APIs and dashboard views.",
-        "Kept eligible populations, missing observations, citations and actual tool use distinct so teams could diagnose the failure stage instead of acting on a misleading aggregate.",
+        "Built category, developer and goal-based test sets, retrieval checks and APIs.",
+        "Tracked missing results, sources and tool calls so teams could find the failure.",
       ],
       limitations:
-        "Measurement and diagnostic value are established; traffic, adoption and revenue lift are not inferred from visibility scores.",
+        "Measures access and use, not traffic, adoption or revenue growth.",
       metricIds: [],
       proofId: "method-discovery-retrieval-measurement",
       publicLabel:
@@ -201,16 +201,16 @@ export const currentWork: CurrentWork = {
     },
     {
       id: "multi-harness-ax-experiments",
-      title: "Multi-harness AX evaluation",
+      title: "Testing agents across clients",
       status: "Shipped platform",
       summary:
-        "I built and shipped agent evaluation infrastructure for comparing discovery and usability across clients, models and tool surfaces.",
+        "I built a test platform to compare how agents find and use tools across clients and models.",
       details: [
-        "Encoded control and treatment matrices with matched tasks, frozen fixtures, versioned runtime evidence and repeatable execution.",
-        "Implemented evidence capture, statistical checks and failure accounting that distinguish product behavior from setup failures, incomplete pairs and invalid runs.",
+        "Ran A/B tests with matched tasks, fixed inputs and saved run evidence.",
+        "Separated tool failures from setup problems and incomplete runs.",
       ],
       limitations:
-        "Transport support varies by client; an implemented adapter is not a guarantee of identical behavior across every surface.",
+        "Clients support different connection types. An adapter does not mean every feature works in every client.",
       metricIds: ["agent-harness-coverage"],
       proofId: "method-multi-harness-ax-experiments",
       publicLabel:
@@ -218,16 +218,16 @@ export const currentWork: CurrentWork = {
     },
     {
       id: "coded-journey-paths",
-      title: "Journey paths as executable state",
+      title: "Journey paths as code",
       status: "Implemented evaluation",
       summary:
-        "I introduced and implemented state-based journey testing: onboarding produces a capability state, and an A/B experiment consumes that state.",
+        "I turned onboarding steps into saved states so different paths could be tested and compared.",
       details: [
-        "Mapped installation, authentication, skills, MCP, plugins and reader scope into explicit capability states rather than inferring readiness from a command name.",
-        "Built state-matched payload selection, certification checks and managed lifecycle controls, making alternate journeys reproducible and their differences inspectable.",
+        "Recorded installed tools, login status, skills, plugins and access permissions.",
+        "Built state-matched card selection, readiness checks and repeatable setup and cleanup.",
       ],
       limitations:
-        "The inventory includes held and no-card paths; mapped coverage is not a claim that every path was tested or improved.",
+        "Includes paused paths and paths without router cards. Not every mapped path was tested or improved.",
       metricIds: ["onboarding-surface-coverage"],
       proofId: "method-coded-journey-paths",
       publicLabel:
@@ -235,16 +235,16 @@ export const currentWork: CurrentWork = {
     },
     {
       id: "evidence-grounded-insights",
-      title: "Evidence-grounded insight synthesis",
+      title: "Turning test results into insights",
       status: "Shipped reporting",
       summary:
-        "I built insight synthesis and shipped reporting that turns discovery, retrieval and journey evidence into reviewable product decisions.",
+        "I built reports that turn discovery, retrieval and journey tests into clear product findings.",
       details: [
-        "Integrated evidence acquisition, bank-level and cross-bank synthesis, deterministic validation, report storage and publication gates.",
-        "Shipped daily reporting and implemented weekly orchestration with checkpoint recovery, preserving evidence bindings through failed stages and report reconstruction.",
+        "Connected evidence collection, report writing, source checks and publishing.",
+        "Shipped daily reports and built weekly runs that could resume after failures.",
       ],
       limitations:
-        "Daily reporting and recovered weekly report artifacts are evidenced; uninterrupted fresh weekly completion is not claimed.",
+        "Daily reports shipped; weekly reports were recovered after failures. This does not prove every fresh weekly run completed.",
       metricIds: [],
       proofId: "method-evidence-grounded-insights",
       publicLabel:

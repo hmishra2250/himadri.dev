@@ -7,7 +7,11 @@ import { practice } from "../src/content/practice";
 import { profile } from "../src/content/profile";
 import { buildCanonicalUrl, getRouteSeo } from "../src/lib/seo";
 import { claimById } from "../src/content/proof";
-import { publicRoutes } from "../src/lib/routes";
+import {
+  publicRoutes,
+  retiredRedirectRoutes,
+  getRetiredRouteDestination,
+} from "../src/lib/routes";
 
 const base = process.env.CHECK_BASE_URL || "http://127.0.0.1:3010";
 function visibleText(markup: string) {
@@ -138,7 +142,17 @@ async function main() {
     assert.doesNotMatch(html, /<meta name="robots" content="[^"]*noindex/);
     if (route.path === "/case-studies") {
       const rendered = visibleText(html);
-      assert.ok(rendered.includes("AI workflows and safeguards."));
+      assert.ok(rendered.includes("AI products"));
+      assert.ok(html.includes('class="work-index"'));
+      assert.equal(
+        (html.match(/class="work-record(?: work-record-featured)?"/g) || [])
+          .length,
+        9,
+      );
+      assert.doesNotMatch(
+        html,
+        /class="eyebrow"|method-grid|work-column|Detailed case study/,
+      );
       for (const item of [
         ...currentWork.reviewedSystems,
         ...currentWork.methodCards,
@@ -229,6 +243,24 @@ async function main() {
       assert.ok(html.includes(`href="${href}"`), `${pathname}: ${href}`);
     }
   }
+  for (const route of retiredRedirectRoutes) {
+    const response = await fetch(`${base}${route.path}`, {
+      redirect: "manual",
+    });
+    assert.equal(response.status, 308, `${route.path}: permanent redirect`);
+    const location = response.headers.get("location");
+    assert.ok(location, `${route.path}: redirect destination`);
+    const destination = new URL(location, base);
+    const expected = new URL(getRetiredRouteDestination(route.path), base);
+    assert.equal(
+      destination.pathname + destination.hash,
+      expected.pathname + expected.hash,
+    );
+  }
+  const missingStudy = await fetch(`${base}/case-studies/not-a-real-study`, {
+    redirect: "manual",
+  });
+  assert.equal(missingStudy.status, 404, "Unknown studies remain missing");
   console.log(
     `Design HTTP contracts passed for ${publicRoutes.length} public routes, served design CSS, approved work copy, original portrait and five contact actions.`,
   );

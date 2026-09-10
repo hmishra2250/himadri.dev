@@ -107,7 +107,7 @@ export const interviewAnswers: InterviewAnswer[] = [
     sourceCards: [
       {
         title: "Agentic Market Research Platform",
-        href: "/case-studies/agentic-market-research-platform#decision-theater",
+        href: "/case-studies#agentic-market-research-platform",
         snippet:
           "Decision fork comparing free-form agents with explicit DAG execution.",
         proofIds: ["knit-turnaround", "knit-observability-platform"],
@@ -126,13 +126,13 @@ export const interviewAnswers: InterviewAnswer[] = [
     sourceCards: [
       {
         title: "ML Infrastructure Rescue",
-        href: "/case-studies/ml-infra-rescue",
+        href: "/case-studies#ml-infra-rescue",
         snippet: "Production ML ownership across cost and reliability.",
         proofIds: ["epic-cost-reduction", "epic-pod-reduction"],
       },
       {
         title: "Agentic Market Research Platform",
-        href: "/case-studies/agentic-market-research-platform#architecture",
+        href: "/case-studies#agentic-market-research-platform",
         snippet:
           "Model routing, reusable sandbox execution, and verification tradeoffs in an agentic workflow.",
         proofIds: ["knit-observability-platform", "knit-sandbox-tasks"],
@@ -151,7 +151,7 @@ export const interviewAnswers: InterviewAnswer[] = [
     sourceCards: [
       {
         title: "Agentic Market Research Platform",
-        href: "/case-studies/agentic-market-research-platform#evaluation",
+        href: "/case-studies#agentic-market-research-platform",
         snippet: "Evaluation and reliability section for the flagship system.",
         proofIds: ["knit-sandbox-tasks", "knit-charts"],
       },
@@ -192,7 +192,7 @@ export const interviewAnswers: InterviewAnswer[] = [
     sourceCards: [
       {
         title: "Portfolio execution alignment",
-        href: "/case-studies/agentic-market-research-platform#decision-theater",
+        href: "/case-studies#agentic-market-research-platform",
         snippet: "The site itself stages static proof before live AI behavior.",
         proofIds: ["representative-trace-label"],
       },
@@ -243,7 +243,7 @@ export const interviewAnswers: InterviewAnswer[] = [
       },
       {
         title: "ML Infrastructure Rescue",
-        href: "/case-studies/ml-infra-rescue",
+        href: "/case-studies#ml-infra-rescue",
         snippet:
           "Production ML platform ownership across cost, search, recommendations and reliability.",
         proofIds: ["epic-cost-reduction"],

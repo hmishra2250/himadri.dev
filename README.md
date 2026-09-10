@@ -14,7 +14,7 @@ Homepage sections:
 
 Both Agent Experience Engineer and AI Product Engineer appear in the homepage headline. Broader backend, frontend, ML and computer-vision experience stays visible in the complete archive, without competing with the recent work.
 
-The Work navigation opens `/case-studies`, the complete static archive. Its four chapters cover agent tools and evaluation, AI workflows and safeguards, writing/open source, and broader engineering case studies. Details and controlled-experiment results live there rather than being duplicated on Home.
+The Work navigation opens `/case-studies`, a static index with one project per row. Its four sections cover agent experience, AI products, public projects and earlier work. Short summaries and scoped test results replace long case studies. The four former detail routes redirect to their summaries; the original source content remains in the repository.
 
 ## Stack
 

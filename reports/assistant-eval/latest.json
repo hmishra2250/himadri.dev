@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-09-10T18:40:28.550Z",
+  "generatedAt": "2026-09-10T19:10:29.536Z",
   "datasetSize": 40,
-  "corpusHash": "sha256:e6942ee7c199a073aee3873563c4fac171f2a260c12c5e0d8ed8afaf9041f2f6",
-  "evalHash": "sha256:6580daa0f4d2d643c8c4a7d402c0b6436cb21cf0ee1a79dbbbf9d52eb7b16e3e",
+  "corpusHash": "sha256:4d97158de6328008841ef7a91d2d26d9ccb06b33231bbb2bde7a6901e43c55bc",
+  "evalHash": "sha256:ee33f7baaa57db2b213ad3839bc9c011ff99cd9edcec5d65e0d9b81b848691a4",
   "thresholds": {
     "idealSourceRecall": 0.9,
     "forbiddenClaimPassRate": 1,

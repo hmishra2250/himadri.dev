@@ -16,7 +16,7 @@ export const principles: Principle[] = [
     evidence:
       "Built DAG-based orchestration for parallel AI insight execution.",
     proofId: "knit-observability-platform",
-    href: "/case-studies/agentic-market-research-platform#decision-theater",
+    href: "/case-studies#agentic-market-research-platform",
   },
   {
     id: "evaluation-path",
@@ -26,7 +26,7 @@ export const principles: Principle[] = [
     evidence:
       "Implemented independent judge verification with separate sandbox execution.",
     proofId: "knit-sandbox-tasks",
-    href: "/case-studies/agentic-market-research-platform#evaluation",
+    href: "/case-studies#agentic-market-research-platform",
   },
   {
     id: "observability-product",
@@ -36,7 +36,7 @@ export const principles: Principle[] = [
     evidence:
       "Unified ML platform observability across search, recommendations, and discovery at Epic!, then extended to LLM workflow tracing.",
     proofId: "epic-cost-reduction",
-    href: "/case-studies/ml-infra-rescue",
+    href: "/case-studies#ml-infra-rescue",
   },
   {
     id: "intermediate-representations",
@@ -46,7 +46,7 @@ export const principles: Principle[] = [
     evidence:
       "Built real-time CV pipelines with inspectable intermediate stages for worksheet recognition at Osmo, then applied IR patterns to deck generation.",
     proofId: "osmo-cv-accuracy",
-    href: "/case-studies/computer-vision-product-systems",
+    href: "/case-studies#computer-vision-product-systems",
   },
   {
     id: "unit-economics",
@@ -56,7 +56,7 @@ export const principles: Principle[] = [
     evidence:
       "Reduced ML infra costs by 10x and designed reusable sandbox execution patterns.",
     proofId: "epic-cost-reduction",
-    href: "/case-studies/ml-infra-rescue",
+    href: "/case-studies#ml-infra-rescue",
   },
   {
     id: "know-when-not-ai",
@@ -66,6 +66,6 @@ export const principles: Principle[] = [
     evidence:
       "Separated generated analysis from sandbox execution, typed artifacts, and independent verification.",
     proofId: "knit-sandbox-tasks",
-    href: "/case-studies/agentic-market-research-platform#evaluation",
+    href: "/case-studies#agentic-market-research-platform",
   },
 ];

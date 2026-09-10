@@ -17,19 +17,32 @@ const errors: string[] = [];
 const retiredRedirectExpectations = new Map<string, string>([
   ["/interview-me", "/about"],
   ["/principles", "/about"],
-  ["/challenges", "/case-studies/agentic-market-research-platform"],
+  ["/challenges", "/case-studies#agentic-market-research-platform"],
   [
     "/challenges/debug-this-agent",
-    "/case-studies/agentic-market-research-platform#observability",
+    "/case-studies#agentic-market-research-platform",
   ],
-  ["/challenges/cost-anatomy", "/case-studies/ml-infra-rescue"],
+  ["/challenges/cost-anatomy", "/case-studies#ml-infra-rescue"],
   [
     "/challenges/dag-execution-simulator",
-    "/case-studies/agentic-market-research-platform#architecture",
+    "/case-studies#agentic-market-research-platform",
   ],
   [
     "/challenges/deck-ir-previewer",
-    "/case-studies/agentic-market-research-platform#architecture",
+    "/case-studies#agentic-market-research-platform",
+  ],
+  [
+    "/case-studies/agentic-market-research-platform",
+    "/case-studies#agentic-market-research-platform",
+  ],
+  ["/case-studies/ml-infra-rescue", "/case-studies#ml-infra-rescue"],
+  [
+    "/case-studies/computer-vision-product-systems",
+    "/case-studies#computer-vision-product-systems",
+  ],
+  [
+    "/case-studies/high-performance-ar-and-vision",
+    "/case-studies#high-performance-ar-and-vision",
   ],
 ]);
 const appDir = join(process.cwd(), "src/app");
@@ -112,10 +125,6 @@ for (const requiredPath of [
   "/notes",
   "/resume",
   "/contact",
-  "/case-studies/agentic-market-research-platform",
-  "/case-studies/ml-infra-rescue",
-  "/case-studies/computer-vision-product-systems",
-  "/case-studies/high-performance-ar-and-vision",
 ]) {
   if (!publicPaths.has(requiredPath)) {
     errors.push(

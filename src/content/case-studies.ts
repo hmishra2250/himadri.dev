@@ -46,7 +46,7 @@ export const caseStudies: CaseStudy[] = [
       "Deck automation",
     ],
     summary:
-      "Architected a production agentic research workflow that transformed analyst-heavy reporting into a verified AI execution pipeline.",
+      "I built an AI workflow that turns survey data into checked reports, charts and slide decks.",
     problem:
       "Market research reporting required analysts to process survey data, write insights, generate charts, validate findings, and assemble polished decks. The bottleneck was not text generation alone; the system needed numerical correctness, artifact quality, observability, and recovery boundaries.",
     constraints: [
@@ -179,7 +179,7 @@ export const caseStudies: CaseStudy[] = [
       "knit-observability-platform",
     ],
     isFlagship: true,
-    routeEnabled: true,
+    routeEnabled: false,
   },
   {
     slug: "ml-infra-rescue",
@@ -197,7 +197,7 @@ export const caseStudies: CaseStudy[] = [
       "Cost optimization",
     ],
     summary:
-      "Took ownership of production ML systems after layoffs and reduced cost, complexity, and operational risk.",
+      "I took over live ML systems and reduced their cost and maintenance work.",
     problem:
       "The ML platform needed ownership across discovery, recommendations, search, Docker builds, Kubernetes usage, spot instance stability, and product experiments.",
     constraints: [
@@ -257,7 +257,7 @@ export const caseStudies: CaseStudy[] = [
       "epic-pod-reduction",
       "epic-docker-build-time",
     ],
-    routeEnabled: true,
+    routeEnabled: false,
   },
   {
     slug: "computer-vision-product-systems",
@@ -274,7 +274,7 @@ export const caseStudies: CaseStudy[] = [
       "Education products",
     ],
     summary:
-      "Led CV systems that improved worksheet recognition accuracy and supported interactive learning workflows.",
+      "I built computer vision systems for worksheet recognition and interactive learning.",
     problem:
       "Education products required reliable computer vision under varied lighting, paper positions, device constraints, and real-time interaction expectations.",
     constraints: [
@@ -333,7 +333,7 @@ export const caseStudies: CaseStudy[] = [
       "osmo-shaded-region-iou",
       "osmo-engagement-tagging",
     ],
-    routeEnabled: true,
+    routeEnabled: false,
   },
   {
     slug: "high-performance-ar-and-vision",
@@ -344,8 +344,7 @@ export const caseStudies: CaseStudy[] = [
     period: "July 2018 – August 2019",
     role: "Deep Learning Engineer",
     domains: ["C++", "ORB", "SLAM-style vision", "Monocular depth", "AR"],
-    summary:
-      "Built and researched performance-sensitive vision primitives before the team transitioned to Osmo after acquisition.",
+    summary: "I worked on fast C++ vision code and depth estimation for AR.",
     problem:
       "AR systems needed fast feature detection and research depth around monocular depth estimation.",
     constraints: [
@@ -389,7 +388,7 @@ export const caseStudies: CaseStudy[] = [
     reflection:
       "This work gives the portfolio low-level systems depth alongside modern LLM platform work.",
     proofIds: ["whodat-orb"],
-    routeEnabled: true,
+    routeEnabled: false,
   },
 ];
 

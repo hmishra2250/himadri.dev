@@ -21,12 +21,13 @@ Inspect only priority changed URLs after deploy:
 
 - `https://himadri.dev/`
 - `https://himadri.dev/case-studies`
-- `https://himadri.dev/case-studies/agentic-market-research-platform`
 - `https://himadri.dev/resume`
 - `https://himadri.dev/contact`
-- `https://himadri.dev/interview-me`
-- `https://himadri.dev/principles`
-- `https://himadri.dev/challenges`
+
+Verify retired URLs as redirects only, for example:
+
+- `https://himadri.dev/case-studies/agentic-market-research-platform` redirects to `https://himadri.dev/case-studies#agentic-market-research-platform`
+- `https://himadri.dev/challenges` redirects to `https://himadri.dev/case-studies#agentic-market-research-platform`
 
 For each priority URL:
 

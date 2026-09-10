@@ -29,7 +29,7 @@ export const assistantEvalQuestions: AssistantEvalQuestion[] = [
     type: "answerable",
     expectedFacts: ["48-72", "under 1 hour"],
     forbiddenClaims: forbidden,
-    idealSources: ["/case-studies/agentic-market-research-platform"],
+    idealSources: ["/case-studies#agentic-market-research-platform"],
     expectedConfidence: "high",
   },
   {
@@ -39,7 +39,7 @@ export const assistantEvalQuestions: AssistantEvalQuestion[] = [
     type: "answerable",
     expectedFacts: ["30-50"],
     forbiddenClaims: forbidden,
-    idealSources: ["/case-studies/agentic-market-research-platform"],
+    idealSources: ["/case-studies#agentic-market-research-platform"],
     expectedConfidence: "high",
   },
   {
@@ -48,7 +48,7 @@ export const assistantEvalQuestions: AssistantEvalQuestion[] = [
     type: "answerable",
     expectedFacts: ["15-25", "Highcharts"],
     forbiddenClaims: forbidden,
-    idealSources: ["/case-studies/agentic-market-research-platform"],
+    idealSources: ["/case-studies#agentic-market-research-platform"],
     expectedConfidence: "high",
   },
   {
@@ -57,7 +57,7 @@ export const assistantEvalQuestions: AssistantEvalQuestion[] = [
     type: "answerable",
     expectedFacts: ["OpenTelemetry", "Langfuse"],
     forbiddenClaims: forbidden,
-    idealSources: ["/case-studies/agentic-market-research-platform"],
+    idealSources: ["/case-studies#agentic-market-research-platform"],
     expectedConfidence: "high",
   },
   {
@@ -66,7 +66,7 @@ export const assistantEvalQuestions: AssistantEvalQuestion[] = [
     type: "answerable",
     expectedFacts: ["10x"],
     forbiddenClaims: forbidden,
-    idealSources: ["/case-studies/ml-infra-rescue"],
+    idealSources: ["/case-studies#ml-infra-rescue"],
     expectedConfidence: "high",
   },
   {
@@ -75,7 +75,7 @@ export const assistantEvalQuestions: AssistantEvalQuestion[] = [
     type: "answerable",
     expectedFacts: ["100x"],
     forbiddenClaims: forbidden,
-    idealSources: ["/case-studies/ml-infra-rescue"],
+    idealSources: ["/case-studies#ml-infra-rescue"],
     expectedConfidence: "high",
   },
   {
@@ -84,7 +84,7 @@ export const assistantEvalQuestions: AssistantEvalQuestion[] = [
     type: "answerable",
     expectedFacts: ["93%", "98%"],
     forbiddenClaims: forbidden,
-    idealSources: ["/case-studies/computer-vision-product-systems"],
+    idealSources: ["/case-studies#computer-vision-product-systems"],
     expectedConfidence: "high",
   },
   {
@@ -93,7 +93,7 @@ export const assistantEvalQuestions: AssistantEvalQuestion[] = [
     type: "answerable",
     expectedFacts: ["80% IoU"],
     forbiddenClaims: forbidden,
-    idealSources: ["/case-studies/computer-vision-product-systems"],
+    idealSources: ["/case-studies#computer-vision-product-systems"],
     expectedConfidence: "high",
   },
   {
@@ -102,7 +102,7 @@ export const assistantEvalQuestions: AssistantEvalQuestion[] = [
     type: "answerable",
     expectedFacts: ["20% faster"],
     forbiddenClaims: forbidden,
-    idealSources: ["/case-studies/high-performance-ar-and-vision"],
+    idealSources: ["/case-studies#high-performance-ar-and-vision"],
     expectedConfidence: "high",
   },
   {
@@ -129,7 +129,7 @@ export const assistantEvalQuestions: AssistantEvalQuestion[] = [
     type: "answerable",
     expectedFacts: ["explicit", "boundaries"],
     forbiddenClaims: forbidden,
-    idealSources: ["/case-studies/agentic-market-research-platform"],
+    idealSources: ["/case-studies#agentic-market-research-platform"],
     expectedConfidence: "high",
   },
   {
@@ -139,8 +139,8 @@ export const assistantEvalQuestions: AssistantEvalQuestion[] = [
     expectedFacts: ["model routing", "retry"],
     forbiddenClaims: forbidden,
     idealSources: [
-      "/case-studies/ml-infra-rescue",
-      "/case-studies/agentic-market-research-platform",
+      "/case-studies#ml-infra-rescue",
+      "/case-studies#agentic-market-research-platform",
     ],
     expectedConfidence: "high",
   },
@@ -150,7 +150,7 @@ export const assistantEvalQuestions: AssistantEvalQuestion[] = [
     type: "answerable",
     expectedFacts: ["verification", "sandbox"],
     forbiddenClaims: forbidden,
-    idealSources: ["/case-studies/agentic-market-research-platform"],
+    idealSources: ["/case-studies#agentic-market-research-platform"],
     expectedConfidence: "high",
   },
   {
@@ -159,7 +159,7 @@ export const assistantEvalQuestions: AssistantEvalQuestion[] = [
     type: "answerable",
     expectedFacts: ["explicit", "boundaries"],
     forbiddenClaims: forbidden,
-    idealSources: ["/case-studies/agentic-market-research-platform"],
+    idealSources: ["/case-studies#agentic-market-research-platform"],
     expectedConfidence: "high",
   },
   {
@@ -168,7 +168,7 @@ export const assistantEvalQuestions: AssistantEvalQuestion[] = [
     type: "answerable",
     expectedFacts: ["spans", "cost"],
     forbiddenClaims: forbidden,
-    idealSources: ["/case-studies/agentic-market-research-platform"],
+    idealSources: ["/case-studies#agentic-market-research-platform"],
     expectedConfidence: "high",
   },
   {
@@ -177,7 +177,7 @@ export const assistantEvalQuestions: AssistantEvalQuestion[] = [
     type: "answerable",
     expectedFacts: ["debuggable", "renderer"],
     forbiddenClaims: forbidden,
-    idealSources: ["/case-studies/agentic-market-research-platform"],
+    idealSources: ["/case-studies#agentic-market-research-platform"],
     expectedConfidence: "high",
   },
   {
@@ -186,7 +186,7 @@ export const assistantEvalQuestions: AssistantEvalQuestion[] = [
     type: "answerable",
     expectedFacts: ["robust", "demo"],
     forbiddenClaims: forbidden,
-    idealSources: ["/case-studies/agentic-market-research-platform"],
+    idealSources: ["/case-studies#agentic-market-research-platform"],
     expectedConfidence: "high",
   },
   {

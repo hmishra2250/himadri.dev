@@ -112,15 +112,14 @@ export const practice: Practice = {
   recentWorkCases: [
     {
       id: "interface-consistency-brief",
-      title: "CLI, MCP and SDK consistency",
+      title: "Consistent CLI and SDK tools",
       summary:
-        "I worked across CLI, MCP, SDK and documentation surfaces so developer and agent workflows were easier to configure, call and understand.",
+        "I made setup and API calls more consistent across the CLI, MCP tools and SDK.",
       work: [
-        "Built SDK client methods and kept API behavior consistent across client surfaces.",
-        "Aligned tool descriptions, credential setup, documentation navigation, routing behavior and API guidance.",
+        "Built SDK methods and fixed credential setup.",
+        "Aligned tool descriptions, routing and docs.",
       ],
-      verification:
-        "SDK client and credential setup changes included supporting regression tests.",
+      verification: "Regression tests covered the SDK and credential changes.",
       proofIds: [
         "recent-cli-mcp-sdk-interfaces",
         "recent-sdk-api-consistency",
@@ -129,28 +128,27 @@ export const practice: Practice = {
     },
     {
       id: "reviewed-ai-workflows-brief",
-      title: "AI workflows with human review",
+      title: "AI drafts with human review",
       summary:
-        "I built AI workflow paths where retrieved context, draft artifacts, claim checks and human review stay connected.",
+        "I connected source retrieval, draft writing and claim checks, with a person approving the result.",
       work: [
-        "Implemented retrieval-backed context for draft generation.",
-        "Added claim checks and a human-review gate before outputs were treated as ready.",
+        "Added source context to draft generation.",
+        "Checked claims before the human review step.",
       ],
-      verification:
-        "Supporting regression tests covered the draft, claim-check and review-gate path.",
+      verification: "Regression tests covered drafting, checks and review.",
       proofIds: ["recent-reviewed-ai-workflows"],
     },
     {
       id: "browser-runtime-boundaries-brief",
-      title: "MCP runtime and request recovery",
+      title: "MCP runtime and recovery",
       summary:
-        "I tightened MCP runtime behavior, browser-session entry points and recovery paths for agent workflows with clear request boundaries.",
+        "I updated the MCP runtime, added browser sessions and fixed request recovery.",
       work: [
-        "Migrated MCP server runtime behavior and added browser-session entry points.",
-        "Repaired runtime request boundaries and recovery behavior.",
+        "Added browser entry points to the MCP tools.",
+        "Fixed request handling in the app and proxy.",
       ],
       verification:
-        "Smoke tests and regression tests covered runtime, request and recovery boundaries across application and proxy configuration.",
+        "Smoke and regression tests covered runtime changes and recovery.",
       proofIds: [
         "recent-mcp-runtime-migration",
         "recent-browser-session-tooling",

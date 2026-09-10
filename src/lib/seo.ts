@@ -12,7 +12,6 @@ export type RouteSeo = {
   lastModified: string;
 };
 
-const sharedLastModified = "2026-05-14";
 const professionalPresenceLastModified = "2026-09-07";
 
 const routeSeoData = {
@@ -29,52 +28,12 @@ const routeSeoData = {
   "/case-studies": {
     title: "Engineering Work",
     description:
-      "The complete work archive: agent tools, evaluation systems, shipped AI workflows, production AI and ML case studies, writing and open source.",
+      "Agent tools, AI products and public projects I built, with short summaries, test results and earlier engineering work.",
     canonicalPath: "/case-studies",
     openGraphTitle: "Engineering work | Himadri Mishra",
     openGraphDescription:
-      "Agent tools and evaluation, AI workflows, production case studies, writing and open source, with technical details and scoped evidence.",
+      "Agent tools, AI products and public projects I built, with short summaries, test results and earlier engineering work.",
     lastModified: "2026-09-11",
-  },
-  "/case-studies/agentic-market-research-platform": {
-    title: "Agentic Research Platform Case Study",
-    description:
-      "Case study on a production agentic research workflow for verified insights, charts, and consulting grade PPTX decks.",
-    canonicalPath: "/case-studies/agentic-market-research-platform",
-    openGraphTitle: "Agentic research platform case study",
-    openGraphDescription:
-      "How a production AI workflow used DAG execution, sandboxed analytics, independent judging, and deck automation.",
-    lastModified: sharedLastModified,
-  },
-  "/case-studies/ml-infra-rescue": {
-    title: "ML Infrastructure Rescue Case Study",
-    description:
-      "Case study on production ML platform ownership across cost, search, recommendations, infrastructure, and reliability.",
-    canonicalPath: "/case-studies/ml-infra-rescue",
-    openGraphTitle: "ML infrastructure rescue case study",
-    openGraphDescription:
-      "Production ML platform work covering cost reduction, Kubernetes simplification, search, recommendations, and reliability.",
-    lastModified: sharedLastModified,
-  },
-  "/case-studies/computer-vision-product-systems": {
-    title: "Computer Vision Product Systems Case Study",
-    description:
-      "Case study on real time computer vision systems for education products under device, latency, and usability constraints.",
-    canonicalPath: "/case-studies/computer-vision-product-systems",
-    openGraphTitle: "Computer vision product systems case study",
-    openGraphDescription:
-      "Production computer vision systems for education products with real time constraints and product feedback loops.",
-    lastModified: sharedLastModified,
-  },
-  "/case-studies/high-performance-ar-and-vision": {
-    title: "High Performance AR and Vision Case Study",
-    description:
-      "Case study on high performance AR and vision systems built under mobile, latency, and product interaction constraints.",
-    canonicalPath: "/case-studies/high-performance-ar-and-vision",
-    openGraphTitle: "High performance AR and vision case study",
-    openGraphDescription:
-      "AR and vision engineering work shaped by mobile performance, reliability, and interactive product constraints.",
-    lastModified: sharedLastModified,
   },
   "/about": {
     title: "About Himadri Mishra",

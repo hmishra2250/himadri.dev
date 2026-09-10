@@ -19,7 +19,7 @@ export const stackOpinions: StackOpinion[] = [
     evidence:
       "DAG orchestration and task-level execution in the market research platform.",
     proofIds: ["knit-observability-platform"],
-    relatedHref: "/case-studies/agentic-market-research-platform#architecture",
+    relatedHref: "/case-studies#agentic-market-research-platform",
   },
   {
     id: "frameworks-are-not-architecture",
@@ -31,8 +31,7 @@ export const stackOpinions: StackOpinion[] = [
     evidence:
       "Shared Python agent platform with multi-provider routing, tracing, and generated APIs.",
     proofIds: ["knit-observability-platform"],
-    relatedHref:
-      "/case-studies/agentic-market-research-platform#decision-theater",
+    relatedHref: "/case-studies#agentic-market-research-platform",
   },
   {
     id: "observability-beyond-prompts",
@@ -44,7 +43,7 @@ export const stackOpinions: StackOpinion[] = [
     evidence:
       "OpenTelemetry and Langfuse-backed instrumentation for AI workflow execution.",
     proofIds: ["knit-observability-platform"],
-    relatedHref: "/case-studies/agentic-market-research-platform#observability",
+    relatedHref: "/case-studies#agentic-market-research-platform",
   },
   {
     id: "intermediate-representations",
@@ -56,7 +55,7 @@ export const stackOpinions: StackOpinion[] = [
     evidence:
       "Deck IR to HTML preview to native PPTX export in the market research platform.",
     proofIds: ["knit-charts"],
-    relatedHref: "/case-studies/agentic-market-research-platform#architecture",
+    relatedHref: "/case-studies#agentic-market-research-platform",
   },
 
   {
@@ -69,7 +68,7 @@ export const stackOpinions: StackOpinion[] = [
     evidence:
       "15-25 Highcharts charts per report with multi-threshold quality scoring in the market research workflow.",
     proofIds: ["knit-charts"],
-    relatedHref: "/case-studies/agentic-market-research-platform#architecture",
+    relatedHref: "/case-studies#agentic-market-research-platform",
   },
   {
     id: "unit-economics",
@@ -81,6 +80,6 @@ export const stackOpinions: StackOpinion[] = [
     evidence:
       "ML infrastructure cost reduction and cost-aware AI workflow patterns.",
     proofIds: ["epic-cost-reduction", "epic-pod-reduction"],
-    relatedHref: "/case-studies/ml-infra-rescue",
+    relatedHref: "/case-studies#ml-infra-rescue",
   },
 ];

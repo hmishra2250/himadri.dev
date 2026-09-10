@@ -135,8 +135,33 @@ for (const project of currentWork.publicProjects)
   assert.ok(work.includes(`href="${project.href}"`));
 for (const project of currentWork.publicProjects.slice(1))
   assert.ok(!home.includes(project.href));
-for (const study of caseStudies.filter((study) => study.routeEnabled))
-  assert.ok(work.includes(`href="/case-studies/${study.slug}"`));
+for (const study of caseStudies) {
+  assert.ok(work.includes(`id="${study.slug}"`));
+  assert.ok(work.includes(escape(study.summary)));
+  assert.ok(!work.includes(`href="/case-studies/${study.slug}"`));
+}
+assert.equal((work.match(/<h1[^>]*>Work<\/h1>/g) || []).length, 1);
+assert.doesNotMatch(
+  work,
+  /class="eyebrow"|method-grid|work-column|secondary-grid|Detailed case study/,
+);
+assert.equal(
+  (work.match(/class="work-record(?: work-record-featured)?"/g) || []).length,
+  9,
+);
+assert.doesNotMatch(work, /<details|<button|\u2014|&mdash;/);
+const words = (value: string) => value.trim().split(/\s+/).length;
+for (const method of currentWork.methodCards) {
+  assert.ok(words(method.summary) <= 25, `Short summary: ${method.id}`);
+  assert.ok(
+    method.details.every((detail) => words(detail) <= 18),
+    `Short implementation bullets: ${method.id}`,
+  );
+}
+for (const brief of practice.recentWorkCases) {
+  assert.ok(words(brief.summary) <= 25);
+  assert.ok(brief.work.every((item) => words(item) <= 15));
+}
 for (const id of [
   "agent-tools",
   "ai-workflows",

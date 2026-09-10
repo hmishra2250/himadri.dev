@@ -58,7 +58,7 @@ export const notes: Note[] = [
       },
       {
         label: "Review the agentic workflow case study",
-        href: "/case-studies/agentic-market-research-platform#observability",
+        href: "/case-studies#agentic-market-research-platform",
       },
     ],
   },
@@ -85,11 +85,11 @@ export const notes: Note[] = [
     relatedLinks: [
       {
         label: "Review agentic workflow tradeoffs",
-        href: "/case-studies/agentic-market-research-platform#architecture",
+        href: "/case-studies#agentic-market-research-platform",
       },
       {
         label: "Review the ML infrastructure case study",
-        href: "/case-studies/ml-infra-rescue",
+        href: "/case-studies#ml-infra-rescue",
       },
     ],
   },
@@ -116,11 +116,11 @@ export const notes: Note[] = [
     relatedLinks: [
       {
         label: "Review the evaluation path",
-        href: "/case-studies/agentic-market-research-platform#evaluation",
+        href: "/case-studies#agentic-market-research-platform",
       },
       {
         label: "Read the research platform case study",
-        href: "/case-studies/agentic-market-research-platform#evaluation",
+        href: "/case-studies#agentic-market-research-platform",
       },
     ],
   },
