@@ -43,7 +43,7 @@ for (const [name, markup] of [
     `${name}: one external guide link`,
   );
   assert.match(markup, /aria-label="Agent Experience \(external website\)"/);
-  assert.match(markup, /Agent Experience <span aria-hidden="true">↗<\/span>/);
+  assert.match(markup, />Agent Experience<\/a>/);
 }
 assert.ok(
   sitemap().every((entry) => new URL(entry.url).hostname === "www.himadri.dev"),

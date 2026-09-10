@@ -156,7 +156,9 @@ async function main() {
       `${route.path}: external guide follows Work`,
     );
     assert.ok(
-      header.includes('aria-label="Agent Experience (external website)"'),
+      header.includes(
+        'aria-label="Agent Experience (external website)">Agent Experience</a>',
+      ),
       `${route.path}: external destination is named`,
     );
     const footer = html.match(/<footer\b[\s\S]*?<\/footer>/)?.[0];

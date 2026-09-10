@@ -13,7 +13,7 @@ export function NavigationLinks() {
           href={profile.agentExperience}
           aria-label="Agent Experience (external website)"
         >
-          Agent Experience <span aria-hidden="true">↗</span>
+          Agent Experience
         </a>
       )}
     </Fragment>
