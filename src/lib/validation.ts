@@ -13,11 +13,13 @@ import {
 import { metrics } from "@/content/metrics";
 import type { Note } from "@/content/notes";
 import { notes } from "@/content/notes";
+import { practice } from "@/content/practice";
 import { principles } from "@/content/principles";
 import { proofClaims } from "@/content/proof";
 import { profile } from "@/content/profile";
 import { stackOpinions } from "@/content/stack-opinions";
 import { traceLabel } from "@/content/traces";
+import { validatePracticeContract } from "@/lib/practice-validation";
 import {
   ASSISTANT_EVAL_REPORT_PATH,
   ASSISTANT_SERVER_ENABLE_FLAG,
@@ -25,9 +27,12 @@ import {
 } from "@/lib/assistant/config";
 import {
   deferredRoutes,
+  getNavHref,
+  getRetiredRouteDestination,
   navRoutes,
   publicRoutes,
   requiredRoutes,
+  retiredRedirectRoutes,
   robotsDisallowRoutes,
   routeIsEnabled,
   routeManifest,
@@ -154,6 +159,8 @@ export function validateContent() {
 
   const checkLocalProofRef = (owner: string, proofId: string) =>
     checkProofRef(errors, ids, owner, proofId);
+
+  errors.push(...validatePracticeContract(practice, proofClaims));
 
   const checkEnabledHref = (owner: string, href: string) => {
     if (href.startsWith("/resume/") && href.endsWith(".pdf")) return;
@@ -302,9 +309,32 @@ export function validateRoutes() {
     if (route.includeInNav)
       errors.push(`deferred route included in nav: ${route.path}`);
   }
+  for (const route of retiredRedirectRoutes) {
+    if (route.includeInNav || route.includeInSitemap) {
+      errors.push(`retired route exposed publicly: ${route.path}`);
+    }
+    try {
+      getRetiredRouteDestination(route.path);
+    } catch (error) {
+      errors.push(error instanceof Error ? error.message : String(error));
+    }
+  }
+
   for (const route of routeManifest) {
     if (route.includeInNav && !route.label)
       errors.push(`nav route missing label: ${route.path}`);
+    if (route.navHref) {
+      if (!route.enabled || route.kind !== "page" || !route.includeInNav) {
+        errors.push(`non-navigable route cannot define navHref: ${route.path}`);
+      }
+      if (!/^\/#[-a-z0-9]+$/.test(route.navHref)) {
+        errors.push(`navHref must be a homepage fragment: ${route.path}`);
+      }
+    }
+    const navHref = getNavHref(route);
+    if (!navHref.startsWith("/")) {
+      errors.push(`nav href must be local: ${route.path}`);
+    }
     if (
       route.kind === "api" &&
       (route.includeInSitemap || route.includeInNav)

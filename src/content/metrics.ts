@@ -55,7 +55,7 @@ export const metrics: Metric[] = [
     value: "30-50",
     label: "Sandbox tasks per report",
     context:
-      "Persistent analytics sandbox execution with independent judge verification.",
+      "Sandboxed Python analysis across report tasks with independent judge verification.",
     proofId: "knit-sandbox-tasks",
     href: "/case-studies/agentic-market-research-platform",
     priority: 5,

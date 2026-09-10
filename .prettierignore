@@ -8,3 +8,4 @@ docs/**
 # generated assistant reports
 reports/assistant-corpus/*.json
 reports/assistant-eval/*.json
+.claude/**

@@ -81,6 +81,6 @@ export const stackOpinions: StackOpinion[] = [
     evidence:
       "ML infrastructure cost reduction and cost-aware AI workflow patterns.",
     proofIds: ["epic-cost-reduction", "epic-pod-reduction"],
-    relatedHref: "/challenges/cost-anatomy",
+    relatedHref: "/case-studies/ml-infra-rescue",
   },
 ];

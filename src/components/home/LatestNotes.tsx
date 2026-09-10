@@ -1,31 +1,31 @@
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
 import { notes } from "@/content/notes";
 
 export function LatestNotes() {
-  const latest = notes.slice(0, 3);
+  const latest = notes.slice(0, 2);
 
   return (
-    <section className="section-pad compact alt" aria-labelledby="blog-title">
-      <div className="container narrow">
-        <div className="section-header">
-          <p className="eyebrow">Writing</p>
-          <h2 id="blog-title" className="display-serif">
-            Lessons from systems I have <em>operated.</em>
-          </h2>
+    <section
+      className="section-pad compact alt"
+      aria-labelledby="writing-title"
+    >
+      <div className="container writing-section">
+        <div className="section-header compact-header">
+          <h2 id="writing-title">Writing.</h2>
+          <p className="section-description">
+            Occasional notes on engineering judgment, AI systems, and product
+            boundaries.
+          </p>
         </div>
-        <div className="notes-list">
+        <div className="notes-list writing-list">
           {latest.map((note) => (
             <Link href={`/notes#${note.id}`} className="note-row" key={note.id}>
               <h3>{note.title}</h3>
               <p>{note.dek}</p>
             </Link>
           ))}
-        </div>
-        <div className="card-footer-row">
-          <Link className="button ghost" href="/notes">
+          <Link className="button ghost align-start" href="/notes">
             All writing
-            <ArrowRight className="icon icon-md" />
           </Link>
         </div>
       </div>

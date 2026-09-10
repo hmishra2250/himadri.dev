@@ -20,7 +20,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${siteConfig.url}${route.path}`,
       lastModified: new Date(routeSeo.lastModified),
       changeFrequency: isHome ? "weekly" : "monthly",
-      priority: isHome ? 1 : (isHighPriority || isCaseStudy) ? 0.8 : 0.5,
+      priority: isHome ? 1 : isHighPriority || isCaseStudy ? 0.8 : 0.5,
     };
   });
 }

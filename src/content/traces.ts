@@ -44,7 +44,7 @@ export const traceSpans: TraceSpan[] = [
     type: "sandbox",
     duration: "5.2s",
     status: "success",
-    summary: "Persistent sandbox reused across report tasks.",
+    summary: "Sandboxed analysis completed for report tasks.",
   },
   {
     id: "judge",

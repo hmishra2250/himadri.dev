@@ -40,7 +40,7 @@ const PRIVATE_OR_UNSUPPORTED_PATTERNS = [
 function fallback(): InterviewResponse {
   return {
     answer:
-      "I do not have enough approved portfolio context to answer that. I can answer questions about public resume facts, sanitized case studies, production AI principles, interactive challenges, role fit, evaluation, observability, cost, and architecture.",
+      "I do not have enough approved portfolio context to answer that. I can answer questions about public resume facts, retained case studies, notes, role fit, evaluation, observability, cost, and architecture.",
     sources: [],
     confidence: "insufficient_context",
   };

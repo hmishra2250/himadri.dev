@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Instrument_Serif, Inter, JetBrains_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import "@/styles/globals.css";
 import { GoogleAnalytics } from "@/components/analytics/GoogleAnalytics";
 import { Footer } from "@/components/layout/Footer";
@@ -7,21 +7,50 @@ import { Navbar } from "@/components/layout/Navbar";
 import { siteConfig } from "@/lib/metadata";
 import { buildRootJsonLd, escapeJsonLd } from "@/lib/structured-data";
 
-const instrumentSerif = Instrument_Serif({
-  weight: "400",
-  style: ["normal", "italic"],
-  subsets: ["latin"],
-  variable: "--font-instrument-serif",
+const ebGaramond = localFont({
+  src: [
+    {
+      path: "./fonts/EBGaramond08-Regular.woff2",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "./fonts/EBGaramond08-Italic.woff2",
+      weight: "400",
+      style: "italic",
+    },
+  ],
+  variable: "--font-eb-garamond",
   display: "swap",
 });
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
+
+const go = localFont({
+  src: [
+    {
+      path: "./fonts/Go-Regular.woff2",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "./fonts/Go-Bold.woff2",
+      weight: "700",
+      style: "normal",
+    },
+  ],
+  variable: "--font-go",
   display: "swap",
 });
-const jetbrainsMono = JetBrains_Mono({
-  subsets: ["latin"],
-  variable: "--font-jetbrains-mono",
+
+const goMono = localFont({
+  preload: false,
+  src: [
+    {
+      path: "./fonts/Go-Mono.woff2",
+      weight: "400",
+      style: "normal",
+    },
+  ],
+  variable: "--font-go-mono",
   display: "swap",
 });
 
@@ -71,7 +100,10 @@ export default function RootLayout({
   const jsonLd = escapeJsonLd(JSON.stringify(buildRootJsonLd()));
 
   return (
-    <html lang="en" className={`${instrumentSerif.variable} ${inter.variable} ${jetbrainsMono.variable}`}>
+    <html
+      lang="en"
+      className={`${ebGaramond.variable} ${go.variable} ${goMono.variable}`}
+    >
       <body>
         <a className="skip-link" href="#main-content">
           Skip to content

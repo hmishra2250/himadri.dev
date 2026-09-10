@@ -1,7 +1,7 @@
-import { costModels, debugScenarios } from "@/content/challenges";
 import { caseStudies } from "@/content/case-studies";
 import { interviewAnswers } from "@/content/interview";
 import { metrics } from "@/content/metrics";
+import { notes } from "@/content/notes";
 import { principles } from "@/content/principles";
 import { profile } from "@/content/profile";
 import { stackOpinions } from "@/content/stack-opinions";
@@ -15,7 +15,8 @@ export type PortfolioChunk = {
     | "principle"
     | "challenge"
     | "interview"
-    | "metric";
+    | "metric"
+    | "note";
   url: string;
   text: string;
   tags: string[];
@@ -31,7 +32,7 @@ export function buildPortfolioChunks(): PortfolioChunk[] {
     title: "Profile positioning",
     sourceType: "resume",
     url: "/resume",
-    text: `${profile.name} is a ${profile.role}. ${profile.positioning} Best fit roles include Senior AI Engineer, AI Platform Engineer, LLM Systems Architect, and Founding AI Engineer.`,
+    text: `${profile.name} is a ${profile.role}. ${profile.positioning} Best fit work includes agent-facing developer tools, AI product workflows, AI platform engineering, LLM systems architecture, and ML platform reliability.`,
     tags: ["role fit", "profile", "senior ai engineer", "llm systems"],
     priority: 10,
     confidentialityLevel: "public",
@@ -82,7 +83,7 @@ export function buildPortfolioChunks(): PortfolioChunk[] {
       id: `principle-${principle.id}`,
       title: principle.title,
       sourceType: "principle",
-      url: principle.href ?? "/principles",
+      url: principle.href ?? "/about",
       text: `${principle.title}. ${principle.statement}. Evidence: ${principle.evidence}`,
       tags: ["principle", principle.title.toLowerCase()],
       priority: 6,
@@ -103,47 +104,31 @@ export function buildPortfolioChunks(): PortfolioChunk[] {
     });
   }
 
+  for (const note of notes) {
+    chunks.push({
+      id: `note-${note.id}`,
+      title: note.title,
+      sourceType: "note",
+      url: "/notes",
+      text: [note.title, note.dek, ...note.body].join(" "),
+      tags: ["note", note.id.replaceAll("-", " ")],
+      priority: 7,
+      confidentialityLevel: "public",
+    });
+  }
+
   for (const answer of interviewAnswers) {
     chunks.push({
       id: `interview-${answer.id}`,
       title: `Interview answer: ${answer.id}`,
       sourceType: "interview",
-      url: "/interview-me",
+      url: answer.sourceCards[0]?.href ?? "/about",
       text: [answer.summary, ...answer.bullets].join(" "),
       tags: ["interview", "role fit", "answers"],
       priority: 8,
       confidentialityLevel: "public",
     });
   }
-
-  for (const scenario of debugScenarios) {
-    chunks.push({
-      id: `debug-${scenario.id}`,
-      title: scenario.title,
-      sourceType: "challenge",
-      url: "/challenges/debug-this-agent",
-      text: `${scenario.title}. ${scenario.symptom}. ${scenario.diagnosis}. ${scenario.fix}`,
-      tags: ["debugging", "agent trace", "model routing", "challenge"],
-      priority: 8,
-      confidentialityLevel: "sanitized",
-    });
-  }
-
-  chunks.push({
-    id: "cost-anatomy",
-    title: "Cost Anatomy",
-    sourceType: "challenge",
-    url: "/challenges/cost-anatomy",
-    text: `Cost Anatomy uses representative normalized units. ${costModels
-      .map(
-        (model) =>
-          `${model.label}: ${model.totalUnits} units. ${model.summary}`,
-      )
-      .join(" ")}`,
-    tags: ["cost", "unit economics", "normalized units", "challenge"],
-    priority: 8,
-    confidentialityLevel: "sanitized",
-  });
 
   return chunks;
 }

@@ -1,9 +1,9 @@
 export const profile = {
   name: "Himadri Mishra",
-  role: "Senior AI Engineer",
-  headline: "Senior AI Engineer building production-grade agentic systems.",
+  role: "Senior AI Systems Engineer",
+  headline: "AI systems engineer for inspectable agent and product workflows.",
   positioning:
-    "I turn messy human workflows into reliable, observable AI software across LLM orchestration, evaluation, analytics, deck automation, ML infrastructure, search, and computer vision.",
+    "I help product and engineering teams turn ambiguous AI workflows into reliable, observable software across agent-facing tools, evaluation, artifact automation, ML infrastructure, search, and computer vision.",
   location: "Remote, India",
   email: "himadri.jobhunt@gmail.com",
   linkedin: "https://linkedin.com/in/hmishra2250",

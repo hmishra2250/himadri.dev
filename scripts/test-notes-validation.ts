@@ -18,7 +18,7 @@ const baseNote: Note = {
       description: "A public-safe fixture artifact.",
     },
   ],
-  relatedLinks: [{ label: "Principles", href: "/principles" }],
+  relatedLinks: [{ label: "About", href: "/about" }],
 };
 
 const negativeCases: Array<{ name: string; note: Note; expected: string }> = [

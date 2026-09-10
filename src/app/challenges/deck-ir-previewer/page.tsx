@@ -1,21 +1,8 @@
-import type { Metadata } from "next";
-import { buildPageMetadata } from "@/lib/seo";
-import { RouteJsonLd } from "@/components/seo/RouteJsonLd";
-import { assertRouteEnabled } from "@/lib/route-guards";
-import { DeckIrPreviewer } from "@/components/challenges/DeckIrPreviewer";
-
-export const metadata: Metadata = buildPageMetadata(
-  "/challenges/deck-ir-previewer",
-);
+import { permanentRedirect } from "next/navigation";
+import { getRetiredRouteDestination } from "@/lib/routes";
 
 const routePath = "/challenges/deck-ir-previewer";
 
 export default function DeckIrPreviewerPage() {
-  assertRouteEnabled(routePath);
-  return (
-    <>
-      <RouteJsonLd path="/challenges/deck-ir-previewer" />
-      <DeckIrPreviewer />
-    </>
-  );
+  permanentRedirect(getRetiredRouteDestination(routePath));
 }

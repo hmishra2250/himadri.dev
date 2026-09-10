@@ -1,6 +1,11 @@
 export type RoutePhase = "v1" | "v1.5a" | "v1.5b" | "v2a" | "v2b" | "v2c";
 export type RouteKind = "page" | "api";
-export type RouteStatus = "required" | "conditional" | "deferred" | "internal";
+export type RouteStatus =
+  | "required"
+  | "conditional"
+  | "deferred"
+  | "internal"
+  | "retired";
 export type RobotsPolicy = "allow" | "disallow" | "noindex";
 export type RouteOwnerFeature =
   | "core"
@@ -26,6 +31,8 @@ export type RouteManifestEntry = {
   requiresPublicLabel?: boolean;
   label?: string;
   ownerFeature: RouteOwnerFeature;
+  redirectTo?: string;
+  navHref?: string;
 };
 
 export const routeManifest: RouteManifestEntry[] = [
@@ -54,6 +61,7 @@ export const routeManifest: RouteManifestEntry[] = [
     requiresProofGate: true,
     label: "Work",
     ownerFeature: "case-study",
+    navHref: "/#work",
   },
   {
     path: "/case-studies/agentic-market-research-platform",
@@ -94,6 +102,7 @@ export const routeManifest: RouteManifestEntry[] = [
     requiresProofGate: true,
     label: "About",
     ownerFeature: "profile",
+    navHref: "/#about",
   },
   {
     path: "/resume",
@@ -120,6 +129,7 @@ export const routeManifest: RouteManifestEntry[] = [
     requiresProofGate: false,
     label: "Contact",
     ownerFeature: "core",
+    navHref: "/#contact",
   },
   {
     path: "/case-studies/ml-infra-rescue",
@@ -164,70 +174,75 @@ export const routeManifest: RouteManifestEntry[] = [
     path: "/interview-me",
     kind: "page",
     phase: "v1.5a",
-    status: "required",
-    enabled: true,
-    includeInSitemap: true,
+    status: "retired",
+    enabled: false,
+    includeInSitemap: false,
     includeInNav: false,
-    robotsPolicy: "allow",
+    robotsPolicy: "noindex",
     requiresProofGate: true,
     requiresSourceCards: true,
     label: "Interview Me",
     ownerFeature: "interview",
+    redirectTo: "/about",
   },
   {
     path: "/principles",
     kind: "page",
     phase: "v1.5a",
-    status: "conditional",
-    enabled: true,
-    includeInSitemap: true,
+    status: "retired",
+    enabled: false,
+    includeInSitemap: false,
     includeInNav: false,
-    robotsPolicy: "allow",
+    robotsPolicy: "noindex",
     requiresProofGate: true,
     label: "Principles",
     ownerFeature: "principles",
+    redirectTo: "/about",
   },
   {
     path: "/challenges",
     kind: "page",
     phase: "v1.5b",
-    status: "conditional",
-    enabled: true,
-    includeInSitemap: true,
+    status: "retired",
+    enabled: false,
+    includeInSitemap: false,
     includeInNav: false,
-    robotsPolicy: "allow",
+    robotsPolicy: "noindex",
     requiresProofGate: true,
     requiresPublicLabel: true,
     label: "Challenges",
     ownerFeature: "challenge",
+    redirectTo: "/case-studies/agentic-market-research-platform",
   },
   {
     path: "/challenges/debug-this-agent",
     kind: "page",
     phase: "v1.5b",
-    status: "conditional",
-    enabled: true,
-    includeInSitemap: true,
+    status: "retired",
+    enabled: false,
+    includeInSitemap: false,
     includeInNav: false,
-    robotsPolicy: "allow",
+    robotsPolicy: "noindex",
     requiresProofGate: true,
     requiresPublicLabel: true,
     label: "Debug This Agent",
     ownerFeature: "challenge",
+    redirectTo: "/case-studies/agentic-market-research-platform#observability",
   },
   {
     path: "/challenges/cost-anatomy",
     kind: "page",
     phase: "v1.5b",
-    status: "conditional",
-    enabled: true,
-    includeInSitemap: true,
+    status: "retired",
+    enabled: false,
+    includeInSitemap: false,
     includeInNav: false,
-    robotsPolicy: "allow",
+    robotsPolicy: "noindex",
     requiresProofGate: true,
     requiresPublicLabel: true,
     label: "Cost Anatomy",
     ownerFeature: "challenge",
+    redirectTo: "/case-studies/ml-infra-rescue",
   },
   {
     path: "/api/interview",
@@ -247,29 +262,31 @@ export const routeManifest: RouteManifestEntry[] = [
     path: "/challenges/dag-execution-simulator",
     kind: "page",
     phase: "v2c",
-    status: "conditional",
-    enabled: true,
-    includeInSitemap: true,
+    status: "retired",
+    enabled: false,
+    includeInSitemap: false,
     includeInNav: false,
-    robotsPolicy: "allow",
+    robotsPolicy: "noindex",
     requiresProofGate: true,
     requiresPublicLabel: true,
     label: "DAG Execution Simulator",
     ownerFeature: "challenge",
+    redirectTo: "/case-studies/agentic-market-research-platform#architecture",
   },
   {
     path: "/challenges/deck-ir-previewer",
     kind: "page",
     phase: "v2c",
-    status: "conditional",
-    enabled: true,
-    includeInSitemap: true,
+    status: "retired",
+    enabled: false,
+    includeInSitemap: false,
     includeInNav: false,
-    robotsPolicy: "allow",
+    robotsPolicy: "noindex",
     requiresProofGate: true,
     requiresPublicLabel: true,
     label: "Deck IR Previewer",
     ownerFeature: "challenge",
+    redirectTo: "/case-studies/agentic-market-research-platform#architecture",
   },
   {
     path: "/hiring-packet",
@@ -303,6 +320,17 @@ export const deferredRoutes = routeManifest.filter(
 export const robotsDisallowRoutes = routeManifest
   .filter((route) => route.robotsPolicy === "disallow")
   .map((route) => route.path);
+export const retiredRedirectRoutes = routeManifest.filter(
+  (route) => route.status === "retired",
+);
+
+export const resumeAssetRedirectRoute = {
+  source: "/resume/Himadri_Latest_Resume_April_2026.pdf",
+  destination: "/resume/Himadri_Mishra_Resume.pdf",
+  permanent: true,
+} as const;
+
+export const assetRedirectRoutes = [resumeAssetRedirectRoute] as const;
 
 export function routeIsPublic(path: string) {
   return publicRoutes.some((route) => route.path === path);
@@ -310,4 +338,36 @@ export function routeIsPublic(path: string) {
 
 export function routeIsEnabled(path: string) {
   return enabledRoutes.some((route) => route.path === path);
+}
+
+export function getRetiredRouteDestination(path: string): string {
+  const route = routeManifest.find((entry) => entry.path === path);
+  if (!route) throw new Error(`Unknown route cannot redirect: ${path}`);
+  if (route.status !== "retired") {
+    throw new Error(`Route is not retired and cannot redirect: ${path}`);
+  }
+  if (!route.redirectTo?.startsWith("/")) {
+    throw new Error(
+      `Retired route missing local redirect destination: ${path}`,
+    );
+  }
+
+  const destinationPath = route.redirectTo.split("#")[0];
+  if (destinationPath === route.path) {
+    throw new Error(`Retired route redirects to itself: ${path}`);
+  }
+  const destinationRoute = routeManifest.find(
+    (entry) => entry.path === destinationPath,
+  );
+  if (!destinationRoute?.enabled || destinationRoute.kind !== "page") {
+    throw new Error(
+      `Retired route redirects to non-enabled page: ${path} -> ${route.redirectTo}`,
+    );
+  }
+
+  return route.redirectTo;
+}
+
+export function getNavHref(route: RouteManifestEntry): string {
+  return route.navHref ?? route.path;
 }

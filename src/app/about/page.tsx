@@ -1,16 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, MessageSquare, Download } from "lucide-react";
 import { RouteJsonLd } from "@/components/seo/RouteJsonLd";
 import { aboutPage, careerTimeline } from "@/content/about";
+import { practice } from "@/content/practice";
 import { buildPageMetadata } from "@/lib/seo";
-import { TrackedAnchor, TrackedLink } from "@/components/ui/TrackedLink";
-
-const ctaIcons: Record<string, React.ReactNode> = {
-  "See my work": <ArrowRight className="icon icon-md" />,
-  "Ask me anything": <MessageSquare className="icon icon-md" />,
-  "Download resume": <Download className="icon icon-md" />,
-};
+import { TrackedAnchor } from "@/components/ui/TrackedLink";
 
 export const metadata: Metadata = buildPageMetadata("/about");
 
@@ -18,88 +12,93 @@ export default function AboutPage() {
   return (
     <>
       <RouteJsonLd path="/about" />
-      <section className="section-pad">
-        <div className="container narrow">
-          <p className="eyebrow">{aboutPage.eyebrow}</p>
-          <h1 className="display-serif">8 years building AI systems that survive <em>production.</em></h1>
-          <p className="hero-subtitle">{aboutPage.intro}</p>
-          <p className="section-description">{aboutPage.summary}</p>
-          <div className="hero-actions" aria-label="About links">
-            {aboutPage.ctas.map((cta) => {
-              const isResume = cta.label === "Download resume";
-              const isContact = cta.label === "Ask me anything";
-              if (isResume) {
-                return (
-                  <TrackedAnchor
-                    className="button secondary"
-                    href={cta.href}
-                    key={cta.href}
-                    eventName="resume_download_clicked"
-                    eventParams={{ source_section: "about_page" }}
-                  >
-                    {cta.label}
-                    {ctaIcons[cta.label]}
-                  </TrackedAnchor>
-                );
-              }
-              if (isContact) {
-                return (
-                  <TrackedLink
-                    className="button secondary"
-                    href={cta.href}
-                    key={cta.href}
-                    eventName="contact_cta_clicked"
-                    eventParams={{ source_section: "about_page" }}
-                  >
-                    {cta.label}
-                    {ctaIcons[cta.label]}
-                  </TrackedLink>
-                );
-              }
-              return (
-                <Link className="button secondary" href={cta.href} key={cta.href}>
-                  {cta.label}
-                  {ctaIcons[cta.label]}
-                </Link>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      <section className="section-pad compact alt">
-        <div className="container narrow">
-          <div className="section-header">
-            <p className="eyebrow">The arc</p>
-            <h2 className="display-serif">Where I&apos;ve <em>been.</em></h2>
-          </div>
-          <div className="timeline">
-            {careerTimeline.map((entry) => (
-              <div className="timeline-entry" key={entry.year}>
-                <span className="timeline-year">{entry.year}</span>
-                <span>{entry.event}</span>
+      <div className="editorial-route about-route">
+        <section className="section-pad">
+          <div className="container">
+            <div className="editorial-prose">
+              <h1>{aboutPage.title}</h1>
+              <p className="hero-subtitle">{aboutPage.intro}</p>
+              <p className="section-description">{aboutPage.summary}</p>
+              <div className="hero-actions" aria-label="About links">
+                {aboutPage.ctas.map((cta) => {
+                  if (cta.label === "Download resume") {
+                    return (
+                      <TrackedAnchor
+                        className="button secondary"
+                        href={cta.href}
+                        key={cta.href}
+                        eventName="resume_download_clicked"
+                        eventParams={{ source_section: "about_page" }}
+                      >
+                        {cta.label}
+                      </TrackedAnchor>
+                    );
+                  }
+                  return (
+                    <Link
+                      className="button primary"
+                      href={cta.href}
+                      key={cta.href}
+                    >
+                      {cta.label}
+                    </Link>
+                  );
+                })}
               </div>
-            ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <section className="section-pad compact">
-        <div className="container narrow">
-          <div className="section-header">
-            <p className="eyebrow">How I work</p>
-            <h2 className="display-serif">Beliefs shaped by <em>production.</em></h2>
+        <section className="section-pad compact alt">
+          <div className="container">
+            <div className="section-header editorial-prose">
+              <h2>Where the work comes from.</h2>
+              <p className="section-description">
+                Public historical roles establish the proof base. Current-client
+                work is summarized only as broad capability themes.
+              </p>
+            </div>
+            <div className="timeline">
+              {careerTimeline.map((entry) => (
+                <div className="timeline-entry" key={entry.year}>
+                  <span className="timeline-year">{entry.year}</span>
+                  <span>{entry.event}</span>
+                </div>
+              ))}
+            </div>
           </div>
-          <div className="principle-grid">
-            {aboutPage.principles.map((principle) => (
-              <article className="principle-card" key={principle.title}>
-                <h3>{principle.title}</h3>
-                <p>{principle.body}</p>
-              </article>
-            ))}
+        </section>
+
+        <section className="section-pad compact">
+          <div className="container">
+            <div className="section-header wide editorial-prose">
+              <h2>How I work with teams.</h2>
+              <p className="section-description">
+                These are the practical habits I bring to AI systems, developer
+                infrastructure, and platform reliability work.
+              </p>
+            </div>
+            <div className="approach-grid">
+              {practice.approach.map((item) => (
+                <article className="approach-row" key={item.title}>
+                  <h3>{item.title}</h3>
+                  <p>{item.summary}</p>
+                </article>
+              ))}
+            </div>
+            <div className="principle-records">
+              {aboutPage.principles.map((principle) => (
+                <article className="principle-record" key={principle.title}>
+                  <div>
+                    <h3>{principle.title}</h3>
+                    <p>{principle.body}</p>
+                  </div>
+                </article>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
     </>
   );
 }

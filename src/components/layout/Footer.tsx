@@ -1,24 +1,25 @@
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
 import { profile } from "@/content/profile";
+import { getNavHref, navRoutes } from "@/lib/routes";
 
 export function Footer() {
   return (
     <footer className="footer">
       <div className="container footer-grid">
-        <span className="footer-copy">&copy; {new Date().getFullYear()} {profile.name}</span>
+        <span className="footer-copy">
+          &copy; {new Date().getFullYear()} {profile.name}
+        </span>
         <div className="footer-links" aria-label="Footer links">
-          <Link href="/case-studies">Work</Link>
-          <Link href="/about">About</Link>
-          <Link href="/resume">Resume</Link>
-          <Link href="/contact">Contact</Link>
-          <a href={profile.github} className="link-with-icon" target="_blank" rel="noopener noreferrer">
+          {navRoutes.map((route) => (
+            <Link href={getNavHref(route)} key={route.path}>
+              {route.label}
+            </Link>
+          ))}
+          <a href={profile.github} target="_blank" rel="noopener noreferrer">
             GitHub
-            <ArrowUpRight className="icon icon-sm external-indicator" />
           </a>
-          <a href={profile.linkedin} className="link-with-icon" target="_blank" rel="noopener noreferrer">
+          <a href={profile.linkedin} target="_blank" rel="noopener noreferrer">
             LinkedIn
-            <ArrowUpRight className="icon icon-sm external-indicator" />
           </a>
         </div>
       </div>

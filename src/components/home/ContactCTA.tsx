@@ -1,39 +1,43 @@
-import Link from "next/link";
-import { ArrowRight, Download } from "lucide-react";
 import { profile } from "@/content/profile";
-import { TrackedLink, TrackedAnchor } from "@/components/ui/TrackedLink";
+import { TrackedAnchor } from "@/components/ui/TrackedLink";
 
 export function ContactCTA() {
   return (
-    <section className="section-pad" aria-labelledby="contact-cta-title">
+    <section
+      className="section-pad compact contact-close"
+      id="contact"
+      aria-labelledby="contact-title"
+    >
       <div className="container cta-card">
-        <p className="eyebrow">Contact</p>
-        <h2 id="contact-cta-title" className="display-serif">
-          Need someone to own <em>production</em> AI architecture?
-        </h2>
-        <p>
-          I am best matched with senior AI/platform and LLM systems roles where
-          reliability, evals, observability, and cost matter.
-        </p>
-        <div className="hero-actions">
-          <TrackedLink
-            className="button primary"
-            href="/contact"
-            eventName="contact_cta_clicked"
-            eventParams={{ source_section: "homepage_cta" }}
-          >
-            Get in touch
-            <ArrowRight className="icon icon-md" />
-          </TrackedLink>
-          <TrackedAnchor
-            className="button ghost"
-            href={profile.resumePath}
-            eventName="resume_download_clicked"
-            eventParams={{ source_section: "homepage_cta" }}
-          >
-            Download resume
-            <Download className="icon icon-md" />
-          </TrackedAnchor>
+        <h2 id="contact-title">Contact.</h2>
+        <div className="cta-body">
+          <p>Send me what you&apos;re building.</p>
+          <div className="hero-actions contact-actions-inline">
+            <TrackedAnchor
+              className="button primary"
+              href={`mailto:${profile.email}`}
+              eventName="contact_cta_clicked"
+              eventParams={{ source_section: "homepage_contact" }}
+            >
+              {profile.email}
+            </TrackedAnchor>
+            <a
+              className="button secondary"
+              href={profile.github}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              GitHub
+            </a>
+            <TrackedAnchor
+              className="button ghost"
+              href={profile.resumePath}
+              eventName="resume_download_clicked"
+              eventParams={{ source_section: "homepage_contact" }}
+            >
+              Resume PDF
+            </TrackedAnchor>
+          </div>
         </div>
       </div>
     </section>

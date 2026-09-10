@@ -13,7 +13,9 @@ export function StackOpinions() {
     <section className="section-pad">
       <div className="container narrow">
         <p className="eyebrow">Production AI beliefs</p>
-        <h1 className="display-serif">Stack opinions backed by systems I have <em>operated.</em></h1>
+        <h1 className="display-serif">
+          Stack opinions backed by systems I have <em>operated.</em>
+        </h1>
         <p className="hero-subtitle">
           Strong opinions, lightly held. The point is not tool tribalism, it is
           knowing where correctness, cost, and recovery boundaries belong.

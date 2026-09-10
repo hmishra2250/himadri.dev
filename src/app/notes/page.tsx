@@ -14,7 +14,9 @@ export default function NotesPage() {
       <section className="section-pad">
         <div className="container narrow">
           <p className="eyebrow">Notes</p>
-          <h1 className="display-serif">Field notes on <em>production</em> AI systems.</h1>
+          <h1 className="display-serif">
+            Field notes on <em>production</em> AI systems.
+          </h1>
           <p className="hero-subtitle">
             Short, public-safe notes about agent architecture, evaluation,
             observability, and cost control. Each note stays tied to approved
@@ -46,7 +48,11 @@ export default function NotesPage() {
                 ) : null}
                 <div className="card-footer-row">
                   {note.relatedLinks.map((link) => (
-                    <Link href={link.href} key={link.href} className="link-with-icon">
+                    <Link
+                      href={link.href}
+                      key={link.href}
+                      className="link-with-icon"
+                    >
                       {link.label}
                       <ArrowRight className="icon icon-sm" />
                     </Link>

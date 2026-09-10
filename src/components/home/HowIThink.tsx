@@ -1,38 +1,26 @@
-import Link from "next/link";
-import { SectionHeader } from "@/components/ui/SectionHeader";
-import { principles } from "@/content/principles";
-
-function principleCtaLabel(id: string) {
-  if (id === "unit-economics") return "Open cost model";
-  if (id === "intermediate-representations") return "See workflow";
-  return "Read case study";
-}
+import { practice } from "@/content/practice";
 
 export function HowIThink() {
   return (
     <section
-      className="section-pad alt"
+      className="section-pad practice-section"
       id="thinking"
       aria-labelledby="thinking-title"
     >
       <div className="container">
-        <SectionHeader
-          eyebrow="How I think"
-          title="Production AI is a systems discipline."
-          titleId="thinking-title"
-          description="The best AI systems are observable, evaluable, controllable, and useful under real constraints."
-        />
-        <div className="principle-grid">
-          {principles.map((principle) => (
-            <article className="principle-card" key={principle.id}>
-              <h3>{principle.title}</h3>
-              <p>{principle.statement}</p>
-              <p className="evidence">Evidence: {principle.evidence}</p>
-              <div className="card-footer-row">
-                <Link href={principle.href}>
-                  {principleCtaLabel(principle.id)}
-                </Link>
-              </div>
+        <div className="section-header wide">
+          <h2 id="thinking-title">How I approach the work.</h2>
+          <p className="section-description">
+            The engagement starts with boundaries, verification, and handover,
+            then uses the lightest architecture that can survive production
+            pressure.
+          </p>
+        </div>
+        <div className="approach-grid">
+          {practice.approach.map((item) => (
+            <article className="approach-row" key={item.title}>
+              <h3>{item.title}</h3>
+              <p>{item.summary}</p>
             </article>
           ))}
         </div>

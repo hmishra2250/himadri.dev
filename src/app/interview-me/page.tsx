@@ -1,15 +1,8 @@
-import type { Metadata } from "next";
-import { buildPageMetadata } from "@/lib/seo";
-import { RouteJsonLd } from "@/components/seo/RouteJsonLd";
-import { InterviewMe } from "@/components/interview/InterviewMe";
+import { permanentRedirect } from "next/navigation";
+import { getRetiredRouteDestination } from "@/lib/routes";
 
-export const metadata: Metadata = buildPageMetadata("/interview-me");
+const routePath = "/interview-me";
 
 export default function InterviewMePage() {
-  return (
-    <>
-      <RouteJsonLd path="/interview-me" />
-      <InterviewMe />
-    </>
-  );
+  permanentRedirect(getRetiredRouteDestination(routePath));
 }

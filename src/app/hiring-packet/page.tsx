@@ -20,7 +20,9 @@ export default function HiringPacketPage() {
     <section className="section-pad">
       <div className="container narrow">
         <p className="eyebrow">Hiring packet</p>
-        <h1 className="display-serif">{profile.name}: senior AI engineering <em>signal</em> packet.</h1>
+        <h1 className="display-serif">
+          {profile.name}: senior AI engineering <em>signal</em> packet.
+        </h1>
         <p className="hero-subtitle">
           A public-only summary assembled from resume-backed metrics, sanitized
           case studies, and approved portfolio content.
@@ -38,7 +40,7 @@ export default function HiringPacketPage() {
             <li>Senior AI Engineer</li>
             <li>AI Platform Engineer</li>
             <li>LLM Systems Architect</li>
-            <li>Founding AI Engineer at serious AI startups</li>
+            <li>Senior AI systems engineer for production AI teams</li>
           </ul>
         </section>
         <section className="case-section">

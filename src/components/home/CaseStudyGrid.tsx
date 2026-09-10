@@ -1,97 +1,166 @@
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
 import { caseStudies, type CaseStudy } from "@/content/case-studies";
+import { practice } from "@/content/practice";
 import { TrackedLink } from "@/components/ui/TrackedLink";
 
-const homepageSlugs = [
-  "agentic-market-research-platform",
-  "ml-infra-rescue",
-  "computer-vision-product-systems",
-];
+const aiProductSlug = "agentic-market-research-platform";
 
-function CaseCard({ study }: { study: CaseStudy }) {
+function HistoricalCaseRow({
+  study,
+  sourceSection,
+}: {
+  study: CaseStudy;
+  sourceSection: string;
+}) {
   const content = (
     <>
-      <div>
-        <p className="eyebrow">
-          {study.company} · {study.period}
-        </p>
+      <div className="case-memo-body">
         <h3>{study.title}</h3>
         <p>{study.summary}</p>
       </div>
-      {study.metrics.length > 0 ? (
-        <div className="metric-chip-row" aria-label="Selected metrics">
-          {study.metrics.slice(0, 2).map((metric) => (
-            <span className="metric-chip" key={metric}>
-              {metric}
-            </span>
-          ))}
+      <dl className="case-memo-facts" aria-label="Selected case study facts">
+        <div>
+          <dt>Scope</dt>
+          <dd>{study.domains.slice(0, 3).join(" / ")}</dd>
         </div>
-      ) : null}
-      <span className="link-with-icon card-link-label">
-        Read case study
-        <ArrowRight className="icon icon-sm" />
-      </span>
+        <div>
+          <dt>Result</dt>
+          <dd>{study.metrics[0]}</dd>
+        </div>
+      </dl>
+      <span className="case-memo-link">Read case study</span>
     </>
   );
 
   return study.routeEnabled ? (
     <TrackedLink
       href={`/case-studies/${study.slug}`}
-      className="case-card card-link"
+      className="case-memo compact-case-row"
       eventName="case_study_opened"
-      eventParams={{ feature_id: study.slug, source_section: "case_grid" }}
+      eventParams={{
+        feature_id: study.slug,
+        source_section: sourceSection,
+      }}
     >
       {content}
     </TrackedLink>
   ) : (
-    <article className="case-card">
-      {content}
-    </article>
+    <article className="case-memo compact-case-row">{content}</article>
   );
 }
 
 export function CaseStudyGrid() {
-  const featured = homepageSlugs.flatMap((slug) => {
-    const study = caseStudies.find((s) => s.slug === slug);
-    return study ? [study] : [];
-  });
+  const aiProductStudy = caseStudies.find(
+    (study) => study.slug === aiProductSlug,
+  );
+
+  if (!aiProductStudy) return null;
 
   return (
-    <section className="section-pad" aria-labelledby="case-grid-title">
-      <div className="container">
-        <p className="eyebrow">Systems I shipped</p>
-        <h2 id="case-grid-title" className="display-serif">
-          Agentic AI, ML infrastructure, and <em>computer vision.</em>
-        </h2>
-        <div className="case-grid trio">
-          {featured.map((study) => (
-            <CaseCard study={study} key={study.slug} />
-          ))}
+    <section
+      className="section-pad selected-systems"
+      aria-labelledby="case-grid-title"
+    >
+      <div className="container selected-work-shell">
+        <div className="section-header compact-header">
+          <h2 id="case-grid-title">Selected AI product work.</h2>
+          <p className="section-description">
+            A deeper production workflow example with architecture, decisions,
+            and results.
+          </p>
         </div>
-        <div className="card-footer-row">
-          <Link className="button ghost" href="/case-studies">
-            View all case studies
-            <ArrowRight className="icon icon-md" />
-          </Link>
+        <div className="selected-systems-list">
+          <HistoricalCaseRow
+            study={aiProductStudy}
+            sourceSection="ai_product_case_link"
+          />
         </div>
+        <Link className="earlier-work-link" href="/case-studies#earlier-work">
+          Earlier ML and computer vision work
+        </Link>
       </div>
     </section>
   );
 }
 
 export function AllCaseStudies() {
+  const aiProductStudy = caseStudies.find(
+    (study) => study.slug === aiProductSlug,
+  );
+  const earlierStudies = caseStudies.filter(
+    (study) => study.slug !== aiProductSlug,
+  );
+
   return (
-    <section className="section-pad" aria-labelledby="all-case-studies-title">
-      <div className="container">
-        <p className="eyebrow">Systems I shipped</p>
-        <h1 id="all-case-studies-title" className="display-serif">
-          Agentic AI, ML infrastructure, and <em>computer vision.</em>
-        </h1>
-        <div className="case-grid trio">
-          {caseStudies.map((study) => (
-            <CaseCard study={study} key={study.slug} />
-          ))}
+    <section
+      className="section-pad selected-systems"
+      aria-labelledby="all-case-studies-title"
+    >
+      <div className="container case-index-shell">
+        <div className="section-header wide">
+          <h1 id="all-case-studies-title">Work.</h1>
+          <p className="section-description">
+            Selected contributions and production systems.
+          </p>
+        </div>
+
+        <div className="case-index-block" aria-labelledby="recent-briefs-title">
+          <div className="section-header compact-header">
+            <h2 id="recent-briefs-title">Recent engineering work.</h2>
+          </div>
+          <div className="recent-work-list case-index-recent-list">
+            {practice.recentWorkCases.map((brief) => (
+              <article className="recent-work-row" id={brief.id} key={brief.id}>
+                <div>
+                  <h3>{brief.title}</h3>
+                  <p>{brief.summary}</p>
+                </div>
+                <div className="recent-work-detail">
+                  <ul>
+                    {brief.work.map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
+                  <p>{brief.verification}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+
+        {aiProductStudy ? (
+          <div className="case-index-block" aria-labelledby="ai-product-title">
+            <div className="section-header compact-header">
+              <h2 id="ai-product-title">AI product system.</h2>
+            </div>
+            <div className="selected-systems-list">
+              <HistoricalCaseRow
+                study={aiProductStudy}
+                sourceSection="case_index_ai_product"
+              />
+            </div>
+          </div>
+        ) : null}
+
+        <div
+          className="case-index-block"
+          id="earlier-work"
+          aria-labelledby="earlier-work-title"
+        >
+          <div className="section-header compact-header">
+            <h2 id="earlier-work-title">
+              Earlier ML and computer vision work.
+            </h2>
+          </div>
+          <div className="all-case-list compact-case-list">
+            {earlierStudies.map((study) => (
+              <HistoricalCaseRow
+                study={study}
+                key={study.slug}
+                sourceSection="case_index_earlier_work"
+              />
+            ))}
+          </div>
         </div>
       </div>
     </section>

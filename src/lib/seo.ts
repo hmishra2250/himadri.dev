@@ -13,17 +13,18 @@ export type RouteSeo = {
 };
 
 const sharedLastModified = "2026-05-14";
+const professionalPresenceLastModified = "2026-09-07";
 
 const routeSeoData = {
   "/": {
-    title: "Himadri Mishra | Senior AI Engineer",
+    title: "Himadri Mishra | AI Systems and Developer Infrastructure",
     description:
-      "Senior AI engineer with 8 years shipping production AI systems. LLM orchestration, agentic workflows, ML infrastructure, and cost optimization.",
+      "AI systems and developer infrastructure for agent-facing tools, CLI, MCP, SDK/API consistency, production AI workflows, evaluation, observability, and ML platform reliability.",
     canonicalPath: "/",
-    openGraphTitle: "Himadri Mishra | Senior AI Engineer",
+    openGraphTitle: "Himadri Mishra | AI systems and developer infrastructure",
     openGraphDescription:
-      "Evidence-backed portfolio: agentic AI platforms, ML infrastructure, computer vision, and LLM systems built for production reliability.",
-    lastModified: sharedLastModified,
+      "Evidence-backed portfolio for agent-facing developer tools, production AI workflows, ML infrastructure, computer vision, and reliability work.",
+    lastModified: professionalPresenceLastModified,
   },
   "/case-studies": {
     title: "AI Case Studies",
@@ -78,112 +79,42 @@ const routeSeoData = {
   "/about": {
     title: "About Himadri Mishra",
     description:
-      "IIT-BHU and UC Berkeley trained AI engineer. 8 years across computer vision, ML infrastructure, and agentic AI platforms at Microsoft, Osmo, Epic, and Knit.",
+      "IIT-BHU and UC Berkeley trained AI engineer working across agent-facing developer infrastructure, production AI workflows, ML infrastructure, search, and computer vision systems.",
     canonicalPath: "/about",
     openGraphTitle: "About Himadri Mishra",
     openGraphDescription:
-      "Career arc from IIT-BHU through Microsoft Research, UC Berkeley, and four production AI teams. Staff-level AI systems engineering.",
-    lastModified: sharedLastModified,
+      "Career arc from IIT-BHU through Microsoft, UC Berkeley, and production AI, ML infrastructure, search, and computer vision systems.",
+    lastModified: professionalPresenceLastModified,
   },
   "/resume": {
     title: "Resume",
     description:
-      "Download resume for Himadri Mishra. Senior AI engineer specializing in LLM systems, agentic workflows, ML platform engineering, and production AI reliability.",
+      "Download resume for Himadri Mishra. AI systems and developer infrastructure work across agent-facing tools, production AI workflows, ML platform engineering, and reliability.",
     canonicalPath: "/resume",
     openGraphTitle: "Resume and proof summary",
     openGraphDescription:
-      "Resume and key metrics for a senior AI engineer with production LLM, agentic AI, and ML infrastructure experience.",
-    lastModified: sharedLastModified,
+      "Resume and selected proof for AI systems, agent-facing developer infrastructure, production AI workflows, and ML platform reliability.",
+    lastModified: professionalPresenceLastModified,
   },
   "/contact": {
     title: "Contact Himadri Mishra",
     description:
-      "Contact Himadri Mishra for senior AI engineering, AI platform, LLM systems, and production AI systems conversations.",
+      "Contact Himadri Mishra about agent-facing developer tools, AI systems architecture, evaluation, observability, and production reliability work.",
     canonicalPath: "/contact",
     openGraphTitle: "Contact Himadri Mishra",
     openGraphDescription:
-      "Reach out about senior AI engineering, AI platform, LLM systems, and production AI system reviews.",
-    lastModified: sharedLastModified,
-  },
-  "/interview-me": {
-    title: "Interview Himadri with Source Cards",
-    description:
-      "Curated answers to hard production AI and architecture questions with source cards and visible evidence links.",
-    canonicalPath: "/interview-me",
-    openGraphTitle: "Interview Himadri with source cards",
-    openGraphDescription:
-      "Hard production AI questions answered with source cards, evidence links, and safe assistant boundaries.",
-    lastModified: sharedLastModified,
-  },
-  "/principles": {
-    title: "Production AI Principles",
-    description:
-      "Evidence backed production AI beliefs about agents, evals, observability, cost, reliability, and architecture.",
-    canonicalPath: "/principles",
-    openGraphTitle: "Production AI principles",
-    openGraphDescription:
-      "Practical engineering principles for agents, evals, observability, cost control, and production AI architecture.",
-    lastModified: sharedLastModified,
+      "Reach out about CLI, MCP, SDK/API interface work, AI product workflows, evaluation, observability, and ML platform reliability.",
+    lastModified: professionalPresenceLastModified,
   },
   "/notes": {
     title: "Production AI Notes",
     description:
-      "Public-safe notes on agent architecture, evaluation, observability, cost control, and evidence-backed production AI practice.",
+      "Public-safe notes on agent-facing tools, AI workflow architecture, evaluation, observability, cost control, and evidence-backed production AI practice.",
     canonicalPath: "/notes",
     openGraphTitle: "Production AI notes",
     openGraphDescription:
-      "Short notes on reliable AI systems with proof-backed claims and clear sanitized artifact labels.",
-    lastModified: sharedLastModified,
-  },
-  "/challenges": {
-    title: "Interactive AI Challenges",
-    description:
-      "Static production AI challenges for debugging, cost architecture, workflow recovery, and deck artifact review.",
-    canonicalPath: "/challenges",
-    openGraphTitle: "Interactive production AI challenges",
-    openGraphDescription:
-      "Inspect small production AI labs for trace debugging, cost design, workflow recovery, and deck IR review.",
-    lastModified: sharedLastModified,
-  },
-  "/challenges/debug-this-agent": {
-    title: "Debug This Agent Challenge",
-    description:
-      "Inspect a representative AI workflow trace and identify the production failure mode behind the agent behavior.",
-    canonicalPath: "/challenges/debug-this-agent",
-    openGraphTitle: "Debug This Agent challenge",
-    openGraphDescription:
-      "A representative trace diagnosis lab for production AI workflow failure modes.",
-    lastModified: sharedLastModified,
-  },
-  "/challenges/cost-anatomy": {
-    title: "Cost Anatomy Challenge",
-    description:
-      "A normalized static model of AI workflow unit economics and production cost control tradeoffs.",
-    canonicalPath: "/challenges/cost-anatomy",
-    openGraphTitle: "Cost Anatomy challenge",
-    openGraphDescription:
-      "Inspect how routing, retries, sandbox reuse, and judge coverage move normalized AI workflow cost units.",
-    lastModified: sharedLastModified,
-  },
-  "/challenges/dag-execution-simulator": {
-    title: "DAG Execution Simulator Challenge",
-    description:
-      "A static simulator explaining explicit production AI workflow execution, recovery, and downstream readiness.",
-    canonicalPath: "/challenges/dag-execution-simulator",
-    openGraphTitle: "DAG Execution Simulator challenge",
-    openGraphDescription:
-      "Step through workflow state, judge failure, recovery choices, and downstream readiness in a static simulator.",
-    lastModified: sharedLastModified,
-  },
-  "/challenges/deck-ir-previewer": {
-    title: "Deck IR Previewer Challenge",
-    description:
-      "A synthetic Deck IR previewer showing inspectable AI generated artifact structure, validation, and preview boundaries.",
-    canonicalPath: "/challenges/deck-ir-previewer",
-    openGraphTitle: "Deck IR Previewer challenge",
-    openGraphDescription:
-      "Inspect synthetic deck intermediate representation, validation warnings, outline, preview, and speaker notes.",
-    lastModified: sharedLastModified,
+      "Short notes on reliable AI systems, developer workflows, proof-backed claims, and clear sanitized artifact labels.",
+    lastModified: professionalPresenceLastModified,
   },
 } satisfies Record<string, Omit<RouteSeo, "path">>;
 

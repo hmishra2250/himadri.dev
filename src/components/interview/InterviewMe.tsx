@@ -17,7 +17,9 @@ export function InterviewMe() {
     <section className="section-pad">
       <div className="container narrow">
         <p className="eyebrow">Interview me</p>
-        <h1 className="display-serif">Hard production AI questions, answered with <em>sources.</em></h1>
+        <h1 className="display-serif">
+          Hard production AI questions, answered with <em>sources.</em>
+        </h1>
         <p className="hero-subtitle">
           Static curated answers for architecture reviews, technical interviews,
           role-fit screens, and senior AI platform conversations.

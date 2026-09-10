@@ -14,7 +14,7 @@ const challengePreviews = [
     title: "Cost Anatomy",
     href: "/challenges/cost-anatomy",
     description:
-      "Compare workflow designs and see how routing, retries, sandbox reuse, and judges move cost units.",
+      "Compare workflow designs and see how routing, retries, sandboxed execution, and judges move cost units.",
     payoff: "Architecture to unit economics",
   },
 ];

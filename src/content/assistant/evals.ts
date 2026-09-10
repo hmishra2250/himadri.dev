@@ -34,7 +34,8 @@ export const assistantEvalQuestions: AssistantEvalQuestion[] = [
   },
   {
     id: "sandbox",
-    question: "How many sandboxed analytics tasks did the Knit workflow reuse?",
+    question:
+      "How many sandboxed analytics tasks did the Knit workflow run per report?",
     type: "answerable",
     expectedFacts: ["30-50"],
     forbiddenClaims: forbidden,
@@ -119,7 +120,7 @@ export const assistantEvalQuestions: AssistantEvalQuestion[] = [
     type: "answerable",
     expectedFacts: ["Senior AI Engineer", "AI Platform Engineer"],
     forbiddenClaims: forbidden,
-    idealSources: ["/resume", "/interview-me"],
+    idealSources: ["/resume", "/case-studies"],
     expectedConfidence: "high",
   },
   {
@@ -128,10 +129,7 @@ export const assistantEvalQuestions: AssistantEvalQuestion[] = [
     type: "answerable",
     expectedFacts: ["explicit", "boundaries"],
     forbiddenClaims: forbidden,
-    idealSources: [
-      "/interview-me",
-      "/case-studies/agentic-market-research-platform",
-    ],
+    idealSources: ["/case-studies/agentic-market-research-platform"],
     expectedConfidence: "high",
   },
   {
@@ -141,9 +139,8 @@ export const assistantEvalQuestions: AssistantEvalQuestion[] = [
     expectedFacts: ["model routing", "retry"],
     forbiddenClaims: forbidden,
     idealSources: [
-      "/challenges/cost-anatomy",
       "/case-studies/ml-infra-rescue",
-      "/interview-me",
+      "/case-studies/agentic-market-research-platform",
     ],
     expectedConfidence: "high",
   },
@@ -153,28 +150,7 @@ export const assistantEvalQuestions: AssistantEvalQuestion[] = [
     type: "answerable",
     expectedFacts: ["verification", "sandbox"],
     forbiddenClaims: forbidden,
-    idealSources: [
-      "/interview-me",
-      "/case-studies/agentic-market-research-platform",
-    ],
-    expectedConfidence: "high",
-  },
-  {
-    id: "debug-challenge",
-    question: "What is the root cause in Debug This Agent?",
-    type: "answerable",
-    expectedFacts: ["model routing", "summary"],
-    forbiddenClaims: forbidden,
-    idealSources: ["/challenges/debug-this-agent"],
-    expectedConfidence: "high",
-  },
-  {
-    id: "cost-anatomy",
-    question: "What does Cost Anatomy show?",
-    type: "answerable",
-    expectedFacts: ["normalized", "units"],
-    forbiddenClaims: forbidden,
-    idealSources: ["/challenges/cost-anatomy"],
+    idealSources: ["/case-studies/agentic-market-research-platform"],
     expectedConfidence: "high",
   },
   {
@@ -183,10 +159,7 @@ export const assistantEvalQuestions: AssistantEvalQuestion[] = [
     type: "answerable",
     expectedFacts: ["explicit", "boundaries"],
     forbiddenClaims: forbidden,
-    idealSources: [
-      "/principles",
-      "/case-studies/agentic-market-research-platform",
-    ],
+    idealSources: ["/case-studies/agentic-market-research-platform"],
     expectedConfidence: "high",
   },
   {
@@ -195,10 +168,7 @@ export const assistantEvalQuestions: AssistantEvalQuestion[] = [
     type: "answerable",
     expectedFacts: ["spans", "cost"],
     forbiddenClaims: forbidden,
-    idealSources: [
-      "/principles",
-      "/case-studies/agentic-market-research-platform",
-    ],
+    idealSources: ["/case-studies/agentic-market-research-platform"],
     expectedConfidence: "high",
   },
   {
@@ -207,10 +177,7 @@ export const assistantEvalQuestions: AssistantEvalQuestion[] = [
     type: "answerable",
     expectedFacts: ["debuggable", "renderer"],
     forbiddenClaims: forbidden,
-    idealSources: [
-      "/principles",
-      "/case-studies/agentic-market-research-platform",
-    ],
+    idealSources: ["/case-studies/agentic-market-research-platform"],
     expectedConfidence: "high",
   },
   {
@@ -219,7 +186,25 @@ export const assistantEvalQuestions: AssistantEvalQuestion[] = [
     type: "answerable",
     expectedFacts: ["robust", "demo"],
     forbiddenClaims: forbidden,
-    idealSources: ["/interview-me"],
+    idealSources: ["/case-studies/agentic-market-research-platform"],
+    expectedConfidence: "high",
+  },
+  {
+    id: "agent-state-note",
+    question: "What does Himadri say about state in agent interfaces?",
+    type: "answerable",
+    expectedFacts: ["state", "recoverable"],
+    forbiddenClaims: forbidden,
+    idealSources: ["/notes"],
+    expectedConfidence: "high",
+  },
+  {
+    id: "contract-help-shape",
+    question: "Where can Himadri help a product team quickly?",
+    type: "answerable",
+    expectedFacts: ["CLI", "MCP"],
+    forbiddenClaims: forbidden,
+    idealSources: ["/resume"],
     expectedConfidence: "high",
   },
   ...[

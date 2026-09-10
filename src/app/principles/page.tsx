@@ -1,15 +1,8 @@
-import type { Metadata } from "next";
-import { buildPageMetadata } from "@/lib/seo";
-import { RouteJsonLd } from "@/components/seo/RouteJsonLd";
-import { StackOpinions } from "@/components/principles/StackOpinions";
+import { permanentRedirect } from "next/navigation";
+import { getRetiredRouteDestination } from "@/lib/routes";
 
-export const metadata: Metadata = buildPageMetadata("/principles");
+const routePath = "/principles";
 
 export default function PrinciplesPage() {
-  return (
-    <>
-      <RouteJsonLd path="/principles" />
-      <StackOpinions />
-    </>
-  );
+  permanentRedirect(getRetiredRouteDestination(routePath));
 }

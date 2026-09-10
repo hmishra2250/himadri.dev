@@ -1,15 +1,8 @@
-import type { Metadata } from "next";
-import { buildPageMetadata } from "@/lib/seo";
-import { RouteJsonLd } from "@/components/seo/RouteJsonLd";
-import { CostAnatomy } from "@/components/challenges/CostAnatomy";
+import { permanentRedirect } from "next/navigation";
+import { getRetiredRouteDestination } from "@/lib/routes";
 
-export const metadata: Metadata = buildPageMetadata("/challenges/cost-anatomy");
+const routePath = "/challenges/cost-anatomy";
 
 export default function CostAnatomyPage() {
-  return (
-    <>
-      <RouteJsonLd path="/challenges/cost-anatomy" />
-      <CostAnatomy />
-    </>
-  );
+  permanentRedirect(getRetiredRouteDestination(routePath));
 }

@@ -81,9 +81,16 @@ export const interviewQuestions: InterviewQuestion[] = [
   {
     id: "best-fit-role",
     category: "role-fit",
-    question: "What roles are the strongest fit?",
+    question: "What work is the strongest fit?",
     answerId: "role-fit",
-    recommendedAudience: "Recruiter or hiring lead",
+    recommendedAudience: "Engineering leader or technical buyer",
+  },
+  {
+    id: "contract-engagement-shape",
+    category: "role-fit",
+    question: "Where can you help a product or engineering team quickly?",
+    answerId: "contract-engagement-shape",
+    recommendedAudience: "Technical buyer",
   },
 ];
 
@@ -110,11 +117,11 @@ export const interviewAnswers: InterviewAnswer[] = [
   {
     id: "cost-as-architecture",
     summary:
-      "I treat cost as an architectural constraint. Cost control comes from task classification, model routing, sandbox reuse, caching, selective judge coverage, retry limits, and visibility into unit economics.",
+      "I treat cost as an architectural constraint. Cost control comes from task classification, model routing, sandboxed execution, caching, selective judge coverage, retry limits, and visibility into unit economics.",
     bullets: [
-      "Knit required model routing, persistent sandbox reuse, and task-level observability.",
+      "Knit required model routing, sandboxed Python analysis, independent judge verification, and task-level observability.",
       "Epic required infrastructure ownership that reduced cost by 10x and pod usage by 100x.",
-      "The Cost Anatomy challenge shows normalized cost units only, never actual internal figures.",
+      "Public pages use normalized cost language only, never actual internal figures.",
     ],
     sourceCards: [
       {
@@ -124,11 +131,11 @@ export const interviewAnswers: InterviewAnswer[] = [
         proofIds: ["epic-cost-reduction", "epic-pod-reduction"],
       },
       {
-        title: "Cost Anatomy",
-        href: "/challenges/cost-anatomy",
+        title: "Agentic Market Research Platform",
+        href: "/case-studies/agentic-market-research-platform#architecture",
         snippet:
-          "Workflow unit economics model for routing and verification tradeoffs.",
-        proofIds: ["representative-trace-label"],
+          "Model routing, reusable sandbox execution, and verification tradeoffs in an agentic workflow.",
+        proofIds: ["knit-observability-platform", "knit-sandbox-tasks"],
       },
     ],
   },
@@ -157,7 +164,7 @@ export const interviewAnswers: InterviewAnswer[] = [
     bullets: [
       "Knit combined LLM orchestration, Python execution, charting, Deck IR, APIs, streaming, and observability.",
       "Epic combined ML infra, Elasticsearch, recommendations, Kubernetes, and product experiments.",
-      "Osmo combined computer vision, learning-product UX, data collection, and real-time constraints.",
+      "Osmo combined computer vision, learning-product UX, feedback loops, and real-time constraints.",
     ],
     sourceCards: [
       {
@@ -194,22 +201,52 @@ export const interviewAnswers: InterviewAnswer[] = [
   {
     id: "role-fit",
     summary:
-      "The strongest fit is a senior AI engineering role where production LLM systems, evaluation, observability, workflow architecture, and full-stack execution matter.",
+      "The strongest fit is production AI systems work where orchestration, evaluation, observability, workflow architecture, developer interfaces, and full-stack execution matter.",
     bullets: [
-      "Strong fit: AI Platform Engineer, Senior AI Engineer, or LLM Systems Architect.",
-      "Strong environments: serious AI products, workflow automation, analytics, research tooling, infra-heavy AI applications.",
-      "Less ideal: pure research roles, frontend-only roles, or teams optimizing for demos over production systems.",
+      "Strong fit: agent-facing developer tools, AI product workflows, platform reliability, workflow automation, analytics systems, and research tooling.",
+      "Useful engagement shape: clarify the system boundary, repair eval or observability gaps, harden developer interfaces, and leave handover artifacts.",
+      "Less ideal: pure research roles, frontend-only work, or teams optimizing for demos over production systems.",
     ],
     sourceCards: [
       {
         title: "Case studies and proof points",
         href: "/case-studies",
-        snippet: "Production systems across agentic AI, ML infrastructure, and computer vision.",
+        snippet:
+          "Production systems across agentic AI, ML infrastructure, and computer vision.",
         proofIds: [
           "knit-turnaround",
           "epic-cost-reduction",
           "osmo-cv-accuracy",
         ],
+      },
+    ],
+  },
+  {
+    id: "contract-engagement-shape",
+    summary:
+      "I am useful when a team has an AI workflow that matters enough to need ownership: clear state, reliable interfaces, source-grounded outputs, cost visibility, and a path another engineer can inherit.",
+    bullets: [
+      "Agent-facing tools: CLI, MCP, SDK and API surfaces that need consistent behavior and clear documentation.",
+      "AI product systems: orchestration, evaluation, recovery and artifact generation for workflows users will trust.",
+      "Platform reliability: ML, search or AI infrastructure where cost, latency, observability and handover need to be designed together.",
+    ],
+    sourceCards: [
+      {
+        title: "Resume and contribution summary",
+        href: "/resume",
+        snippet:
+          "Selected engineering contributions across agent-facing developer infrastructure and production AI systems.",
+        proofIds: [
+          "recent-cli-mcp-sdk-interfaces",
+          "recent-runtime-recovery-tests",
+        ],
+      },
+      {
+        title: "ML Infrastructure Rescue",
+        href: "/case-studies/ml-infra-rescue",
+        snippet:
+          "Production ML platform ownership across cost, search, recommendations and reliability.",
+        proofIds: ["epic-cost-reduction"],
       },
     ],
   },

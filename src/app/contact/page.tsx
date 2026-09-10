@@ -1,6 +1,4 @@
 import type { Metadata } from "next";
-import type { LucideIcon } from "lucide-react";
-import { Mail, ExternalLink, FileDown } from "lucide-react";
 import { buildPageMetadata } from "@/lib/seo";
 import { RouteJsonLd } from "@/components/seo/RouteJsonLd";
 import { profile } from "@/content/profile";
@@ -13,59 +11,49 @@ const contactActions: {
   label: string;
   value: string;
   href: string;
-  icon: LucideIcon;
   event: ApprovedAnalyticsEvent;
 }[] = [
   {
     label: "Email",
     value: profile.email,
     href: `mailto:${profile.email}`,
-    icon: Mail,
     event: "contact_cta_clicked",
   },
   {
     label: "LinkedIn",
     value: "linkedin.com/in/hmishra2250",
     href: profile.linkedin,
-    icon: ExternalLink,
     event: "contact_cta_clicked",
   },
   {
     label: "GitHub",
     value: "github.com/hmishra2250",
     href: profile.github,
-    icon: ExternalLink,
     event: "contact_cta_clicked",
   },
   {
     label: "Resume",
     value: "Download PDF",
     href: profile.resumePath,
-    icon: FileDown,
     event: "resume_download_clicked",
   },
 ];
 
 const contactPaths = [
   {
-    audience: "Product leadership",
+    audience: "Problem shape",
     nextStep:
-      "Share the workflow, production bottleneck, and what needs to become reliable next.",
+      "Share the workflow, developer surface, or platform failure mode that needs an owner.",
   },
   {
-    audience: "Engineering leadership",
+    audience: "System state",
     nextStep:
-      "Share the platform scope, eval gaps, observability needs, and ownership model.",
+      "Describe what exists now: prototype, production service, internal tool, ML/search platform, or documentation path.",
   },
   {
-    audience: "Recruiting",
+    audience: "Useful outcome",
     nextStep:
-      "Start with the role level, interview loop, compensation range, and strongest proof points to review.",
-  },
-  {
-    audience: "Technical collaboration",
-    nextStep:
-      "Point me to the system, failure mode, or prototype where a second architecture review would help.",
+      "Name the artifact you need next: architecture review, implementation path, eval plan, reliability repair, or handover notes.",
   },
 ];
 
@@ -73,34 +61,47 @@ export default function ContactPage() {
   return (
     <>
       <RouteJsonLd path="/contact" />
-      <section className="section-pad contact-section">
-        <div className="container narrow contact-page">
-          <p className="eyebrow">Contact</p>
-          <h1 className="display-serif">Build, harden, or review <em>production</em> AI systems.</h1>
-          <p className="hero-subtitle">
-            Reach out for senior AI engineering, AI platform, LLM systems, or
-            production AI systems conversations.
-          </p>
-          <div className="contact-grid contact-actions">
-            {contactActions.map((action) => (
-              <TrackedAnchor
-                className="contact-card"
-                href={action.href}
-                key={action.label}
-                eventName={action.event}
-                eventParams={{ source_section: "contact_page", feature_id: action.label.toLowerCase() }}
-              >
-                <action.icon className="icon icon-lg contact-card-icon" />
-                <span>{action.label}</span>
-                <strong>{action.value}</strong>
-              </TrackedAnchor>
-            ))}
+      <div className="editorial-route contact-route">
+        <section className="section-pad contact-section">
+          <div className="container contact-page">
+            <div className="editorial-prose contact-intro">
+              <h1>Tell me about your project.</h1>
+              <p className="hero-subtitle">
+                Reach out for AI systems architecture, agent-facing developer
+                infrastructure, AI product workflow, or platform reliability
+                conversations.
+              </p>
+            </div>
+            <div className="contact-grid contact-actions">
+              {contactActions.map((action) => (
+                <TrackedAnchor
+                  className="contact-card"
+                  href={action.href}
+                  key={action.label}
+                  eventName={action.event}
+                  eventParams={{
+                    source_section: "contact_page",
+                    feature_id: action.label.toLowerCase(),
+                  }}
+                >
+                  <span>{action.label}</span>
+                  <strong>{action.value}</strong>
+                </TrackedAnchor>
+              ))}
+            </div>
           </div>
-          <div
-            className="contact-use-cases"
-            aria-labelledby="contact-use-cases"
-          >
-            <h2 id="contact-use-cases" className="display-serif">Useful context to <em>include.</em></h2>
+        </section>
+
+        <section className="section-pad compact alt">
+          <div className="container">
+            <div className="section-header wide editorial-prose">
+              <h2>Useful context to include.</h2>
+              <p className="section-description">
+                A concise first message helps determine whether the work is a
+                fit. Please do not include secrets, customer data, proprietary
+                prompts, private traces, or credentials.
+              </p>
+            </div>
             <div className="contact-grid">
               {contactPaths.map((path) => (
                 <article className="contact-card" key={path.audience}>
@@ -110,8 +111,8 @@ export default function ContactPage() {
               ))}
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
     </>
   );
 }

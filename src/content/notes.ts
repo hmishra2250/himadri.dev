@@ -53,12 +53,12 @@ export const notes: Note[] = [
     ],
     relatedLinks: [
       {
-        label: "Read the production AI principles",
-        href: "/principles",
+        label: "Read about the operating principles",
+        href: "/about",
       },
       {
-        label: "Inspect the agent debugging challenge",
-        href: "/challenges/debug-this-agent",
+        label: "Review the agentic workflow case study",
+        href: "/case-studies/agentic-market-research-platform#observability",
       },
     ],
   },
@@ -84,8 +84,8 @@ export const notes: Note[] = [
     ],
     relatedLinks: [
       {
-        label: "Open the normalized cost model",
-        href: "/challenges/cost-anatomy",
+        label: "Review agentic workflow tradeoffs",
+        href: "/case-studies/agentic-market-research-platform#architecture",
       },
       {
         label: "Review the ML infrastructure case study",
@@ -115,8 +115,8 @@ export const notes: Note[] = [
     ],
     relatedLinks: [
       {
-        label: "Try the judge failure challenge",
-        href: "/challenges/debug-this-agent",
+        label: "Review the evaluation path",
+        href: "/case-studies/agentic-market-research-platform#evaluation",
       },
       {
         label: "Read the research platform case study",

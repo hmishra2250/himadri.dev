@@ -1,47 +1,46 @@
 import type { DecisionFork } from "@/content/case-studies";
 
 export function ForkCard({ fork }: { fork: DecisionFork }) {
+  const rejected = fork.options.find(
+    (_, index) => index !== fork.chosenOptionIndex,
+  );
+  const chosen = fork.options[fork.chosenOptionIndex];
+
   return (
     <article
       className="fork-card"
       id={fork.title.toLowerCase().replaceAll(" ", "-")}
     >
-      <p className="eyebrow">Decision fork</p>
-      <h3>{fork.title}</h3>
-      <p className="muted">{fork.context}</p>
-      <div className="fork-options">
-        {fork.options.map((option, index) => (
-          <div
-            className={
-              index === fork.chosenOptionIndex
-                ? "fork-option chosen"
-                : "fork-option"
-            }
-            key={option.label}
+      <header className="fork-header">
+        <h3>{fork.title}</h3>
+        <p>{fork.context}</p>
+      </header>
+      <div className="fork-options" aria-label="Decision options">
+        {rejected ? (
+          <section
+            className="fork-option rejected"
+            aria-label="Rejected option"
           >
-            <h4>{option.label}</h4>
-            <div>
-              <strong>Pros</strong>
-              <ul>
-                {option.pros.map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ul>
-            </div>
-            <div>
-              <strong>Cons</strong>
-              <ul>
-                {option.cons.map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        ))}
+            <span>Rejected</span>
+            <h4>{rejected.label}</h4>
+            <ul>
+              {rejected.cons.slice(0, 3).map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          </section>
+        ) : null}
+        <section className="fork-option chosen" aria-label="Chosen option">
+          <span>Chosen</span>
+          <h4>{chosen?.label ?? fork.chosen}</h4>
+          <ul>
+            {(chosen?.pros ?? []).slice(0, 3).map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+        </section>
       </div>
-      <p className="chosen-line">
-        Chosen: <strong>{fork.chosen}</strong>. {fork.why}
-      </p>
+      <p className="chosen-line">{fork.why}</p>
     </article>
   );
 }

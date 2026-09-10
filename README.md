@@ -1,8 +1,33 @@
 # himadri.dev
 
-Personal portfolio for Himadri Mishra, built as an evidence-first product surface for senior AI engineering, AI platform engineering, LLM systems architecture, and founding AI engineer roles.
+Simple public portfolio for Himadri Mishra, built with Next.js App Router and typed content. The site presents a concise professional presence for AI systems, developer infrastructure and production AI product work.
 
-The site is intentionally more than a resume page. It presents production AI systems work through proof-backed metrics, case studies, principles, interactive challenges, a source-grounded Interview Me surface, and gated assistant infrastructure.
+## Current public surface
+
+Public routes are governed by `src/lib/routes.ts`. The primary visitor experience is the homepage, not a multi-page product tour.
+
+Homepage sections:
+
+- `/#work`, current work briefs and selected case-study context
+- `/#about`, short background and focus
+- `/#contact`, direct email, GitHub and resume links
+
+Compatible reference pages remain available for direct links and search:
+
+- `/case-studies`, work index
+- `/case-studies/agentic-market-research-platform`
+- `/case-studies/ml-infra-rescue`
+- `/case-studies/computer-vision-product-systems`
+- `/case-studies/high-performance-ar-and-vision`
+- `/about`
+- `/contact`
+- `/resume`, minimal resume download page
+
+Secondary page:
+
+- `/notes`
+
+Navigation labels still come from the route manifest. `navHref` overrides send Work, About and Contact to homepage anchors while canonical SEO paths remain the standalone route paths. Retired Interview, Principles and Challenges routes redirect through `next.config.ts`, stay out of nav and sitemap, and remain marked noindex.
 
 ## Stack
 
@@ -11,35 +36,10 @@ The site is intentionally more than a resume page. It presents production AI sys
 - React Server Components by default
 - Tailwind CSS through `@tailwindcss/postcss`
 - Typed content modules under `src/content/`
-- Route manifest authority in `src/lib/routes.ts`
+- Route authority in `src/lib/routes.ts`
 - Local validation scripts under `scripts/`
 
-## Important routes
-
-Public routes are governed by `src/lib/routes.ts`.
-
-Core routes:
-
-- `/`
-- `/case-studies`
-- `/case-studies/agentic-market-research-platform`
-- `/case-studies/ml-infra-rescue`
-- `/case-studies/computer-vision-product-systems`
-- `/case-studies/high-performance-ar-and-vision`
-- `/resume`
-- `/contact`
-- `/interview-me`
-- `/principles`
-- `/challenges`
-- `/challenges/debug-this-agent`
-- `/challenges/cost-anatomy`
-- `/challenges/dag-execution-simulator`
-- `/challenges/deck-ir-previewer`
-
-Internal or deferred routes:
-
-- `/api/interview` is internal and only serves when `ENABLE_INTERVIEW_ASSISTANT_API=1`.
-- `/hiring-packet` is deferred and must stay out of nav, sitemap, and public links until explicitly promoted.
+Local fonts are loaded through `next/font/local` from `src/app/fonts/`. Keep the bundled font license notices in that directory when changing font assets.
 
 ## Local development
 
@@ -49,7 +49,7 @@ Install dependencies:
 npm install
 ```
 
-Start the local app:
+Start the app locally:
 
 ```bash
 npm run dev -- --hostname 127.0.0.1 --port 3000
@@ -61,103 +61,85 @@ Open:
 http://127.0.0.1:3000
 ```
 
-## Environment flags
+## Content model
+
+Most public copy is typed data, not ad hoc page text.
+
+- `src/content/profile.ts`, name, headline, email, GitHub and canonical resume path
+- `src/content/practice.ts`, homepage practice copy and `recentWorkCases`
+- `src/content/proof.ts`, approved public proof claims backed by the current resume
+- `src/content/metrics.ts`, public metrics tied to proof claims
+- `src/content/case-studies.ts`, compatible case-study reference pages
+- `src/content/about.ts`, about page content
+- `src/content/notes.ts`, note index content
+
+Rules to preserve:
+
+- Route, nav, sitemap and redirect behavior come from `src/lib/routes.ts`.
+- `recentWorkCases` is the homepage source of authority for current work briefs.
+- Public metrics and company-specific claims must stay tied to approved proof metadata and the current public resume.
+- Synthetic or sanitized examples must keep appropriate public labels.
+- Do not add private organization identities, raw customer data, secrets, proprietary prompts, internal rubrics, non-public screenshots or exact internal cost figures.
+
+## Environment gates
 
 Use `.env.example` as the template. Keep `.env.local` private and uncommitted.
 
-Key gates:
+- `/api/interview` is internal and default off. It only serves when `ENABLE_INTERVIEW_ASSISTANT_API=1`.
+- Gemini assistance is server-side only and requires `ENABLE_GEMINI_ASSISTANT=1` plus `GEMINI_API_KEY`.
+- Never expose `GEMINI_API_KEY` through a `NEXT_PUBLIC_` variable.
+- GA4 analytics only run when `ENABLE_ANALYTICS=1`, `NEXT_PUBLIC_ANALYTICS_PROVIDER=google_analytics`, and `NEXT_PUBLIC_GA_MEASUREMENT_ID` are set.
 
-- `NEXT_PUBLIC_ENABLE_INTERVIEW_ASSISTANT=1` shows the live assistant UI when the route manifest allows `/api/interview`.
-- `ENABLE_INTERVIEW_ASSISTANT_API=1` enables the internal assistant API route.
-- `ENABLE_GEMINI_ASSISTANT=1` plus `GEMINI_API_KEY` enables server-side Gemini assistance.
-- `ENABLE_ANALYTICS=1`, `NEXT_PUBLIC_ANALYTICS_PROVIDER=google_analytics`, and `NEXT_PUBLIC_GA_MEASUREMENT_ID` enable GA4.
+## Resume chain
 
-Never expose `GEMINI_API_KEY` through a `NEXT_PUBLIC_` variable.
+The canonical public resume served by the portfolio is:
 
-## Content model
+```text
+public/resume/Himadri_Mishra_Resume.pdf
+```
 
-Most public content lives in typed modules:
+The editable source lives in the sibling resume directory:
 
-- `src/content/proof.ts`, approved public proof claims
-- `src/content/metrics.ts`, public metrics tied to proof claims
-- `src/content/case-studies.ts`, case study data
-- `src/content/principles.ts`, homepage principles
-- `src/content/stack-opinions.ts`, principles page opinion cards
-- `src/content/interview/index.ts`, Interview Me source-backed answers
-- `src/content/challenges/index.ts`, challenge scenarios and labels
-- `src/content/traces.ts`, representative trace data
+```text
+../resume/main_ats.tex -> ../resume/main_ats.pdf -> public/resume/Himadri_Mishra_Resume.pdf
+```
 
-Every public metric or company-specific claim should be backed by approved proof metadata. Synthetic or sanitized artifacts must keep appropriate public labels.
+Build from `../resume` with the documented local TeX toolchain, then copy and compare the PDF before updating portfolio proof references:
 
-## Plans and design docs
-
-Start with:
-
-- `docs/portfolio_redesign_uiux_frontend_technical_design_doc.md`
-- `docs/plans/README.md`
-
-The plans directory documents the project in the order it was built:
-
-1. V1 portfolio system plan
-2. V1.5 and V2 plan
-3. Gap remediation plan
-4. Expert review remediation plan
-5. Portfolio feedback remediation plan
-
-Read `docs/plans/README.md` before making large product, route, content, assistant, or UI changes.
+```bash
+latexmk -pdf -halt-on-error -interaction=nonstopmode main_ats.tex
+cp main_ats.pdf ../himadri.dev/public/resume/Himadri_Mishra_Resume.pdf
+cmp -s main_ats.pdf ../himadri.dev/public/resume/Himadri_Mishra_Resume.pdf
+sha256sum main_ats.pdf ../himadri.dev/public/resume/Himadri_Mishra_Resume.pdf
+```
 
 ## Verification
 
-Use the smallest relevant checks while editing. Before claiming a broad change is complete, run:
-
-```bash
-npm run verify
-npm audit --audit-level=moderate
-```
-
-Useful targeted checks:
+Use targeted checks while editing:
 
 ```bash
 npm run typecheck
 npm run lint
+npm run test:privacy-contract
 npm run format:check
 npm run validate:content
 npm run validate:routes
+npm run validate:seo
 npm run validate:confidentiality
 npm run test:links
 npm run test:routes-smoke
 npm run test:api
 ```
 
-Assistant-specific changes should also keep these green:
+Before claiming a broad portfolio change is complete, run:
 
 ```bash
-npm run build:assistant-corpus
-npm run validate:assistant-corpus
-npm run eval:assistant
+npm run verify
+npm audit --audit-level=moderate
 ```
 
-## Browser QA evidence
-
-Browser QA screenshots and notes are stored under `reports/browser-qa/`.
-
-Recent local screenshot passes used headless Chromium against the local app, for example:
-
-```bash
-chromium --headless --disable-gpu --no-sandbox --hide-scrollbars \
-  --run-all-compositor-stages-before-draw \
-  --virtual-time-budget=5000 \
-  --window-size=1365,2200 \
-  --screenshot=reports/browser-qa/example/home.png \
-  http://127.0.0.1:3000/
-```
+Assistant corpus checks are still part of `npm run verify` because the internal API and deterministic fallback remain in the codebase, even though the public Interview surface is retired.
 
 ## Deployment
 
-The project is deployed on Vercel. The connected GitHub repository deploys automatically from pushes to `main` through Vercel Git integration. No GitHub Actions workflow is required for Vercel deployment in the current setup.
-
-## Confidentiality rules
-
-Do not publish customer names, raw customer data, survey datasets, proprietary prompts, internal eval rubrics, non-public screenshots, internal dashboard screenshots, exact internal costs, private deck outputs, internal code, secrets, tokens, keys, endpoints, or infrastructure identifiers.
-
-Allowed public content includes resume-backed metrics, high-level architecture patterns, simplified diagrams, synthetic or sanitized representative traces, normalized cost units, representative workflow examples, and public GitHub, LinkedIn, and resume information.
+The project is configured for Vercel deployment from the connected repository. This README does not assert that any recent deployment has happened. Verify the current production state in Vercel before making release claims.

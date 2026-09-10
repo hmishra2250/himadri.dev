@@ -37,7 +37,7 @@ export const caseStudies: CaseStudy[] = [
       "Raw survey data to verified insights, charts, and consulting-grade PPTX decks.",
     company: "Knit",
     period: "May 2025 – April 2026",
-    role: "Senior AI Engineer / principal architect for India AI team",
+    role: "Senior AI Engineer / senior IC architecture for India AI workflows",
     domains: [
       "LLM systems",
       "DAG orchestration",
@@ -62,7 +62,7 @@ export const caseStudies: CaseStudy[] = [
       "Task planning",
       "DAG execution",
       "LLM Python code generation",
-      "Persistent sandbox execution",
+      "Sandboxed Python analysis execution",
       "Independent judge verification",
       "Insight synthesis",
       "Highcharts chart generation",
@@ -155,7 +155,7 @@ export const caseStudies: CaseStudy[] = [
       },
     ],
     evaluation: [
-      "Independent judge verification recomputed results in a separate sandbox path.",
+      "Independent judge agents verified each generated analysis output.",
       "Chart outputs passed multi-threshold quality scoring before deck assembly.",
       "Retry semantics were tied to task boundaries rather than vague agent state.",
     ],
@@ -270,7 +270,7 @@ export const caseStudies: CaseStudy[] = [
     domains: [
       "Computer vision",
       "Real-time ML",
-      "Java deployment",
+      "Product deployment",
       "Education products",
     ],
     summary:
@@ -289,7 +289,7 @@ export const caseStudies: CaseStudy[] = [
       "Detection and segmentation",
       "Post-processing",
       "Real-time inference",
-      "Java deployment",
+      "Product deployment",
       "Product feedback",
     ],
     decisions: [

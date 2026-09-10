@@ -1,17 +1,8 @@
-import type { Metadata } from "next";
-import { buildPageMetadata } from "@/lib/seo";
-import { RouteJsonLd } from "@/components/seo/RouteJsonLd";
-import { DebugScenarioView } from "@/components/challenges/DebugScenarioView";
+import { permanentRedirect } from "next/navigation";
+import { getRetiredRouteDestination } from "@/lib/routes";
 
-export const metadata: Metadata = buildPageMetadata(
-  "/challenges/debug-this-agent",
-);
+const routePath = "/challenges/debug-this-agent";
 
 export default function DebugThisAgentPage() {
-  return (
-    <>
-      <RouteJsonLd path="/challenges/debug-this-agent" />
-      <DebugScenarioView />
-    </>
-  );
+  permanentRedirect(getRetiredRouteDestination(routePath));
 }

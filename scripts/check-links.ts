@@ -1,10 +1,18 @@
 import { existsSync } from "node:fs";
 import { join } from "node:path";
-import { costModels, debugScenarios } from "../src/content/challenges";
 import { caseStudies } from "../src/content/case-studies";
 import { interviewAnswers } from "../src/content/interview";
+import { notes } from "../src/content/notes";
+import { principles } from "../src/content/principles";
 import { profile } from "../src/content/profile";
-import { publicRoutes, routeManifest, routeIsEnabled } from "../src/lib/routes";
+import { stackOpinions } from "../src/content/stack-opinions";
+import {
+  publicRoutes,
+  routeManifest,
+  routeIsEnabled,
+  retiredRedirectRoutes,
+} from "../src/lib/routes";
+import { validateInternalHrefFragment } from "./lib/fragment-links";
 
 const errors: string[] = [];
 const routePaths = new Set(routeManifest.map((route) => route.path));
@@ -15,12 +23,7 @@ for (const path of [
   "/case-studies",
   "/resume",
   "/contact",
-  "/interview-me",
-  "/principles",
   "/notes",
-  "/challenges",
-  "/challenges/debug-this-agent",
-  "/challenges/cost-anatomy",
   "/case-studies/agentic-market-research-platform",
 ]) {
   if (!publicPaths.has(path))
@@ -33,6 +36,17 @@ for (const route of routeManifest) {
   }
 }
 
+for (const route of retiredRedirectRoutes) {
+  if (route.redirectTo) {
+    errors.push(
+      ...validateInternalHrefFragment({
+        href: route.redirectTo,
+        owner: `retired route ${route.path}`,
+      }),
+    );
+  }
+}
+
 for (const study of caseStudies) {
   const path = `/case-studies/${study.slug}`;
   if (study.routeEnabled && !routePaths.has(path))
@@ -41,24 +55,59 @@ for (const study of caseStudies) {
 
 for (const answer of interviewAnswers) {
   for (const source of answer.sourceCards) {
-    const path = source.href.split("#")[0];
-    if (!publicPaths.has(path) && !path.startsWith("/resume/")) {
-      errors.push(
-        `Interview source card links to non-public route: ${source.href}`,
-      );
-    }
+    errors.push(
+      ...validateInternalHrefFragment({
+        href: source.href,
+        owner: `interview source card ${answer.id}`,
+      }),
+    );
   }
 }
 
-if (debugScenarios.length < 1)
-  errors.push("At least one debug scenario is required");
-if (!routeIsEnabled("/challenges/debug-this-agent")) {
-  errors.push("Debug This Agent route must stay enabled for V1.5");
+for (const note of notes) {
+  for (const link of note.relatedLinks) {
+    errors.push(
+      ...validateInternalHrefFragment({
+        href: link.href,
+        owner: `note link ${note.id}`,
+      }),
+    );
+  }
 }
-if (costModels.length < 3)
-  errors.push("Cost Anatomy requires three static states");
-if (!routeIsEnabled("/challenges/cost-anatomy")) {
-  errors.push("Cost Anatomy route must stay enabled for V1.5");
+
+for (const principle of principles) {
+  errors.push(
+    ...validateInternalHrefFragment({
+      href: principle.href,
+      owner: `principle link ${principle.id}`,
+    }),
+  );
+}
+
+for (const opinion of stackOpinions) {
+  errors.push(
+    ...validateInternalHrefFragment({
+      href: opinion.relatedHref,
+      owner: `stack opinion link ${opinion.id}`,
+    }),
+  );
+}
+
+for (const retiredPath of [
+  "/interview-me",
+  "/principles",
+  "/challenges",
+  "/challenges/debug-this-agent",
+  "/challenges/cost-anatomy",
+  "/challenges/dag-execution-simulator",
+  "/challenges/deck-ir-previewer",
+]) {
+  if (routeIsEnabled(retiredPath)) {
+    errors.push(`Retired route remains enabled: ${retiredPath}`);
+  }
+  if (publicPaths.has(retiredPath)) {
+    errors.push(`Retired route remains public: ${retiredPath}`);
+  }
 }
 
 if (

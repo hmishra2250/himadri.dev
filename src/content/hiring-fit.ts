@@ -6,56 +6,56 @@ export type HiringFit = {
 
 export const hiringFit: HiringFit[] = [
   {
-    signal: "Can architect LLM systems end to end",
+    signal: "Can shape agent-facing developer tools",
     evidence:
-      "Agentic market research platform from raw survey data to verified insights, charts, and PPTX decks.",
-    proofId: "knit-turnaround",
+      "Recent public contribution themes include CLI, MCP, SDK and API interface consistency for developer and agent workflows.",
+    proofId: "recent-cli-mcp-sdk-interfaces",
   },
   {
     signal: "Can design production agent workflows",
     evidence:
-      "DAG orchestration, sandbox execution, independent judge verification, and observable node boundaries.",
+      "Agentic market research platform work used explicit DAG orchestration, sandbox execution, judge verification and observable node boundaries.",
     proofId: "knit-observability-platform",
   },
   {
-    signal: "Can build full-stack AI products",
+    signal: "Can keep AI output tied to artifacts",
     evidence:
-      "CV product pipeline at Osmo spanning model training, real-time inference, Java deployment, and education product integration across India and US teams.",
-    proofId: "osmo-cv-accuracy",
-  },
-  {
-    signal: "Understands observability",
-    evidence:
-      "Built unified observability for ML platform at Epic!, including cost visibility, search metrics, and recommendation quality tracking.",
-    proofId: "epic-cost-reduction",
-  },
-  {
-    signal: "Understands evals and reliability",
-    evidence:
-      "Judge verification and multi-threshold chart quality scoring around generated analysis artifacts.",
+      "Built workflows around executable analysis, chart quality gates, deck artifacts and source-grounded review rather than fluent text alone.",
     proofId: "knit-sandbox-tasks",
   },
   {
-    signal: "Can own infra and reduce costs",
+    signal: "Can repair runtime and recovery boundaries",
     evidence:
-      "10x ML platform cost reduction, 100x Kubernetes pod reduction, and 99% spot error reduction.",
+      "Recent public contribution themes include runtime request boundaries, recovery behavior and supporting regression tests.",
+    proofId: "recent-runtime-recovery-tests",
+  },
+  {
+    signal: "Can own infrastructure and reduce cost",
+    evidence:
+      "Reduced ML platform cost by 10x while taking ownership of production search, recommendations, Kubernetes usage and operational reliability.",
     proofId: "epic-cost-reduction",
+  },
+  {
+    signal: "Understands evals and observability",
+    evidence:
+      "Designed reliability paths around model routing, sandboxed analysis, tracing, independent judge verification and visible quality gates.",
+    proofId: "knit-observability-platform",
   },
   {
     signal: "Has shipped ML beyond LLM demos",
     evidence:
-      "Computer vision systems for education products, including 93% to 98% worksheet accuracy improvement.",
+      "Computer vision product systems improved worksheet recognition accuracy from 93% to 98% under real-time education-product constraints.",
     proofId: "osmo-cv-accuracy",
   },
   {
-    signal: "Can operate as senior IC",
+    signal: "Can bridge product, data and platform layers",
     evidence:
-      "Owned end-to-end ML platform at Epic! post-layoffs: search, recommendations, discovery, infrastructure, cost, and reliability across the full stack.",
-    proofId: "epic-cost-reduction",
+      "Work spans LLM orchestration, Python execution, charting, deck generation, search, recommendations, CV deployment and product feedback loops.",
+    proofId: "knit-turnaround",
   },
   {
     signal: "Has low-level performance depth",
-    evidence: "C++ ORB detector 20% faster than ORB-SLAM baseline.",
+    evidence: "Built a C++ ORB detector 20% faster than the ORB-SLAM baseline.",
     proofId: "whodat-orb",
   },
 ];

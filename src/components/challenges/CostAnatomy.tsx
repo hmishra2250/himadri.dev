@@ -16,8 +16,8 @@ export function CostAnatomy() {
         <h1>AI unit economics as an architecture problem</h1>
         <p className="hero-subtitle">
           Toggle between representative workflow designs and inspect where cost
-          units move when routing, sandbox reuse, retries, and judge coverage
-          become explicit.
+          units move when routing, sandboxed execution, retries, and judge
+          coverage become explicit.
         </p>
         <p className="confidentiality-note">
           Representative model using normalized units. Customer data, private

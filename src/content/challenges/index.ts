@@ -96,7 +96,7 @@ export const debugScenarios: DebugScenario[] = [
     choices: [
       {
         id: "sandbox-reuse",
-        label: "The sandbox was not reused across tasks.",
+        label: "Sandbox setup repeated too often across tasks.",
         explanation:
           "Plausible, but the trace does not show repeated sandbox setup or execution retries.",
       },
@@ -270,7 +270,7 @@ export const costModels: CostModel[] = [
     label: "Optimized implementation",
     totalUnits: 42,
     summary:
-      "Routing, caching, sandbox reuse, and selective verification remove most waste while preserving quality.",
+      "Routing, caching, sandboxed execution, and selective verification remove most waste while preserving quality.",
     categories: [
       {
         label: "LLM planning",
@@ -285,7 +285,7 @@ export const costModels: CostModel[] = [
       {
         label: "Sandbox execution",
         units: 6,
-        note: "Persistent sandbox reuse.",
+        note: "Batched sandboxed execution.",
       },
       {
         label: "Judge verification",

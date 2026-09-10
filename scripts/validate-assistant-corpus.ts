@@ -2,6 +2,7 @@ import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { ASSISTANT_CORPUS_PATH } from "../src/lib/assistant/config";
 import type { PortfolioChunk } from "../src/content/assistant/chunks";
+import { validateInternalHrefFragment } from "./lib/fragment-links";
 
 const errors: string[] = [];
 const path = join(process.cwd(), ASSISTANT_CORPUS_PATH);
@@ -18,6 +19,12 @@ if (!existsSync(path)) {
     if (!chunk.title || !chunk.url || !chunk.text) {
       errors.push(`chunk missing required fields: ${chunk.id}`);
     }
+    errors.push(
+      ...validateInternalHrefFragment({
+        href: chunk.url,
+        owner: `chunk ${chunk.id}`,
+      }),
+    );
     if (!["public", "sanitized"].includes(chunk.confidentialityLevel)) {
       errors.push(`chunk has invalid confidentiality: ${chunk.id}`);
     }
