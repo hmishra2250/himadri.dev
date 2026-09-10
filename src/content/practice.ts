@@ -130,12 +130,13 @@ export const practice: Practice = {
       id: "reviewed-ai-workflows-brief",
       title: "Source checks and review",
       summary:
-        "Connected retrieved sources to generated drafts, checked claims and required human approval before treating the output as ready.",
+        "Connected sources to generated answers and report drafts, with claim checks and clear handling of missing evidence.",
       work: [
         "Added source context to draft generation.",
-        "Checked claims before the human review step.",
+        "Checked citations, missing evidence and unsupported numbers.",
       ],
-      verification: "Regression tests covered drafting, checks and review.",
+      verification:
+        "Regression tests covered citations, missing evidence and unsupported numbers.",
       proofIds: ["recent-reviewed-ai-workflows"],
     },
     {
