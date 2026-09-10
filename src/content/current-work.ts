@@ -28,6 +28,8 @@ export type MethodCard = {
   title: string;
   summary: string;
   details: string[];
+  impact: string;
+  measurement: string;
   status:
     | "Completed experiments"
     | "Shipped system"
@@ -150,16 +152,21 @@ export const currentWork: CurrentWork = {
   methodCards: [
     {
       id: "agent-routing-surfaces",
-      title: "Router cards and tool choice",
+      title: "Capability-aware router cards",
       status: "Completed experiments",
       summary:
-        "I built router cards that help agents choose an available tool and finish the task.",
+        "I built and evaluated router cards that matched an agent's available tools and access. The goal was useful tool choice and task completion, not simply more tool calls.",
       details: [
-        "Compared cards with a no-card baseline using the same tasks and setups.",
-        "Checked tool choice, task completion, safety and answer quality before keeping a change.",
+        "Matched card content to capability state, with explicit controls for user intent.",
+        "Compared cards against no-card baselines on paired tasks, while letting each client discover tools through its normal path.",
+        "Used routing, completion, safety and answer-quality checks to keep useful changes and reject ineffective or harmful defaults.",
       ],
+      impact:
+        "Observed better tool routing and task completion in the controlled study. The evaluation also showed why greater tool use alone was not a useful success measure.",
+      measurement:
+        "Compared correct tool choice and completed tasks across matched setups. Reviewed safety and answer quality separately rather than folding them into tool-call counts.",
       limitations:
-        "The gain applies to the tested setups and clients, not every tool or signup flow.",
+        "The observed gain was directional, not statistically conclusive or a production conversion result.",
       metricIds: ["routing-task-gain"],
       proofId: "method-agent-routing-surfaces",
       publicLabel:
@@ -167,16 +174,21 @@ export const currentWork: CurrentWork = {
     },
     {
       id: "auth-aware-onboarding",
-      title: "MCP login and onboarding",
+      title: "Production MCP access and OAuth onboarding",
       status: "Shipped system",
       summary:
-        "I shipped MCP login and setup for connected accounts, search-only access and keyless trials.",
+        "I shipped the cross-service access flow for hosted MCP, from account connection to usable tools. Connected accounts, search-only access and keyless trials needed different authorization paths.",
       details: [
-        "Connected OAuth, tokens, permissions and CLI setup across services.",
-        "Separated interactive login from headless access, with recovery steps when setup failed.",
+        "Connected web OAuth, token and grant lifecycle, MCP profiles, backend authorization and CLI setup.",
+        "Separated interactive account connection from headless access and limited trials, rather than treating every client as a browser login.",
+        "Added recovery guidance for blocked credentials, permissions and unsupported client capabilities.",
       ],
+      impact:
+        "Put distinct access paths into live onboarding, with permission boundaries and recovery steps carried through the flow rather than left to manual setup.",
+      measurement:
+        "Checked account connection, credential handling and permitted tool access across the supported paths. Live onboarding use confirms delivery, not a conversion lift.",
       limitations:
-        "Used in live onboarding. No claim of higher signup conversion.",
+        "Production delivery and onboarding use are supported; signup improvement is not claimed.",
       metricIds: [],
       proofId: "method-auth-aware-onboarding",
       publicLabel:
@@ -184,16 +196,21 @@ export const currentWork: CurrentWork = {
     },
     {
       id: "discovery-retrieval-measurement",
-      title: "Discovery and retrieval tests",
+      title: "Discovery and retrieval evaluation system",
       status: "Shipped system",
       summary:
-        "I built tests and dashboards that show whether agents can find, read and use a product.",
+        "I built the evaluation layer for whether agents can find a product, retrieve its content and use it. Each stage needed its own evidence, not a single visibility score.",
       details: [
-        "Built category, developer and goal-based test sets, retrieval checks and APIs.",
-        "Tracked missing results, sources and tool calls so teams could find the failure.",
+        "Built versioned category, developer and goal-based test banks, deterministic retrieval probes, APIs and dashboard views.",
+        "Kept eligible test cases, missing observations, citations and actual tool use separate in the results.",
+        "Connected the evidence to reporting so a finding could point to the failed stage, not just an aggregate score.",
       ],
+      impact:
+        "Made discovery and retrieval failures easier to locate. Teams could tell missing evidence apart from failed retrieval or a tool that was found but never used.",
+      measurement:
+        "Tracked discovery observations, retrieval checks, source citations and tool calls against their eligible test cases. Missing results stayed visible instead of disappearing from the summary.",
       limitations:
-        "Measures access and use, not traffic, adoption or revenue growth.",
+        "These checks measure access and use, not traffic, adoption or revenue growth.",
       metricIds: [],
       proofId: "method-discovery-retrieval-measurement",
       publicLabel:
@@ -201,16 +218,21 @@ export const currentWork: CurrentWork = {
     },
     {
       id: "multi-harness-ax-experiments",
-      title: "Testing agents across clients",
+      title: "Cross-client agent evaluation platform",
       status: "Shipped platform",
       summary:
-        "I built a test platform to compare how agents find and use tools across clients and models.",
+        "I built the harness infrastructure for agent experience (AX) testing, so the same product journey could run across different clients and models under controlled A/B conditions.",
       details: [
-        "Ran A/B tests with matched tasks, fixed inputs and saved run evidence.",
-        "Separated tool failures from setup problems and incomplete runs.",
+        "Built client adapters and shared experiment contracts, with client-specific connections and evidence parsing.",
+        "Encoded control and treatment runs with matched tasks, fixed fixtures and recorded runtime versions.",
+        "Added statistical checks and failure accounting to separate product behavior from setup errors, incomplete pairs and invalid runs.",
       ],
+      impact:
+        "Made cross-client comparisons repeatable and inspectable, rather than a collection of one-off demos. Teams could distinguish a product failure from a broken test setup.",
+      measurement:
+        "Compared matched runs using saved evidence, completion checks and failure categories. Client connection support stayed explicit instead of assuming all adapters behaved alike.",
       limitations:
-        "Clients support different connection types. An adapter does not mean every feature works in every client.",
+        "Results apply to the tested clients and supported connection types.",
       metricIds: ["agent-harness-coverage"],
       proofId: "method-multi-harness-ax-experiments",
       publicLabel:
@@ -218,16 +240,21 @@ export const currentWork: CurrentWork = {
     },
     {
       id: "coded-journey-paths",
-      title: "Journey paths as code",
+      title: "Executable journeys for agent A/B tests",
       status: "Implemented evaluation",
       summary:
-        "I turned onboarding steps into saved states so different paths could be tested and compared.",
+        "I introduced the idea of treating onboarding as executable capability state. An experiment could then start from what an agent could actually access, not assume setup had worked.",
       details: [
-        "Recorded installed tools, login status, skills, plugins and access permissions.",
-        "Built state-matched card selection, readiness checks and repeatable setup and cleanup.",
+        "Encoded installation, authentication, skills, MCP, plugins and read access as explicit states.",
+        "Built state-matched payload selection and readiness checks so each test received the tools and guidance its setup allowed.",
+        "Managed setup and cleanup to reproduce alternate journeys and inspect where their capabilities differed.",
       ],
+      impact:
+        "Turned onboarding paths into testable inputs. This made it possible to compare journey designs without confusing access differences with agent performance.",
+      measurement:
+        "Checked readiness and state-matched behavior before comparing control and treatment runs. Kept paused paths and no-card paths visible in the inventory.",
       limitations:
-        "Includes paused paths and paths without router cards. Not every mapped path was tested or improved.",
+        "Mapped coverage is not a claim that every path was tested or improved.",
       metricIds: ["onboarding-surface-coverage"],
       proofId: "method-coded-journey-paths",
       publicLabel:
@@ -235,16 +262,21 @@ export const currentWork: CurrentWork = {
     },
     {
       id: "evidence-grounded-insights",
-      title: "Turning test results into insights",
+      title: "Evidence-backed insight and reporting pipeline",
       status: "Shipped reporting",
       summary:
-        "I built reports that turn discovery, retrieval and journey tests into clear product findings.",
+        "I built the pipeline that turns discovery, retrieval and journey evidence into product findings. The engineering work was keeping those findings tied to sources through synthesis, validation and recovery.",
       details: [
-        "Connected evidence collection, report writing, source checks and publishing.",
-        "Shipped daily reports and built weekly runs that could resume after failures.",
+        "Connected evidence collection with synthesis within and across test banks.",
+        "Added deterministic validation, report storage and publication gates so findings kept their evidence bindings.",
+        "Shipped daily reporting and implemented weekly orchestration with checkpoints to recover failed stages and reconstruct reports.",
       ],
+      impact:
+        "Turned separate test outputs into traceable product findings. Checkpoint recovery let reporting continue from saved work instead of losing the whole run.",
+      measurement:
+        "Checked source bindings and validation results before publication. Used shipped daily reports and recovered weekly reports as evidence of delivery and recovery.",
       limitations:
-        "Daily reports shipped; weekly reports were recovered after failures. This does not prove every fresh weekly run completed.",
+        "Recovered weekly reports do not establish that every fresh weekly run completed uninterrupted.",
       metricIds: [],
       proofId: "method-evidence-grounded-insights",
       publicLabel:

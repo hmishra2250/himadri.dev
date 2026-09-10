@@ -139,6 +139,8 @@ export function validateCurrentWork(
       "title",
       "summary",
       "details",
+      "impact",
+      "measurement",
       "metricIds",
       "status",
       "limitations",

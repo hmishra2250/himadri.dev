@@ -152,11 +152,25 @@ assert.equal(
 assert.doesNotMatch(work, /<details|<button|\u2014|&mdash;/);
 const words = (value: string) => value.trim().split(/\s+/).length;
 for (const method of currentWork.methodCards) {
-  assert.ok(words(method.summary) <= 25, `Short summary: ${method.id}`);
   assert.ok(
-    method.details.every((detail) => words(detail) <= 18),
-    `Short implementation bullets: ${method.id}`,
+    words(method.summary) <= 40,
+    `Focused engineering summary: ${method.id}`,
   );
+  assert.ok(
+    method.details.every((detail) => words(detail) <= 26),
+    `Focused implementation bullets: ${method.id}`,
+  );
+}
+assert.equal((work.match(/<h4>Impact<\/h4>/g) || []).length, 6);
+assert.equal((work.match(/<h4>How I checked it<\/h4>/g) || []).length, 6);
+for (const method of currentWork.methodCards) {
+  assert.ok(method.details.length <= 3);
+  assert.ok(words(method.impact) <= 36);
+  assert.ok(words(method.measurement) <= 36);
+  const article = work.split(`id="${method.id}">`)[1]?.split("</article>")[0];
+  assert.ok(article, `Missing method article ${method.id}`);
+  assert.doesNotMatch(article, /work-result-label/);
+  assert.doesNotMatch(article.replace(/<[^>]*>|&#[^;]+;/g, ""), /\d/);
 }
 for (const brief of practice.recentWorkCases) {
   assert.ok(words(brief.summary) <= 25);

@@ -1,5 +1,4 @@
 import { currentWork, type MethodCard } from "@/content/current-work";
-import { currentWorkMetrics } from "@/content/metrics";
 
 type SectionTitleProps = {
   titleId?: string;
@@ -34,19 +33,6 @@ function getOrderedMethodCards() {
   });
 }
 
-function WorkMetric({ id }: { id: string }) {
-  const metric = currentWorkMetrics.find((entry) => entry.id === id);
-  if (!metric) throw new Error(`Missing current-work metric: ${id}`);
-  return (
-    <div className="work-result">
-      <p className="work-result-label">
-        <strong>{metric.value}</strong> {metric.label}
-      </p>
-      <p>{metric.context}</p>
-    </div>
-  );
-}
-
 function MethodCardArticle({
   method,
   featured,
@@ -69,14 +55,16 @@ function MethodCardArticle({
           ))}
         </ul>
       </div>
-      <div className="work-evidence" aria-label="Results and limits">
-        {method.metricIds.map((id) => (
-          <WorkMetric id={id} key={id} />
-        ))}
-        <p className="work-scope">
-          {method.metricIds.length === 0 && <strong>Scope</strong>}
-          {method.limitations}
-        </p>
+      <div className="work-evidence" aria-label="Impact and evaluation">
+        <div className="work-outcome">
+          <h4>Impact</h4>
+          <p>{method.impact}</p>
+        </div>
+        <div className="work-outcome">
+          <h4>How I checked it</h4>
+          <p>{method.measurement}</p>
+        </div>
+        <p className="work-scope">{method.limitations}</p>
       </div>
     </article>
   );

@@ -198,11 +198,28 @@ async function main() {
       );
       for (const system of currentWork.reviewedSystems)
         assert.ok(rendered.includes(system.status));
-      for (const metric of currentWorkMetrics)
-        for (const copy of [metric.value, metric.label, metric.context])
+      for (const method of currentWork.methodCards) {
+        for (const copy of [
+          method.impact,
+          method.measurement,
+          ...method.details,
+        ])
           assert.ok(
             rendered.includes(copy),
-            `${route.path}: missing metric disclosure ${copy}`,
+            `Missing engineering detail ${copy}`,
+          );
+        const article = html
+          .split(`id="${method.id}">`)[1]
+          ?.split("</article>")[0];
+        assert.ok(article, `Missing method ${method.id}`);
+        assert.doesNotMatch(article, /work-result-label/);
+        assert.doesNotMatch(article.replace(/<[^>]*>|&#[^;]+;/g, ""), /\d/);
+      }
+      for (const metric of currentWorkMetrics)
+        for (const copy of [metric.label, metric.context])
+          assert.ok(
+            !rendered.includes(copy),
+            `Unexpected numeric panel ${copy}`,
           );
     }
     assert.equal(

@@ -121,6 +121,8 @@ rejects((content) => {
 for (const key of [
   "title",
   "summary",
+  "impact",
+  "measurement",
   "status",
   "limitations",
   "publicLabel",
@@ -173,6 +175,8 @@ const methodNote = readFileSync("docs/evidence/current-methods.md", "utf8");
 for (const method of currentWork.methodCards) {
   assert.ok(methodNote.includes(method.title));
   assert.ok(methodNote.includes(method.limitations));
+  assert.ok(methodNote.includes(method.impact));
+  assert.ok(methodNote.includes(method.measurement));
   assert.ok(
     !portfolioChunks.some((chunk) => chunk.text.includes(method.summary)),
     "private-source methods must not silently enter the assistant corpus",
@@ -237,6 +241,8 @@ for (const method of currentWork.methodCards) {
   for (const text of [
     method.title,
     method.summary,
+    method.impact,
+    method.measurement,
     method.status,
     method.limitations,
     method.publicLabel,
@@ -255,18 +261,18 @@ assert.doesNotMatch(
   workHtml,
   /systems (?:currently )?in development|not deployed|integration remains gated/i,
 );
-for (const html of [workHtml]) {
-  for (const metric of currentWorkMetrics) {
-    for (const text of [metric.value, metric.label, metric.context])
-      assert.ok(
-        html.includes(renderedText(text)),
-        `missing visible metric ${text}`,
-      );
+assert.doesNotMatch(workHtml, /work-result-label/);
+for (const metric of currentWorkMetrics) {
+  for (const text of [metric.label, metric.context])
     assert.ok(
-      !portfolioChunks.some((chunk) => chunk.text.includes(metric.context)),
+      !workHtml.includes(renderedText(text)),
+      `Numeric panel leaked: ${text}`,
     );
-  }
+  assert.ok(
+    !portfolioChunks.some((chunk) => chunk.text.includes(metric.context)),
+  );
 }
+
 rejects((content) => {
   content.methodCards[0].metricIds = ["unknown"];
 }, /unknown metric/);

@@ -726,23 +726,25 @@
   font-size: 13px;
   line-height: 1.55;
 }
-.work-result-label strong {
-  display: block;
+.work-index .work-outcome h4 {
+  margin-bottom: 6px;
   color: var(--cobalt-dark);
-  font-size: 28px;
-  line-height: 1.15;
-  margin-bottom: 5px;
+  font-size: 13px;
+  font-weight: 700;
 }
-.work-result > p + p {
-  margin-top: 10px;
+.work-outcome + .work-outcome {
+  margin-top: 18px;
+}
+.work-outcome + .work-scope {
+  margin-top: 18px;
+  padding-top: 12px;
+  border-top: 1px solid var(--hairline);
+  color: var(--muted);
 }
 .work-scope strong {
   display: block;
   color: var(--graphite);
   margin-bottom: 5px;
-}
-.work-result + .work-scope {
-  margin-top: 14px;
 }
 .work-supporting {
   margin-top: 32px;

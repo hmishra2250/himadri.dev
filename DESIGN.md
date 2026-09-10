@@ -116,3 +116,9 @@
 - Supporting work: Use short, sequential entries rather than a title/summary/bullets layout spread across three columns. Earlier work stays secondary and has no detailed-study CTA.
 - Guardrails: Keep static HTML, one H1, meaningful headings, all approved proof references and private-source labels. No em dashes. Use Safari only. Preserve Home's approved hierarchy and avoid changing unrelated pages' styling.
 - Verification: Lock existing content/proof contracts before editing. Add regressions for one Work heading, all retained anchors, short copy, retired-detail redirects, and absence of the old multi-column structure. Check desktop and narrow Safari views plus full repository verification and live HTTP checks.
+
+## Work cards: engineering depth and qualitative impact
+
+Keep the current sequential card layout, stable anchors and static rendering. Plain language must explain the engineering, not make platform work sound like a small feature. Each agent-experience card should show the design idea and concrete implementation on the left, then impact and how it was checked on the right. Keep scope limits visible without repeating the full evidence report. Remove numeric result displays from these cards, while preserving the approved metric registry as source evidence.
+
+Implementation plan: extend the typed method content with impact and measurement fields; restore concrete architecture and execution details; replace numeric panels with labeled qualitative outcomes; update provenance and regression tests; verify static HTML, full checks and Safari desktop/narrow layouts. Baseline privacy and rendering contracts passed before this change.
