@@ -8,8 +8,8 @@ export const hiringFit: HiringFit[] = [
   {
     signal: "Can shape agent-facing developer tools",
     evidence:
-      "Recent public contribution themes include CLI, MCP, SDK and API interface consistency for developer and agent workflows.",
-    proofId: "recent-cli-mcp-sdk-interfaces",
+      "Owned an Agent Experience programme that measured and improved how AI agents discover and use a developer tool across MCP, CLI, SDKs and docs.",
+    proofId: "recent-agent-tool-discovery",
   },
   {
     signal: "Can design production agent workflows",
@@ -24,10 +24,10 @@ export const hiringFit: HiringFit[] = [
     proofId: "knit-sandbox-tasks",
   },
   {
-    signal: "Can repair runtime and recovery boundaries",
+    signal: "Can run experiments that decide what ships",
     evidence:
-      "Recent public contribution themes include runtime request boundaries, recovery behavior and supporting regression tests.",
-    proofId: "recent-runtime-recovery-tests",
+      "Built a sandboxed experiment harness with trace capture, cost limits and statistical controls whose results drove shipped fixes.",
+    proofId: "recent-experiment-harness",
   },
   {
     signal: "Can own infrastructure and reduce cost",

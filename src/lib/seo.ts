@@ -16,14 +16,14 @@ const professionalPresenceLastModified = "2026-09-07";
 
 const routeSeoData = {
   "/": {
-    title: "Himadri Mishra | Agent Experience Engineer & AI Product Engineer",
+    title: "Himadri Mishra | AI Engineer: Agents, MCP Servers, CLIs and SDKs",
     description:
-      "Agent Experience Engineer and AI Product Engineer. Shipped MCP access, discovery and retrieval systems, state-based agent evaluation and insight reporting.",
+      "I build agents, and the MCP servers, CLIs and SDKs they run on. AI products at Mudita Studios; the Agent Experience programme at Firecrawl.",
     canonicalPath: "/",
-    openGraphTitle: "Himadri Mishra | Agent Experience & AI Product Engineer",
+    openGraphTitle: "Himadri Mishra | AI Engineer",
     openGraphDescription:
       "Selected engineering work, qualified implementation summaries and public projects in Agent Experience, agentic systems and AI product engineering.",
-    lastModified: "2026-09-11",
+    lastModified: "2026-10-06",
   },
   "/case-studies": {
     title: "Engineering Work",

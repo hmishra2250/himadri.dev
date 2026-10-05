@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-09-10T19:10:29.536Z",
+  "generatedAt": "2026-10-05T21:40:12.834Z",
   "datasetSize": 40,
-  "corpusHash": "sha256:4d97158de6328008841ef7a91d2d26d9ccb06b33231bbb2bde7a6901e43c55bc",
+  "corpusHash": "sha256:1e90ecf537f3eeffa16441e0f27b6726d72666dea335a44dcd38a6a3de8072be",
   "evalHash": "sha256:ee33f7baaa57db2b213ad3839bc9c011ff99cd9edcec5d65e0d9b81b848691a4",
   "thresholds": {
     "idealSourceRecall": 0.9,
