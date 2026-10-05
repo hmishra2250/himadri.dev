@@ -94,8 +94,11 @@ const escape = (text: string) =>
 assert.equal(selectedWork.length, 3);
 assert.ok(home.includes(escape(practice.headline)));
 assert.ok(home.includes(escape(practice.secondaryHeadline)));
-assert.equal(practice.headline, "Agent Experience Engineer.");
-assert.equal(practice.secondaryHeadline, "AI Product Engineer.");
+assert.equal(practice.headline, "I build agents,");
+assert.equal(
+  practice.secondaryHeadline,
+  "and the MCP servers, CLIs and SDKs they run on.",
+);
 assert.ok(
   selectedWork.every((item) =>
     item.proofIds.every((id) => id.startsWith("method-")),

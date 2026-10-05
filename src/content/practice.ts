@@ -39,10 +39,10 @@ export type Practice = {
 
 export const practice: Practice = {
   eyebrow: "Himadri Mishra",
-  headline: "Agent Experience Engineer.",
-  secondaryHeadline: "AI Product Engineer.",
+  headline: "I build agents,",
+  secondaryHeadline: "and the MCP servers, CLIs and SDKs they run on.",
   summary:
-    "I build tools agents can find and use. I ship the access, evaluation and reporting systems behind them.",
+    "AI engineer, 8+ years. I build AI products at Mudita Studios and owned the Agent Experience programme at Firecrawl.",
   engagements: [
     {
       id: "agent-facing-tools",
@@ -80,51 +80,48 @@ export const practice: Practice = {
   ],
   recentContributions: [
     {
-      id: "cli-mcp-sdk-interfaces",
-      title: "CLI, MCP and SDK interface work",
+      id: "agent-tool-discovery",
+      title: "Agent Experience programme",
       summary:
-        "Contributed to CLI, MCP and SDK interfaces, aligning tool descriptions, documentation navigation, routing behavior and API guidance for developer and agent workflows.",
-      proofIds: ["recent-cli-mcp-sdk-interfaces"],
+        "Owned the work that measured and improved how AI agents discover, choose and correctly use a developer tool across its MCP server, CLI, SDKs and docs.",
+      proofIds: ["recent-agent-tool-discovery"],
     },
     {
-      id: "sdk-api-consistency",
-      title: "SDK and API consistency",
+      id: "agent-benchmark",
+      title: "Agent benchmark and experiments",
       summary:
-        "Contributed to SDK and API consistency so developer workflows can rely on clearer client behavior and guidance.",
-      proofIds: ["recent-sdk-api-consistency"],
+        "Built a daily benchmark of whether coding agents pick and use a tool correctly, and a sandboxed experiment harness whose results drove shipped fixes.",
+      proofIds: ["recent-agent-benchmark", "recent-experiment-harness"],
     },
     {
-      id: "runtime-recovery-tests",
-      title: "Runtime boundaries and recovery behavior",
+      id: "hosted-mcp-overhaul",
+      title: "Hosted MCP overhaul",
       summary:
-        "Repaired runtime request boundaries and recovery behavior with supporting regression tests across application and proxy configuration.",
-      proofIds: ["recent-runtime-recovery-tests"],
+        "Separated keyless and OAuth paths, added an OAuth-only search endpoint, retired key-in-path auth and made onboarding adapt to each coding agent.",
+      proofIds: ["recent-hosted-mcp-auth", "recent-mcp-onboarding"],
     },
     {
-      id: "browser-session-tooling",
-      title: "Browser-session tooling entry points",
+      id: "insights-rebuild",
+      title: "Trace-insights rebuild",
       summary:
-        "Implemented browser-session entry points in MCP tooling for agent workflows that need controlled browser context.",
-      proofIds: ["recent-browser-session-tooling"],
+        "Rebuilt the engine that turns agent traces into quote-verified findings, with less than half the code and byte-identical replay as the check.",
+      proofIds: ["recent-insights-rebuild"],
     },
   ],
 
   recentWorkCases: [
     {
       id: "interface-consistency-brief",
-      title: "CLI and SDK integration",
+      title: "Hosted MCP and onboarding",
       summary:
-        "Built SDK methods, fixed credential setup and aligned tool descriptions, routing and documentation.",
+        "Reworked how agents connect to a hosted MCP server: separate keyless and OAuth paths and onboarding that adapts to each agent.",
       work: [
-        "Built SDK methods and fixed credential setup.",
-        "Aligned tool descriptions, routing and docs.",
+        "Separated keyless and OAuth paths across the stack.",
+        "Retired key-in-path auth and rebuilt onboarding per agent.",
       ],
-      verification: "Regression tests covered the SDK and credential changes.",
-      proofIds: [
-        "recent-cli-mcp-sdk-interfaces",
-        "recent-sdk-api-consistency",
-        "recent-cli-credential-setup",
-      ],
+      verification:
+        "Local end-to-end runs and regression tests covered each connection mode.",
+      proofIds: ["recent-hosted-mcp-auth", "recent-mcp-onboarding"],
     },
     {
       id: "reviewed-ai-workflows-brief",
@@ -141,20 +138,16 @@ export const practice: Practice = {
     },
     {
       id: "browser-runtime-boundaries-brief",
-      title: "MCP runtime fixes",
+      title: "Agent behaviour experiments",
       summary:
-        "Updated the MCP runtime, added browser-session entry points and repaired request handling and recovery in the app and proxy.",
+        "Measured whether coding agents pick and use a tool correctly, then ran controlled experiments to decide which fixes to ship.",
       work: [
-        "Added browser entry points to the MCP tools.",
-        "Fixed request handling in the app and proxy.",
+        "Built a daily benchmark with a scoring and judging layer.",
+        "Built a sandboxed harness with cost limits and statistical controls.",
       ],
       verification:
-        "Smoke and regression tests covered runtime changes and recovery.",
-      proofIds: [
-        "recent-mcp-runtime-migration",
-        "recent-browser-session-tooling",
-        "recent-runtime-recovery-tests",
-      ],
+        "Shipped fixes were decided by controlled experiments, with null results reported as such.",
+      proofIds: ["recent-agent-benchmark", "recent-experiment-harness"],
     },
   ],
   approach: [

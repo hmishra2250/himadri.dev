@@ -236,10 +236,7 @@ export const interviewAnswers: InterviewAnswer[] = [
         href: "/resume",
         snippet:
           "Selected engineering contributions across agent-facing developer infrastructure and production AI systems.",
-        proofIds: [
-          "recent-cli-mcp-sdk-interfaces",
-          "recent-runtime-recovery-tests",
-        ],
+        proofIds: ["recent-agent-tool-discovery", "recent-experiment-harness"],
       },
       {
         title: "ML Infrastructure Rescue",

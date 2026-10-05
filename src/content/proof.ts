@@ -211,9 +211,9 @@ export const proofClaims: ProofClaim[] = [
     displayContexts: ["trace", "source-card"],
   },
   {
-    id: "recent-cli-mcp-sdk-interfaces",
+    id: "recent-agent-tool-discovery",
     claim:
-      "Contributed to CLI, MCP and SDK interfaces, aligning tool descriptions, documentation navigation, routing behavior and API guidance.",
+      "Owned an Agent Experience programme that measured and improved how AI agents discover, choose and correctly use a developer tool across its MCP server, CLI, SDKs and docs.",
     sourcePath: "public/resume/Himadri_Mishra_Resume.pdf",
     sourceLocator: "Firecrawl, bullet 1",
     sourceType: "resume",
@@ -224,8 +224,9 @@ export const proofClaims: ProofClaim[] = [
     displayContexts: ["hero", "proof-wall", "hiring-fit", "interview"],
   },
   {
-    id: "recent-sdk-api-consistency",
-    claim: "Contributed to SDK and API consistency for developer workflows.",
+    id: "recent-agent-benchmark",
+    claim:
+      "Built a daily benchmark of whether coding agents recommend and correctly use a developer tool, with a scoring and judging layer and a review console.",
     sourcePath: "public/resume/Himadri_Mishra_Resume.pdf",
     sourceLocator: "Firecrawl, bullet 2",
     sourceType: "resume",
@@ -236,21 +237,22 @@ export const proofClaims: ProofClaim[] = [
     displayContexts: ["proof-wall", "hiring-fit", "interview"],
   },
   {
-    id: "recent-browser-session-tooling",
-    claim: "Implemented browser-session entry points in MCP tooling.",
-    sourcePath: "public/resume/Himadri_Mishra_Resume.pdf",
-    sourceLocator: "Firecrawl, bullet 3",
-    sourceType: "resume",
-    confidence: "high",
-    confidentialityLevel: "public",
-    approvedForPublicUse: true,
-    publicLabelRequired: false,
-    displayContexts: ["proof-wall", "hiring-fit", "interview"],
-  },
-  {
-    id: "recent-runtime-recovery-tests",
+    id: "recent-insights-rebuild",
     claim:
-      "Repaired runtime request boundaries and recovery behavior with regression tests.",
+      "Rebuilt a trace-insights engine to produce quote-verified findings with less than half the code, checked by byte-identical replay.",
+    sourcePath: "public/resume/Himadri_Mishra_Resume.pdf",
+    sourceLocator: "Firecrawl, bullet 6",
+    sourceType: "resume",
+    confidence: "high",
+    confidentialityLevel: "public",
+    approvedForPublicUse: true,
+    publicLabelRequired: false,
+    displayContexts: ["proof-wall", "hiring-fit", "interview"],
+  },
+  {
+    id: "recent-experiment-harness",
+    claim:
+      "Built a sandboxed experiment harness with trace capture, cost limits and false-discovery-rate controls, whose experiments drove shipped fixes to agent discovery and skill delivery.",
     sourcePath: "public/resume/Himadri_Mishra_Resume.pdf",
     sourceLocator: "Firecrawl, bullet 3",
     sourceType: "resume",
@@ -261,10 +263,11 @@ export const proofClaims: ProofClaim[] = [
     displayContexts: ["proof-wall", "hiring-fit", "interview"],
   },
   {
-    id: "recent-mcp-runtime-migration",
-    claim: "Migrated MCP server runtime behavior with smoke tests.",
+    id: "recent-hosted-mcp-auth",
+    claim:
+      "Separated keyless and OAuth paths for a hosted MCP server across seven repositories and added an OAuth-only search endpoint.",
     sourcePath: "public/resume/Himadri_Mishra_Resume.pdf",
-    sourceLocator: "Firecrawl, bullet 3",
+    sourceLocator: "Firecrawl, bullet 4",
     sourceType: "resume",
     confidence: "medium",
     confidentialityLevel: "public",
@@ -273,10 +276,11 @@ export const proofClaims: ProofClaim[] = [
     displayContexts: ["proof-wall", "hiring-fit", "interview"],
   },
   {
-    id: "recent-cli-credential-setup",
-    claim: "Hardened CLI credential setup with regression tests.",
+    id: "recent-mcp-onboarding",
+    claim:
+      "Retired key-in-path authentication and made MCP onboarding adapt to each coding agent.",
     sourcePath: "public/resume/Himadri_Mishra_Resume.pdf",
-    sourceLocator: "Firecrawl, bullet 2",
+    sourceLocator: "Firecrawl, bullet 4",
     sourceType: "resume",
     confidence: "medium",
     confidentialityLevel: "public",
@@ -287,9 +291,9 @@ export const proofClaims: ProofClaim[] = [
   {
     id: "recent-reviewed-ai-workflows",
     claim:
-      "Built source-backed answers, claim checks and report drafts, with regression tests for citations, missing evidence and unsupported numbers.",
+      "Main contributor to a production research product with source-backed answers, claim checks and citation regression tests.",
     sourcePath: "public/resume/Himadri_Mishra_Resume.pdf",
-    sourceLocator: "Mudita Studios, bullet 2",
+    sourceLocator: "Mudita Studios, bullet 4",
     sourceType: "resume",
     confidence: "high",
     confidentialityLevel: "public",
