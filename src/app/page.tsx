@@ -3,10 +3,11 @@ import Image from "next/image";
 import {
   ArrowLink,
   Button,
+  Feature,
   InlineLinks,
   Launches,
   Ledger,
-  MetricTiles,
+  Loop,
   OneLiners,
   Panel,
   Subhead,
@@ -22,12 +23,20 @@ import {
   now,
   pullRequestUrl,
   shipped,
+  type PullRequest,
 } from "@/content/site";
 import { buildPageMetadata } from "@/lib/seo";
 
 export const dynamic = "error";
 
 export const metadata: Metadata = buildPageMetadata("/");
+
+const pullRequestRefs = (prs: readonly PullRequest[]) =>
+  prs.map((pr) => ({
+    label: `${pr.repo} #${pr.number}`,
+    href: pullRequestUrl(pr),
+    title: pr.summary,
+  }));
 
 export default function Home() {
   return (
@@ -106,32 +115,25 @@ export default function Home() {
         }
       >
         <div className="hm-stack">
-          <MetricTiles
-            items={firecrawl.outcomes.map((outcome) => ({
-              value: outcome.value,
-              label: outcome.label,
-              refs: outcome.prs?.map((pr) => ({
-                label: `${pr.repo} #${pr.number}`,
-                href: pullRequestUrl(pr),
-                title: pr.summary,
-              })),
-            }))}
+          <Feature
+            meta={firecrawl.rewrite.meta}
+            title={firecrawl.rewrite.title}
+            line={firecrawl.rewrite.line}
+            rows={firecrawl.rewrite.rows}
+            refs={pullRequestRefs(firecrawl.rewrite.prs)}
           />
           <div>
-            <Subhead>{firecrawl.leadsLabel}</Subhead>
-            <OneLiners items={firecrawl.leads} />
+            <Subhead>{firecrawl.loopLabel}</Subhead>
+            <Loop steps={firecrawl.loop} shared={firecrawl.shared} />
           </div>
           <div>
-            <Subhead>{firecrawl.fixesLabel}</Subhead>
+            <Subhead>{firecrawl.changesLabel}</Subhead>
             <Launches
-              items={firecrawl.fixes.map((fix) => ({
-                title: fix.title,
-                line: fix.line,
-                refs: fix.prs.map((pr) => ({
-                  label: `${pr.repo} #${pr.number}`,
-                  href: pullRequestUrl(pr),
-                  title: pr.summary,
-                })),
+              items={firecrawl.changes.map((change) => ({
+                title: change.title,
+                line: change.line,
+                result: change.result,
+                refs: pullRequestRefs(change.prs),
               }))}
             />
           </div>

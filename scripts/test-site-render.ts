@@ -29,7 +29,7 @@ for (const section of sections) {
   assert(home.ids.has(section.id), `home is missing section #${section.id}`);
 }
 
-for (const item of [...now.also, ...before.openSource, ...firecrawl.leads]) {
+for (const item of [...now.also, ...before.openSource]) {
   assert(home.text.includes(item.name), `one-liner not rendered: ${item.name}`);
   if (item.href) {
     assert(
@@ -39,11 +39,21 @@ for (const item of [...now.also, ...before.openSource, ...firecrawl.leads]) {
   }
 }
 
-for (const outcome of firecrawl.outcomes) {
-  assert(
-    home.text.includes(outcome.value),
-    `outcome missing: ${outcome.value}`,
-  );
+assert(
+  home.text.includes(firecrawl.rewrite.title),
+  "the hosted MCP rewrite must lead the Firecrawl panel",
+);
+for (const step of firecrawl.loop) {
+  assert(home.text.includes(step.name), `loop step missing: ${step.name}`);
+}
+for (const change of firecrawl.changes) {
+  assert(home.text.includes(change.title), `change missing: ${change.title}`);
+  if (change.result) {
+    assert(
+      home.text.includes(change.result.label),
+      `result missing: ${change.result.label}`,
+    );
+  }
 }
 const prLinks = home.hrefs.filter((href) => href.includes("/pull/"));
 for (const href of prLinks) {
@@ -72,7 +82,7 @@ for (const page of [home, resume]) {
 }
 
 const words = home.text.split(/\s+/).length;
-assert(words <= 1050, `homepage has ${words} words; keep it under 1,050`);
+assert(words <= 1200, `homepage has ${words} words; keep it under 1,200`);
 
 const pageSource = readFileSync("src/app/page.tsx", "utf8");
 assert(

@@ -48,8 +48,8 @@ Every other path from earlier versions is retired in `src/lib/routes.ts` and red
 
 - Everything the site says lives in `src/content/site.ts`, in reading order.
 - To add a side project, add a one-liner at the top of `now.also`. Leave out `href` while the repository is private; the name then renders as plain text.
-- Lead with impact, as before-and-after percentages where a measurement exists. Do not lead with pull request, commit or fix counts.
-- Every company-specific statement and every number references a claim in `src/content/proof.ts` through a `proof` id. Claims must be approved, public, and sourced from the current resume or a public URL.
+- Lead with impact, as before-and-after percentages where a measurement exists. Not everything needs a number: describe a system by what it does and what it led to. Do not lead with pull request, commit or fix counts.
+- Every company-specific statement and every number references a claim in `src/content/proof.ts` through a `proof` id. Claims must be approved and public, and sourced from the current resume, a public URL, or a `work-record` (the owner's description of private work by what it does). A `work-record` claim may not carry figures: every number needs the resume or a public source. Never name private repositories in a source.
 - Merged pull requests and public repositories are their own proof: link them.
 - Identity fields for metadata and structured data live in `src/content/profile.ts`.
 
@@ -69,7 +69,7 @@ Every other path from earlier versions is retired in `src/lib/routes.ts` and red
 
 - `design-system/` is the himadri.dev Design System and the single source for the site's look. Read `design-system/readme.md` before any UI change.
 - `src/styles/globals.css` imports its tokens, `components/components.css` and `components/additions.css` directly. Do not copy design-system CSS into `src/`.
-- Build pages from the typed components in `src/components/ds/` (`Panel`, `Tile`, `NoteTile`, `Ledger`, `OneLiners`, `MetricTiles`, `Launches`, `RefGroups`, `Years`, `Subhead`, `Button`, `ArrowLink`, `InlineLinks`, `SocialLinks`). They emit only documented `hm-*` classes. Avoid inline styles and one-off classes.
+- Build pages from the typed components in `src/components/ds/` (`Panel`, `Tile`, `NoteTile`, `Ledger`, `OneLiners`, `MetricTiles`, `Feature`, `Loop`, `Launches`, `Refs`, `RefGroups`, `Years`, `Subhead`, `Button`, `ArrowLink`, `InlineLinks`, `SocialLinks`). They emit only documented `hm-*` classes. Avoid inline styles and one-off classes.
 - To add a pattern: add its CSS to `design-system/components/additions.css`, a component to `src/components/ds/`, and a row to the readme's "v3 additions" table, then use it.
 - Visual rules: pearl, graphite and one cobalt accent; IBM Plex Sans, with Plex Mono only for indices, labels, dates, status, provenance and figures; one 1080px column on one left edge; square corners; no shadows, gradients or entrance animation; light only.
 - Sections are framed panels with the label cut into the top edge. Inside a panel, space and soft fills separate things; do not add horizontal rules.

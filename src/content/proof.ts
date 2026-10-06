@@ -2,9 +2,15 @@
  * Approved sources for every company-specific statement and number on the site.
  * Content in ./site.ts references these by id; scripts/validate-content.ts fails
  * the build when a reference is missing, unapproved or not public.
+ *
+ * Source types:
+ * - resume: the published resume PDF
+ * - public-profile: a public page or pull request (an https URL)
+ * - work-record: the owner's description of private work, by what it does.
+ *   It may not carry figures; every number needs a resume or public source.
  */
 
-export type SourceType = "resume" | "public-profile";
+export type SourceType = "resume" | "public-profile" | "work-record";
 
 export type ConfidentialityLevel = "public" | "private-do-not-publish";
 
@@ -92,6 +98,68 @@ export const proofClaims = [
     approvedForPublicUse: true,
   },
   {
+    id: "firecrawl-hosted-mcp-endpoints",
+    claim:
+      "Shipped the hosted MCP server's keyless endpoint and its account endpoint with OAuth, then an OAuth-only search endpoint for connector directories.",
+    sourcePath: "https://github.com/firecrawl/firecrawl-mcp-server/pull/308",
+    sourceLocator: "Pull request #308 and #332 descriptions",
+    sourceType: "public-profile",
+    confidentialityLevel: "public",
+    approvedForPublicUse: true,
+  },
+  {
+    id: "firecrawl-connectors",
+    claim:
+      "Firecrawl's Claude and Codex connectors run on the hosted MCP account endpoint with OAuth.",
+    sourcePath:
+      "https://www.firecrawl.dev/blog/best-mcp-servers-for-developers",
+    sourceLocator:
+      "FAQ: account OAuth works with interactive clients like Claude and Codex",
+    sourceType: "public-profile",
+    confidentialityLevel: "public",
+    approvedForPublicUse: true,
+  },
+  {
+    id: "firecrawl-neutral-metadata",
+    claim:
+      "Rewrote the MCP tool descriptions in neutral terms for the OpenAI tool-metadata review; a paired A/B test found task success equivalent to the baseline.",
+    sourcePath: "https://github.com/firecrawl/firecrawl-mcp-server/pull/340",
+    sourceLocator: "Pull request description, AX R02 confirmation",
+    sourceType: "public-profile",
+    confidentialityLevel: "public",
+    approvedForPublicUse: true,
+  },
+  {
+    id: "firecrawl-retrievability",
+    claim:
+      "Built retrievability tracking: searches through Firecrawl and a search-results API to see where Firecrawl's pages rank for the questions agents ask, and which pages need SEO work.",
+    sourcePath: "Firecrawl Agent Experience work, May to September 2026",
+    sourceLocator: "Retrievability system",
+    sourceType: "work-record",
+    confidentialityLevel: "public",
+    approvedForPublicUse: true,
+  },
+  {
+    id: "firecrawl-market-intelligence",
+    claim:
+      "Built market intelligence that tracks competitors' launches, posts, repositories and events on one timeline.",
+    sourcePath: "Firecrawl Agent Experience work, May to September 2026",
+    sourceLocator: "Competitor intelligence system",
+    sourceType: "work-record",
+    confidentialityLevel: "public",
+    approvedForPublicUse: true,
+  },
+  {
+    id: "firecrawl-company-knowledge",
+    claim:
+      "Connected Agent Experience findings and experiment results to the company's internal knowledge system.",
+    sourcePath: "Firecrawl Agent Experience work, May to September 2026",
+    sourceLocator: "Knowledge system provider",
+    sourceType: "work-record",
+    confidentialityLevel: "public",
+    approvedForPublicUse: true,
+  },
+  {
     id: "firecrawl-launch-dri",
     claim:
       "Agent Experience DRI for the Developer Index, Life Sciences, and Government and Legal launches.",
@@ -114,7 +182,7 @@ export const proofClaims = [
   {
     id: "firecrawl-measurement",
     claim:
-      "Built a daily benchmark of whether agents recommend and correctly use Firecrawl, weekly reports with quote-checked findings, and a sandboxed experiment harness.",
+      "Built a daily benchmark of whether agents recommend and correctly use Firecrawl, whose discovery metric joined the Q3 top-of-funnel dashboard; weekly reports with quote-checked findings; and a sandboxed experiment harness with traces, cost caps and false-discovery-rate control.",
     sourcePath: resume,
     sourceLocator: "Firecrawl, bullets 2, 3 and 6",
     sourceType: "resume",

@@ -4,13 +4,16 @@
  * only emit the documented hm-* classes.
  */
 export { ArrowLink, Button } from "./Actions";
+export { Feature } from "./Feature";
 export { InlineLinks } from "./InlineLinks";
 export { Launches, type LaunchItem } from "./Launches";
 export { Ledger, type LedgerItem } from "./Ledger";
+export { Loop, type LoopStep, type LoopSystem } from "./Loop";
 export { MetricTiles, type Metric, type MetricRef } from "./MetricTiles";
 export { OneLiners } from "./OneLiners";
 export { Panel } from "./Panel";
 export { RefGroups, type Ref } from "./RefGroups";
+export { Refs } from "./Refs";
 export { SocialIcon, SocialLinks } from "./SocialLinks";
 export { Subhead } from "./Subhead";
 export { NoteTile, Tile } from "./Tile";

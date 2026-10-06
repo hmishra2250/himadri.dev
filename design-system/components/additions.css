@@ -13,7 +13,9 @@
  *   hm-oneliners                                One line per project, growable
  *   hm-metric-tiles                             Outcome figures as tiles
  *   hm-groups, hm-ref-list, hm-ref              Grouped pull requests or references
- *   hm-launches                                 Shipped work as tiles: title, one line, refs
+ *   hm-launches                                 Shipped work as tiles: title, result, one line, refs
+ *   hm-feature                                  The lead piece of work: story, before and after rows
+ *   hm-loop                                     A repeating sequence of numbered steps as tiles
  *   hm-years                                    Year and line rows without rules
  *   hm-hero, hm-hero-split                      First-screen hero with a proof panel
  *   hm-social                                   GitHub, LinkedIn and X brand marks
@@ -523,8 +525,165 @@ html {
   font-size: var(--text-small);
   line-height: 1.55;
 }
+.hm-launch-result {
+  display: grid;
+  gap: 4px;
+}
+.hm-launch-result-value {
+  font-family: var(--font-mono);
+  font-size: clamp(22px, 2.2vw, 28px);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  color: var(--cobalt-dark);
+  font-variant-numeric: tabular-nums;
+}
+.hm-launch-result-label {
+  color: var(--graphite);
+  font-size: var(--text-small);
+  line-height: 1.45;
+}
 @media (max-width: 760px) {
   .hm-launches {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------- Feature: the lead piece of work in a panel ---------- */
+.hm-feature {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: clamp(24px, 4vw, 56px);
+  padding: clamp(24px, 3vw, 40px);
+  background: var(--pearl-warm);
+}
+.hm-feature-main {
+  display: grid;
+  gap: var(--space-4);
+  align-content: start;
+}
+.hm-feature-main .hm-meta {
+  margin-top: 0;
+}
+.hm-feature-line {
+  color: var(--graphite-soft);
+  font-size: var(--text-small);
+  line-height: 1.6;
+}
+.hm-feature-rows {
+  display: grid;
+  gap: var(--space-5);
+  align-content: start;
+  margin: 0;
+}
+.hm-feature-rows > div {
+  display: grid;
+  grid-template-columns: 76px minmax(0, 1fr);
+  gap: var(--space-4);
+}
+.hm-feature-rows dt {
+  align-self: start;
+  padding-top: 4px;
+}
+.hm-feature-rows > div:last-child dt {
+  color: var(--cobalt-dark);
+}
+.hm-feature-rows dd {
+  margin: 0;
+  color: var(--graphite);
+  font-size: var(--text-body);
+  line-height: 1.55;
+}
+@media (max-width: 860px) {
+  .hm-feature {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 480px) {
+  .hm-feature-rows > div {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+}
+
+/*
+ * Loop: a repeating sequence. Each numbered step is a tile; a step with
+ * several systems spans the row and lays them out in columns. A shared row
+ * underneath holds what every step feeds.
+ */
+.hm-loop-wrap {
+  display: grid;
+  gap: var(--space-3);
+}
+.hm-loop {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-3);
+}
+.hm-loop-step,
+.hm-loop-shared {
+  display: grid;
+  gap: var(--space-4);
+  align-content: start;
+  padding: clamp(20px, 2.4vw, 28px);
+  background: var(--pearl-warm);
+}
+.hm-loop-step--wide {
+  grid-column: 1 / -1;
+}
+.hm-loop-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 12px;
+  margin: 0;
+}
+.hm-loop-num {
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  font-weight: 500;
+  color: var(--cobalt-dark);
+}
+.hm-loop-name {
+  color: var(--graphite);
+  font-size: var(--text-h4);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+.hm-loop-systems {
+  display: grid;
+  gap: var(--space-5) clamp(20px, 2.4vw, 32px);
+}
+.hm-loop-step--wide .hm-loop-systems {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.hm-loop-system {
+  color: var(--graphite);
+  font-size: var(--text-small);
+  font-weight: 500;
+  line-height: 1.4;
+}
+.hm-loop-systems p,
+.hm-loop-shared p {
+  margin-top: 4px;
+  color: var(--graphite-soft);
+  font-size: var(--text-small);
+  line-height: 1.55;
+}
+.hm-loop-shared {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+  align-items: baseline;
+}
+.hm-loop-shared p {
+  margin-top: 0;
+}
+@media (max-width: 900px) {
+  .hm-loop,
+  .hm-loop-step--wide .hm-loop-systems,
+  .hm-loop-shared {
     grid-template-columns: 1fr;
   }
 }

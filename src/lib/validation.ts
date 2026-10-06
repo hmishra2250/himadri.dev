@@ -118,6 +118,12 @@ export function validateProofClaims(): string[] {
       if (!existsSync(join(process.cwd(), claim.sourcePath))) {
         errors.push(`proof claim source is missing: ${claim.sourcePath}`);
       }
+    } else if (claim.sourceType === "work-record") {
+      if (/\d/.test(claim.claim)) {
+        errors.push(
+          `work-record claim carries a figure; cite the resume or a public source: ${claim.id}`,
+        );
+      }
     } else if (!claim.sourcePath.startsWith("https://")) {
       errors.push(`public proof source must be an https URL: ${claim.id}`);
     }
@@ -142,8 +148,8 @@ export function validateContent(): string[] {
 
   const prKeys = new Set<string>();
   const allPrs = [
-    ...site.firecrawl.fixes.flatMap((fix) => fix.prs),
-    ...site.firecrawl.outcomes.flatMap((outcome) => outcome.prs ?? []),
+    ...site.firecrawl.rewrite.prs,
+    ...site.firecrawl.changes.flatMap((change) => change.prs),
   ];
   for (const pr of allPrs) {
     const key = `${pr.repo}#${pr.number}`;
