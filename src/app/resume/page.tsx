@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
+import { DocumentTabs } from "@/components/ds";
 import { RouteJsonLd } from "@/components/seo/RouteJsonLd";
-import { TrackedAnchor } from "@/components/ui/TrackedLink";
 import { profile } from "@/content/profile";
+import { resumeDocuments } from "@/content/resume";
 import { buildPageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = buildPageMetadata("/resume");
@@ -18,51 +19,9 @@ export default function ResumePage() {
               {profile.name}
             </h1>
             <p className="hm-lead">{profile.headline}</p>
-            <div className="hm-page-actions">
-              <TrackedAnchor
-                className="hm-button hm-button--primary"
-                href={profile.resumePath}
-                download="Himadri_Mishra_Resume.pdf"
-                eventName="resume_download_clicked"
-                eventParams={{ source_section: "resume_page" }}
-              >
-                Download resume
-                <span
-                  className="hm-button-icon hm-button-icon--down"
-                  aria-hidden="true"
-                >
-                  ↓
-                </span>
-              </TrackedAnchor>
-              <TrackedAnchor
-                className="hm-button"
-                href={profile.cvPath}
-                download="Himadri_Mishra_CV.pdf"
-                eventName="resume_download_clicked"
-                eventParams={{ source_section: "resume_page_cv" }}
-              >
-                Full CV, two pages
-                <span
-                  className="hm-button-icon hm-button-icon--down"
-                  aria-hidden="true"
-                >
-                  ↓
-                </span>
-              </TrackedAnchor>
-            </div>
           </div>
         </div>
-        <iframe
-          className="hm-document-viewer"
-          title="Himadri Mishra resume PDF"
-          src={`${profile.resumePath}#view=FitH`}
-          aria-describedby="resume-preview-help"
-        />
-        <p id="resume-preview-help" className="hm-document-help">
-          Preview unavailable in your browser?{" "}
-          <a href={profile.resumePath}>Open the PDF directly</a>, or open the{" "}
-          <a href={profile.cvPath}>full CV</a>.
-        </p>
+        <DocumentTabs documents={resumeDocuments} title="Resume and full CV" />
       </section>
     </>
   );

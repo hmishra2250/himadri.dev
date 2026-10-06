@@ -7,7 +7,7 @@ The design system for **himadri.dev**, the site of Himadri Mishra, AI engineer. 
 ## How the site uses it
 
 - `src/styles/globals.css` imports the tokens (except `fonts.css`), `components/components.css` and `components/additions.css` from this folder. IBM Plex is loaded with `next/font` instead of the Google Fonts import.
-- `src/components/ds/` holds typed React components that emit only the classes documented here: `Panel`, `Tile`, `NoteTile`, `Ledger`, `OneLiners`, `MetricTiles`, `WorkCards`, `Launches`, `Refs`, `RefGroups`, `Years`, `Subhead`, `Button`, `ArrowLink`, `InlineLinks`, `SocialLinks`, `SocialIcon`.
+- `src/components/ds/` holds typed React components that emit only the classes documented here: `Panel`, `Tile`, `NoteTile`, `Ledger`, `OneLiners`, `MetricTiles`, `WorkCards`, `Launches`, `Refs`, `DocumentTabs`, `RefGroups`, `Years`, `Subhead`, `Button`, `ArrowLink`, `InlineLinks`, `SocialLinks`, `SocialIcon`.
 - Build pages from those components. Add a new pattern here first (CSS in `components/additions.css`, a component in `src/components/ds/`, a line in this readme), then use it.
 
 ## Index
@@ -41,7 +41,7 @@ The design system for **himadri.dev**, the site of Himadri Mishra, AI engineer. 
 | Hero | `hm-hero`, `hm-hero-split`, `hm-hero-main`, `hm-hero-facts`, `hm-hero-portrait`, `hm-hero-who`, `hm-hero-name` | (page) | The first screen: identity, the statement as h1, the facts line and an action on the left; a `Ledger` on the right. It fills the first screen so the first panel starts after a scroll. |
 | Social | `hm-social`, `hm-social-link`, `hm-social--github|linkedin|x`, `hm-social-icon`, `hm-footer-social` | `SocialLinks`, `SocialIcon` | GitHub, LinkedIn and X as brand marks: 44px square targets, accessible names, the channel colour fills on hover. |
 | Footer band | `hm-footer-band` | (site) | The footer on a pearl-warm fill instead of a graphite rule. |
-| Document | `hm-document`, `hm-document-viewer`, `hm-document-help` | (page) | An embedded PDF with a download and a visible fallback link. |
+| Document tabs | `hm-document`, `hm-doc-tabs`, `hm-doc-tabbar`, `hm-doc-tablist`, `hm-doc-tab`, `hm-doc-tab-label`, `hm-doc-tab-meta`, `hm-doc-download`, `hm-doc-panel`, `hm-doc-page`, `hm-document-help` | `DocumentTabs` | Documents as folder tabs on a framed panel: the open tab joins the panel with a cobalt top edge, closed tabs are cobalt text. Pages render as images in the page flow (no inner scroll), one primary button downloads the open document, each panel links its PDF, and the URL hash opens a tab. |
 | Link | `hm-link` | `InlineLinks` | An underlined inline link inside running text. |
 
 ## Content fundamentals

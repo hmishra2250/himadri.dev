@@ -38,8 +38,18 @@ for (const ignored of [".claude/**", "design-system/**"]) {
 const resumeFiles = readdirSync("public/resume").sort();
 assert(
   JSON.stringify(resumeFiles) ===
-    JSON.stringify(["Himadri_Mishra_CV.pdf", "Himadri_Mishra_Resume.pdf"]),
-  `public/resume must hold only the one-page resume and the two-page CV, found ${resumeFiles.join(", ")}`,
+    JSON.stringify([
+      "Himadri_Mishra_CV.pdf",
+      "Himadri_Mishra_Resume.pdf",
+      "pages",
+    ]),
+  `public/resume must hold the one-page resume, the two-page CV and their page images, found ${resumeFiles.join(", ")}`,
+);
+const pageImages = readdirSync("public/resume/pages").sort();
+assert(
+  JSON.stringify(pageImages) ===
+    JSON.stringify(["cv-1.png", "cv-2.png", "resume-1.png"]),
+  `public/resume/pages must hold one image per PDF page, found ${pageImages.join(", ")}`,
 );
 
 // The real content and routes pass.

@@ -4,6 +4,7 @@
  * only emit the documented hm-* classes.
  */
 export { ArrowLink, Button } from "./Actions";
+export { DocumentTabs } from "./DocumentTabs";
 export { InlineLinks } from "./InlineLinks";
 export { Launches, type LaunchItem } from "./Launches";
 export { Ledger, type LedgerItem } from "./Ledger";
