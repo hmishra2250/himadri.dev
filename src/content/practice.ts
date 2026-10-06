@@ -42,7 +42,7 @@ export const practice: Practice = {
   headline: "I build agents,",
   secondaryHeadline: "and the MCP servers, CLIs and SDKs they run on.",
   summary:
-    "AI engineer, 8+ years. I build AI products at Mudita Studios and owned the Agent Experience programme at Firecrawl.",
+    "AI engineer, 8+ years. I build AI products at Mudita Studios and work on Agent Experience in the open. Previously at Firecrawl.",
   engagements: [
     {
       id: "agent-facing-tools",
