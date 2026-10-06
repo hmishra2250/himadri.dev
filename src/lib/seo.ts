@@ -66,7 +66,7 @@ export function buildOpenGraphMetadata(path: string): Metadata["openGraph"] {
     type: "website",
     images: [
       {
-        url: "/og-image.png",
+        url: siteConfig.ogImage,
         width: 1200,
         height: 630,
         alt: siteConfig.ogImageAlt,
@@ -90,7 +90,7 @@ export function buildPageMetadata(path: string): Metadata {
       description: seo.openGraphDescription,
       images: [
         {
-          url: "/og-image.png",
+          url: siteConfig.ogImage,
           alt: siteConfig.ogImageAlt,
         },
       ],
