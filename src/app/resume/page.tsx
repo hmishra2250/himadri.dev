@@ -10,7 +10,7 @@ export default function ResumePage() {
   return (
     <>
       <RouteJsonLd path="/resume" />
-      <section className="hm-wrap resume-page" aria-labelledby="resume-title">
+      <section className="hm-wrap hm-document" aria-labelledby="resume-title">
         <div className="hm-page-header">
           <span className="hm-label hm-label--cobalt">Resume</span>
           <div className="hm-page-header-body">
@@ -38,12 +38,12 @@ export default function ResumePage() {
           </div>
         </div>
         <iframe
-          className="resume-viewer"
+          className="hm-document-viewer"
           title="Himadri Mishra resume PDF"
           src={`${profile.resumePath}#view=FitH`}
           aria-describedby="resume-preview-help"
         />
-        <p id="resume-preview-help" className="resume-help">
+        <p id="resume-preview-help" className="hm-document-help">
           Preview unavailable in your browser?{" "}
           <a href={profile.resumePath}>Open the PDF directly</a> or use the
           download button above.

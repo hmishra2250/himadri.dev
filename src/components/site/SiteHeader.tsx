@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { hero } from "@/content/site";
 import { navRoutes } from "@/lib/routes";
-import { SocialLinks } from "./SocialLinks";
+import { Button, SocialLinks } from "@/components/ds";
 
 export function SiteHeader() {
   return (
@@ -14,16 +14,9 @@ export function SiteHeader() {
         <nav className="hm-nav" aria-label="Primary">
           <SocialLinks />
           {navRoutes.map((route) => (
-            <Link
-              key={route.path}
-              href={route.path}
-              className="hm-button hm-button--quiet hm-button--sm"
-            >
+            <Button key={route.path} href={route.path} variant="quiet">
               {route.label}
-              <span className="hm-button-icon" aria-hidden="true">
-                →
-              </span>
-            </Link>
+            </Button>
           ))}
         </nav>
       </div>

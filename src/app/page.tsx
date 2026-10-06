@@ -1,8 +1,19 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { OneLiners } from "@/components/site/OneLiners";
-import { RichText } from "@/components/site/RichText";
-import { ArrowLink, Section } from "@/components/site/Section";
+import {
+  ArrowLink,
+  Button,
+  InlineLinks,
+  Ledger,
+  MetricTiles,
+  NoteTile,
+  OneLiners,
+  Panel,
+  RefGroups,
+  Subhead,
+  Tile,
+  Years,
+} from "@/components/ds";
 import { RouteJsonLd } from "@/components/seo/RouteJsonLd";
 import {
   before,
@@ -11,6 +22,8 @@ import {
   links,
   now,
   pullRequestUrl,
+  shipped,
+  type PullRequest,
 } from "@/content/site";
 import { buildPageMetadata } from "@/lib/seo";
 
@@ -18,83 +31,79 @@ export const dynamic = "error";
 
 export const metadata: Metadata = buildPageMetadata("/");
 
+const prRef = (pr: PullRequest) => ({
+  text: pr.summary,
+  label: `${pr.repo} #${pr.number}`,
+  href: pullRequestUrl(pr),
+});
+
 export default function Home() {
   return (
     <>
       <RouteJsonLd path="/" />
 
-      <section className="hm-wrap site-hero">
-        <div className="hm-hero-id">
-          <span className="hm-portrait site-hero-portrait">
-            <Image
-              src="/images/himadri-portrait.png"
-              alt={hero.name}
-              width={460}
-              height={460}
-              priority
-            />
-          </span>
-          <div className="site-hero-who">
-            <span className="site-hero-name">{hero.name}</span>
-            <span className="hm-label">{hero.location}</span>
-          </div>
-        </div>
-        <h1 className="hm-display hm-hero-statement">{hero.punchline}</h1>
-        <div className="hm-hero-foot">
-          <p className="hm-lead">{hero.facts}</p>
-          <div className="hm-page-actions">
-            <a className="hm-button hm-button--primary" href="#now">
-              Recent work
-              <span
-                className="hm-button-icon hm-button-icon--down"
-                aria-hidden="true"
-              >
-                ↓
+      <section className="hm-wrap hm-hero">
+        <div className="hm-hero-split">
+          <div className="hm-hero-main">
+            <div className="hm-hero-id">
+              <span className="hm-portrait hm-hero-portrait">
+                <Image
+                  src="/images/himadri-portrait.png"
+                  alt={hero.name}
+                  width={460}
+                  height={460}
+                  priority
+                />
               </span>
-            </a>
-            <a className="hm-button" href={links.resume}>
-              Resume
-              <span className="hm-button-icon" aria-hidden="true">
-                →
-              </span>
-            </a>
+              <div className="hm-hero-who">
+                <span className="hm-hero-name">{hero.name}</span>
+                <span className="hm-label">{hero.location}</span>
+              </div>
+            </div>
+            <h1 className="hm-display hm-hero-statement">{hero.punchline}</h1>
+            <p className="hm-lead hm-hero-facts">{hero.facts}</p>
+            <div className="hm-page-actions">
+              <Button href={links.resume}>Resume</Button>
+            </div>
           </div>
+
+          <Ledger
+            label={shipped.label}
+            items={shipped.items}
+            note={shipped.note}
+            cta={{ label: "Recent work", href: "#now" }}
+          />
         </div>
       </section>
 
-      <Section id="now" index="01" label="Now" title={now.title}>
+      <Panel id="now" index="01" label="Now" title={now.title}>
         <div className="hm-split hm-split--even">
-          <div className="site-col">
-            <div>
-              <h3 className="hm-h3">{now.mudita.name}</h3>
-              <p className="site-meta">{now.mudita.meta}</p>
-            </div>
+          <Tile title={now.mudita.name} meta={now.mudita.meta}>
             <ul className="hm-bullets">
               {now.mudita.items.map((item) => (
                 <li key={item}>{item}</li>
               ))}
             </ul>
             <span className="hm-label hm-label--plain">{now.mudita.note}</span>
-          </div>
-          <div className="site-col">
-            <div>
-              <h3 className="hm-h3">{now.agentExperience.name}</h3>
-              <p className="site-meta">{now.agentExperience.meta}</p>
-            </div>
+          </Tile>
+          <Tile
+            title={now.agentExperience.name}
+            meta={now.agentExperience.meta}
+          >
             <ul className="hm-bullets">
               {now.agentExperience.items.map((segments, index) => (
                 <li key={index}>
-                  <RichText segments={segments} />
+                  <InlineLinks segments={segments} />
                 </li>
               ))}
             </ul>
-          </div>
+          </Tile>
         </div>
-        <h3 className="hm-label hm-label--ink site-subhead">{now.alsoLabel}</h3>
+        <Subhead>{now.alsoLabel}</Subhead>
         <OneLiners items={now.also} />
-      </Section>
+      </Panel>
 
-      <Section
+      <Panel
         id="firecrawl"
         index="02"
         label={firecrawl.label}
@@ -106,62 +115,30 @@ export default function Home() {
           </ArrowLink>
         }
       >
-        <div className="site-stack">
-          <div className="hm-metrics">
-            {firecrawl.outcomes.map((outcome) => (
-              <div className="hm-metric" key={outcome.label}>
-                <span className="hm-metric-value">{outcome.value}</span>
-                <span className="hm-metric-label">{outcome.label}</span>
-                {outcome.prs?.length ? (
-                  <span className="site-metric-prs">
-                    {outcome.prs.map((pr) => (
-                      <a
-                        key={pr.number}
-                        className="site-pr-ref"
-                        href={pullRequestUrl(pr)}
-                        title={pr.summary}
-                      >
-                        {pr.repo} #{pr.number}
-                      </a>
-                    ))}
-                  </span>
-                ) : null}
-              </div>
-            ))}
-          </div>
-
-          <div>
-            <p className="hm-label hm-label--plain site-groups-intro">
-              {firecrawl.pullRequestCount} pull requests merged across{" "}
-              {firecrawl.repositoryCount} open-source repositories. A selection:
-            </p>
-            <div className="site-groups">
-              {firecrawl.groups.map((group) => (
-                <div className="site-group" key={group.title}>
-                  <h3>{group.title}</h3>
-                  <ul className="site-prs">
-                    {group.prs.map((pr) => (
-                      <li key={`${pr.repo}-${pr.number}`}>
-                        <span>{pr.summary}</span>
-                        <a className="site-pr-ref" href={pullRequestUrl(pr)}>
-                          {pr.repo} #{pr.number}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="hm-note site-note">
-            <span className="hm-label hm-label--cobalt">Not public</span>
-            {firecrawl.notPublic}
-          </div>
+        <div className="hm-stack">
+          <MetricTiles
+            items={firecrawl.outcomes.map((outcome) => ({
+              value: outcome.value,
+              label: outcome.label,
+              refs: outcome.prs?.map((pr) => ({
+                label: `${pr.repo} #${pr.number}`,
+                href: pullRequestUrl(pr),
+                title: pr.summary,
+              })),
+            }))}
+          />
+          <RefGroups
+            intro={`${firecrawl.pullRequestCount} pull requests merged across ${firecrawl.repositoryCount} open-source repositories. A selection:`}
+            groups={firecrawl.groups.map((group) => ({
+              title: group.title,
+              refs: group.prs.map(prRef),
+            }))}
+          />
+          <NoteTile label="Not public">{firecrawl.notPublic}</NoteTile>
         </div>
-      </Section>
+      </Panel>
 
-      <Section
+      <Panel
         id="before"
         index="03"
         label={before.label}
@@ -172,22 +149,10 @@ export default function Home() {
           </ArrowLink>
         }
       >
-        <ol className="hm-timeline">
-          {before.timeline.map((entry) => (
-            <li key={entry.name}>
-              <span className="hm-timeline-year">{entry.years}</span>
-              <span className="hm-timeline-event">
-                <strong className="site-timeline-name">{entry.name}</strong>,{" "}
-                {entry.line}
-              </span>
-            </li>
-          ))}
-        </ol>
-        <h3 className="hm-label hm-label--ink site-subhead">
-          {before.openSourceLabel}
-        </h3>
+        <Years items={before.timeline} />
+        <Subhead>{before.openSourceLabel}</Subhead>
         <OneLiners items={before.openSource} />
-      </Section>
+      </Panel>
     </>
   );
 }

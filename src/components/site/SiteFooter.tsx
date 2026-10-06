@@ -1,11 +1,11 @@
 import Link from "next/link";
 import { footer, hero, sections, socials } from "@/content/site";
 import { navRoutes } from "@/lib/routes";
-import { SocialIcon } from "./SocialLinks";
+import { SocialIcon } from "@/components/ds";
 
 export function SiteFooter() {
   return (
-    <footer className="hm-footer">
+    <footer className="hm-footer-band">
       <div className="hm-wrap">
         <div className="hm-grid" style={{ rowGap: 32 }}>
           <div style={{ gridColumn: "1 / 7" }}>
@@ -32,7 +32,7 @@ export function SiteFooter() {
             <ul className="hm-footer-list">
               {socials.map((social) => (
                 <li key={social.id}>
-                  <a className="site-footer-social" href={social.href}>
+                  <a className="hm-footer-social" href={social.href}>
                     <SocialIcon id={social.id} />
                     {social.label}
                   </a>

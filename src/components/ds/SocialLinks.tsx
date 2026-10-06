@@ -16,7 +16,7 @@ const paths: Record<SocialId, string> = {
 export function SocialIcon({ id }: { id: SocialId }) {
   return (
     <svg
-      className="site-social-icon"
+      className="hm-social-icon"
       viewBox="0 0 24 24"
       aria-hidden="true"
       focusable="false"
@@ -29,12 +29,12 @@ export function SocialIcon({ id }: { id: SocialId }) {
 /** Icon-only links with accessible names; hover fills the channel colour. */
 export function SocialLinks() {
   return (
-    <ul className="site-social" aria-label="Profiles">
+    <ul className="hm-social" aria-label="Profiles">
       {socials.map((social) => (
         <li key={social.id}>
           <a
             href={social.href}
-            className={`site-social-link site-social--${social.id}`}
+            className={`hm-social-link hm-social--${social.id}`}
             aria-label={social.label}
             title={social.label}
           >

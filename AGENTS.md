@@ -9,7 +9,7 @@ This repository contains himadri.dev, the personal site of Himadri Mishra: one h
 - Framework: Next.js App Router, statically prerendered
 - Language: TypeScript
 - UI: React server components
-- Styling: the himadri.dev Design System, ported to `src/styles/design-system.css`, on top of Tailwind CSS v4 preflight
+- Styling: the himadri.dev Design System in `design-system/`, imported by `src/styles/globals.css` on top of Tailwind CSS v4 preflight; React components in `src/components/ds/`
 - Fonts: IBM Plex Sans and IBM Plex Mono through `next/font/google`
 - Content model: typed modules under `src/content/`
 - Route authority: `src/lib/routes.ts`
@@ -23,7 +23,7 @@ This repository contains himadri.dev, the personal site of Himadri Mishra: one h
 3. `src/content/proof.ts`
 4. `src/lib/routes.ts`
 5. `src/lib/validation.ts`
-6. `src/styles/design-system.css`
+6. `design-system/readme.md`
 
 ## Route model
 
@@ -66,11 +66,15 @@ Every other path from earlier versions is retired in `src/lib/routes.ts` and red
 
 ## Design system
 
-- Source of truth: the claude.ai/design project "himadri.dev Design System". Its visual rules apply: pearl, graphite and one cobalt accent; IBM Plex; one 1080px column on one left edge; rules instead of cards; square corners; no shadows, gradients, or entrance animation; light only.
-- `design-system/` is a git-ignored local copy of that project, for reference. Its readme's copy rules are older than `docs/plans/portfolio-one-page-2026-10.md`; where they differ, the plan wins.
-- Icons: the design system has no icon set. The one recorded addition is the GitHub, LinkedIn and X brand marks, inlined as SVG in `src/components/site/SocialLinks.tsx` (Simple Icons paths, CC0). They appear as icon links in the header and with names in the footer, and fill with each channel's colour on hover. Add no other icons or icon packages without a plan.
-- The hero fills the first screen, so section 01 starts only after a scroll; in-page links scroll smoothly and land with the section rule just under the header.
-- Use `hm-*` classes from `src/styles/design-system.css`. Site-specific patterns use `site-*` classes built only from its tokens. Avoid inline styles.
+- `design-system/` is the himadri.dev Design System and the single source for the site's look. Read `design-system/readme.md` before any UI change.
+- `src/styles/globals.css` imports its tokens, `components/components.css` and `components/additions.css` directly. Do not copy design-system CSS into `src/`.
+- Build pages from the typed components in `src/components/ds/` (`Panel`, `Tile`, `NoteTile`, `Ledger`, `OneLiners`, `MetricTiles`, `RefGroups`, `Years`, `Subhead`, `Button`, `ArrowLink`, `InlineLinks`, `SocialLinks`). They emit only documented `hm-*` classes. Avoid inline styles and one-off classes.
+- To add a pattern: add its CSS to `design-system/components/additions.css`, a component to `src/components/ds/`, and a row to the readme's "v3 additions" table, then use it.
+- Visual rules: pearl, graphite and one cobalt accent; IBM Plex Sans, with Plex Mono only for indices, labels, dates, status, provenance and figures; one 1080px column on one left edge; square corners; no shadows, gradients or entrance animation; light only.
+- Sections are framed panels with the label cut into the top edge. Inside a panel, space and soft fills separate things; do not add horizontal rules.
+- Icons: the only icons are the GitHub, LinkedIn and X brand marks in `src/components/ds/SocialLinks.tsx` (Simple Icons paths, CC0). Add no others without updating the design system readme.
+- The hero fills the first screen with a `Ledger` of shipped work beside the statement; its "Recent work" button scrolls to section 01.
+- `design-system/ui_kits/` (the retired six-page site) is git-ignored. `design-system/SYNC.md` records how the folder differs from the claude.ai/design project; push changes back with `/design-sync`.
 
 ## Confidentiality constraints
 

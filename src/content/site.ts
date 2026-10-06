@@ -72,6 +72,51 @@ export const hero = {
   proof: "resume-summary" satisfies ProofClaimId,
 };
 
+export type ShippedItem = {
+  when: string;
+  text: string;
+  /** Where the evidence lives: a public link or a homepage section */
+  href: string;
+  source: string;
+  proof?: ProofClaimId;
+};
+
+/** The hero's proof panel: one line per item, newest first. */
+export const shipped = {
+  label: "Shipped in 2026",
+  note: "A few highlights. The full record is below.",
+  items: [
+    {
+      when: "Now",
+      text: "A coding agent that turns a Slack or Jira request into a tested, reviewed pull request",
+      href: "/#now",
+      source: "Mudita Studios",
+      proof: "mudita-coding-agent",
+    },
+    {
+      when: "Sep",
+      text: "A field guide to Agent Experience, a readiness rubric and a public MCP server",
+      href: "https://agentexperience.tech/",
+      source: "agentexperience.tech",
+      proof: "public-agent-experience-guide",
+    },
+    {
+      when: "May-Sep",
+      text: "87 merged pull requests across Firecrawl's MCP server, CLI, SDKs and docs",
+      href: "https://github.com/pulls?q=is%3Apr+author%3Ahmishra2250+org%3Afirecrawl+is%3Amerged",
+      source: "Firecrawl, open source",
+      proof: "firecrawl-programme",
+    },
+    {
+      when: "May",
+      text: "Qwen3.6-35B at 43 tokens per second on an 8 GB laptop GPU",
+      href: "https://github.com/hmishra2250/qwen-3.6-35b-consumer-gpu",
+      source: "Open source",
+      proof: "public-consumer-gpu-inference",
+    },
+  ] satisfies ShippedItem[],
+};
+
 export const now = {
   title: "What I work on.",
   mudita: {

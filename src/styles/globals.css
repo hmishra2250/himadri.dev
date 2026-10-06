@@ -1,26 +1,21 @@
 @import "tailwindcss";
-@import "./design-system.css";
 
-/* ---------- Resume page ---------- */
-.resume-page {
-  padding-bottom: var(--space-8);
-}
-.resume-viewer {
-  display: block;
-  width: 100%;
-  height: min(1200px, calc(100vh - 160px));
-  min-height: 640px;
-  margin-top: var(--space-8);
-  border: 1px solid var(--hairline-strong);
-  background: #fff;
-}
-.resume-help {
-  margin-top: var(--space-3);
-  font-family: var(--font-mono);
-  font-size: var(--text-label);
-  color: var(--muted);
-}
-.resume-help a {
-  text-decoration: underline;
-  text-decoration-color: var(--hairline-strong);
+/*
+ * The himadri.dev Design System lives in /design-system and is the single
+ * source for tokens and components. Fonts are loaded with next/font in
+ * src/app/layout.tsx, so tokens/fonts.css (a Google Fonts import) is skipped.
+ */
+@import "../../design-system/tokens/colors.css";
+@import "../../design-system/tokens/typography.css";
+@import "../../design-system/tokens/spacing.css";
+@import "../../design-system/tokens/motion.css";
+@import "../../design-system/tokens/base.css";
+@import "../../design-system/components/components.css";
+@import "../../design-system/components/additions.css";
+
+:root {
+  --font-sans:
+    var(--font-plex-sans), system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono:
+    var(--font-plex-mono), ui-monospace, "SFMono-Regular", Menlo, monospace;
 }

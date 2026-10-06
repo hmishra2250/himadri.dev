@@ -70,7 +70,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${plexSans.variable} ${plexMono.variable}`}>
       <body>
-        <a className="skip-link" href="#main-content">
+        <a className="hm-skip-link" href="#main-content">
           Skip to content
         </a>
         <SiteHeader />

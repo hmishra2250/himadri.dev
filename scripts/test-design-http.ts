@@ -73,7 +73,7 @@ async function main() {
     "--pearl:#f6f7f8",
     "--cobalt:#2855d8",
     ".hm-section-bar",
-    ".site-oneliners",
+    ".hm-oneliners",
   ]) {
     assert(
       css.replace(/\s/g, "").includes(token),

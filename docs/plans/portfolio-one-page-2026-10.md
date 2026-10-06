@@ -31,7 +31,7 @@ The site had about 2,980 words across six pages: long anonymized case studies, e
 
 ## Design
 
-Visual rules come from the claude.ai/design project "himadri.dev Design System": pearl, graphite and one cobalt accent; IBM Plex Sans and Mono; one 1080px column on one left edge; rules instead of cards; square corners; light only. The site uses the port in `src/styles/design-system.css`. A local copy of the whole project lives in `design-system/` (git-ignored). Its readme's copy rules predate this plan; where they differ, this plan wins.
+The site follows the himadri.dev Design System, which lives in `design-system/` and is imported directly by the site, with typed React components in `src/components/ds/`. It began as the claude.ai/design project of the same name: pearl, graphite and one cobalt accent; IBM Plex Sans and Mono; one 1080px column on one left edge; square corners; light only. This redesign extended it (v3): sections are framed panels with the label cut into the top edge instead of horizontal rules, the hero carries a "Shipped in 2026" ledger, and GitHub, LinkedIn and X appear as brand marks. `design-system/readme.md` documents every pattern.
 
 ## Content model
 

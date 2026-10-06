@@ -1,0 +1,503 @@
+/*
+ * himadri.dev Design System: additions (October 2026).
+ *
+ * Patterns added while rebuilding himadri.dev as one page. They follow the
+ * system's tokens, type and square geometry. One deliberate change to the
+ * original concept: sections are framed panels with the label cut into the
+ * top edge, and inside a panel space and soft fills separate things instead
+ * of horizontal rules. See design-system/README.md, "Additions".
+ *
+ *   hm-panel-section, hm-panel, hm-panel-tab   Framed section with cut-in label
+ *   hm-tile                                     Soft-filled block inside a panel
+ *   hm-ledger                                   Dated list of shipped work with a CTA
+ *   hm-oneliners                                One line per project, growable
+ *   hm-metric-tiles                             Outcome figures as tiles
+ *   hm-groups, hm-ref-list, hm-ref              Grouped pull requests or references
+ *   hm-years                                    Year and line rows without rules
+ *   hm-hero, hm-hero-split                      First-screen hero with a proof panel
+ *   hm-social                                   GitHub, LinkedIn and X brand marks
+ *   hm-footer-band                              Footer on a soft fill
+ *   hm-document                                 Embedded document viewer
+ */
+
+/*
+ * Sections are framed panels: a hairline border on all four sides with the
+ * section label cut into the top edge. Inside a panel, space and soft fills
+ * separate things; there are no horizontal rules.
+ */
+.hm-panel-section {
+  --panel-gap: clamp(40px, 5vw, 64px);
+  padding-top: var(--panel-gap);
+  scroll-margin-top: calc(var(--nav-height) + 32px - var(--panel-gap));
+}
+.hm-panel {
+  position: relative;
+  --panel: #fbfbfc; /* white at 55% over pearl, solid so the tab can match it */
+  border: 1px solid var(--hairline-strong);
+  background: var(--panel);
+  padding: clamp(36px, 4.5vw, 56px) clamp(20px, 4vw, 48px)
+    clamp(28px, 4vw, 48px);
+}
+.hm-panel-tab {
+  position: absolute;
+  top: 0;
+  left: clamp(12px, 3vw, 36px);
+  transform: translateY(-50%);
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding: 0 12px;
+  /* Page colour above the border line, panel colour below: a clean cut-out */
+  background: linear-gradient(to bottom, var(--pearl) 50%, var(--panel) 50%);
+}
+.hm-panel-head {
+  display: grid;
+  gap: 14px;
+  margin-bottom: clamp(28px, 3.5vw, 40px);
+}
+.hm-panel-titlebar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px 24px;
+}
+
+/* Tiles: soft fill, no border, for blocks inside a panel */
+.hm-tile {
+  display: grid;
+  gap: var(--space-4);
+  align-content: start;
+  padding: clamp(20px, 2.4vw, 28px);
+  background: var(--pearl-warm);
+}
+.hm-meta {
+  margin-top: 6px;
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  color: var(--muted);
+}
+.hm-link {
+  text-decoration: underline;
+  text-decoration-color: var(--hairline-strong);
+}
+.hm-link:hover {
+  text-decoration-color: var(--cobalt);
+}
+.hm-subhead {
+  margin-top: clamp(32px, 4vw, 44px);
+  margin-bottom: var(--space-4);
+}
+
+/* One-liner list: name, line, mono meta. Grows as projects are added. */
+.hm-oneliners {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: var(--space-4);
+}
+.hm-oneliners li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 4px var(--space-6);
+  align-items: baseline;
+  font-size: var(--text-small);
+  line-height: 1.55;
+  color: var(--graphite-soft);
+}
+.hm-oneliners a,
+.hm-oneliner-name {
+  color: var(--graphite);
+  font-weight: 500;
+}
+.hm-oneliners a {
+  text-decoration: underline;
+  text-decoration-color: var(--hairline-strong);
+}
+.hm-oneliners a:hover {
+  color: var(--cobalt-dark);
+  text-decoration-color: var(--cobalt);
+}
+.hm-oneliners .hm-oneliner-meta {
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  color: var(--muted);
+  white-space: nowrap;
+}
+@media (max-width: 560px) {
+  .hm-oneliners li {
+    grid-template-columns: 1fr;
+    gap: 2px;
+  }
+  .hm-oneliners .hm-oneliner-meta {
+    grid-row: 1;
+  }
+}
+
+/* Outcome figures: three tiles */
+.hm-metric-tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--space-3);
+}
+.hm-metric-tile {
+  display: grid;
+  gap: 10px;
+  align-content: start;
+  padding: clamp(20px, 2.4vw, 28px);
+  background: var(--pearl-warm);
+}
+.hm-metric-tile-value {
+  font-family: var(--font-mono);
+  font-size: clamp(26px, 2.8vw, 36px);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: var(--graphite);
+  font-variant-numeric: tabular-nums;
+}
+.hm-metric-tile-label {
+  color: var(--graphite-soft);
+  font-size: 14px;
+  line-height: 1.45;
+}
+.hm-refs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+}
+
+/* Pull request groups: three columns, spacing instead of rules */
+.hm-groups {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(24px, 3vw, 40px);
+}
+.hm-group h3 {
+  font-size: var(--text-h4);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+.hm-ref-list {
+  list-style: none;
+  padding: 0;
+  margin-top: var(--space-4);
+  display: grid;
+  gap: var(--space-4);
+}
+.hm-ref-list li {
+  display: grid;
+  gap: 2px;
+  font-size: var(--text-small);
+  line-height: 1.5;
+  color: var(--graphite);
+}
+.hm-ref {
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  color: var(--cobalt-dark);
+  text-decoration: underline;
+  text-decoration-color: var(--hairline-strong);
+}
+.hm-ref:hover {
+  text-decoration-color: var(--cobalt);
+}
+.hm-stack {
+  display: grid;
+  gap: clamp(32px, 4vw, 48px);
+}
+@media (max-width: 900px) {
+  .hm-groups {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Timeline without rules: mono years beside the line */
+.hm-years {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: var(--space-4);
+}
+.hm-years li {
+  display: grid;
+  grid-template-columns: 120px minmax(0, 1fr);
+  gap: var(--space-6);
+  font-size: var(--text-small);
+  line-height: 1.55;
+  color: var(--graphite);
+}
+.hm-years-year {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--muted);
+  padding-top: 1px;
+  font-variant-numeric: tabular-nums;
+}
+@media (max-width: 560px) {
+  .hm-years li {
+    grid-template-columns: 1fr;
+    gap: 2px;
+  }
+}
+
+/* Hero: fills the first screen so section 01 starts only after a scroll */
+html {
+  scroll-behavior: smooth;
+}
+.hm-hero {
+  min-height: calc(100svh - var(--nav-height));
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-block: clamp(40px, 5vw, 72px);
+}
+
+/* Social profiles: brand marks, square 44px targets, channel colour on hover */
+.hm-social {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.hm-nav .hm-social a.hm-social-link {
+  justify-content: center;
+  width: var(--hit-target);
+  padding: 0;
+  color: var(--graphite-soft);
+  transition:
+    color var(--dur-base) var(--ease-out),
+    background-color var(--dur-base) var(--ease-out);
+}
+.hm-nav .hm-social a.hm-social-link:hover {
+  background: var(--c);
+  color: #fff;
+}
+.hm-social-icon {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+  flex: none;
+}
+.hm-social--github {
+  --c: #24292f;
+}
+.hm-social--linkedin {
+  --c: #0a66c2;
+}
+.hm-social--x {
+  --c: #141414;
+}
+.hm-footer-social {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.hm-footer-social .hm-social-icon {
+  width: 15px;
+  height: 15px;
+}
+.hm-hero-split {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  gap: clamp(32px, 5vw, 72px);
+  align-items: center;
+}
+/* The punchline is a sentence, not a two-word statement: set it at h1 size */
+.hm-hero-main .hm-hero-statement {
+  margin-top: 40px;
+  max-width: 17ch;
+  font-size: var(--text-h1);
+  line-height: 1.04;
+}
+.hm-hero-facts {
+  margin-top: 28px;
+  max-width: 46ch;
+  font-size: clamp(17px, 1.4vw, 19px);
+}
+.hm-hero-main .hm-page-actions {
+  margin-top: 28px;
+}
+@media (max-width: 1000px) {
+  .hm-hero-split {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Hero proof panel: a framed ledger of what shipped this year */
+.hm-ledger {
+  padding: 36px clamp(20px, 2.6vw, 32px) clamp(20px, 2.6vw, 28px);
+}
+/* The last row fades: the list is a preview, not the record */
+.hm-ledger-list li:last-child {
+  -webkit-mask-image: linear-gradient(to bottom, #000 35%, rgba(0, 0, 0, 0.22));
+  mask-image: linear-gradient(to bottom, #000 35%, rgba(0, 0, 0, 0.22));
+}
+.hm-ledger-list li:last-child:hover,
+.hm-ledger-list li:last-child:focus-within {
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+.hm-ledger-foot {
+  display: grid;
+  gap: 14px;
+  margin-top: 8px;
+}
+.hm-ledger-note {
+  color: var(--graphite-soft);
+  font-size: 14px;
+  line-height: 1.5;
+}
+.hm-ledger-cta {
+  width: 100%;
+  justify-content: space-between;
+}
+.hm-ledger-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 4px;
+}
+.hm-ledger-link {
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr);
+  gap: 14px;
+  padding: 12px;
+  margin: 0 -12px;
+  color: var(--graphite);
+  text-decoration: none;
+  transition: background-color var(--dur-base) var(--ease-out);
+}
+.hm-ledger-link:hover {
+  background: var(--pearl-warm);
+  color: var(--graphite);
+}
+.hm-ledger-link:hover .hm-ledger-text {
+  color: var(--cobalt-dark);
+}
+.hm-ledger-link:hover .hm-button-icon {
+  transform: translateX(3px);
+}
+.hm-ledger-when {
+  display: flex;
+  align-items: center;
+  align-self: start;
+  gap: 6px;
+  height: 23px; /* one line of .hm-ledger-text, so the label sits on it */
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.hm-ledger-when--now {
+  color: var(--cobalt-dark);
+  font-weight: 500;
+}
+.hm-dot {
+  width: 7px;
+  height: 7px;
+  flex: none;
+  background: var(--cobalt);
+}
+.hm-ledger-body {
+  display: grid;
+  gap: 4px;
+}
+.hm-ledger-text {
+  font-size: var(--text-small);
+  line-height: 1.55;
+  transition: color var(--dur-fast) var(--ease-inout);
+}
+.hm-ledger-source {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  color: var(--muted);
+}
+.hm-hero-portrait {
+  width: 56px;
+  aspect-ratio: 1 / 1;
+}
+.hm-hero-who {
+  display: grid;
+  gap: 3px;
+}
+.hm-hero-name {
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.hm-years-name {
+  font-weight: 500;
+}
+.hm-groups-intro {
+  margin-bottom: var(--space-4);
+}
+.hm-note-tile {
+  max-width: 760px;
+  gap: 6px;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--graphite-soft);
+}
+
+/* Footer band: a soft fill instead of a rule */
+.hm-footer-band {
+  margin-top: clamp(64px, 8vw, 112px);
+  padding: 48px 0 32px;
+  background: var(--pearl-warm);
+}
+.hm-footer-band .hm-footer-bottom {
+  border-top: 0;
+  padding-top: 0;
+  margin-top: 48px;
+}
+
+/* Skip link */
+.hm-skip-link {
+  position: absolute;
+  left: var(--margin);
+  top: -60px;
+  z-index: 40;
+  padding: 10px 14px;
+  background: var(--graphite);
+  color: var(--pearl);
+  font-size: 14px;
+}
+.hm-skip-link:focus {
+  top: 12px;
+  color: var(--pearl);
+}
+
+/* ---------- Document viewer (the resume page) ---------- */
+.hm-document {
+  padding-bottom: var(--space-8);
+}
+.hm-document-viewer {
+  display: block;
+  width: 100%;
+  height: min(1200px, calc(100vh - 160px));
+  min-height: 640px;
+  margin-top: var(--space-8);
+  border: 1px solid var(--hairline-strong);
+  background: #fff;
+}
+.hm-document-help {
+  margin-top: var(--space-3);
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  color: var(--muted);
+}
+.hm-document-help a {
+  text-decoration: underline;
+  text-decoration-color: var(--hairline-strong);
+}
