@@ -1,25 +1,10 @@
-export const approvedAnalyticsEvents = [
-  "resume_download_clicked",
-  "contact_cta_clicked",
-  "case_study_opened",
-  "assistant_question_submitted",
-  "assistant_fallback_returned",
-  "challenge_opened",
-  "debug_choice_submitted",
-  "cost_model_toggled",
-  "dag_step_advanced",
-  "deck_ir_sample_selected",
-] as const;
+export const approvedAnalyticsEvents = ["resume_download_clicked"] as const;
 
 export type ApprovedAnalyticsEvent = (typeof approvedAnalyticsEvents)[number];
 
 export type AnalyticsEventParams = {
   route?: string;
-  feature_id?: string;
-  scenario_id?: string;
-  challenge_id?: string;
   source_section?: string;
-  outcome?: boolean;
 };
 
 declare global {

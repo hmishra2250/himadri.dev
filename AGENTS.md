@@ -2,136 +2,102 @@
 
 ## Repository purpose
 
-This repository contains the Next.js portfolio for Himadri Mishra. It is an evidence-first product surface for senior AI engineering, AI platform engineering, LLM systems architecture, and founding AI engineer roles.
+This repository contains himadri.dev, the personal site of Himadri Mishra: one homepage that shows what he works on now and what he did before, with a link for every claim, plus the resume.
 
 ## Technical stack
 
-- Framework: Next.js App Router
+- Framework: Next.js App Router, statically prerendered
 - Language: TypeScript
-- UI: React
-- Styling: Tailwind CSS
-- Content model: typed TypeScript modules under `src/content/`
+- UI: React server components
+- Styling: the himadri.dev Design System in `design-system/`, imported by `src/styles/globals.css` on top of Tailwind CSS v4 preflight; React components in `src/components/ds/`
+- Fonts: IBM Plex Sans and IBM Plex Mono through `next/font/google`
+- Content model: typed modules under `src/content/`
 - Route authority: `src/lib/routes.ts`
 - Validation: local TypeScript scripts under `scripts/`
-- Assistant corpus reports: `reports/assistant-corpus/`
-- Assistant eval reports: `reports/assistant-eval/`
-- Browser QA evidence: `reports/browser-qa/`
-- Resume asset: `public/resume/Himadri_Latest_Resume_April_2026.pdf`
+- Resume assets: `public/resume/Himadri_Mishra_Resume.pdf` (one-page resume, the default download) and `public/resume/Himadri_Mishra_CV.pdf` (two-page CV, the complete record). Both are built in the `resume` repository; proof locators point at the CV. `/resume` shows the one-page resume (`DocumentPages`, page images in `public/resume/pages/`) with a primary download and a quiet link to the CV, rendered from the PDFs with `pdftoppm -png -scale-to-x 2000 -scale-to-y -1`; regenerate them whenever a PDF changes.
 
 ## Source files to read first
 
-1. `docs/portfolio_redesign_uiux_frontend_technical_design_doc.md`
-2. `docs/plans/README.md`
-3. `docs/plans/portfolio-redesign-system-ralplan.md`
-4. `docs/plans/portfolio-v15-v2-ralplan.md`
-5. `docs/plans/portfolio-gap-remediation-ralplan.md`
-6. `docs/plans/prd-portfolio-gap-remediation.md`
-7. `docs/plans/test-spec-portfolio-gap-remediation.md`
-8. `src/lib/routes.ts`
-9. `src/lib/validation.ts`
-10. `src/content/proof.ts`
-11. `src/content/challenges.ts`
-12. `src/content/interview.ts`
-13. `src/content/stack-opinions.ts`
-14. `src/lib/assistant/config.ts`
-15. `src/lib/analytics.ts`
+1. `docs/plans/portfolio-one-page-2026-10.md`
+2. `src/content/site.ts`
+3. `src/content/proof.ts`
+4. `src/lib/routes.ts`
+5. `src/lib/validation.ts`
+6. `design-system/readme.md`
 
-## Current route model
+## Route model
 
-Enabled public routes:
+Public routes:
 
 - `/`
-- `/case-studies`
-- `/case-studies/agentic-market-research-platform`
-- `/case-studies/ml-infra-rescue`
-- `/case-studies/computer-vision-product-systems`
-- `/case-studies/high-performance-ar-and-vision`
 - `/resume`
-- `/contact`
-- `/interview-me`
-- `/principles`
-- `/challenges`
-- `/challenges/debug-this-agent`
-- `/challenges/cost-anatomy`
-- `/challenges/dag-execution-simulator`
-- `/challenges/deck-ir-previewer`
 
-Internal or disabled routes:
-
-- `/api/interview` is an internal route for the live assistant. It must stay out of sitemap and nav, and it only serves when `ENABLE_INTERVIEW_ASSISTANT_API=1`.
-- `/hiring-packet` is deferred and must stay out of sitemap, nav, and public links unless explicitly promoted.
+Every other path from earlier versions is retired in `src/lib/routes.ts` and redirects permanently to the matching homepage section (`/#now`, `/#firecrawl`, `/#before`) or to `/`. There are no API routes.
 
 ## Route rules
 
 - `src/lib/routes.ts` is the route manifest authority.
-- `src/app/sitemap.ts` must derive public URLs from the manifest.
-- `src/app/robots.ts` must not block enabled public routes.
-- `src/components/layout/Navbar.tsx` must use manifest nav routes.
-- Disabled, deferred, internal, and API routes must not appear in nav or sitemap.
+- `src/app/sitemap.ts` derives public URLs from the manifest.
+- `src/app/robots.ts` must not block public routes.
+- The header renders manifest nav routes; today that is only `/resume`.
+- A retired route must have no `page.tsx` and must redirect to an enabled page.
 - Do not publish empty routes, placeholder pages, or coming soon links.
-- Use `assertRouteEnabled(path)` in disabled or phase-gated pages.
-- Run `npm run validate:routes` after route, nav, sitemap, robots, or public link changes.
+- Run `npm run validate:routes` and `npm run test:routes-smoke` after route, nav, sitemap, robots, or redirect changes.
 
 ## Content and proof model
 
-- Public proof claims live in `src/content/proof.ts`.
-- Public metrics live in `src/content/metrics.ts`.
-- Case study content lives in `src/content/case-studies.ts`.
-- Principles live in `src/content/principles.ts`.
-- Hiring fit content lives in `src/content/hiring-fit.ts`.
-- Representative traces live in `src/content/traces.ts`.
-- Challenge data lives in `src/content/challenges.ts`.
-- Interview answers live in `src/content/interview.ts`.
-- Stack opinion cards live in `src/content/stack-opinions.ts`.
-- Every public metric or company-specific claim must reference an approved proof claim.
-- Synthetic or sanitized artifacts must show a visible public label when required by their proof claim.
-- Cost examples must use normalized units, not actual internal cost figures.
+- Everything the site says lives in `src/content/site.ts`, in reading order.
+- To add a side project, add a one-liner at the top of `now.also`. Leave out `href` while the repository is private; the name then renders as plain text.
+- Lead with impact, as before-and-after percentages where a measurement exists. Not everything needs a number: describe a system by what it does and what it led to. Do not lead with pull request, commit or fix counts. Keep figures at body size in the text, never as large display numbers; only card titles are set large.
+- Every company-specific statement and every number references a claim in `src/content/proof.ts` through a `proof` id. Claims must be approved and public, and sourced from the current resume, a public URL, or a `work-record` (the owner's description of private work by what it does). A `work-record` claim is the owner's own account and stands on its own; it may not carry figures, so every number needs the resume or a public source. Never name private repositories in a source.
+- Merged pull requests and public repositories are their own proof: link them.
+- Identity fields for metadata and structured data live in `src/content/profile.ts`.
+
+## Messaging rules
+
+`src/lib/validation.ts` enforces these, and `npm run validate:content` fails when they break.
+
+- One message per layer: the punchline is the only h1 and appears once; the facts line appears once.
+- Present tense for Mudita Studios and Agent Experience; "Previously" only for Firecrawl.
+- No public job-search signal: no "open to", "hire me", or job-search email.
+- No public email address.
+- No Mudita Studios product names; describe what the work does.
+- No retired metrics (48-72h, 10x, 93% to 98%). Knit reads "2-3 days to under an hour".
+- No "(Contract)" labels and no meta notes about the page ("client work is private", "not public", "a few highlights"). Describe the work and its impact; leave out what is hidden.
+
+## Design system
+
+- `design-system/` is the himadri.dev Design System and the single source for the site's look. Read `design-system/readme.md` before any UI change.
+- `src/styles/globals.css` imports its tokens, `components/components.css` and `components/additions.css` directly. Do not copy design-system CSS into `src/`.
+- Build pages from the typed components in `src/components/ds/` (`Panel`, `Tile`, `NoteTile`, `Ledger`, `OneLiners`, `MetricTiles`, `WorkCards`, `Launches`, `Refs`, `RefGroups`, `Years`, `Subhead`, `Button`, `ArrowLink`, `InlineLinks`, `SocialLinks`). They emit only documented `hm-*` classes. Avoid inline styles and one-off classes.
+- To add a pattern: add its CSS to `design-system/components/additions.css`, a component to `src/components/ds/`, and a row to the readme's "v3 additions" table, then use it.
+- Visual rules: pearl, graphite and one cobalt accent; IBM Plex Sans, with Plex Mono only for indices, labels, dates, status, provenance and figures; one 1080px column on one left edge; square corners; no shadows, gradients or entrance animation; light only.
+- Sections are framed panels with the label cut into the top edge. Inside a panel, space and soft fills separate things; do not add horizontal rules.
+- Icons: the only icons are the header marks in `src/components/ds/SocialLinks.tsx`: the Agent Experience AX monogram (official raster mark, never recoloured) and the GitHub, LinkedIn and X brand marks (Simple Icons paths, CC0). Add no others without updating the design system readme.
+- The hero fills the first screen with a `Ledger` of shipped work beside the statement; its "Recent work" button scrolls to section 01.
+- `design-system/ui_kits/` (the retired six-page site) is git-ignored. `design-system/SYNC.md` records how the folder differs from the claude.ai/design project; push changes back with `/design-sync`.
 
 ## Confidentiality constraints
 
 Do not publish:
 
-- customer names
-- raw customer data
-- survey datasets
-- proprietary prompts
-- internal evaluation rubrics
-- non-public screenshots
-- internal dashboard screenshots
-- exact internal cost figures
-- private deck outputs
-- internal code
+- customer names, raw customer data, or survey datasets
+- proprietary prompts or internal evaluation rubrics
+- non-public or internal dashboard screenshots
+- exact internal cost figures or private deck outputs
+- internal code or private repository names
 - secrets, tokens, keys, endpoints, or infrastructure identifiers
-- direct production traces unless explicitly approved
+- direct production traces
 
-Allowed content types:
-
-- resume-backed public metrics
-- high-level architecture patterns
-- simplified diagrams
-- synthetic or sanitized representative traces
-- normalized cost units
-- representative workflow examples
-- public GitHub, LinkedIn, and resume information
-
-## Assistant and Gemini gates
-
-- `/api/interview` must remain internal and must only serve when `ENABLE_INTERVIEW_ASSISTANT_API=1`.
-- Live assistant UI must remain hidden unless `NEXT_PUBLIC_ENABLE_INTERVIEW_ASSISTANT=1` and the route manifest allows `/api/interview`.
-- Gemini may run only server-side through `GEMINI_API_KEY` and `ENABLE_GEMINI_ASSISTANT=1`.
-- Never expose `GEMINI_API_KEY` through a `NEXT_PUBLIC_` variable.
-- Keep deterministic source-grounded answers as the fallback when Gemini is disabled, missing, rate-limited, or fails.
-- Assistant responses must keep source cards and safe fallbacks.
-- Do not log full assistant questions by default.
-- Run `npm run build:assistant-corpus`, `npm run validate:assistant-corpus`, `npm run eval:assistant`, and `npm run test:api` after assistant changes.
+`npm run validate:confidentiality` scans site content for private identifiers, local paths, secrets, and currency amounts, and scans authored files for em dashes.
 
 ## Analytics gates
 
-- The only planned analytics provider is Google Analytics 4.
-- Analytics must stay disabled unless `ENABLE_ANALYTICS=1`, `NEXT_PUBLIC_ANALYTICS_PROVIDER=google_analytics`, and `NEXT_PUBLIC_GA_MEASUREMENT_ID` are set.
-- Use `trackPortfolioEvent` from `src/lib/analytics.ts` for coarse portfolio events.
-- Do not send assistant question text, contact messages, emails, names, IP-derived identity, private content, or confidential content as event parameters.
-- Do not add Sentry, session replay, error tracking SDKs, or other observability vendors in the current scope.
+- The only analytics provider is Google Analytics 4.
+- Analytics stays disabled unless `ENABLE_ANALYTICS=1`, `NEXT_PUBLIC_ANALYTICS_PROVIDER=google_analytics`, and `NEXT_PUBLIC_GA_MEASUREMENT_ID` are set.
+- Use `trackPortfolioEvent` from `src/lib/analytics.ts` for coarse events only.
+- Do not send names, emails, IP-derived identity, private content, or confidential content as event parameters.
+- Do not add Sentry, session replay, error tracking SDKs, or other observability vendors.
 
 ## Environment files
 
@@ -147,26 +113,26 @@ Run the smallest relevant checks while editing, then run the full suite before c
 ```bash
 npm run typecheck
 npm run lint
+npm run test:privacy-contract
 npm run format:check
 npm run validate:content
 npm run validate:routes
+npm run validate:seo
 npm run validate:confidentiality
-npm run build:assistant-corpus
-npm run validate:assistant-corpus
-npm run eval:assistant
+npm run validate:structured-data
 npm run build
 npm run test:links
 npm run test:routes-smoke
-npm run test:api
 npm run verify
 npm audit --audit-level=moderate
 ```
+
+`npm run test:design:http` checks a running server (set `CHECK_BASE_URL`, default `http://127.0.0.1:3010`).
 
 ## Dependency policy
 
 - Keep the app on the existing Next.js, React, TypeScript, Tailwind, ESLint, Prettier, and TSX stack unless a plan explicitly approves a dependency.
 - Do not add vector, RAG, graph, editor, analytics, or error tracking dependencies without an approved plan.
-- Keep graph and editor work route-local so the homepage critical path stays unaffected.
 - Prefer local scripts and existing platform APIs before adding packages.
 
 ## Writing style for repository content
@@ -174,4 +140,4 @@ npm audit --audit-level=moderate
 - Do not use em dashes in authored content.
 - Use commas, colons, semicolons, parentheses, or simple hyphens instead.
 - Keep content specific, evidence-backed, and technical.
-- Avoid vague claims that are not backed by proof metadata.
+- Avoid vague claims that are not backed by a proof claim or a public link.

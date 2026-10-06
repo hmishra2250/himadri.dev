@@ -1,30 +1,19 @@
-export type SourceType =
-  | "resume"
-  | "design-doc"
-  | "case-study-draft"
-  | "public-profile"
-  | "sanitized-artifact"
-  | "synthetic-example";
+/**
+ * Approved sources for every company-specific statement and number on the site.
+ * Content in ./site.ts references these by id; scripts/validate-content.ts fails
+ * the build when a reference is missing, unapproved or not public.
+ *
+ * Source types:
+ * - resume: the published resume PDF
+ * - public-profile: a public page or pull request (an https URL)
+ * - work-record: the owner's description of private work, by what it does.
+ *   It may not carry figures; every number needs a resume or public source.
+ * Resume locators point at the two-page CV (public/resume/Himadri_Mishra_CV.pdf).
+ */
 
-export type ConfidentialityLevel =
-  | "public"
-  | "sanitized"
-  | "private-do-not-publish";
+export type SourceType = "resume" | "public-profile" | "work-record";
 
-export type DisplayContext =
-  | "hero"
-  | "proof-wall"
-  | "case-study"
-  | "trace"
-  | "decision-theater"
-  | "hiring-fit"
-  | "resume"
-  | "source-card"
-  | "interview"
-  | "challenge"
-  | "stack-opinion"
-  | "diagram"
-  | "assistant";
+export type ConfidentialityLevel = "public" | "private-do-not-publish";
 
 export type ProofClaim = {
   id: string;
@@ -32,513 +21,254 @@ export type ProofClaim = {
   sourcePath: string;
   sourceLocator: string;
   sourceType: SourceType;
-  confidence: "high" | "medium" | "inferred";
   confidentialityLevel: ConfidentialityLevel;
   approvedForPublicUse: boolean;
-  publicLabelRequired: boolean;
-  publicLabel?: string;
-  displayContexts: DisplayContext[];
 };
 
-export const proofClaims: ProofClaim[] = [
+/** The two-page CV is the complete record; the one-page resume carries a subset of it. */
+const resume = "public/resume/Himadri_Mishra_CV.pdf";
+
+export const proofClaims = [
+  {
+    id: "resume-summary",
+    claim:
+      "AI engineer since 2018. Builds AI products at Mudita Studios, works on Agent Experience in the open, and previously owned the Agent Experience programme at Firecrawl.",
+    sourcePath: resume,
+    sourceLocator: "Summary",
+    sourceType: "resume",
+    confidentialityLevel: "public",
+    approvedForPublicUse: true,
+  },
+  {
+    id: "mudita-coding-agent",
+    claim:
+      "Built a coding agent from an empty repository that turns Slack and Jira requests into GitHub draft pull requests, with sandboxed execution, browser checks, a second-model judge and human review.",
+    sourcePath: resume,
+    sourceLocator: "Mudita Studios, bullets 2 and 3",
+    sourceType: "resume",
+    confidentialityLevel: "public",
+    approvedForPublicUse: true,
+  },
+  {
+    id: "mudita-main-engineer",
+    claim:
+      "Main engineer on a research product in production: data connectors, source-backed answers, claim checks, citation regression tests, and the end-to-end test harness and release gates.",
+    sourcePath: resume,
+    sourceLocator: "Mudita Studios, bullet 4",
+    sourceType: "resume",
+    confidentialityLevel: "public",
+    approvedForPublicUse: true,
+  },
+  {
+    id: "mudita-delivery-platform",
+    claim:
+      "Set up the delivery platform for a second product: CI/CD, preview environments and daily smoke tests.",
+    sourcePath: resume,
+    sourceLocator: "Mudita Studios, bullet 5",
+    sourceType: "resume",
+    confidentialityLevel: "public",
+    approvedForPublicUse: true,
+  },
+  {
+    id: "firecrawl-routing-instructions",
+    claim:
+      "Before the routing instructions, 0% of search queries from MCP-only users went to Firecrawl; after them, Claude Code used Firecrawl instead of its built-in web search in 100% of trials and Codex used Firecrawl in 67%.",
+    sourcePath: "https://github.com/firecrawl/firecrawl-mcp-server/pull/240",
+    sourceLocator: "Pull request description, test results",
+    sourceType: "public-profile",
+    confidentialityLevel: "public",
+    approvedForPublicUse: true,
+  },
+  {
+    id: "firecrawl-index-skill",
+    claim:
+      "With the research-index skill installed, agents reached the paper index in 100% of biomedical test runs, against 0% without it.",
+    sourcePath: "https://github.com/firecrawl/skills/pull/10",
+    sourceLocator: "Pull request description, measured results",
+    sourceType: "public-profile",
+    confidentialityLevel: "public",
+    approvedForPublicUse: true,
+  },
+  {
+    id: "firecrawl-hosted-mcp",
+    claim:
+      "Rebuilt the hosted MCP server from first principles on Firecrawl OAuth, replacing API keys in URLs and a mis-wired sign-in: grants database, keyless and account endpoints, and infrastructure. It serves the Claude and Codex connectors and loads half the tokens with no loss in task success.",
+    sourcePath: resume,
+    sourceLocator: "Firecrawl, bullet 4",
+    sourceType: "resume",
+    confidentialityLevel: "public",
+    approvedForPublicUse: true,
+  },
+  {
+    id: "firecrawl-hosted-mcp-endpoints",
+    claim:
+      "Shipped the hosted MCP server's keyless endpoint and its account endpoint with OAuth, then an OAuth-only search endpoint for connector directories.",
+    sourcePath: "https://github.com/firecrawl/firecrawl-mcp-server/pull/308",
+    sourceLocator: "Pull request #308 and #332 descriptions",
+    sourceType: "public-profile",
+    confidentialityLevel: "public",
+    approvedForPublicUse: true,
+  },
+  {
+    id: "firecrawl-connectors",
+    claim:
+      "Firecrawl's Claude and Codex connectors run on the hosted MCP account endpoint with OAuth.",
+    sourcePath:
+      "https://www.firecrawl.dev/blog/best-mcp-servers-for-developers",
+    sourceLocator:
+      "FAQ: account OAuth works with interactive clients like Claude and Codex",
+    sourceType: "public-profile",
+    confidentialityLevel: "public",
+    approvedForPublicUse: true,
+  },
+  {
+    id: "firecrawl-neutral-metadata",
+    claim:
+      "Rewrote the MCP tool descriptions in neutral terms for the OpenAI tool-metadata review, halving the tool-metadata tokens an agent loads; a paired A/B test found task success equivalent to the baseline.",
+    sourcePath: "https://github.com/firecrawl/firecrawl-mcp-server/pull/340",
+    sourceLocator:
+      "Pull request description (A/B result); token sizes from the merged commit against its parent",
+    sourceType: "public-profile",
+    confidentialityLevel: "public",
+    approvedForPublicUse: true,
+  },
+  {
+    id: "firecrawl-harness",
+    claim:
+      "Built the Agent Experience harness from its first commit: real coding agents in sandboxes against any version of the MCP server, CLI, SDKs and skills; daily discoverability runs on a dashboard that fed the company's top-of-funnel goals; weekly Deep Insights; retrievability; experiments with judges, cost caps and false-discovery-rate control; access from a CLI, the dashboard and the company's knowledge system. The rule was that every release goes through an A/B test first.",
+    sourcePath: "Firecrawl Agent Experience work, May to September 2026",
+    sourceLocator: "Owner's account; agent-experience history",
+    sourceType: "work-record",
+    confidentialityLevel: "public",
+    approvedForPublicUse: true,
+  },
+  {
+    id: "firecrawl-hosted-mcp-rebuild",
+    claim:
+      "Rebuilt the hosted MCP server from first principles on Firecrawl's OAuth, replacing a mix of API keys in URLs and a mis-wired OAuth flow; sign-in errors fell.",
+    sourcePath: "Firecrawl Agent Experience work, May to September 2026",
+    sourceLocator: "Owner's account; hosted MCP pull request train",
+    sourceType: "work-record",
+    confidentialityLevel: "public",
+    approvedForPublicUse: true,
+  },
+  {
+    id: "firecrawl-insight-fixes",
+    claim:
+      "Shipped the fixes the insights found: pricing, billing, and benchmark pages agents cite, docs samples run in CI, JSON API errors, and recovery messages that tell agents how to handle spent limits and wrong keys.",
+    sourcePath: resume,
+    sourceLocator: "Firecrawl, bullet 6",
+    sourceType: "resume",
+    confidentialityLevel: "public",
+    approvedForPublicUse: true,
+  },
+  {
+    id: "firecrawl-launch-dri",
+    claim:
+      "Agent Experience DRI for the Developer Index, Life Sciences, and Government and Legal launches.",
+    sourcePath: resume,
+    sourceLocator: "Firecrawl, bullet 5",
+    sourceType: "resume",
+    confidentialityLevel: "public",
+    approvedForPublicUse: true,
+  },
+  {
+    id: "firecrawl-programme",
+    claim:
+      "Owned the Agent Experience programme at Firecrawl: measuring and improving how AI agents discover, choose and correctly use Firecrawl.",
+    sourcePath: resume,
+    sourceLocator: "Firecrawl, bullet 1",
+    sourceType: "resume",
+    confidentialityLevel: "public",
+    approvedForPublicUse: true,
+  },
+  {
+    id: "firecrawl-measurement",
+    claim:
+      "Built the Agent Experience harness from the first commit, with judges, cost caps and false-discovery-rate control, and A/B tests before releases; built daily discoverability runs, retrievability tracking and weekly Deep Insights checked against raw agent runs, whose discovery metric joined the Q3 top-of-funnel dashboard.",
+    sourcePath: resume,
+    sourceLocator: "Firecrawl, bullets 2 and 3",
+    sourceType: "resume",
+    confidentialityLevel: "public",
+    approvedForPublicUse: true,
+  },
   {
     id: "knit-turnaround",
     claim:
-      "Reduced market research report turnaround from 48-72 hours to under 1 hour.",
-    sourcePath: "public/resume/Himadri_Mishra_Resume.pdf",
-    sourceLocator: "Knit experience, bullet 1",
+      "Architected the AI pipeline of the Knit research platform and wrote its core: the shared library, data ingestion, the analysis pipeline and agentic deck generation. Survey data becomes checked insights, memos and decks, cutting report turnaround from 2-3 days to under an hour.",
+    sourcePath: resume,
+    sourceLocator: "Knit, bullets 1 to 4",
     sourceType: "resume",
-    confidence: "high",
     confidentialityLevel: "public",
     approvedForPublicUse: true,
-    publicLabelRequired: false,
-    displayContexts: ["hero", "proof-wall", "case-study", "hiring-fit"],
   },
   {
-    id: "knit-sandbox-tasks",
+    id: "epic-search",
     claim:
-      "Built a sandboxed insight engine where LLMs generated and executed Python analyses across 30-50 tasks per report, with independent judge agents verifying each output.",
-    sourcePath: "docs/evidence/resume-2026-09-07.pdf",
-    sourceLocator: "Knit experience, bullet 2",
+      "Owned machine learning pipelines for discovery, recommendations and search.",
+    sourcePath: resume,
+    sourceLocator: "Epic! for Kids, bullet 1",
     sourceType: "resume",
-    confidence: "high",
     confidentialityLevel: "public",
     approvedForPublicUse: true,
-    publicLabelRequired: false,
-    displayContexts: ["hero", "proof-wall", "case-study"],
   },
   {
-    id: "knit-charts",
+    id: "osmo-cv",
     claim:
-      "Produced 15-25 Highcharts charts per report with multi-threshold quality scoring.",
-    sourcePath: "docs/evidence/resume-2026-09-07.pdf",
-    sourceLocator: "Knit experience, bullet 3",
+      "Led computer vision work for educational worksheets across India and US teams.",
+    sourcePath: resume,
+    sourceLocator: "Tangible Play (Osmo), bullet 1",
     sourceType: "resume",
-    confidence: "high",
     confidentialityLevel: "public",
     approvedForPublicUse: true,
-    publicLabelRequired: false,
-    displayContexts: ["proof-wall", "case-study"],
   },
   {
-    id: "knit-observability-platform",
+    id: "whodat-vision",
+    claim: "Built a C++ visual feature detector for augmented reality.",
+    sourcePath: resume,
+    sourceLocator: "Whodat",
+    sourceType: "resume",
+    confidentialityLevel: "public",
+    approvedForPublicUse: true,
+  },
+  {
+    id: "education-sn-bose",
     claim:
-      "Unified agents on a shared platform with multi-provider LLM routing, OpenTelemetry, Langfuse, pgvector-backed RAG, SSE streaming, and generated REST APIs.",
-    sourcePath: "docs/evidence/resume-2026-09-07.pdf",
-    sourceLocator: "Knit experience, bullet 4",
-    sourceType: "resume",
-    confidence: "high",
-    confidentialityLevel: "public",
-    approvedForPublicUse: true,
-    publicLabelRequired: false,
-    displayContexts: ["case-study", "hiring-fit"],
-  },
-  {
-    id: "epic-cost-reduction",
-    claim:
-      "Reduced ML infrastructure platform cost by 10x after taking over production ML systems.",
-    sourcePath: "public/resume/Himadri_Mishra_Resume.pdf",
-    sourceLocator: "Epic! experience, bullet 2",
-    sourceType: "resume",
-    confidence: "high",
-    confidentialityLevel: "public",
-    approvedForPublicUse: true,
-    publicLabelRequired: false,
-    displayContexts: ["hero", "proof-wall", "case-study", "hiring-fit"],
-  },
-  {
-    id: "epic-pod-reduction",
-    claim:
-      "Reduced Kubernetes pod usage by 100x and spot instance errors by 99%.",
-    sourcePath: "docs/evidence/resume-2026-09-07.pdf",
-    sourceLocator: "Epic! experience, bullet 2",
-    sourceType: "resume",
-    confidence: "high",
-    confidentialityLevel: "public",
-    approvedForPublicUse: true,
-    publicLabelRequired: false,
-    displayContexts: ["proof-wall", "case-study"],
-  },
-  {
-    id: "epic-docker-build-time",
-    claim:
-      "Cut Docker build time by 50% while owning production ML infrastructure.",
-    sourcePath: "public/resume/Himadri_Mishra_Resume.pdf",
-    sourceLocator: "Epic! experience, bullet 2",
-    sourceType: "resume",
-    confidence: "high",
-    confidentialityLevel: "public",
-    approvedForPublicUse: true,
-    publicLabelRequired: false,
-    displayContexts: ["case-study"],
-  },
-  {
-    id: "osmo-cv-accuracy",
-    claim: "Raised worksheet computer-vision accuracy from 93% to 98%.",
-    sourcePath: "public/resume/Himadri_Mishra_Resume.pdf",
-    sourceLocator: "Tangible Play / Osmo experience, bullet 1",
-    sourceType: "resume",
-    confidence: "high",
-    confidentialityLevel: "public",
-    approvedForPublicUse: true,
-    publicLabelRequired: false,
-    displayContexts: ["hero", "proof-wall", "case-study", "hiring-fit"],
-  },
-  {
-    id: "osmo-shaded-region-iou",
-    claim:
-      "Built a real-time U-Net shaded-region detection model achieving 80% IoU.",
-    sourcePath: "docs/evidence/resume-2026-09-07.pdf",
-    sourceLocator: "Tangible Play / Osmo experience, bullet 1",
-    sourceType: "resume",
-    confidence: "high",
-    confidentialityLevel: "public",
-    approvedForPublicUse: true,
-    publicLabelRequired: false,
-    displayContexts: ["case-study"],
-  },
-  {
-    id: "osmo-engagement-tagging",
-    claim:
-      "Boosted tracing-dots engagement by 20% and cut tagging manual effort by 99% through automation.",
-    sourcePath: "docs/evidence/resume-2026-09-07.pdf",
-    sourceLocator: "Tangible Play / Osmo experience, bullet 2",
-    sourceType: "resume",
-    confidence: "high",
-    confidentialityLevel: "public",
-    approvedForPublicUse: true,
-    publicLabelRequired: false,
-    displayContexts: ["proof-wall", "case-study"],
-  },
-  {
-    id: "whodat-orb",
-    claim: "Built a C++ ORB detector 20% faster than the ORB-SLAM baseline.",
-    sourcePath: "public/resume/Himadri_Mishra_Resume.pdf",
-    sourceLocator: "Whodat experience",
-    sourceType: "resume",
-    confidence: "high",
-    confidentialityLevel: "public",
-    approvedForPublicUse: true,
-    publicLabelRequired: false,
-    displayContexts: ["case-study", "hiring-fit"],
-  },
-  {
-    id: "kaggle-top-six",
-    claim:
-      "Ranked top 6% globally in the Kaggle FIDE and Google Efficient Chess AI Challenge.",
-    sourcePath: "public/resume/Himadri_Mishra_Resume.pdf",
+      "IIT (BHU) Varanasi, Computer Science and Engineering; SN Bose Scholar and UC Berkeley research intern with Professor Dawn Song.",
+    sourcePath: resume,
     sourceLocator: "Education and recognition",
     sourceType: "resume",
-    confidence: "high",
     confidentialityLevel: "public",
     approvedForPublicUse: true,
-    publicLabelRequired: false,
-    displayContexts: ["proof-wall", "resume"],
-  },
-  {
-    id: "representative-trace-label",
-    claim:
-      "Live System Pulse uses sanitized representative trace events, not direct production logs.",
-    sourcePath: "docs/portfolio_redesign_uiux_frontend_technical_design_doc.md",
-    sourceLocator: "Sections 5.2 and 27.4-27.5",
-    sourceType: "synthetic-example",
-    confidence: "high",
-    confidentialityLevel: "sanitized",
-    approvedForPublicUse: true,
-    publicLabelRequired: true,
-    publicLabel:
-      "Sanitized representative trace. Customer data, private prompts, and internal implementation details omitted.",
-    displayContexts: ["trace", "source-card"],
-  },
-  {
-    id: "recent-agent-tool-discovery",
-    claim:
-      "Owned an Agent Experience programme that measured and improved how AI agents discover, choose and correctly use a developer tool across its MCP server, CLI, SDKs and docs.",
-    sourcePath: "public/resume/Himadri_Mishra_Resume.pdf",
-    sourceLocator: "Firecrawl, bullet 1",
-    sourceType: "resume",
-    confidence: "high",
-    confidentialityLevel: "public",
-    approvedForPublicUse: true,
-    publicLabelRequired: false,
-    displayContexts: ["hero", "proof-wall", "hiring-fit", "interview"],
-  },
-  {
-    id: "recent-agent-benchmark",
-    claim:
-      "Built a daily benchmark of whether coding agents recommend and correctly use a developer tool, with a scoring and judging layer and a review console.",
-    sourcePath: "public/resume/Himadri_Mishra_Resume.pdf",
-    sourceLocator: "Firecrawl, bullet 2",
-    sourceType: "resume",
-    confidence: "high",
-    confidentialityLevel: "public",
-    approvedForPublicUse: true,
-    publicLabelRequired: false,
-    displayContexts: ["proof-wall", "hiring-fit", "interview"],
-  },
-  {
-    id: "recent-insights-rebuild",
-    claim:
-      "Rebuilt a trace-insights engine to produce quote-verified findings with less than half the code, checked by byte-identical replay.",
-    sourcePath: "public/resume/Himadri_Mishra_Resume.pdf",
-    sourceLocator: "Firecrawl, bullet 6",
-    sourceType: "resume",
-    confidence: "high",
-    confidentialityLevel: "public",
-    approvedForPublicUse: true,
-    publicLabelRequired: false,
-    displayContexts: ["proof-wall", "hiring-fit", "interview"],
-  },
-  {
-    id: "recent-experiment-harness",
-    claim:
-      "Built a sandboxed experiment harness with trace capture, cost limits and false-discovery-rate controls, whose experiments drove shipped fixes to agent discovery and skill delivery.",
-    sourcePath: "public/resume/Himadri_Mishra_Resume.pdf",
-    sourceLocator: "Firecrawl, bullet 3",
-    sourceType: "resume",
-    confidence: "high",
-    confidentialityLevel: "public",
-    approvedForPublicUse: true,
-    publicLabelRequired: false,
-    displayContexts: ["proof-wall", "hiring-fit", "interview"],
-  },
-  {
-    id: "recent-hosted-mcp-auth",
-    claim:
-      "Separated keyless and OAuth paths for a hosted MCP server across seven repositories and added an OAuth-only search endpoint.",
-    sourcePath: "public/resume/Himadri_Mishra_Resume.pdf",
-    sourceLocator: "Firecrawl, bullet 4",
-    sourceType: "resume",
-    confidence: "medium",
-    confidentialityLevel: "public",
-    approvedForPublicUse: true,
-    publicLabelRequired: false,
-    displayContexts: ["proof-wall", "hiring-fit", "interview"],
-  },
-  {
-    id: "recent-mcp-onboarding",
-    claim:
-      "Retired key-in-path authentication and made MCP onboarding adapt to each coding agent.",
-    sourcePath: "public/resume/Himadri_Mishra_Resume.pdf",
-    sourceLocator: "Firecrawl, bullet 4",
-    sourceType: "resume",
-    confidence: "medium",
-    confidentialityLevel: "public",
-    approvedForPublicUse: true,
-    publicLabelRequired: false,
-    displayContexts: ["proof-wall", "hiring-fit", "interview"],
-  },
-  {
-    id: "recent-reviewed-ai-workflows",
-    claim:
-      "Main contributor to a production research product with source-backed answers, claim checks and citation regression tests.",
-    sourcePath: "public/resume/Himadri_Mishra_Resume.pdf",
-    sourceLocator: "Mudita Studios, bullet 4",
-    sourceType: "resume",
-    confidence: "high",
-    confidentialityLevel: "public",
-    approvedForPublicUse: true,
-    publicLabelRequired: false,
-    displayContexts: ["proof-wall", "hiring-fit", "interview"],
-  },
-
-  {
-    id: "current-agent-delivery-platform-foundations",
-    claim:
-      "Built and shipped a working agent delivery platform with orchestration boundaries, typed configuration, artifact review, human approval and operator-facing documentation.",
-    sourcePath: "docs/evidence/current-systems.md",
-    sourceLocator: "Reviewed implementation category: Agent delivery platform",
-    sourceType: "sanitized-artifact",
-    confidence: "medium",
-    confidentialityLevel: "sanitized",
-    approvedForPublicUse: true,
-    publicLabelRequired: true,
-    publicLabel:
-      "Anonymized implementation summary; underlying code is private.",
-    displayContexts: ["case-study", "source-card"],
-  },
-  {
-    id: "current-coding-agent-browser-qa-safeguards",
-    claim:
-      "Implemented and shipped safeguards for coding-agent execution and browser-connected QA, including guard boundaries, trace preservation, reviewer handoff context and testable checkpoints.",
-    sourcePath: "docs/evidence/current-systems.md",
-    sourceLocator:
-      "Reviewed implementation category: Coding-agent browser QA safeguards",
-    sourceType: "sanitized-artifact",
-    confidence: "medium",
-    confidentialityLevel: "sanitized",
-    approvedForPublicUse: true,
-    publicLabelRequired: true,
-    publicLabel:
-      "Anonymized implementation summary; underlying code is private.",
-    displayContexts: ["case-study", "source-card"],
-  },
-  {
-    id: "current-governed-knowledge-mcp-service",
-    claim:
-      "Built and shipped read-only knowledge tooling with an MCP server, scan runner, CI checks, structured context, invariant checks and proposed-change workflows.",
-    sourcePath: "docs/evidence/current-systems.md",
-    sourceLocator:
-      "Reviewed implementation category: Governed knowledge MCP service",
-    sourceType: "sanitized-artifact",
-    confidence: "medium",
-    confidentialityLevel: "sanitized",
-    approvedForPublicUse: true,
-    publicLabelRequired: true,
-    publicLabel:
-      "Anonymized implementation summary; underlying code is private.",
-    displayContexts: ["case-study", "source-card"],
   },
   {
     id: "public-agent-experience-guide",
     claim:
-      "Published a public Agent Experience field guide focused on agent discovery, task understanding, capability use, recovery and handoff.",
+      "Publishes the Agent Experience field guide, an agent-readiness rubric and a public read-only MCP server.",
     sourcePath: "https://agentexperience.tech/",
-    sourceLocator: "Home page and guide index",
+    sourceLocator: "Home page, rubric and connect pages",
     sourceType: "public-profile",
-    confidence: "high",
     confidentialityLevel: "public",
     approvedForPublicUse: true,
-    publicLabelRequired: false,
-    displayContexts: ["case-study", "source-card"],
-  },
-  {
-    id: "public-agent-readiness-rubric",
-    claim:
-      "Published a draft structural rubric for agent readiness, with dimensions for discovery, structure, machine-readable content, action safety, recovery and policy signals.",
-    sourcePath: "https://agentexperience.tech/insights/agent-readiness-rubric/",
-    sourceLocator: "Rubric overview, scoring model and dimensions",
-    sourceType: "public-profile",
-    confidence: "high",
-    confidentialityLevel: "public",
-    approvedForPublicUse: true,
-    publicLabelRequired: false,
-    displayContexts: ["case-study", "source-card"],
-  },
-  {
-    id: "public-awesome-agent-experience",
-    claim:
-      "Maintains a curated public Agent Experience collection covering discovery, tool schemas, evaluation, human control, recovery and protocol design.",
-    sourcePath: "https://github.com/hmishra2250/awesome-agent-experience",
-    sourceLocator: "README scope criteria and source sections",
-    sourceType: "public-profile",
-    confidence: "high",
-    confidentialityLevel: "public",
-    approvedForPublicUse: true,
-    publicLabelRequired: false,
-    displayContexts: ["case-study", "source-card"],
   },
   {
     id: "public-consumer-gpu-inference",
     claim:
-      "Published a local inference experiment with reproducible scripts and documentation for running a large open model on consumer hardware, with hardware-specific limits.",
+      "Ran Qwen3.6-35B at 43 tokens per second with 128K context on an 8 GB laptop GPU and published the scripts, guide and benchmark.",
     sourcePath: "https://github.com/hmishra2250/qwen-3.6-35b-consumer-gpu",
-    sourceLocator:
-      "README project overview, reproducibility notes and limitations",
+    sourceLocator: "README",
     sourceType: "public-profile",
-    confidence: "high",
     confidentialityLevel: "public",
     approvedForPublicUse: true,
-    publicLabelRequired: false,
-    displayContexts: ["case-study", "source-card"],
   },
-  {
-    id: "method-agent-routing-surfaces",
-    claim:
-      "I built and evaluated capability-aware router cards so agents could choose the right installed tool and complete the task, not simply make more tool calls.",
-    sourcePath: "docs/evidence/current-methods.md",
-    sourceLocator: "Method category: Router cards and tool selection",
-    sourceType: "sanitized-artifact",
-    confidence: "medium",
-    confidentialityLevel: "sanitized",
-    approvedForPublicUse: true,
-    publicLabelRequired: true,
-    publicLabel: "Anonymized engineering summary; underlying work is private.",
-    displayContexts: ["case-study", "source-card"],
-  },
+] as const satisfies readonly ProofClaim[];
 
-  {
-    id: "method-auth-aware-onboarding",
-    claim:
-      "I implemented and shipped hosted MCP authentication and onboarding across account-connected, search-only and keyless entry points.",
-    sourcePath: "docs/evidence/current-methods.md",
-    sourceLocator: "Method category: MCP OAuth and auth-aware onboarding",
-    sourceType: "sanitized-artifact",
-    confidence: "medium",
-    confidentialityLevel: "sanitized",
-    approvedForPublicUse: true,
-    publicLabelRequired: true,
-    publicLabel: "Anonymized engineering summary; underlying work is private.",
-    displayContexts: ["case-study", "source-card"],
-  },
+export type ProofClaimId = (typeof proofClaims)[number]["id"];
 
-  {
-    id: "method-discovery-retrieval-measurement",
-    claim:
-      "I owned and shipped measurement surfaces that show whether agents can find, retrieve and use a product, with evidence behind each reading.",
-    sourcePath: "docs/evidence/current-methods.md",
-    sourceLocator: "Method category: Discoverability and retrievability",
-    sourceType: "sanitized-artifact",
-    confidence: "medium",
-    confidentialityLevel: "sanitized",
-    approvedForPublicUse: true,
-    publicLabelRequired: true,
-    publicLabel: "Anonymized engineering summary; underlying work is private.",
-    displayContexts: ["case-study", "source-card"],
-  },
-
-  {
-    id: "method-multi-harness-ax-experiments",
-    claim:
-      "I built and shipped agent evaluation infrastructure for comparing discovery and usability across clients, models and tool surfaces.",
-    sourcePath: "docs/evidence/current-methods.md",
-    sourceLocator: "Method category: Multi-harness AX evaluation",
-    sourceType: "sanitized-artifact",
-    confidence: "medium",
-    confidentialityLevel: "sanitized",
-    approvedForPublicUse: true,
-    publicLabelRequired: true,
-    publicLabel: "Anonymized engineering summary; underlying work is private.",
-    displayContexts: ["case-study", "source-card"],
-  },
-
-  {
-    id: "method-coded-journey-paths",
-    claim:
-      "I introduced and implemented state-based journey testing: onboarding produces a capability state, and an A/B experiment consumes that state.",
-    sourcePath: "docs/evidence/current-methods.md",
-    sourceLocator: "Method category: Journey paths as executable state",
-    sourceType: "sanitized-artifact",
-    confidence: "medium",
-    confidentialityLevel: "sanitized",
-    approvedForPublicUse: true,
-    publicLabelRequired: true,
-    publicLabel: "Anonymized engineering summary; underlying work is private.",
-    displayContexts: ["case-study", "source-card"],
-  },
-
-  {
-    id: "method-evidence-grounded-insights",
-    claim:
-      "I built insight synthesis and shipped reporting that turns discovery, retrieval and journey evidence into reviewable product decisions.",
-    sourcePath: "docs/evidence/current-methods.md",
-    sourceLocator: "Method category: Evidence-grounded insight synthesis",
-    sourceType: "sanitized-artifact",
-    confidence: "medium",
-    confidentialityLevel: "sanitized",
-    approvedForPublicUse: true,
-    publicLabelRequired: true,
-    publicLabel: "Anonymized engineering summary; underlying work is private.",
-    displayContexts: ["case-study", "source-card"],
-  },
-  {
-    id: "current-routing-study",
-    claim:
-      "A controlled matched-pair study observed correct routing plus task completion rising from 90/118 to 99/118, a 7.63 percentage-point absolute gain across two clients. The result is directional, not statistically conclusive or a production conversion measure.",
-    sourcePath: "docs/evidence/current-work-results.md",
-    sourceLocator: "Controlled routing study",
-    sourceType: "sanitized-artifact",
-    confidence: "medium",
-    confidentialityLevel: "sanitized",
-    approvedForPublicUse: true,
-    publicLabelRequired: true,
-    publicLabel: "Anonymized engineering summary; underlying work is private.",
-    displayContexts: ["case-study", "source-card"],
-  },
-  {
-    id: "current-journey-coverage",
-    claim:
-      "Implemented a state-based inventory of 79 onboarding and integration surfaces, with held and no-card paths explicitly represented. This is coverage, not 79 successful experiments.",
-    sourcePath: "docs/evidence/current-work-results.md",
-    sourceLocator: "Journey inventory",
-    sourceType: "sanitized-artifact",
-    confidence: "medium",
-    confidentialityLevel: "sanitized",
-    approvedForPublicUse: true,
-    publicLabelRequired: true,
-    publicLabel: "Anonymized engineering summary; underlying work is private.",
-    displayContexts: ["case-study", "source-card"],
-  },
-  {
-    id: "current-harness-coverage",
-    claim:
-      "Implemented evaluation adapters for six agent clients, with client-specific transport support and evidence handling.",
-    sourcePath: "docs/evidence/current-work-results.md",
-    sourceLocator: "Harness coverage",
-    sourceType: "sanitized-artifact",
-    confidence: "medium",
-    confidentialityLevel: "sanitized",
-    approvedForPublicUse: true,
-    publicLabelRequired: true,
-    publicLabel: "Anonymized engineering summary; underlying work is private.",
-    displayContexts: ["case-study", "source-card"],
-  },
-];
-
-export function claimById(id: string) {
-  const claim = proofClaims.find((item) => item.id === id);
+export const claimById = (id: ProofClaimId): ProofClaim => {
+  const claim = proofClaims.find((entry) => entry.id === id);
   if (!claim) {
-    throw new Error(`Missing proof claim: ${id}`);
+    throw new Error(`Unknown proof claim: ${id}`);
   }
   return claim;
-}
+};

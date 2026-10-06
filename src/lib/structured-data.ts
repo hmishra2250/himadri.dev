@@ -69,8 +69,7 @@ export function buildPersonJsonLd(): JsonLdObject {
     url: siteConfig.url,
     jobTitle: profile.role,
     description: profile.positioning,
-    email: `mailto:${profile.email}`,
-    sameAs: [profile.linkedin, profile.github],
+    sameAs: [profile.linkedin, profile.github, profile.x],
   };
 }
 

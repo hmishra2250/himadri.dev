@@ -12,8 +12,6 @@ export type RouteSeo = {
   lastModified: string;
 };
 
-const professionalPresenceLastModified = "2026-09-07";
-
 const routeSeoData = {
   "/": {
     title: "Himadri Mishra | AI Engineer: Agents, MCP Servers, CLIs and SDKs",
@@ -22,58 +20,18 @@ const routeSeoData = {
     canonicalPath: "/",
     openGraphTitle: "Himadri Mishra | AI Engineer",
     openGraphDescription:
-      "Selected engineering work, qualified implementation summaries and public projects in Agent Experience, agentic systems and AI product engineering.",
+      "What I work on now, the Agent Experience programme I ran at Firecrawl with its merged pull requests, and the production ML before that.",
     lastModified: "2026-10-06",
-  },
-  "/case-studies": {
-    title: "Engineering Work",
-    description:
-      "Agent tools, AI products and public projects I built, with short summaries, test results and earlier engineering work.",
-    canonicalPath: "/case-studies",
-    openGraphTitle: "Engineering work | Himadri Mishra",
-    openGraphDescription:
-      "Agent tools, AI products and public projects I built, with short summaries, test results and earlier engineering work.",
-    lastModified: "2026-09-11",
-  },
-  "/about": {
-    title: "About Himadri Mishra",
-    description:
-      "AI product engineer focused on Agent Experience, agentic systems and evaluation, with a background in ML infrastructure, search and computer vision.",
-    canonicalPath: "/about",
-    openGraphTitle: "About Himadri Mishra",
-    openGraphDescription:
-      "Career arc from IIT-BHU through Microsoft, UC Berkeley, and production AI, ML infrastructure, search, and computer vision systems.",
-    lastModified: "2026-09-11",
   },
   "/resume": {
     title: "Resume",
     description:
-      "Read or download the resume for Himadri Mishra. AI systems and developer infrastructure work across agent-facing tools, production AI workflows, ML platform engineering, and reliability.",
+      "Read or download the resume for Himadri Mishra, AI engineer: agents, MCP servers, CLIs and SDKs, and production ML before that.",
     canonicalPath: "/resume",
-    openGraphTitle: "Resume and proof summary",
+    openGraphTitle: "Resume | Himadri Mishra",
     openGraphDescription:
-      "Resume and selected proof for AI systems, agent-facing developer infrastructure, production AI workflows, and ML platform reliability.",
-    lastModified: professionalPresenceLastModified,
-  },
-  "/contact": {
-    title: "Contact Himadri Mishra",
-    description:
-      "Contact Himadri Mishra about agent-facing developer tools, AI systems architecture, evaluation, observability, and production reliability work.",
-    canonicalPath: "/contact",
-    openGraphTitle: "Contact Himadri Mishra",
-    openGraphDescription:
-      "Reach out about CLI, MCP, SDK/API interface work, AI product workflows, evaluation, observability, and ML platform reliability.",
-    lastModified: professionalPresenceLastModified,
-  },
-  "/notes": {
-    title: "Production AI Notes",
-    description:
-      "Public-safe notes on agent-facing tools, AI workflow architecture, evaluation, observability, cost control, and evidence-backed production AI practice.",
-    canonicalPath: "/notes",
-    openGraphTitle: "Production AI notes",
-    openGraphDescription:
-      "Short notes on reliable AI systems, developer workflows, proof-backed claims, and clear sanitized artifact labels.",
-    lastModified: professionalPresenceLastModified,
+      "Read or download the resume for Himadri Mishra, AI engineer: agents, MCP servers, CLIs and SDKs.",
+    lastModified: "2026-10-06",
   },
 } satisfies Record<string, Omit<RouteSeo, "path">>;
 
@@ -111,7 +69,7 @@ export function buildOpenGraphMetadata(path: string): Metadata["openGraph"] {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Himadri Mishra, senior AI engineer building production agentic systems.",
+        alt: siteConfig.ogImageAlt,
       },
     ],
   };
@@ -133,7 +91,7 @@ export function buildPageMetadata(path: string): Metadata {
       images: [
         {
           url: "/og-image.png",
-          alt: "Himadri Mishra, senior AI engineer building production agentic systems.",
+          alt: siteConfig.ogImageAlt,
         },
       ],
     },

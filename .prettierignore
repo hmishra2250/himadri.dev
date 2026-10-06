@@ -12,3 +12,6 @@ reports/assistant-eval/*.json
 
 # Local research captures, not authored website files
 .firecrawl/**
+
+# Verbatim copy of the claude.ai/design project "himadri.dev Design System"
+design-system/**

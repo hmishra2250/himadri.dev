@@ -4,7 +4,7 @@ import { readFileSync } from "node:fs";
 const manifest = JSON.parse(
   readFileSync(".next/prerender-manifest.json", "utf8"),
 );
-for (const route of ["/", "/case-studies", "/resume"]) {
+for (const route of ["/", "/resume"]) {
   const entry = manifest.routes[route];
   assert.ok(entry, `${route} must be prerendered at build time`);
   assert.equal(
@@ -15,20 +15,25 @@ for (const route of ["/", "/case-studies", "/resume"]) {
   assert.ok(!manifest.dynamicRoutes[route]);
 }
 console.log(
-  "Home and Work are statically prerendered, with no request-time content rendering.",
+  "Home and Resume are statically prerendered, with no request-time content rendering.",
 );
 
 const resumeHtml = readFileSync(".next/server/app/resume.html", "utf8");
-assert.match(resumeHtml, /<iframe[^>]*title="Himadri Mishra resume PDF"/);
-assert.match(
-  resumeHtml,
-  /<iframe[^>]*src="\/resume\/Himadri_Mishra_Resume\.pdf#view=FitH"/,
-);
-assert.match(resumeHtml, /<a[^>]*download="Himadri_Mishra_Resume\.pdf"/);
 assert.ok(
-  resumeHtml.includes("Open the PDF directly"),
-  "Embedded viewer needs a visible fallback",
+  !resumeHtml.includes("<iframe"),
+  "Resume pages render in the page flow, not an iframe",
+);
+assert.ok(
+  !resumeHtml.includes('role="tablist"'),
+  "One public version, no tabs",
+);
+assert.match(resumeHtml, /resume-1\.png/);
+assert.match(resumeHtml, /<a[^>]*download="Himadri_Mishra_Resume\.pdf"/);
+assert.match(resumeHtml, /<a[^>]*download="Himadri_Mishra_CV\.pdf"/);
+assert.ok(
+  resumeHtml.includes("Open the PDF"),
+  "Each document needs a link to its selectable-text PDF",
 );
 console.log(
-  "Resume is static with an inline canonical PDF, download and fallback.",
+  "Resume is static: the one-page resume in the page flow, its download, and a link to the full CV.",
 );

@@ -1,0 +1,54 @@
+:root{
+  /* Base palette (verbatim from src/styles/globals.css) */
+  --pearl:#f6f7f8;
+  --pearl-warm:#edeff1;
+  --graphite:#14232c;
+  --graphite-soft:#3d4d56;
+  --muted:#65737b;
+  --hairline:rgba(20,35,44,0.18);
+  --hairline-strong:rgba(20,35,44,0.32);
+  --cobalt:#2855d8;
+  --cobalt-dark:#1f43ae;
+  --cobalt-press:#18368f;
+  --paper-shadow:rgba(20,35,44,0.08);
+  --selection:rgba(40,85,216,0.18);
+
+  /* Status */
+  --status-green:#3f7d55;
+  --status-violet:#6f5bb1;
+  --status-warn:#9b6a11;
+  --status-error:#a53e3e;
+  --status-pending:var(--muted);
+  --sage-border:rgba(137,162,124,0.36);
+  --sage-fill:rgba(137,162,124,0.08);
+  --clay-border:rgba(199,123,108,0.55);
+  --clay-fill:rgba(199,123,108,0.08);
+
+  /* Contact-action brand fills (used only on ContactActions) */
+  --contact-email:#2855d8;--contact-email-hover:#1f43ae;
+  --contact-github:#24292f;--contact-github-hover:#14181c;
+  --contact-resume:#a52d3a;--contact-resume-hover:#82232e;
+  --contact-x:#141414;--contact-x-hover:#000000;
+  --contact-linkedin:#0a66c2;--contact-linkedin-hover:#084e96;
+
+  /* Semantic aliases */
+  --bg:var(--pearl);
+  --surface-1:var(--pearl);
+  --surface-2:rgba(255,255,255,0.34);
+  --surface-3:var(--pearl-warm);
+  --surface-glass:rgba(246,247,248,0.9);
+  --border-1:var(--hairline);
+  --border-2:var(--hairline-strong);
+  --border-rule:var(--graphite);
+  --fg-1:var(--graphite);
+  --fg-2:var(--graphite-soft);
+  --fg-3:var(--muted);
+  --fg-on-accent:#ffffff;
+  --primary:var(--cobalt);
+  --primary-hover:var(--cobalt-dark);
+  --primary-press:var(--cobalt-press);
+  --accent-text:var(--cobalt-dark);
+  --link:var(--cobalt-dark);
+  --link-hover:var(--cobalt);
+  --focus-ring:var(--cobalt);
+}

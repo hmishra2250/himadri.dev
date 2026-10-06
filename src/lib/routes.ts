@@ -1,322 +1,103 @@
-export type RoutePhase = "v1" | "v1.5a" | "v1.5b" | "v2a" | "v2b" | "v2c";
-export type RouteKind = "page" | "api";
-export type RouteStatus =
-  | "required"
-  | "conditional"
-  | "deferred"
-  | "internal"
-  | "retired";
+export type RouteStatus = "required" | "retired";
 export type RobotsPolicy = "allow" | "disallow" | "noindex";
-export type RouteOwnerFeature =
-  | "core"
-  | "case-study"
-  | "profile"
-  | "interview"
-  | "challenge"
-  | "assistant"
-  | "principles"
-  | "notes";
 
 export type RouteManifestEntry = {
   path: string;
-  kind: RouteKind;
-  phase: RoutePhase;
+  kind: "page";
   status: RouteStatus;
   enabled: boolean;
   includeInSitemap: boolean;
   includeInNav: boolean;
   robotsPolicy: RobotsPolicy;
-  requiresProofGate: boolean;
-  requiresSourceCards?: boolean;
-  requiresPublicLabel?: boolean;
-  label?: string;
-  ownerFeature: RouteOwnerFeature;
+  label: string;
+  /** Retired routes only: a local page, optionally with a #fragment */
   redirectTo?: string;
-  navHref?: string;
 };
 
-export const routeManifest: RouteManifestEntry[] = [
-  {
-    path: "/",
-    kind: "page",
-    phase: "v1",
-    status: "required",
-    enabled: true,
-    includeInSitemap: true,
-    includeInNav: false,
-    robotsPolicy: "allow",
-    requiresProofGate: true,
-    label: "Home",
-    ownerFeature: "core",
-  },
-  {
-    path: "/case-studies",
-    kind: "page",
-    phase: "v1",
-    status: "required",
-    enabled: true,
-    includeInSitemap: true,
-    includeInNav: true,
-    robotsPolicy: "allow",
-    requiresProofGate: true,
-    label: "Work",
-    ownerFeature: "case-study",
-  },
-  {
-    path: "/case-studies/agentic-market-research-platform",
-    kind: "page",
-    phase: "v1",
-    status: "retired",
-    enabled: false,
-    includeInSitemap: false,
-    includeInNav: false,
-    robotsPolicy: "noindex",
-    requiresProofGate: true,
-    label: "Agentic Market Research Platform",
-    ownerFeature: "case-study",
-    redirectTo: "/case-studies#agentic-market-research-platform",
-  },
+const page = (
+  path: string,
+  label: string,
+  options: { includeInNav?: boolean } = {},
+): RouteManifestEntry => ({
+  path,
+  kind: "page",
+  status: "required",
+  enabled: true,
+  includeInSitemap: true,
+  includeInNav: options.includeInNav ?? false,
+  robotsPolicy: "allow",
+  label,
+});
 
-  {
-    path: "/notes",
-    kind: "page",
-    phase: "v2c",
-    status: "conditional",
-    enabled: true,
-    includeInSitemap: true,
-    includeInNav: false,
-    robotsPolicy: "allow",
-    requiresProofGate: true,
-    label: "Notes",
-    ownerFeature: "notes",
-  },
-  {
-    path: "/about",
-    kind: "page",
-    phase: "v2c",
-    status: "required",
-    enabled: true,
-    includeInSitemap: true,
-    includeInNav: true,
-    robotsPolicy: "allow",
-    requiresProofGate: true,
-    label: "About",
-    ownerFeature: "profile",
-  },
-  {
-    path: "/resume",
-    kind: "page",
-    phase: "v1",
-    status: "required",
-    enabled: true,
-    includeInSitemap: true,
-    includeInNav: true,
-    robotsPolicy: "allow",
-    requiresProofGate: true,
-    label: "Resume",
-    ownerFeature: "core",
-  },
-  {
-    path: "/contact",
-    kind: "page",
-    phase: "v1",
-    status: "required",
-    enabled: true,
-    includeInSitemap: true,
-    includeInNav: true,
-    robotsPolicy: "allow",
-    requiresProofGate: false,
-    label: "Contact",
-    ownerFeature: "core",
-  },
-  {
-    path: "/case-studies/ml-infra-rescue",
-    kind: "page",
-    phase: "v1",
-    status: "retired",
-    enabled: false,
-    includeInSitemap: false,
-    includeInNav: false,
-    robotsPolicy: "noindex",
-    requiresProofGate: true,
-    label: "ML Infrastructure Rescue",
-    ownerFeature: "case-study",
-    redirectTo: "/case-studies#ml-infra-rescue",
-  },
-  {
-    path: "/case-studies/computer-vision-product-systems",
-    kind: "page",
-    phase: "v1",
-    status: "retired",
-    enabled: false,
-    includeInSitemap: false,
-    includeInNav: false,
-    robotsPolicy: "noindex",
-    requiresProofGate: true,
-    label: "Computer Vision Product Systems",
-    ownerFeature: "case-study",
-    redirectTo: "/case-studies#computer-vision-product-systems",
-  },
-  {
-    path: "/case-studies/high-performance-ar-and-vision",
-    kind: "page",
-    phase: "v1",
-    status: "retired",
-    enabled: false,
-    includeInSitemap: false,
-    includeInNav: false,
-    robotsPolicy: "noindex",
-    requiresProofGate: true,
-    label: "High-Performance AR and Vision",
-    ownerFeature: "case-study",
-    redirectTo: "/case-studies#high-performance-ar-and-vision",
-  },
-  {
-    path: "/interview-me",
-    kind: "page",
-    phase: "v1.5a",
-    status: "retired",
-    enabled: false,
-    includeInSitemap: false,
-    includeInNav: false,
-    robotsPolicy: "noindex",
-    requiresProofGate: true,
-    requiresSourceCards: true,
-    label: "Interview Me",
-    ownerFeature: "interview",
-    redirectTo: "/about",
-  },
-  {
-    path: "/principles",
-    kind: "page",
-    phase: "v1.5a",
-    status: "retired",
-    enabled: false,
-    includeInSitemap: false,
-    includeInNav: false,
-    robotsPolicy: "noindex",
-    requiresProofGate: true,
-    label: "Principles",
-    ownerFeature: "principles",
-    redirectTo: "/about",
-  },
-  {
-    path: "/challenges",
-    kind: "page",
-    phase: "v1.5b",
-    status: "retired",
-    enabled: false,
-    includeInSitemap: false,
-    includeInNav: false,
-    robotsPolicy: "noindex",
-    requiresProofGate: true,
-    requiresPublicLabel: true,
-    label: "Challenges",
-    ownerFeature: "challenge",
-    redirectTo: "/case-studies#agentic-market-research-platform",
-  },
-  {
-    path: "/challenges/debug-this-agent",
-    kind: "page",
-    phase: "v1.5b",
-    status: "retired",
-    enabled: false,
-    includeInSitemap: false,
-    includeInNav: false,
-    robotsPolicy: "noindex",
-    requiresProofGate: true,
-    requiresPublicLabel: true,
-    label: "Debug This Agent",
-    ownerFeature: "challenge",
-    redirectTo: "/case-studies#agentic-market-research-platform",
-  },
-  {
-    path: "/challenges/cost-anatomy",
-    kind: "page",
-    phase: "v1.5b",
-    status: "retired",
-    enabled: false,
-    includeInSitemap: false,
-    includeInNav: false,
-    robotsPolicy: "noindex",
-    requiresProofGate: true,
-    requiresPublicLabel: true,
-    label: "Cost Anatomy",
-    ownerFeature: "challenge",
-    redirectTo: "/case-studies#ml-infra-rescue",
-  },
-  {
-    path: "/api/interview",
-    kind: "api",
-    phase: "v2b",
-    status: "internal",
-    enabled: process.env.ENABLE_INTERVIEW_ASSISTANT_API === "1",
-    includeInSitemap: false,
-    includeInNav: false,
-    robotsPolicy: "noindex",
-    requiresProofGate: true,
-    requiresSourceCards: true,
-    label: "Interview API",
-    ownerFeature: "assistant",
-  },
-  {
-    path: "/challenges/dag-execution-simulator",
-    kind: "page",
-    phase: "v2c",
-    status: "retired",
-    enabled: false,
-    includeInSitemap: false,
-    includeInNav: false,
-    robotsPolicy: "noindex",
-    requiresProofGate: true,
-    requiresPublicLabel: true,
-    label: "DAG Execution Simulator",
-    ownerFeature: "challenge",
-    redirectTo: "/case-studies#agentic-market-research-platform",
-  },
-  {
-    path: "/challenges/deck-ir-previewer",
-    kind: "page",
-    phase: "v2c",
-    status: "retired",
-    enabled: false,
-    includeInSitemap: false,
-    includeInNav: false,
-    robotsPolicy: "noindex",
-    requiresProofGate: true,
-    requiresPublicLabel: true,
-    label: "Deck IR Previewer",
-    ownerFeature: "challenge",
-    redirectTo: "/case-studies#agentic-market-research-platform",
-  },
-  {
-    path: "/hiring-packet",
-    kind: "page",
-    phase: "v2c",
-    status: "deferred",
-    enabled: false,
-    includeInSitemap: false,
-    includeInNav: false,
-    robotsPolicy: "noindex",
-    requiresProofGate: true,
-    requiresPublicLabel: true,
-    label: "Hiring Packet",
-    ownerFeature: "core",
-  },
+const retired = (
+  path: string,
+  label: string,
+  redirectTo: string,
+): RouteManifestEntry => ({
+  path,
+  kind: "page",
+  status: "retired",
+  enabled: false,
+  includeInSitemap: false,
+  includeInNav: false,
+  robotsPolicy: "allow",
+  label,
+  redirectTo,
+});
+
+export const routeManifest: RouteManifestEntry[] = [
+  page("/", "Home"),
+  page("/resume", "Resume", { includeInNav: true }),
+
+  // Retired in the October 2026 one-page redesign. Old links land on the
+  // matching section of the homepage.
+  retired("/case-studies", "Work", "/#firecrawl"),
+  retired(
+    "/case-studies/agentic-market-research-platform",
+    "Agentic Market Research Platform",
+    "/#before",
+  ),
+  retired(
+    "/case-studies/ml-infra-rescue",
+    "ML Infrastructure Rescue",
+    "/#before",
+  ),
+  retired(
+    "/case-studies/computer-vision-product-systems",
+    "Computer Vision Product Systems",
+    "/#before",
+  ),
+  retired(
+    "/case-studies/high-performance-ar-and-vision",
+    "High-Performance AR and Vision",
+    "/#before",
+  ),
+  retired("/about", "About", "/#before"),
+  retired("/notes", "Notes", "/"),
+  retired("/contact", "Contact", "/"),
+  retired("/interview-me", "Interview Me", "/"),
+  retired("/principles", "Principles", "/"),
+  retired("/challenges", "Challenges", "/"),
+  retired("/challenges/debug-this-agent", "Debug This Agent", "/"),
+  retired("/challenges/cost-anatomy", "Cost Anatomy", "/"),
+  retired(
+    "/challenges/dag-execution-simulator",
+    "DAG Execution Simulator",
+    "/",
+  ),
+  retired("/challenges/deck-ir-previewer", "Deck IR Previewer", "/"),
+  retired("/hiring-packet", "Hiring Packet", "/"),
 ];
 
 export const enabledRoutes = routeManifest.filter((route) => route.enabled);
 export const publicRoutes = routeManifest.filter(
-  (route) => route.enabled && route.kind === "page" && route.includeInSitemap,
+  (route) => route.enabled && route.includeInSitemap,
 );
 export const navRoutes = routeManifest.filter(
-  (route) => route.enabled && route.kind === "page" && route.includeInNav,
+  (route) => route.enabled && route.includeInNav,
 );
 export const requiredRoutes = routeManifest.filter(
   (route) => route.enabled && route.status === "required",
-);
-export const deferredRoutes = routeManifest.filter(
-  (route) => !route.enabled || route.status === "deferred",
 );
 export const robotsDisallowRoutes = routeManifest
   .filter((route) => route.robotsPolicy === "disallow")
@@ -357,18 +138,11 @@ export function getRetiredRouteDestination(path: string): string {
   if (destinationPath === route.path) {
     throw new Error(`Retired route redirects to itself: ${path}`);
   }
-  const destinationRoute = routeManifest.find(
-    (entry) => entry.path === destinationPath,
-  );
-  if (!destinationRoute?.enabled || destinationRoute.kind !== "page") {
+  if (!routeIsEnabled(destinationPath)) {
     throw new Error(
       `Retired route redirects to non-enabled page: ${path} -> ${route.redirectTo}`,
     );
   }
 
   return route.redirectTo;
-}
-
-export function getNavHref(route: RouteManifestEntry): string {
-  return route.navHref ?? route.path;
 }

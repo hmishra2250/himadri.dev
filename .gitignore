@@ -29,3 +29,7 @@ pnpm-debug.log*
 # TypeScript
 *.tsbuildinfo
 .vercel
+
+# The design system is committed, but its six-page UI kit shows the retired
+# 2026-10-05 site (old pages, metrics and contact details), so it stays local.
+design-system/ui_kits/

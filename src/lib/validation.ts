@@ -1,36 +1,8 @@
-import { existsSync, readFileSync } from "node:fs";
+import { existsSync } from "node:fs";
 import { join } from "node:path";
-import { aboutPage } from "@/content/about";
-import { costModels, debugScenarios } from "@/content/challenges";
-import { caseStudies } from "@/content/case-studies";
-import { flagshipDiagrams } from "@/content/diagrams";
-import { hiringFit } from "@/content/hiring-fit";
-import {
-  answerById,
-  interviewAnswers,
-  interviewQuestions,
-} from "@/content/interview";
-import { metrics, currentWorkMetrics } from "@/content/metrics";
-import type { Note } from "@/content/notes";
-import { notes } from "@/content/notes";
-import { practice } from "@/content/practice";
-import { selectedWork } from "@/content/selected-work";
-import { currentWork } from "@/content/current-work";
-import { validateCurrentWork } from "@/lib/current-work-validation";
-import { principles } from "@/content/principles";
 import { proofClaims } from "@/content/proof";
-import { profile } from "@/content/profile";
-import { stackOpinions } from "@/content/stack-opinions";
-import { traceLabel } from "@/content/traces";
-import { validatePracticeContract } from "@/lib/practice-validation";
+import * as site from "@/content/site";
 import {
-  ASSISTANT_EVAL_REPORT_PATH,
-  ASSISTANT_SERVER_ENABLE_FLAG,
-  assistantApiEnabled,
-} from "@/lib/assistant/config";
-import {
-  deferredRoutes,
-  getNavHref,
   getRetiredRouteDestination,
   navRoutes,
   publicRoutes,
@@ -41,393 +13,207 @@ import {
   routeManifest,
 } from "@/lib/routes";
 
-const canonicalResumePath = "/resume/Himadri_Mishra_Resume.pdf";
-const directCurrencyPattern =
-  /(?:[$€£₹]\s?\d[\d,]*(?:\.\d+)?|\b(?:USD|EUR|GBP|INR)\s+\d[\d,]*(?:\.\d+)?(?:\/[a-z]+)?|\b\d[\d,]*(?:\.\d+)?\s+(?:dollars?|euros?|pounds?|rupees?)\b)/i;
-const metricLikeClaimPattern =
-  /\b\d+(?:\.\d+)?\s?(?:%|x|ms|k|m|users?|docs?|requests?|tokens?|charts?|tasks?|reports?|hours?)\b/i;
-function collectProofIds() {
-  return new Set(proofClaims.map((claim) => claim.id));
-}
+export const emDashPattern = /\u2014|&mdash;|&#8212;|&#x2014;/i;
 
-function checkProofRef(
-  errors: string[],
-  validProofIds: Set<string>,
-  owner: string,
-  proofId: string,
-) {
-  if (!validProofIds.has(proofId)) {
-    errors.push(`${owner} references missing proof claim: ${proofId}`);
+export const contractionPattern =
+  /\b(?:[a-z]+n['’]t|(?:i|you|we|they)['’](?:m|re|ve|ll|d)|(?:it|that|there|here|what|who|he|she|let)['’]s)\b/i;
+
+/** Copy the site must never carry, with the reason shown when it does. */
+export const bannedCopyPatterns: ReadonlyArray<readonly [RegExp, string]> = [
+  [
+    /\bopen to (?:work|roles|new roles|opportunities|senior|staff)\b|\bhire me\b|\blooking for (?:my next|a new) role\b/i,
+    "public job-search signal",
+  ],
+  [/jobhunt/i, "job-search email address"],
+  [/mailto:/i, "public email address (none is published)"],
+  [/\b(?:Forge|Zoe|StrikeArc|PID agent)\b/, "Mudita product name"],
+  [/48\s*[-–]\s*72\s*h|\b10x\b|93%\s*(?:to|→)\s*98%/i, "retired legacy metric"],
+  [
+    /Anonymized (?:engineering|implementation) summary/i,
+    "per-block anonymized caveat",
+  ],
+  [/\(Contract\)/, "contract label"],
+  [
+    /21%\s*(?:to|→)\s*100%|tool-naming fix took|became a company goal/i,
+    "unsupported figure (see the work catalogue)",
+  ],
+  [
+    /client work is private|work is private|not public|private repo|full record is below|a few highlights/i,
+    "meta note about the page; say the work, not what is hidden",
+  ],
+];
+
+export const homeSectionIds = new Set<string>(
+  site.sections.map((section) => section.id),
+);
+
+type Found = { path: string; value: unknown };
+
+function walk(value: unknown, path: string, out: Found[]) {
+  out.push({ path, value });
+  if (Array.isArray(value)) {
+    value.forEach((item, index) => walk(item, `${path}[${index}]`, out));
+  } else if (value && typeof value === "object") {
+    for (const [key, item] of Object.entries(value)) {
+      walk(item, `${path}.${key}`, out);
+    }
   }
 }
 
-function routePathFromHref(href: string) {
-  return href.split("#")[0];
+export function collectSiteContent(): Found[] {
+  const found: Found[] = [];
+  for (const [name, value] of Object.entries(site)) {
+    if (typeof value === "function") continue;
+    walk(value, name, found);
+  }
+  return found;
 }
 
-function isApprovedNoteHref(href: string) {
-  if (href === canonicalResumePath) return true;
-  if (href === profile.github || href === profile.linkedin) return true;
-  if (/^https?:\/\//.test(href)) return false;
-
-  const routePath = routePathFromHref(href);
-  return (
-    routeIsEnabled(routePath) &&
-    publicRoutes.some((route) => route.path === routePath)
-  );
-}
-
-export function validateNoteDraft(note: Note) {
+export function checkCopy(text: string, where: string): string[] {
   const errors: string[] = [];
-  const validProofIds = collectProofIds();
-  const owner = `note ${note.id}`;
-  const serialized = JSON.stringify(note);
-
-  if (!note.id) errors.push("note missing id");
-  if (!note.title) errors.push(`${owner} missing title`);
-  if (!note.dek) errors.push(`${owner} missing dek`);
-  if (note.body.length === 0) errors.push(`${owner} missing body`);
-  if (!note.publicLabel) errors.push(`${owner} missing public label`);
-
-  if (directCurrencyPattern.test(serialized)) {
-    errors.push(`${owner} contains direct currency or exact cost wording`);
+  if (emDashPattern.test(text)) errors.push(`${where}: uses an em dash`);
+  if (contractionPattern.test(text)) {
+    errors.push(`${where}: uses a contraction`);
   }
-
-  if (metricLikeClaimPattern.test(serialized) && note.proofIds.length === 0) {
-    errors.push(`${owner} contains metric-like claims without proof metadata`);
+  for (const [pattern, reason] of bannedCopyPatterns) {
+    if (pattern.test(text)) errors.push(`${where}: ${reason}`);
   }
-
-  for (const proofId of note.proofIds) {
-    checkProofRef(errors, validProofIds, owner, proofId);
-  }
-
-  for (const link of note.relatedLinks) {
-    if (!isApprovedNoteHref(link.href)) {
-      errors.push(
-        `${owner} links to unapproved route or profile: ${link.href}`,
-      );
-    }
-    if (
-      link.href.includes("/hiring-packet") ||
-      link.href.includes("/api/interview")
-    ) {
-      errors.push(
-        `${owner} links to forbidden internal or disabled path: ${link.href}`,
-      );
-    }
-    if (link.href.includes("Himadri_Latest_Resume_April_2026.pdf")) {
-      errors.push(`${owner} links to legacy dated resume path: ${link.href}`);
-    }
-  }
-
-  for (const artifact of note.artifacts) {
-    const label = artifact.visibleLabel.toLowerCase();
-    if (!artifact.visibleLabel.trim()) {
-      errors.push(`${owner} artifact ${artifact.title} missing visible label`);
-    }
-    if (!label.includes(artifact.kind)) {
-      errors.push(
-        `${owner} artifact ${artifact.title} label must include ${artifact.kind}`,
-      );
-    }
-  }
-
   return errors;
 }
 
-export function validateContent() {
+export function checkHref(href: string, where: string): string[] {
+  if (href.startsWith("https://")) return [];
+  if (!href.startsWith("/")) {
+    return [`${where}: link must be https or a local path: ${href}`];
+  }
+  const [path, fragment] = href.split("#");
   const errors: string[] = [];
-  const ids = collectProofIds();
-  const seenProofIds = new Set<string>();
-  const questionIds = new Set<string>();
-  const answerIds = new Set(interviewAnswers.map((answer) => answer.id));
+  if (!routeIsEnabled(path || "/")) {
+    errors.push(`${where}: links to a page that is not enabled: ${href}`);
+  }
+  if (fragment !== undefined && (path || "/") === "/") {
+    if (!homeSectionIds.has(fragment)) {
+      errors.push(`${where}: links to an unknown homepage section: ${href}`);
+    }
+  }
+  return errors;
+}
 
+export function validateProofClaims(): string[] {
+  const errors: string[] = [];
+  const ids = new Set<string>();
   for (const claim of proofClaims) {
-    if (seenProofIds.has(claim.id))
-      errors.push(`Duplicate proof claim id: ${claim.id}`);
-    seenProofIds.add(claim.id);
-    if (!claim.sourcePath) errors.push(`${claim.id} missing sourcePath`);
-    if (!claim.sourceLocator) errors.push(`${claim.id} missing sourceLocator`);
-    if (!claim.approvedForPublicUse)
-      errors.push(`${claim.id} is not approved for public use`);
-    if (claim.confidentialityLevel === "private-do-not-publish") {
-      errors.push(
-        `${claim.id} is private-do-not-publish but present in public content`,
-      );
+    if (ids.has(claim.id)) errors.push(`duplicate proof claim id: ${claim.id}`);
+    ids.add(claim.id);
+    if (!claim.approvedForPublicUse) {
+      errors.push(`proof claim is not approved for public use: ${claim.id}`);
     }
-    if (claim.publicLabelRequired && !claim.publicLabel) {
-      errors.push(`${claim.id} requires a public label but none is set`);
+    if (claim.confidentialityLevel !== "public") {
+      errors.push(`proof claim is not public: ${claim.id}`);
+    }
+    if (!claim.sourceLocator.trim()) {
+      errors.push(`proof claim has no source locator: ${claim.id}`);
+    }
+    if (claim.sourceType === "resume") {
+      if (!existsSync(join(process.cwd(), claim.sourcePath))) {
+        errors.push(`proof claim source is missing: ${claim.sourcePath}`);
+      }
+    } else if (claim.sourceType === "work-record") {
+      if (/\d/.test(claim.claim)) {
+        errors.push(
+          `work-record claim carries a figure; cite the resume or a public source: ${claim.id}`,
+        );
+      }
+    } else if (!claim.sourcePath.startsWith("https://")) {
+      errors.push(`public proof source must be an https URL: ${claim.id}`);
     }
   }
+  return errors;
+}
 
-  const checkLocalProofRef = (owner: string, proofId: string) =>
-    checkProofRef(errors, ids, owner, proofId);
+export function validateContent(): string[] {
+  const errors = validateProofClaims();
+  const proofIds = new Set<string>(proofClaims.map((claim) => claim.id));
 
-  errors.push(...validatePracticeContract(practice, proofClaims));
-  errors.push(...validateCurrentWork(currentWork, proofClaims));
-
-  const checkEnabledHref = (owner: string, href: string) => {
-    if (href.startsWith("/resume/") && href.endsWith(".pdf")) return;
-    const routePath = href.split("#")[0];
-    if (!routeIsEnabled(routePath))
-      errors.push(`${owner} links to disabled route: ${href}`);
-  };
-
-  for (const work of selectedWork) {
-    if (
-      !work.title ||
-      !work.summary ||
-      !work.linkLabel ||
-      !work.category ||
-      !work.engineering ||
-      !work.proofIds.length
-    )
-      errors.push(`selected work ${work.id} missing content or proof`);
-    checkEnabledHref(`selected work ${work.id}`, work.href);
-    for (const id of work.proofIds) {
-      checkLocalProofRef(`selected work ${work.id}`, id);
-      if (!proofClaims.find((proof) => proof.id === id)?.approvedForPublicUse)
-        errors.push(`selected work ${work.id} requires approved proof`);
+  for (const { path, value } of collectSiteContent()) {
+    if (typeof value !== "string") continue;
+    errors.push(...checkCopy(value, path));
+    if (path.endsWith(".href") || /^links\./.test(path)) {
+      errors.push(...checkHref(value, path));
+    }
+    if (/\.proof(?:\[\d+\])?$|Proof$/.test(path) && !proofIds.has(value)) {
+      errors.push(`${path}: unknown proof claim ${value}`);
     }
   }
 
-  [...metrics, ...currentWorkMetrics].forEach((metric) => {
-    checkLocalProofRef(`metric ${metric.id}`, metric.proofId);
-    if (!metric.context) errors.push(`metric ${metric.id} missing context`);
-  });
-  principles.forEach((principle) =>
-    checkLocalProofRef(`principle ${principle.id}`, principle.proofId),
-  );
-  hiringFit.forEach((fit) =>
-    checkLocalProofRef(`hiring fit ${fit.signal}`, fit.proofId),
-  );
-  caseStudies.forEach((study) => {
-    study.proofIds.forEach((proofId) =>
-      checkLocalProofRef(`case study ${study.slug}`, proofId),
-    );
-    if (study.routeEnabled && !study.summary)
-      errors.push(`case study ${study.slug} missing summary`);
-  });
-
-  aboutPage.ctas.forEach((cta) =>
-    checkEnabledHref(`about cta ${cta.label}`, cta.href),
-  );
-
-  for (const question of interviewQuestions) {
-    if (questionIds.has(question.id))
-      errors.push(`duplicate interview question id: ${question.id}`);
-    questionIds.add(question.id);
-    if (!answerIds.has(question.answerId))
-      errors.push(
-        `interview question ${question.id} references missing answer: ${question.answerId}`,
-      );
-    const answer = answerById(question.answerId);
-    if (!question.category)
-      errors.push(`interview question ${question.id} missing category`);
-    if (answer.sourceCards.length === 0)
-      errors.push(`interview answer ${answer.id} missing source cards`);
-  }
-  for (const answer of interviewAnswers) {
-    if (!interviewQuestions.some((question) => question.answerId === answer.id))
-      errors.push(`orphan interview answer: ${answer.id}`);
-    for (const card of answer.sourceCards) {
-      checkEnabledHref(`interview answer ${answer.id}`, card.href);
-      card.proofIds.forEach((proofId) => {
-        checkLocalProofRef(`interview source card ${card.title}`, proofId);
-        const proof = proofClaims.find((claim) => claim.id === proofId);
-        if (proof && !proof.approvedForPublicUse)
-          errors.push(
-            `interview source card ${card.title} uses unapproved proof: ${proofId}`,
-          );
-      });
+  const prKeys = new Set<string>();
+  const allPrs = site.firecrawl.cards.flatMap((card) => card.prs);
+  for (const pr of allPrs) {
+    const key = `${pr.repo}#${pr.number}`;
+    if (!Number.isInteger(pr.number) || pr.number <= 0) {
+      errors.push(`invalid pull request number: ${key}`);
     }
-  }
-
-  for (const opinion of stackOpinions) {
-    if (!opinion.evidence)
-      errors.push(`stack opinion ${opinion.id} missing evidence`);
-    checkEnabledHref(`stack opinion ${opinion.id}`, opinion.relatedHref);
-    opinion.proofIds.forEach((proofId) =>
-      checkLocalProofRef(`stack opinion ${opinion.id}`, proofId),
-    );
-  }
-
-  for (const scenario of debugScenarios) {
-    if (
-      scenario.choices.filter(
-        (choice) => choice.id === scenario.correctChoiceId,
-      ).length !== 1
-    ) {
-      errors.push(
-        `debug scenario ${scenario.id} must have exactly one correct choice`,
-      );
+    if (!/^[a-z0-9-]+$/.test(pr.repo)) {
+      errors.push(`invalid repository name: ${key}`);
     }
-    if (scenario.spans.length === 0)
-      errors.push(`debug scenario ${scenario.id} missing spans`);
-    if (!scenario.diagnosis || !scenario.fix)
-      errors.push(`debug scenario ${scenario.id} missing diagnosis or fix`);
-    if (
-      !scenario.publicLabel.toLowerCase().includes("representative sanitized")
-    )
-      errors.push(
-        `debug scenario ${scenario.id} missing representative sanitized label`,
-      );
-    if (scenario.reviewerSignoff.decision !== "approved")
-      errors.push(
-        `debug scenario ${scenario.id} missing approved reviewer signoff`,
-      );
-    scenario.proofIds.forEach((proofId) =>
-      checkLocalProofRef(`debug scenario ${scenario.id}`, proofId),
-    );
+    if (prKeys.has(key)) errors.push(`pull request listed twice: ${key}`);
+    prKeys.add(key);
   }
 
-  for (const model of costModels) {
-    const total = model.categories.reduce(
-      (sum, category) => sum + category.units,
-      0,
-    );
-    if (total !== model.totalUnits)
-      errors.push(
-        `cost model ${model.id} totals ${total}, expected ${model.totalUnits}`,
-      );
-    const serialized = JSON.stringify(model);
-    if (/[$€£₹]/.test(serialized))
-      errors.push(`cost model ${model.id} contains currency symbol`);
-  }
-
-  for (const diagram of flagshipDiagrams) {
-    if (!diagram.caption) errors.push(`diagram ${diagram.id} missing caption`);
-    if (!diagram.publicLabel)
-      errors.push(`diagram ${diagram.id} missing public label`);
-    diagram.proofIds.forEach((proofId) =>
-      checkLocalProofRef(`diagram ${diagram.id}`, proofId),
-    );
-  }
-
-  for (const note of notes) {
-    errors.push(...validateNoteDraft(note));
-  }
-
-  if (!traceLabel.toLowerCase().includes("sanitized representative")) {
-    errors.push(
-      "trace label must visibly identify sanitized representative trace data",
-    );
+  if (site.now.also.length === 0) {
+    errors.push("now.also must list at least one project");
   }
 
   return errors;
 }
 
-export function validateRoutes() {
+export function validateRoutes(): string[] {
   const errors: string[] = [];
-  for (const route of requiredRoutes) {
-    if (!route.includeInSitemap)
-      errors.push(`required route missing from sitemap: ${route.path}`);
-    if (route.robotsPolicy === "disallow")
-      errors.push(`required route blocked by robots policy: ${route.path}`);
-  }
-  for (const route of deferredRoutes) {
-    if (route.includeInSitemap)
-      errors.push(`deferred route included in sitemap: ${route.path}`);
-    if (route.includeInNav)
-      errors.push(`deferred route included in nav: ${route.path}`);
-  }
-  for (const route of retiredRedirectRoutes) {
-    if (route.includeInNav || route.includeInSitemap) {
-      errors.push(`retired route exposed publicly: ${route.path}`);
+  const appDir = join(process.cwd(), "src", "app");
+  const pageFile = (path: string) =>
+    join(appDir, ...path.split("/").filter(Boolean), "page.tsx");
+
+  for (const required of ["/", "/resume"]) {
+    if (!requiredRoutes.some((route) => route.path === required)) {
+      errors.push(`required route missing or disabled: ${required}`);
     }
-    try {
-      getRetiredRouteDestination(route.path);
-    } catch (error) {
-      errors.push(error instanceof Error ? error.message : String(error));
+    if (!publicRoutes.some((route) => route.path === required)) {
+      errors.push(`required route missing from sitemap: ${required}`);
     }
   }
 
   for (const route of routeManifest) {
-    if (route.includeInNav && !route.label)
-      errors.push(`nav route missing label: ${route.path}`);
-    if (route.navHref) {
-      if (!route.enabled || route.kind !== "page" || !route.includeInNav) {
-        errors.push(`non-navigable route cannot define navHref: ${route.path}`);
-      }
-      if (!/^\/#[-a-z0-9]+$/.test(route.navHref)) {
-        errors.push(`navHref must be a homepage fragment: ${route.path}`);
-      }
+    const hasPage = existsSync(pageFile(route.path));
+    if (route.enabled && !hasPage) {
+      errors.push(`enabled route has no page.tsx: ${route.path}`);
     }
-    const navHref = getNavHref(route);
-    if (!navHref.startsWith("/")) {
-      errors.push(`nav href must be local: ${route.path}`);
+    if (!route.enabled && hasPage) {
+      errors.push(`retired route still has a page.tsx: ${route.path}`);
     }
-    if (
-      route.kind === "api" &&
-      (route.includeInSitemap || route.includeInNav)
-    ) {
-      errors.push(`api route cannot be in sitemap or nav: ${route.path}`);
-    }
-    if (
-      route.enabled &&
-      route.kind === "page" &&
-      route.robotsPolicy === "disallow"
-    ) {
-      errors.push(`enabled page route is disallowed in robots: ${route.path}`);
-    }
-  }
-  if (navRoutes.length > 9) {
-    errors.push(`nav exposes ${navRoutes.length} routes; maximum is 9`);
-  }
-  const publicPaths = new Set(publicRoutes.map((route) => route.path));
-  for (const study of caseStudies.filter((item) => item.routeEnabled)) {
-    const path = `/case-studies/${study.slug}`;
-    if (!publicPaths.has(path))
-      errors.push(`enabled case study missing public manifest route: ${path}`);
-  }
-  if (routeIsEnabled("/challenges")) {
-    const enabledChallengeChildren = routeManifest.filter(
-      (route) =>
-        route.enabled &&
-        route.ownerFeature === "challenge" &&
-        route.path !== "/challenges" &&
-        route.phase === "v1.5b",
-    );
-    if (enabledChallengeChildren.length === 0)
-      errors.push(
-        "/challenges cannot be enabled without an enabled child challenge",
-      );
-  }
-  for (const path of robotsDisallowRoutes) {
-    if (publicPaths.has(path))
-      errors.push(`public route disallowed by robots: ${path}`);
   }
 
-  const interviewApi = routeManifest.find(
-    (route) => route.path === "/api/interview",
-  );
-  if (interviewApi?.enabled) {
-    if (!assistantApiEnabled()) {
-      errors.push(
-        `/api/interview is enabled but ${ASSISTANT_SERVER_ENABLE_FLAG} is not explicitly set to 1`,
-      );
+  for (const route of retiredRedirectRoutes) {
+    if (route.enabled || route.includeInSitemap || route.includeInNav) {
+      errors.push(`retired route is still exposed: ${route.path}`);
     }
-    const reportPath = join(process.cwd(), ASSISTANT_EVAL_REPORT_PATH);
-    if (!existsSync(reportPath)) {
-      errors.push(
-        `assistant eval report missing: ${ASSISTANT_EVAL_REPORT_PATH}`,
-      );
-    } else {
-      const report = JSON.parse(readFileSync(reportPath, "utf8")) as {
-        passed?: boolean;
-        datasetSize?: number;
-        corpusHash?: string;
-        evalHash?: string;
-      };
-      if (report.passed !== true)
-        errors.push("assistant eval report did not pass");
-      if (!report.datasetSize || report.datasetSize < 40)
-        errors.push("assistant eval dataset must contain at least 40 cases");
-      if (!report.corpusHash || !report.evalHash)
-        errors.push(
-          "assistant eval report must include corpusHash and evalHash",
-        );
+    try {
+      const destination = getRetiredRouteDestination(route.path);
+      errors.push(...checkHref(destination, `redirect ${route.path}`));
+    } catch (error) {
+      errors.push((error as Error).message);
     }
   }
+
+  if (navRoutes.length > 3) errors.push("navigation has more than 3 routes");
+  for (const route of navRoutes) {
+    if (!route.enabled) errors.push(`nav route is disabled: ${route.path}`);
+  }
+
+  for (const path of robotsDisallowRoutes) {
+    if (publicRoutes.some((route) => route.path === path)) {
+      errors.push(`robots disallows a public route: ${path}`);
+    }
+  }
+
   return errors;
 }
