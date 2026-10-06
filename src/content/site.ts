@@ -202,26 +202,19 @@ export const now = {
   ] satisfies OneLiner[],
 };
 
-export type Cluster = {
+/** One point inside a work card; an optional lead-in label. */
+export type WorkPoint = { label?: string; text: string };
+
+export type WorkCard = {
   title: string;
-  line: string;
-  /** A measured before-and-after, as percentages, when one exists */
-  result?: { value: string; label: string; proof: ProofClaimId };
+  meta?: string;
+  /** What it is and why it mattered, in two or three sentences */
+  story?: string;
+  points: WorkPoint[];
   prs: PullRequest[];
-  proof?: ProofClaimId;
-};
-
-export type System = {
-  /** Omit when the step name already says it */
-  name?: string;
-  line: string;
-  proof: ProofClaimId;
-};
-
-export type LoopStep = {
-  name: string;
-  cadence: string;
-  systems: System[];
+  /** Full-width card for the largest pieces of work */
+  wide?: boolean;
+  proof: ProofClaimId[];
 };
 
 export const firecrawl = {
@@ -230,144 +223,137 @@ export const firecrawl = {
   intro:
     "From May to September 2026 I owned Agent Experience at Firecrawl: whether coding agents find it, choose it and use it correctly.",
   proof: ["firecrawl-programme"] satisfies ProofClaimId[],
-  rewrite: {
-    meta: "Jul 2026",
-    title: "Rewrote the hosted MCP server",
-    line: "I rewrote how agents connect, from scratch, and shipped it as one coordinated train of pull requests across the MCP server, API, web app, CLI, infrastructure and docs.",
-    rows: [
-      ["Before", "The API key sat in the URL, and sign-in was broken."],
-      [
-        "After",
-        "Agents start without a key and sign in with OAuth when they need an account; connector directories get a search endpoint that accepts OAuth alone. Existing users kept working.",
-      ],
-      [
-        "Led to",
-        "Firecrawl's Claude and Codex connector launches. For the OpenAI review I made the tool descriptions neutral, and an A/B test on paired agent runs showed no loss in task success.",
-      ],
-    ] as const,
-    prs: [
-      {
-        repo: "firecrawl-mcp-server",
-        number: 308,
-        summary: "Keyless and account endpoints",
-      },
-      {
-        repo: "firecrawl-mcp-server",
-        number: 332,
-        summary: "OAuth-only search endpoint",
-      },
-      {
-        repo: "firecrawl",
-        number: 3973,
-        summary: "MCP activity and OAuth revocation",
-      },
-      { repo: "cli", number: 155, summary: "Secure MCP credential setup" },
-      {
-        repo: "firecrawl-docs",
-        number: 1158,
-        summary: "Hosted connection modes",
-      },
-      {
-        repo: "firecrawl-mcp-server",
-        number: 340,
-        summary: "Neutral tool descriptions, A/B tested",
-      },
-    ] satisfies PullRequest[],
-    proof: [
-      "firecrawl-hosted-mcp",
-      "firecrawl-hosted-mcp-endpoints",
-      "firecrawl-connectors",
-      "firecrawl-neutral-metadata",
-    ] satisfies ProofClaimId[],
-  },
-  loopLabel: "How I found what to fix",
-  loop: [
+  cards: [
     {
-      name: "Measure",
-      cadence: "Daily",
-      systems: [
+      title: "The Agent Experience harness",
+      meta: "Built from the first commit",
+      story:
+        "The lab behind the programme. It runs real coding agents (Claude Code, Codex, Cursor, OpenCode and others, on several models) in sandboxes against any version of Firecrawl's MCP server, CLI, SDKs and skills. The rule was that every release goes through an A/B test first, and for every launch it uncovered issues that went into the product.",
+      points: [
         {
-          name: "Discoverability benchmark",
-          line: "Coding agents answer real developer questions, and it records whether they find, choose and correctly use Firecrawl. Its discovery metric joined the Q3 top-of-funnel dashboard.",
-          proof: "firecrawl-measurement",
+          label: "Daily discoverability",
+          text: "runs across six agent lanes, on a dashboard whose discovery metric fed the company's top-of-funnel goals.",
         },
         {
-          name: "Retrievability",
-          line: "Searches through Firecrawl and a search-results API show where Firecrawl's pages rank for the questions agents ask, and which pages need SEO work.",
-          proof: "firecrawl-retrievability",
+          label: "Weekly Deep Insights",
+          text: "reads every trace of the week, judges the pages agents read, and checks each quote against the raw runs.",
         },
         {
-          name: "Market intelligence",
-          line: "Competitors' launches, posts, repositories and events, tracked on one timeline.",
-          proof: "firecrawl-market-intelligence",
+          label: "Retrievability",
+          text: "shows where Firecrawl's pages rank for the questions agents search, through Firecrawl and a search-results API.",
         },
-      ],
-    },
-    {
-      name: "Explain",
-      cadence: "Weekly",
-      systems: [
         {
-          name: "Deep Insights",
-          line: "Reads the week's traces for what no single run shows: what agents read, quote and get wrong, with every quote checked against the raw runs.",
-          proof: "firecrawl-measurement",
+          label: "Experiments",
+          text: "pin the builds under test and use judges, cost caps and false-discovery-rate control.",
+        },
+        {
+          label: "Access",
+          text: "from a CLI, the dashboard, or the company's knowledge system, where other teams and their agents query results and draft experiments.",
         },
       ],
-    },
-    {
-      name: "Test",
-      cadence: "Before a change ships",
-      systems: [
-        {
-          name: "Agent harness",
-          line: "Runs any coding agent in a sandbox from a chosen starting state (tools, sign-in, skills), with traces and cost caps, and compares A and B with false-discovery-rate control.",
-          proof: "firecrawl-measurement",
-        },
-      ],
-    },
-    {
-      name: "Ship",
-      cadence: "Every surface",
-      systems: [
-        {
-          line: "Fixes go out to the MCP server, CLI, SDKs, skills, docs and website. The next day's run shows whether they worked.",
-          proof: "firecrawl-programme",
-        },
-      ],
-    },
-  ] satisfies LoopStep[],
-  shared: {
-    name: "Company knowledge",
-    line: "Findings and results fed the company's internal knowledge system, where other teams and their agents could query them.",
-    proof: "firecrawl-company-knowledge",
-  } satisfies System,
-  changesLabel: "What it changed",
-  changes: [
-    {
-      title: "Starting without an account",
-      line: "Agents can use Firecrawl before anyone signs up. Setup no longer opens a surprise sign-in, and when a tool needs an account, the agent finishes with keyless tools if it can.",
       prs: [
         {
           repo: "firecrawl-mcp-server",
-          number: 364,
-          summary: "Keyless setup without a surprise sign-in",
+          number: 340,
+          summary: "A/B test of neutral tool descriptions",
+        },
+        {
+          repo: "skills",
+          number: 10,
+          summary: "A/B results for the research-index skill",
+        },
+      ],
+      wide: true,
+      proof: ["firecrawl-measurement", "firecrawl-harness"],
+    },
+    {
+      title: "The hosted MCP server, rebuilt",
+      meta: "Jul 2026",
+      story:
+        "The hosted server mixed API keys in URLs with an OAuth flow that was wired in wrong, and sign-in failed often. I rebuilt it from first principles on Firecrawl's OAuth, reusing what worked: the grants database, separate keyless and account endpoints, delegated credentials, infrastructure and CLI setup, shipped as one train of pull requests. It serves Firecrawl's Claude and Codex connectors.",
+      points: [
+        {
+          label: "Leaner",
+          text: "A/B tested before and after: half the tokens an agent loads from the server, with no loss in task success.",
+        },
+        {
+          label: "Keyless",
+          text: "agents start without an account, and when a tool needs one they finish with the keyless tools or hand the person a clear next step.",
+        },
+        {
+          label: "Fewer errors",
+          text: "sign-in no longer falls back to keys in URLs, and an invalid key no longer returns an empty tool list.",
+        },
+      ],
+      prs: [
+        {
+          repo: "firecrawl-mcp-server",
+          number: 308,
+          summary: "Keyless and account endpoints",
+        },
+        {
+          repo: "firecrawl-mcp-server",
+          number: 332,
+          summary: "OAuth-only search endpoint",
+        },
+        {
+          repo: "firecrawl",
+          number: 3973,
+          summary: "MCP activity and OAuth revocation",
+        },
+        { repo: "cli", number: 155, summary: "Secure MCP credential setup" },
+        {
+          repo: "firecrawl-docs",
+          number: 1158,
+          summary: "Hosted connection modes",
         },
         {
           repo: "firecrawl-mcp-server",
           number: 363,
-          summary: "Fallback-first keyless recovery",
+          summary: "Keyless recovery",
         },
-        {
-          repo: "firecrawl-docs",
-          number: 1077,
-          summary: "Keyless availability in the CLI",
-        },
+      ],
+      wide: true,
+      proof: [
+        "firecrawl-hosted-mcp",
+        "firecrawl-hosted-mcp-endpoints",
+        "firecrawl-connectors",
+        "firecrawl-neutral-metadata",
+        "firecrawl-hosted-mcp-rebuild",
       ],
     },
     {
-      title: "Errors an agent can recover from",
-      line: "Real agent runs showed spent limits and wrong keys ending the task. Now the fix is in the text the agent reads, and the user recovers.",
+      title: "Launches, tool calls and recovery",
+      points: [
+        {
+          label: "Launches",
+          text: "Agent Experience DRI for Life Sciences, Developer Index, and Government and Legal. With the Life Sciences skill, agents reached the new paper index in 100% of test runs, up from 0%.",
+        },
+        {
+          label: "Tool calls",
+          text: "Claude Code sent 0% → 100% of searches to Firecrawl for MCP users (Codex: 0% → 67%).",
+        },
+        {
+          label: "Recovery",
+          text: "spent limits and wrong keys now tell the agent how to recover instead of ending the task.",
+        },
+      ],
       prs: [
+        {
+          repo: "firecrawl-mcp-server",
+          number: 368,
+          summary: "Separate the paper tools from the research category",
+        },
+        {
+          repo: "firecrawl-mcp-server",
+          number: 380,
+          summary: "Name the developer index",
+        },
+        {
+          repo: "firecrawl-mcp-server",
+          number: 240,
+          summary: "Routing instructions for agents",
+        },
         {
           repo: "firecrawl-mcp-server",
           number: 365,
@@ -380,93 +366,51 @@ export const firecrawl = {
         },
         { repo: "firecrawl", number: 4211, summary: "Quota recovery details" },
       ],
-    },
-    {
-      title: "Tools agents choose",
-      line: "Instructions on when Firecrawl applies, deprecated tools hidden with a path to their replacement, and SDK errors that name the right field.",
-      result: {
-        value: "0% → 100%",
-        label:
-          "Claude Code searches that go to Firecrawl for MCP users (Codex: 0% → 67%)",
-        proof: "firecrawl-routing-instructions",
-      },
-      prs: [
-        {
-          repo: "firecrawl-mcp-server",
-          number: 240,
-          summary: "Routing instructions for agents",
-        },
-        {
-          repo: "firecrawl-mcp-server",
-          number: 361,
-          summary: "Extract deprecation",
-        },
-        {
-          repo: "firecrawl",
-          number: 3579,
-          summary: "SDK error agents can read",
-        },
+      proof: [
+        "firecrawl-launch-dri",
+        "firecrawl-index-skill",
+        "firecrawl-routing-instructions",
       ],
     },
     {
-      title: "Launches agents can find",
-      line: "I owned the agent-facing side of the Life Sciences, Developer Index, and Government and Legal launches. The skill wording was picked by A/B test and did not fire on unrelated tasks.",
-      result: {
-        value: "0% → 100%",
-        label:
-          "Biomedical test runs that reach the new paper index, with the skill installed",
-        proof: "firecrawl-index-skill",
-      },
-      prs: [
+      title: "Insights that reached production",
+      story:
+        "Fixes from the daily runs, retrievability and Deep Insights, shipped across the docs, the API and the website.",
+      points: [
         {
-          repo: "skills",
-          number: 10,
-          summary: "Deliver the research-index skill",
+          text: "Pricing, billing and benchmark pages that agents quoted wrongly now state them correctly.",
         },
         {
-          repo: "firecrawl-mcp-server",
-          number: 368,
-          summary: "Separate the paper tools from the research category",
+          text: "Docs agents copy from: samples run in CI, API names left untranslated, legacy pages dated, and the capabilities page linked.",
         },
+        { text: "API errors come back as JSON instead of HTML pages." },
         {
-          repo: "firecrawl-mcp-server",
-          number: 380,
-          summary: "Name the developer index",
+          text: "Website pricing and benchmark content rewritten as text agents can read.",
         },
       ],
-      proof: "firecrawl-launch-dri",
-    },
-    {
-      title: "Pages agents quote, made accurate",
-      line: "Deep Insights caught agents repeating wrong prices, benchmark claims and billing rules. Those pages now state them correctly, in text agents can read.",
       prs: [
         {
           repo: "firecrawl-docs",
           number: 1363,
           summary: "Benchmark date and scope",
         },
-        { repo: "firecrawl-docs", number: 1365, summary: "Crawl accounting" },
         {
           repo: "firecrawl-docs",
           number: 1370,
           summary: "Failed-request billing",
         },
-      ],
-    },
-    {
-      title: "Docs agents copy from",
-      line: "No instructions for tools that do not exist, API names left untranslated in localized docs, JSON errors instead of HTML pages, and every code sample run in CI.",
-      prs: [
+        { repo: "firecrawl-docs", number: 1365, summary: "Crawl accounting" },
+        { repo: "firecrawl-docs", number: 1380, summary: "Docs CI" },
         {
           repo: "firecrawl-docs",
           number: 1393,
           summary: "Untranslated API identifiers",
         },
         { repo: "firecrawl", number: 4552, summary: "JSON errors" },
-        { repo: "firecrawl-docs", number: 1380, summary: "Docs CI" },
       ],
+      proof: ["firecrawl-insight-fixes"],
     },
-  ] satisfies Cluster[],
+  ] satisfies WorkCard[],
 };
 
 export const before = {

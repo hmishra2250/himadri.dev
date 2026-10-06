@@ -40,19 +40,13 @@ for (const item of [...now.also, ...before.openSource]) {
 }
 
 assert(
-  home.text.includes(firecrawl.rewrite.title),
-  "the hosted MCP rewrite must lead the Firecrawl panel",
+  firecrawl.cards.length === 4,
+  "Firecrawl shows four work cards: two wide, two side by side",
 );
-for (const step of firecrawl.loop) {
-  assert(home.text.includes(step.name), `loop step missing: ${step.name}`);
-}
-for (const change of firecrawl.changes) {
-  assert(home.text.includes(change.title), `change missing: ${change.title}`);
-  if (change.result) {
-    assert(
-      home.text.includes(change.result.label),
-      `result missing: ${change.result.label}`,
-    );
+for (const card of firecrawl.cards) {
+  assert(home.text.includes(card.title), `card missing: ${card.title}`);
+  for (const point of card.points) {
+    assert(home.text.includes(point.text), `card point missing: ${point.text}`);
   }
 }
 const prLinks = home.hrefs.filter((href) => href.includes("/pull/"));

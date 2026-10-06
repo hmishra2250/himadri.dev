@@ -3,15 +3,13 @@ import Image from "next/image";
 import {
   ArrowLink,
   Button,
-  Feature,
   InlineLinks,
-  Launches,
   Ledger,
-  Loop,
   OneLiners,
   Panel,
   Subhead,
   Tile,
+  WorkCards,
   Years,
 } from "@/components/ds";
 import { RouteJsonLd } from "@/components/seo/RouteJsonLd";
@@ -114,30 +112,16 @@ export default function Home() {
           </ArrowLink>
         }
       >
-        <div className="hm-stack">
-          <Feature
-            meta={firecrawl.rewrite.meta}
-            title={firecrawl.rewrite.title}
-            line={firecrawl.rewrite.line}
-            rows={firecrawl.rewrite.rows}
-            refs={pullRequestRefs(firecrawl.rewrite.prs)}
-          />
-          <div>
-            <Subhead>{firecrawl.loopLabel}</Subhead>
-            <Loop steps={firecrawl.loop} shared={firecrawl.shared} />
-          </div>
-          <div>
-            <Subhead>{firecrawl.changesLabel}</Subhead>
-            <Launches
-              items={firecrawl.changes.map((change) => ({
-                title: change.title,
-                line: change.line,
-                result: change.result,
-                refs: pullRequestRefs(change.prs),
-              }))}
-            />
-          </div>
-        </div>
+        <WorkCards
+          items={firecrawl.cards.map((card) => ({
+            title: card.title,
+            meta: card.meta,
+            story: card.story,
+            points: card.points,
+            refs: pullRequestRefs(card.prs),
+            wide: card.wide,
+          }))}
+        />
       </Panel>
 
       <Panel

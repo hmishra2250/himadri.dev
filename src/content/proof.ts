@@ -122,39 +122,40 @@ export const proofClaims = [
   {
     id: "firecrawl-neutral-metadata",
     claim:
-      "Rewrote the MCP tool descriptions in neutral terms for the OpenAI tool-metadata review; a paired A/B test found task success equivalent to the baseline.",
+      "Rewrote the MCP tool descriptions in neutral terms for the OpenAI tool-metadata review, halving the tool-metadata tokens an agent loads; a paired A/B test found task success equivalent to the baseline.",
     sourcePath: "https://github.com/firecrawl/firecrawl-mcp-server/pull/340",
-    sourceLocator: "Pull request description, AX R02 confirmation",
+    sourceLocator:
+      "Pull request description (A/B result); token sizes from the merged commit against its parent",
     sourceType: "public-profile",
     confidentialityLevel: "public",
     approvedForPublicUse: true,
   },
   {
-    id: "firecrawl-retrievability",
+    id: "firecrawl-harness",
     claim:
-      "Built retrievability tracking: searches through Firecrawl and a search-results API to see where Firecrawl's pages rank for the questions agents ask, and which pages need SEO work.",
+      "Built the Agent Experience harness from its first commit: real coding agents in sandboxes against any version of the MCP server, CLI, SDKs and skills; daily discoverability runs on a dashboard that fed the company's top-of-funnel goals; weekly Deep Insights; retrievability; experiments with judges, cost caps and false-discovery-rate control; access from a CLI, the dashboard and the company's knowledge system. The rule was that every release goes through an A/B test first.",
     sourcePath: "Firecrawl Agent Experience work, May to September 2026",
-    sourceLocator: "Retrievability system",
+    sourceLocator: "Owner's account; agent-experience history",
     sourceType: "work-record",
     confidentialityLevel: "public",
     approvedForPublicUse: true,
   },
   {
-    id: "firecrawl-market-intelligence",
+    id: "firecrawl-hosted-mcp-rebuild",
     claim:
-      "Built market intelligence that tracks competitors' launches, posts, repositories and events on one timeline.",
+      "Rebuilt the hosted MCP server from first principles on Firecrawl's OAuth, replacing a mix of API keys in URLs and a mis-wired OAuth flow; sign-in errors fell.",
     sourcePath: "Firecrawl Agent Experience work, May to September 2026",
-    sourceLocator: "Competitor intelligence system",
+    sourceLocator: "Owner's account; hosted MCP pull request train",
     sourceType: "work-record",
     confidentialityLevel: "public",
     approvedForPublicUse: true,
   },
   {
-    id: "firecrawl-company-knowledge",
+    id: "firecrawl-insight-fixes",
     claim:
-      "Connected Agent Experience findings and experiment results to the company's internal knowledge system.",
+      "Shipped fixes found by the daily runs, retrievability and Deep Insights across the docs, the API and the website: pricing, billing and benchmark pages, docs samples and identifiers, JSON errors, and website content agents can read.",
     sourcePath: "Firecrawl Agent Experience work, May to September 2026",
-    sourceLocator: "Knowledge system provider",
+    sourceLocator: "Owner's account; public docs and API pull requests",
     sourceType: "work-record",
     confidentialityLevel: "public",
     approvedForPublicUse: true,

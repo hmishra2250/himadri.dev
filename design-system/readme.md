@@ -7,7 +7,7 @@ The design system for **himadri.dev**, the site of Himadri Mishra, AI engineer. 
 ## How the site uses it
 
 - `src/styles/globals.css` imports the tokens (except `fonts.css`), `components/components.css` and `components/additions.css` from this folder. IBM Plex is loaded with `next/font` instead of the Google Fonts import.
-- `src/components/ds/` holds typed React components that emit only the classes documented here: `Panel`, `Tile`, `NoteTile`, `Ledger`, `OneLiners`, `MetricTiles`, `Feature`, `Loop`, `Launches`, `Refs`, `RefGroups`, `Years`, `Subhead`, `Button`, `ArrowLink`, `InlineLinks`, `SocialLinks`, `SocialIcon`.
+- `src/components/ds/` holds typed React components that emit only the classes documented here: `Panel`, `Tile`, `NoteTile`, `Ledger`, `OneLiners`, `MetricTiles`, `WorkCards`, `Launches`, `Refs`, `RefGroups`, `Years`, `Subhead`, `Button`, `ArrowLink`, `InlineLinks`, `SocialLinks`, `SocialIcon`.
 - Build pages from those components. Add a new pattern here first (CSS in `components/additions.css`, a component in `src/components/ds/`, a line in this readme), then use it.
 
 ## Index
@@ -34,8 +34,7 @@ The design system for **himadri.dev**, the site of Himadri Mishra, AI engineer. 
 | Metric tiles | `hm-metric-tiles`, `hm-metric-tile*`, `hm-refs`, `hm-ref` | `MetricTiles` | Outcome figures with what was measured and links to the work that delivered them. |
 | Reference groups | `hm-groups`, `hm-group`, `hm-ref-list`, `hm-ref`, `hm-groups-intro` | `RefGroups` | Columns of pull requests or references: a plain line, then a mono reference link. |
 | Years | `hm-years`, `hm-years-year`, `hm-years-name` | `Years` | Year and one-line rows. |
-| Feature | `hm-feature`, `hm-feature-main`, `hm-feature-line`, `hm-feature-rows` | `Feature` | The lead piece of work in a panel: title, date, one line and evidence on the left; Before, After and Led to rows on the right. One per panel at most. |
-| Loop | `hm-loop-wrap`, `hm-loop`, `hm-loop-step`, `hm-loop-step--wide`, `hm-loop-head`, `hm-loop-num`, `hm-loop-name`, `hm-loop-systems`, `hm-loop-system`, `hm-loop-shared` | `Loop` | A repeating sequence (measure, explain, test, ship): numbered step tiles with a cadence label and the systems that do each step. A step with several systems spans the row. The shared row holds what every step feeds. Numbers only because the steps are a sequence. |
+| Work cards | `hm-work-cards`, `hm-work-card`, `hm-work-card--wide`, `hm-work-card-body`, `hm-work-card-story`, `hm-work-card-label`, with `hm-bullets` and `hm-refs` | `WorkCards` | Work as cards on a pearl-warm fill. Only the title is set large; the story, the points (an optional bold lead-in label), figures and the evidence links stay at small body size. Wide cards span the row with the story beside the points, for the largest pieces of work; the rest sit two to a row. |
 | Launches | `hm-launches` with `hm-tile`, `hm-launch-result*`, `hm-refs`, `hm-ref` | `Launches` | Shipped work as tiles: a title, the measured result when one exists (a cobalt mono before-and-after with its label), one line on what changed, and links to the evidence. |
 | Refs | `hm-refs`, `hm-ref` | `Refs` | A wrapping row of mono evidence links, such as pull requests. |
 | Subhead | `hm-label hm-label--ink hm-subhead` | `Subhead` | A mono label that introduces a list inside a panel. |
@@ -52,7 +51,7 @@ The design system for **himadri.dev**, the site of Himadri Mishra, AI engineer. 
 - **Sentence case everywhere.** Uppercase only in mono labels, via CSS.
 - **One message per layer.** Do not repeat the statement or the facts line elsewhere on the page.
 - **Proof is a link.** Prefer a public pull request, repository or page over a description. Describe private work by what it does; never add notes about the page itself ("private", "not public", "highlights").
-- **Impact over volume.** Show what changed for users or agents, as a before-and-after percentage where a measurement exists, and link the evidence. Not everything needs a number: a system can be described by what it does and what it led to. Never lead with pull request, commit or fix counts.
+- **Impact over volume.** Show what changed for users or agents, as a before-and-after percentage where a measurement exists, and link the evidence. Not everything needs a number: a system can be described by what it does and what it led to. Never lead with pull request, commit or fix counts. Figures stay at body size inside the text; never set a number in a large display size.
 - **No em dashes, no emoji, no superlatives.** Unicode arrows are the only glyphs: → internal, ↗ external, ↓ in-page, ← back.
 
 ## Visual foundations
