@@ -17,7 +17,6 @@ import {
   before,
   firecrawl,
   hero,
-  heroFactsSegments,
   links,
   now,
   pullRequestUrl,
@@ -61,9 +60,7 @@ export default function Home() {
               </div>
             </div>
             <h1 className="hm-display hm-hero-statement">{hero.punchline}</h1>
-            <p className="hm-lead hm-hero-facts">
-              <InlineLinks segments={heroFactsSegments} />
-            </p>
+            <p className="hm-lead hm-hero-facts">{hero.facts}</p>
             <div className="hm-page-actions">
               <Button href={links.resume}>Resume</Button>
             </div>
