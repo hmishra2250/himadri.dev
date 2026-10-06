@@ -17,7 +17,7 @@ The site had about 2,980 words across six pages: long anonymized case studies, e
 
 ## Page structure
 
-1. Hero: portrait, the punchline as the only h1, the facts line, and links to recent work, GitHub and the resume.
+1. Hero: fills the first screen. Portrait, the punchline as the only h1, the facts line, and two actions: recent work (scrolls to section 01) and the resume. The header carries GitHub, LinkedIn and X as icon links, plus the resume.
 2. 01 Now: Mudita Studios (described by what the work does, no product names), Agent Experience in the open, and an "Also" list of one-liners for side projects that grows over time.
 3. 02 Previously: Firecrawl. Three outcome figures, twelve merged pull requests in three groups, a link to all 87, and one note on the work that is not public.
 4. 03 Before that: a timeline from IIT (BHU) to Knit, earlier open source, and the full resume.

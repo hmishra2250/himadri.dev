@@ -1,6 +1,7 @@
 import Link from "next/link";
-import { hero, links } from "@/content/site";
+import { hero } from "@/content/site";
 import { navRoutes } from "@/lib/routes";
+import { SocialLinks } from "./SocialLinks";
 
 export function SiteHeader() {
   return (
@@ -11,8 +12,7 @@ export function SiteHeader() {
           <span className="hm-brand-role">{hero.role}</span>
         </Link>
         <nav className="hm-nav" aria-label="Primary">
-          <a href={links.agentExperience}>Agent Experience</a>
-          <a href={links.github}>GitHub</a>
+          <SocialLinks />
           {navRoutes.map((route) => (
             <Link
               key={route.path}

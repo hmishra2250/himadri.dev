@@ -470,7 +470,6 @@ a:hover {
 /* ---------- Section ---------- */
 .hm-section {
   padding-top: var(--section-gap);
-  scroll-margin-top: var(--nav-height);
 }
 .hm-section-head {
   display: grid;
@@ -770,9 +769,67 @@ a:hover {
   }
 }
 
-/* Hero */
+/* Hero: fills the first screen so section 01 starts only after a scroll */
+html {
+  scroll-behavior: smooth;
+}
 .site-hero {
-  padding-top: clamp(40px, 5vw, 72px);
+  min-height: calc(100svh - var(--nav-height));
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-block: clamp(40px, 5vw, 72px);
+}
+/* In-page links land with the section rule just under the sticky header */
+.hm-section {
+  scroll-margin-top: calc(var(--nav-height) + 24px - var(--section-gap));
+}
+
+/* Social profiles: brand marks, square 44px targets, channel colour on hover */
+.site-social {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.hm-nav .site-social a.site-social-link {
+  justify-content: center;
+  width: var(--hit-target);
+  padding: 0;
+  color: var(--graphite-soft);
+  transition:
+    color var(--dur-base) var(--ease-out),
+    background-color var(--dur-base) var(--ease-out);
+}
+.hm-nav .site-social a.site-social-link:hover {
+  background: var(--c);
+  color: #fff;
+}
+.site-social-icon {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+  flex: none;
+}
+.site-social--github {
+  --c: #24292f;
+}
+.site-social--linkedin {
+  --c: #0a66c2;
+}
+.site-social--x {
+  --c: #141414;
+}
+.site-footer-social {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.site-footer-social .site-social-icon {
+  width: 15px;
+  height: 15px;
 }
 .site-hero-portrait {
   width: 56px;

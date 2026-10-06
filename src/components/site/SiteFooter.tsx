@@ -1,6 +1,7 @@
 import Link from "next/link";
-import { footer, hero, sections } from "@/content/site";
+import { footer, hero, sections, socials } from "@/content/site";
 import { navRoutes } from "@/lib/routes";
+import { SocialIcon } from "./SocialLinks";
 
 export function SiteFooter() {
   return (
@@ -29,6 +30,14 @@ export function SiteFooter() {
           <nav style={{ gridColumn: "10 / 13" }} aria-label="Elsewhere">
             <span className="hm-label">Elsewhere</span>
             <ul className="hm-footer-list">
+              {socials.map((social) => (
+                <li key={social.id}>
+                  <a className="site-footer-social" href={social.href}>
+                    <SocialIcon id={social.id} />
+                    {social.label}
+                  </a>
+                </li>
+              ))}
               {footer.elsewhere.map((link) => (
                 <li key={link.href}>
                   <a href={link.href}>

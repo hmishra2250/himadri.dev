@@ -343,14 +343,20 @@ export const before = {
   ] satisfies OneLiner[],
 };
 
+export type SocialId = "github" | "linkedin" | "x";
+
+/** Shown as icons in the header and with names in the footer. */
+export const socials = [
+  { id: "github", label: "GitHub", href: links.github },
+  { id: "linkedin", label: "LinkedIn", href: links.linkedin },
+  { id: "x", label: "X", href: links.x },
+] as const satisfies readonly { id: SocialId; label: string; href: string }[];
+
 export const footer = {
   role: "AI engineer. Agents, MCP servers, CLIs and SDKs.",
   privacy:
     "Some of my work is private. I share the ideas, not client code, names or internal results.",
   elsewhere: [
-    { label: "GitHub", href: links.github },
-    { label: "LinkedIn", href: links.linkedin },
-    { label: "X", href: links.x },
     { label: "Agent Experience", href: links.agentExperience },
   ] satisfies ExternalLink[],
 };

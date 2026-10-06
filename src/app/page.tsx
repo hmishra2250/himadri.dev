@@ -52,13 +52,7 @@ export default function Home() {
                 ↓
               </span>
             </a>
-            <a className="hm-button" href={links.github}>
-              GitHub
-              <span className="hm-button-icon" aria-hidden="true">
-                ↗
-              </span>
-            </a>
-            <a className="hm-arrow-link hm-arrow-link--ink" href={links.resume}>
+            <a className="hm-button" href={links.resume}>
               Resume
               <span className="hm-button-icon" aria-hidden="true">
                 →

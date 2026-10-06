@@ -68,6 +68,8 @@ Every other path from earlier versions is retired in `src/lib/routes.ts` and red
 
 - Source of truth: the claude.ai/design project "himadri.dev Design System". Its visual rules apply: pearl, graphite and one cobalt accent; IBM Plex; one 1080px column on one left edge; rules instead of cards; square corners; no shadows, gradients, or entrance animation; light only.
 - `design-system/` is a git-ignored local copy of that project, for reference. Its readme's copy rules are older than `docs/plans/portfolio-one-page-2026-10.md`; where they differ, the plan wins.
+- Icons: the design system has no icon set. The one recorded addition is the GitHub, LinkedIn and X brand marks, inlined as SVG in `src/components/site/SocialLinks.tsx` (Simple Icons paths, CC0). They appear as icon links in the header and with names in the footer, and fill with each channel's colour on hover. Add no other icons or icon packages without a plan.
+- The hero fills the first screen, so section 01 starts only after a scroll; in-page links scroll smoothly and land with the section rule just under the header.
 - Use `hm-*` classes from `src/styles/design-system.css`. Site-specific patterns use `site-*` classes built only from its tokens. Avoid inline styles.
 
 ## Confidentiality constraints
