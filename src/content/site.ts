@@ -64,6 +64,16 @@ export const hero = {
   proof: "resume-summary" satisfies ProofClaimId,
 };
 
+/** The facts line with "Agent Experience" linked; it reads exactly as `hero.facts`. */
+export const heroFactsSegments: Segment[] = (() => {
+  const [before, after] = hero.facts.split("Agent Experience");
+  return [
+    before,
+    { text: "Agent Experience", href: links.agentExperience },
+    after,
+  ];
+})();
+
 export type ShippedItem = {
   when: string;
   text: string;

@@ -321,6 +321,14 @@ html {
   max-width: 46ch;
   font-size: clamp(17px, 1.4vw, 19px);
 }
+.hm-hero-facts .hm-link {
+  color: var(--cobalt-dark);
+  text-decoration-color: var(--cobalt);
+  text-underline-offset: 3px;
+}
+.hm-hero-facts .hm-link:hover {
+  text-decoration-thickness: 2px;
+}
 .hm-hero-main .hm-page-actions {
   margin-top: 28px;
 }

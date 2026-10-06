@@ -1,5 +1,12 @@
 import { readFileSync } from "node:fs";
-import { before, firecrawl, hero, now, sections } from "../src/content/site";
+import {
+  before,
+  firecrawl,
+  hero,
+  links,
+  now,
+  sections,
+} from "../src/content/site";
 import { checkCopy } from "../src/lib/validation";
 import { renderSite } from "./lib/render-site";
 
@@ -20,6 +27,10 @@ assert(
 );
 assert(count(home.text, hero.punchline) === 1, "punchline must appear once");
 assert(count(home.text, hero.facts) === 1, "facts line must appear once");
+assert(
+  home.hrefs.filter((href) => href === links.agentExperience).length >= 2,
+  "Agent Experience must be linked on the first screen (facts line) as well as below",
+);
 assert(
   (resume.html.match(/<h1[\s>]/g) ?? []).length === 1,
   "resume must have one h1",
