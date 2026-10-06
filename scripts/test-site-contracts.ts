@@ -47,9 +47,8 @@ assert(
 );
 const pageImages = readdirSync("public/resume/pages").sort();
 assert(
-  JSON.stringify(pageImages) ===
-    JSON.stringify(["cv-1.png", "cv-2.png", "resume-1.png"]),
-  `public/resume/pages must hold one image per PDF page, found ${pageImages.join(", ")}`,
+  JSON.stringify(pageImages) === JSON.stringify(["resume-1.png"]),
+  `public/resume/pages must hold the one-page resume image, found ${pageImages.join(", ")}`,
 );
 
 // The real content and routes pass.

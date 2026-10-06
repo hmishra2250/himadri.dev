@@ -14,7 +14,7 @@ This repository contains himadri.dev, the personal site of Himadri Mishra: one h
 - Content model: typed modules under `src/content/`
 - Route authority: `src/lib/routes.ts`
 - Validation: local TypeScript scripts under `scripts/`
-- Resume assets: `public/resume/Himadri_Mishra_Resume.pdf` (one-page resume, the default download) and `public/resume/Himadri_Mishra_CV.pdf` (two-page CV, the complete record). Both are built in the `resume` repository; proof locators point at the CV. `/resume` shows them as tabs (`DocumentTabs`) with page images in `public/resume/pages/`, rendered from the PDFs with `pdftoppm -png -scale-to-x 2000 -scale-to-y -1`; regenerate them whenever a PDF changes.
+- Resume assets: `public/resume/Himadri_Mishra_Resume.pdf` (one-page resume, the default download) and `public/resume/Himadri_Mishra_CV.pdf` (two-page CV, the complete record). Both are built in the `resume` repository; proof locators point at the CV. `/resume` shows the one-page resume (`DocumentPages`, page images in `public/resume/pages/`) with a primary download and a quiet link to the CV, rendered from the PDFs with `pdftoppm -png -scale-to-x 2000 -scale-to-y -1`; regenerate them whenever a PDF changes.
 
 ## Source files to read first
 

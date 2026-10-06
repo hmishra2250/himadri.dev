@@ -19,7 +19,7 @@
  *   hm-hero, hm-hero-split                      First-screen hero with a proof panel
  *   hm-social                                   GitHub, LinkedIn and X brand marks
  *   hm-footer-band                              Footer on a soft fill
- *   hm-document, hm-doc-tabs                    Documents as tabs, pages in the page flow
+ *   hm-document, hm-doc-panel                   A document's pages in the page flow
  */
 
 /*
@@ -496,89 +496,17 @@ html {
 }
 
 /*
- * Document tabs: folder tabs on a framed panel. The open tab joins the panel
- * (same fill, a cobalt top edge); closed tabs sit back on the page colour and
- * turn cobalt on hover. Pages render as images in the page flow, so there is
- * no inner scroll. The primary button downloads the open document.
+ * Document pages: the pages render as images in the page flow on a framed
+ * panel, so there is no inner scroll.
  */
-.hm-doc-tabs {
-  margin-top: var(--space-8);
-}
-.hm-doc-tabbar {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: var(--space-3) var(--space-4);
-}
-.hm-doc-tablist {
-  display: flex;
-  gap: 6px;
-  margin-bottom: -1px;
-}
-.hm-doc-tab {
-  display: grid;
-  gap: 2px;
-  min-height: 56px;
-  min-width: 140px;
-  padding: 10px 22px 12px;
-  border: 1px solid var(--hairline-strong);
-  border-top-width: 2px;
-  background: var(--pearl);
-  color: var(--cobalt-dark);
-  font-family: var(--font-sans);
-  text-align: left;
-  cursor: pointer;
-  transition:
-    color var(--dur-fast) var(--ease-inout),
-    background-color var(--dur-fast) var(--ease-inout);
-}
-.hm-doc-tab:hover {
-  background: var(--pearl-warm);
-}
-.hm-doc-tab:hover .hm-doc-tab-label {
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-.hm-doc-tab[aria-selected="true"]:hover .hm-doc-tab-label {
-  text-decoration: none;
-}
-.hm-doc-tab[aria-selected="true"] {
-  position: relative;
-  z-index: 1;
-  border-top-color: var(--cobalt);
-  border-bottom-color: var(--pearl-warm);
-  background: var(--pearl-warm);
-  color: var(--graphite);
-  cursor: default;
-}
-.hm-doc-tab:focus-visible {
-  outline: 2px solid var(--cobalt);
-  outline-offset: 3px;
-}
-.hm-doc-tab-label {
-  font-size: var(--text-h4);
-  font-weight: 500;
-  letter-spacing: -0.01em;
-}
-.hm-doc-tab-meta {
-  font-family: var(--font-mono);
-  font-size: var(--text-label);
-  color: var(--muted);
-}
-.hm-doc-download {
-  margin-bottom: var(--space-3);
-}
 .hm-doc-panel {
   display: grid;
   justify-items: center;
   gap: var(--space-6);
+  margin-top: var(--space-8);
   padding: clamp(16px, 3vw, 40px);
   border: 1px solid var(--hairline-strong);
   background: var(--pearl-warm);
-}
-.hm-doc-panel[hidden] {
-  display: none;
 }
 .hm-doc-page {
   display: block;
@@ -591,18 +519,7 @@ html {
 .hm-doc-panel .hm-document-help {
   margin-top: 0;
 }
-@media (max-width: 560px) {
-  .hm-doc-tablist {
-    width: 100%;
-  }
-  .hm-doc-tab {
-    flex: 1;
-    min-width: 0;
-  }
-  .hm-doc-download {
-    order: -1;
-  }
-}
+
 
 /* ---------- Launches: shipped work as tiles (title, one line, references) ---------- */
 .hm-launches {

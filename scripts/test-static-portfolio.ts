@@ -23,15 +23,17 @@ assert.ok(
   !resumeHtml.includes("<iframe"),
   "Resume pages render in the page flow, not an iframe",
 );
-assert.match(resumeHtml, /role="tablist"/);
+assert.ok(
+  !resumeHtml.includes('role="tablist"'),
+  "One public version, no tabs",
+);
 assert.match(resumeHtml, /resume-1\.png/);
-assert.match(resumeHtml, /cv-1\.png/);
-assert.match(resumeHtml, /cv-2\.png/);
 assert.match(resumeHtml, /<a[^>]*download="Himadri_Mishra_Resume\.pdf"/);
+assert.match(resumeHtml, /<a[^>]*download="Himadri_Mishra_CV\.pdf"/);
 assert.ok(
   resumeHtml.includes("Open the PDF"),
   "Each document needs a link to its selectable-text PDF",
 );
 console.log(
-  "Resume is static: tabs for the resume and CV, pages in the page flow, and a PDF link for each.",
+  "Resume is static: the one-page resume in the page flow, its download, and a link to the full CV.",
 );
