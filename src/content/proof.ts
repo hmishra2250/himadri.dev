@@ -8,6 +8,7 @@
  * - public-profile: a public page or pull request (an https URL)
  * - work-record: the owner's description of private work, by what it does.
  *   It may not carry figures; every number needs a resume or public source.
+ * Resume locators point at the two-page CV (public/resume/Himadri_Mishra_CV.pdf).
  */
 
 export type SourceType = "resume" | "public-profile" | "work-record";
@@ -24,7 +25,8 @@ export type ProofClaim = {
   approvedForPublicUse: boolean;
 };
 
-const resume = "public/resume/Himadri_Mishra_Resume.pdf";
+/** The two-page CV is the complete record; the one-page resume carries a subset of it. */
+const resume = "public/resume/Himadri_Mishra_CV.pdf";
 
 export const proofClaims = [
   {
@@ -90,7 +92,7 @@ export const proofClaims = [
   {
     id: "firecrawl-hosted-mcp",
     claim:
-      "Drove the hosted MCP overhaul across seven repositories: separate keyless and OAuth paths, an OAuth-only search endpoint, and onboarding that adapts to each coding agent.",
+      "Rebuilt the hosted MCP server from first principles on Firecrawl OAuth, replacing API keys in URLs and a mis-wired sign-in: grants database, keyless and account endpoints, and infrastructure. It serves the Claude and Codex connectors and loads half the tokens with no loss in task success.",
     sourcePath: resume,
     sourceLocator: "Firecrawl, bullet 4",
     sourceType: "resume",
@@ -153,10 +155,10 @@ export const proofClaims = [
   {
     id: "firecrawl-insight-fixes",
     claim:
-      "Shipped fixes found by the daily runs, retrievability and Deep Insights across the docs, the API and the website: pricing, billing and benchmark pages, docs samples and identifiers, JSON errors, and website content agents can read.",
-    sourcePath: "Firecrawl Agent Experience work, May to September 2026",
-    sourceLocator: "Owner's account; public docs and API pull requests",
-    sourceType: "work-record",
+      "Shipped the fixes the insights found: pricing, billing, and benchmark pages agents cite, docs samples run in CI, JSON API errors, and recovery messages that tell agents how to handle spent limits and wrong keys.",
+    sourcePath: resume,
+    sourceLocator: "Firecrawl, bullet 6",
+    sourceType: "resume",
     confidentialityLevel: "public",
     approvedForPublicUse: true,
   },
@@ -183,9 +185,9 @@ export const proofClaims = [
   {
     id: "firecrawl-measurement",
     claim:
-      "Built a daily benchmark of whether agents recommend and correctly use Firecrawl, whose discovery metric joined the Q3 top-of-funnel dashboard; weekly reports with quote-checked findings; and a sandboxed experiment harness with traces, cost caps and false-discovery-rate control.",
+      "Built the Agent Experience harness from the first commit, with judges, cost caps and false-discovery-rate control, and A/B tests before releases; built daily discoverability runs, retrievability tracking and weekly Deep Insights checked against raw agent runs, whose discovery metric joined the Q3 top-of-funnel dashboard.",
     sourcePath: resume,
-    sourceLocator: "Firecrawl, bullets 2, 3 and 6",
+    sourceLocator: "Firecrawl, bullets 2 and 3",
     sourceType: "resume",
     confidentialityLevel: "public",
     approvedForPublicUse: true,

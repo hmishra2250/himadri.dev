@@ -26,7 +26,22 @@ export default function ResumePage() {
                 eventName="resume_download_clicked"
                 eventParams={{ source_section: "resume_page" }}
               >
-                Download PDF
+                Download resume
+                <span
+                  className="hm-button-icon hm-button-icon--down"
+                  aria-hidden="true"
+                >
+                  ↓
+                </span>
+              </TrackedAnchor>
+              <TrackedAnchor
+                className="hm-button"
+                href={profile.cvPath}
+                download="Himadri_Mishra_CV.pdf"
+                eventName="resume_download_clicked"
+                eventParams={{ source_section: "resume_page_cv" }}
+              >
+                Full CV, two pages
                 <span
                   className="hm-button-icon hm-button-icon--down"
                   aria-hidden="true"
@@ -45,8 +60,8 @@ export default function ResumePage() {
         />
         <p id="resume-preview-help" className="hm-document-help">
           Preview unavailable in your browser?{" "}
-          <a href={profile.resumePath}>Open the PDF directly</a> or use the
-          download button above.
+          <a href={profile.resumePath}>Open the PDF directly</a>, or open the{" "}
+          <a href={profile.cvPath}>full CV</a>.
         </p>
       </section>
     </>

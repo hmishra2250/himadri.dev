@@ -35,10 +35,11 @@ for (const ignored of [".claude/**", "design-system/**"]) {
   );
   assert(prettierIgnore.includes(ignored), `Prettier must ignore ${ignored}`);
 }
-const resumeFiles = readdirSync("public/resume");
+const resumeFiles = readdirSync("public/resume").sort();
 assert(
-  resumeFiles.length === 1 && resumeFiles[0] === "Himadri_Mishra_Resume.pdf",
-  `public/resume must hold only the canonical PDF, found ${resumeFiles.join(", ")}`,
+  JSON.stringify(resumeFiles) ===
+    JSON.stringify(["Himadri_Mishra_CV.pdf", "Himadri_Mishra_Resume.pdf"]),
+  `public/resume must hold only the one-page resume and the two-page CV, found ${resumeFiles.join(", ")}`,
 );
 
 // The real content and routes pass.

@@ -10,5 +10,8 @@ export const profile = {
   github: links.github,
   x: links.x,
   agentExperience: links.agentExperience,
+  /** One-page resume: the default download */
   resumePath: "/resume/Himadri_Mishra_Resume.pdf",
+  /** Two-page CV: the complete record */
+  cvPath: "/resume/Himadri_Mishra_CV.pdf",
 };

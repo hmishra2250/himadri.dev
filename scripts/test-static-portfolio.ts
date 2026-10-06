@@ -25,10 +25,11 @@ assert.match(
   /<iframe[^>]*src="\/resume\/Himadri_Mishra_Resume\.pdf#view=FitH"/,
 );
 assert.match(resumeHtml, /<a[^>]*download="Himadri_Mishra_Resume\.pdf"/);
+assert.match(resumeHtml, /<a[^>]*download="Himadri_Mishra_CV\.pdf"/);
 assert.ok(
   resumeHtml.includes("Open the PDF directly"),
   "Embedded viewer needs a visible fallback",
 );
 console.log(
-  "Resume is static with an inline canonical PDF, download and fallback.",
+  "Resume is static with the one-page PDF inline, both downloads and a fallback.",
 );
