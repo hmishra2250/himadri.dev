@@ -147,10 +147,10 @@ export function validateContent(): string[] {
   }
 
   const prKeys = new Set<string>();
-  const allPrs = [
-    ...site.firecrawl.rewrite.prs,
-    ...site.firecrawl.changes.flatMap((change) => change.prs),
-  ];
+  const allPrs = site.firecrawl.cards.flatMap((card) => [
+    ...(card.more?.prs ?? []),
+    ...(card.rows ?? []).flatMap((row) => row.prs),
+  ]);
   for (const pr of allPrs) {
     const key = `${pr.repo}#${pr.number}`;
     if (!Number.isInteger(pr.number) || pr.number <= 0) {
