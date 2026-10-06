@@ -73,7 +73,7 @@ Every other path from earlier versions is retired in `src/lib/routes.ts` and red
 - To add a pattern: add its CSS to `design-system/components/additions.css`, a component to `src/components/ds/`, and a row to the readme's "v3 additions" table, then use it.
 - Visual rules: pearl, graphite and one cobalt accent; IBM Plex Sans, with Plex Mono only for indices, labels, dates, status, provenance and figures; one 1080px column on one left edge; square corners; no shadows, gradients or entrance animation; light only.
 - Sections are framed panels with the label cut into the top edge. Inside a panel, space and soft fills separate things; do not add horizontal rules.
-- Icons: the only icons are the GitHub, LinkedIn and X brand marks in `src/components/ds/SocialLinks.tsx` (Simple Icons paths, CC0). Add no others without updating the design system readme.
+- Icons: the only icons are the header marks in `src/components/ds/SocialLinks.tsx`: the Agent Experience AX monogram (official raster mark, never recoloured) and the GitHub, LinkedIn and X brand marks (Simple Icons paths, CC0). Add no others without updating the design system readme.
 - The hero fills the first screen with a `Ledger` of shipped work beside the statement; its "Recent work" button scrolls to section 01.
 - `design-system/ui_kits/` (the retired six-page site) is git-ignored. `design-system/SYNC.md` records how the folder differs from the claude.ai/design project; push changes back with `/design-sync`.
 

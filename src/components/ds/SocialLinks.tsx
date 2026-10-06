@@ -1,4 +1,5 @@
-import { socials, type SocialId } from "@/content/site";
+import Image from "next/image";
+import { links, socials, type SocialId } from "@/content/site";
 
 /*
  * Brand marks for the three social profiles, inlined so they need no icon
@@ -26,10 +27,31 @@ export function SocialIcon({ id }: { id: SocialId }) {
   );
 }
 
-/** Icon-only links with accessible names; hover fills the channel colour. */
+/**
+ * Icon-only links with accessible names; hover fills the channel colour. The
+ * Agent Experience mark leads: it is the official raster mark from
+ * agentexperience.tech (public/brand), shown at icon size and never recoloured,
+ * so its hover is a soft fill instead of a channel colour.
+ */
 export function SocialLinks() {
   return (
     <ul className="hm-social" aria-label="Profiles">
+      <li>
+        <a
+          href={links.agentExperience}
+          className="hm-social-link hm-social--ax"
+          aria-label="Agent Experience"
+          title="Agent Experience"
+        >
+          <Image
+            className="hm-social-mark"
+            src="/images/agent-experience-mark.png"
+            width={28}
+            height={28}
+            alt=""
+          />
+        </a>
+      </li>
       {socials.map((social) => (
         <li key={social.id}>
           <a

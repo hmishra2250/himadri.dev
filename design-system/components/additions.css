@@ -17,7 +17,7 @@
  *   hm-work-cards                               Work as cards: large title, small story and points
  *   hm-years                                    Year and line rows without rules
  *   hm-hero, hm-hero-split                      First-screen hero with a proof panel
- *   hm-social                                   GitHub, LinkedIn and X brand marks
+ *   hm-social                                   Agent Experience, GitHub, LinkedIn and X marks
  *   hm-footer-band                              Footer on a soft fill
  *   hm-document, hm-doc-panel                   A document's pages in the page flow
  */
@@ -293,6 +293,14 @@ html {
 }
 .hm-social--x {
   --c: #141414;
+}
+.hm-nav .hm-social a.hm-social--ax:hover {
+  background: var(--pearl-warm);
+}
+.hm-social-mark {
+  display: block;
+  width: 28px;
+  height: 28px;
 }
 .hm-footer-social {
   display: inline-flex;

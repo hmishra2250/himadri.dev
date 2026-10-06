@@ -69,7 +69,7 @@ The design system for **himadri.dev**, the site of Himadri Mishra, AI engineer. 
 
 ## Iconography
 
-No icon set. Affordances are unicode arrows inside `aria-hidden` spans, and bullets are a 10px cobalt dash drawn in CSS. The one addition is the GitHub, LinkedIn and X brand marks, inlined as SVG in `src/components/ds/SocialLinks.tsx` (Simple Icons paths, CC0). Add no other icons without updating this section.
+No icon set. Affordances are unicode arrows inside `aria-hidden` spans, and bullets are a 10px cobalt dash drawn in CSS. The additions are the header marks in `src/components/ds/SocialLinks.tsx`: the Agent Experience AX monogram first (the official raster mark from agentexperience.tech, `public/images/agent-experience-mark.png`, shown at 28px, never recoloured, soft pearl-warm hover), then GitHub, LinkedIn and X inlined as SVG (Simple Icons paths, CC0). Add no other icons without updating this section.
 
 ## Brand mark
 
