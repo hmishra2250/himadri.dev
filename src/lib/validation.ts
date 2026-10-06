@@ -37,6 +37,10 @@ export const bannedCopyPatterns: ReadonlyArray<readonly [RegExp, string]> = [
     /21%\s*(?:to|→)\s*100%|tool-naming fix took|became a company goal/i,
     "unsupported figure (see the work catalogue)",
   ],
+  [
+    /client work is private|work is private|not public|private repo|full record is below|a few highlights/i,
+    "meta note about the page; say the work, not what is hidden",
+  ],
 ];
 
 export const homeSectionIds = new Set<string>(
@@ -138,7 +142,7 @@ export function validateContent(): string[] {
 
   const prKeys = new Set<string>();
   const allPrs = [
-    ...site.firecrawl.launches.flatMap((launch) => launch.prs),
+    ...site.firecrawl.fixes.flatMap((fix) => fix.prs),
     ...site.firecrawl.outcomes.flatMap((outcome) => outcome.prs ?? []),
   ];
   for (const pr of allPrs) {

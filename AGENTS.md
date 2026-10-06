@@ -48,6 +48,7 @@ Every other path from earlier versions is retired in `src/lib/routes.ts` and red
 
 - Everything the site says lives in `src/content/site.ts`, in reading order.
 - To add a side project, add a one-liner at the top of `now.also`. Leave out `href` while the repository is private; the name then renders as plain text.
+- Lead with impact, as before-and-after percentages where a measurement exists. Do not lead with pull request, commit or fix counts.
 - Every company-specific statement and every number references a claim in `src/content/proof.ts` through a `proof` id. Claims must be approved, public, and sourced from the current resume or a public URL.
 - Merged pull requests and public repositories are their own proof: link them.
 - Identity fields for metadata and structured data live in `src/content/profile.ts`.
@@ -62,7 +63,7 @@ Every other path from earlier versions is retired in `src/lib/routes.ts` and red
 - No public email address.
 - No Mudita Studios product names; describe what the work does.
 - No retired metrics (48-72h, 10x, 93% to 98%). Knit reads "2-3 days to under an hour".
-- No "(Contract)" labels and no per-block "anonymized summary" caveats; the footer carries one privacy line.
+- No "(Contract)" labels and no meta notes about the page ("client work is private", "not public", "a few highlights"). Describe the work and its impact; leave out what is hidden.
 
 ## Design system
 

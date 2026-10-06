@@ -29,7 +29,7 @@ for (const section of sections) {
   assert(home.ids.has(section.id), `home is missing section #${section.id}`);
 }
 
-for (const item of [...now.also, ...before.openSource]) {
+for (const item of [...now.also, ...before.openSource, ...firecrawl.leads]) {
   assert(home.text.includes(item.name), `one-liner not rendered: ${item.name}`);
   if (item.href) {
     assert(
@@ -72,7 +72,7 @@ for (const page of [home, resume]) {
 }
 
 const words = home.text.split(/\s+/).length;
-assert(words <= 900, `homepage has ${words} words; keep it under 900`);
+assert(words <= 1050, `homepage has ${words} words; keep it under 1,050`);
 
 const pageSource = readFileSync("src/app/page.tsx", "utf8");
 assert(

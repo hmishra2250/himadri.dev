@@ -7,7 +7,6 @@ import {
   Launches,
   Ledger,
   MetricTiles,
-  NoteTile,
   OneLiners,
   Panel,
   Subhead,
@@ -63,7 +62,6 @@ export default function Home() {
           <Ledger
             label={shipped.label}
             items={shipped.items}
-            note={shipped.note}
             cta={{ label: "Recent work", href: "#now" }}
           />
         </div>
@@ -77,7 +75,6 @@ export default function Home() {
                 <li key={item}>{item}</li>
               ))}
             </ul>
-            <span className="hm-label hm-label--plain">{now.mudita.note}</span>
           </Tile>
           <Tile
             title={now.agentExperience.name}
@@ -121,12 +118,16 @@ export default function Home() {
             }))}
           />
           <div>
-            <Subhead>{firecrawl.launchesLabel}</Subhead>
+            <Subhead>{firecrawl.leadsLabel}</Subhead>
+            <OneLiners items={firecrawl.leads} />
+          </div>
+          <div>
+            <Subhead>{firecrawl.fixesLabel}</Subhead>
             <Launches
-              items={firecrawl.launches.map((launch) => ({
-                title: launch.title,
-                line: launch.line,
-                refs: launch.prs.map((pr) => ({
+              items={firecrawl.fixes.map((fix) => ({
+                title: fix.title,
+                line: fix.line,
+                refs: fix.prs.map((pr) => ({
                   label: `${pr.repo} #${pr.number}`,
                   href: pullRequestUrl(pr),
                   title: pr.summary,
@@ -134,7 +135,6 @@ export default function Home() {
               }))}
             />
           </div>
-          <NoteTile label="Not public">{firecrawl.notPublic}</NoteTile>
         </div>
       </Panel>
 

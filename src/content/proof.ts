@@ -54,7 +54,7 @@ export const proofClaims = [
   {
     id: "mudita-delivery-platform",
     claim:
-      "Set up the delivery platform for a second product: CI/CD, preview environments and daily browser smoke tests.",
+      "Set up the delivery platform for a second product: CI/CD, preview environments and daily smoke tests.",
     sourcePath: resume,
     sourceLocator: "Mudita Studios, bullet 5",
     sourceType: "resume",
@@ -64,7 +64,7 @@ export const proofClaims = [
   {
     id: "firecrawl-routing-instructions",
     claim:
-      "After routing instructions were added to the MCP server, Claude Code used Firecrawl instead of its built-in web search in 15 of 15 trials (Codex used Firecrawl in 10 of 15).",
+      "Before the routing instructions, 0% of search queries from MCP-only users went to Firecrawl; after them, Claude Code used Firecrawl instead of its built-in web search in 100% of trials and Codex used Firecrawl in 67%.",
     sourcePath: "https://github.com/firecrawl/firecrawl-mcp-server/pull/240",
     sourceLocator: "Pull request description, test results",
     sourceType: "public-profile",
@@ -74,7 +74,7 @@ export const proofClaims = [
   {
     id: "firecrawl-index-skill",
     claim:
-      "With the research-index skill delivered, agents reached the paper index in 48 of 48 biomedical test runs, against 0 of 48 without it; the six-repository launch merged on one day.",
+      "With the research-index skill installed, agents reached the paper index in 100% of biomedical test runs, against 0% without it.",
     sourcePath: "https://github.com/firecrawl/skills/pull/10",
     sourceLocator: "Pull request description, measured results",
     sourceType: "public-profile",
@@ -82,11 +82,21 @@ export const proofClaims = [
     approvedForPublicUse: true,
   },
   {
-    id: "firecrawl-insights-to-fixes",
+    id: "firecrawl-hosted-mcp",
     claim:
-      "Findings from the weekly agent reports drove 21 fixes across docs, website and API in one week, each traced to a cited finding.",
+      "Drove the hosted MCP overhaul across seven repositories: separate keyless and OAuth paths, an OAuth-only search endpoint, and onboarding that adapts to each coding agent.",
     sourcePath: resume,
-    sourceLocator: "Firecrawl, bullet 6",
+    sourceLocator: "Firecrawl, bullet 4",
+    sourceType: "resume",
+    confidentialityLevel: "public",
+    approvedForPublicUse: true,
+  },
+  {
+    id: "firecrawl-launch-dri",
+    claim:
+      "Agent Experience DRI for the Developer Index, Life Sciences, and Government and Legal launches.",
+    sourcePath: resume,
+    sourceLocator: "Firecrawl, bullet 5",
     sourceType: "resume",
     confidentialityLevel: "public",
     approvedForPublicUse: true,
@@ -102,7 +112,7 @@ export const proofClaims = [
     approvedForPublicUse: true,
   },
   {
-    id: "firecrawl-not-public",
+    id: "firecrawl-measurement",
     claim:
       "Built a daily benchmark of whether agents recommend and correctly use Firecrawl, weekly reports with quote-checked findings, and a sandboxed experiment harness.",
     sourcePath: resume,

@@ -15,12 +15,10 @@ export type LedgerItem = {
 export function Ledger({
   label,
   items,
-  note,
   cta,
 }: {
   label: string;
   items: readonly LedgerItem[];
-  note: string;
   cta: { label: string; href: string };
 }) {
   return (
@@ -60,7 +58,6 @@ export function Ledger({
         ))}
       </ol>
       <div className="hm-ledger-foot">
-        <p className="hm-ledger-note">{note}</p>
         <Button
           href={cta.href}
           variant="primary"

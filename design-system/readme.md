@@ -48,8 +48,8 @@ The design system for **himadri.dev**, the site of Himadri Mishra, AI engineer. 
 - **Headlines are sentences ending in a period.** "What I work on.", "Agent Experience at Firecrawl." The page h1 is the site's statement; role words appear once, small, beside the name.
 - **Sentence case everywhere.** Uppercase only in mono labels, via CSS.
 - **One message per layer.** Do not repeat the statement or the facts line elsewhere on the page.
-- **Proof is a link.** Prefer a public pull request, repository or page over a description. Private work is described by what it does, with one privacy line in the footer rather than a caveat on every block.
-- **Impact over volume.** Show what changed and link the evidence; do not lead with pull request or commit counts. A number carries what was measured and the run count, and comes from an approved source.
+- **Proof is a link.** Prefer a public pull request, repository or page over a description. Describe private work by what it does; never add notes about the page itself ("private", "not public", "highlights").
+- **Impact over volume.** Show what changed for users or agents, as a before-and-after percentage where a measurement exists, and link the evidence. Never lead with pull request, commit or fix counts.
 - **No em dashes, no emoji, no superlatives.** Unicode arrows are the only glyphs: → internal, ↗ external, ↓ in-page, ← back.
 
 ## Visual foundations

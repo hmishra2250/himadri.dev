@@ -50,7 +50,6 @@ export function SiteFooter() {
         </div>
         <div className="hm-footer-bottom">
           <span>© 2026 {hero.name}</span>
-          <span>{footer.privacy}</span>
         </div>
       </div>
     </footer>
