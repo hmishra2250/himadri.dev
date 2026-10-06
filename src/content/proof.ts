@@ -195,9 +195,9 @@ export const proofClaims = [
   {
     id: "knit-turnaround",
     claim:
-      "Built an agentic research platform that cut report turnaround from 2-3 days to under an hour.",
+      "Architected the AI pipeline of the Knit research platform and wrote its core: the shared library, data ingestion, the analysis pipeline and agentic deck generation. Survey data becomes checked insights, memos and decks, cutting report turnaround from 2-3 days to under an hour.",
     sourcePath: resume,
-    sourceLocator: "Knit, bullet 1",
+    sourceLocator: "Knit, bullets 1 to 4",
     sourceType: "resume",
     confidentialityLevel: "public",
     approvedForPublicUse: true,

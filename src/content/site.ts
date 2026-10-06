@@ -420,7 +420,7 @@ export const before = {
     {
       years: "2025-2026",
       name: "Knit",
-      line: "Senior AI Engineer. Built the agentic research platform that cut report turnaround from 2-3 days to under an hour.",
+      line: "Senior AI Engineer. Architected the AI pipeline of the research platform: the shared core library, data ingestion, the analysis and memo pipeline, and agentic deck generation. Report turnaround went from 2-3 days to under an hour.",
       proof: "knit-turnaround",
     },
     {
