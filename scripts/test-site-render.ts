@@ -39,25 +39,21 @@ for (const item of [...now.also, ...before.openSource]) {
   }
 }
 
-for (const card of firecrawl.cards) {
-  assert(home.text.includes(card.title), `card missing: ${card.title}`);
-  if (card.result) {
-    assert(
-      home.glance.includes(card.result.label),
-      `result must show before any click: ${card.result.label}`,
-    );
-  }
-}
 assert(
-  firecrawl.cards.length === 4,
-  "Firecrawl shows three impact cards and one card for the rest",
+  home.text.includes(firecrawl.rewrite.title),
+  "the hosted MCP rewrite must lead the Firecrawl panel",
 );
 for (const step of firecrawl.loop) {
   assert(home.text.includes(step.name), `loop step missing: ${step.name}`);
-  assert(
-    !home.glance.includes(step.systems[0].line),
-    `the loop must stay collapsed until opened: ${step.name}`,
-  );
+}
+for (const change of firecrawl.changes) {
+  assert(home.text.includes(change.title), `change missing: ${change.title}`);
+  if (change.result) {
+    assert(
+      home.text.includes(change.result.label),
+      `result missing: ${change.result.label}`,
+    );
+  }
 }
 const prLinks = home.hrefs.filter((href) => href.includes("/pull/"));
 for (const href of prLinks) {
@@ -85,11 +81,8 @@ for (const page of [home, resume]) {
   );
 }
 
-const words = home.glance.split(/\s+/).length;
-assert(
-  words <= 900,
-  `homepage shows ${words} words before any disclosure opens; keep it under 900`,
-);
+const words = home.text.split(/\s+/).length;
+assert(words <= 1200, `homepage has ${words} words; keep it under 1,200`);
 
 const pageSource = readFileSync("src/app/page.tsx", "utf8");
 assert(

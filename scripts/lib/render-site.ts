@@ -8,10 +8,8 @@ import { SiteHeader } from "../../src/components/site/SiteHeader";
 export type RenderedPage = {
   path: string;
   html: string;
-  /** All text, tags stripped and entities decoded */
+  /** Visible text, tags stripped and entities decoded */
   text: string;
-  /** Text a reader sees before opening any disclosure */
-  glance: string;
   ids: Set<string>;
   hrefs: string[];
 };
@@ -35,24 +33,13 @@ function render(path: string, page: () => React.ReactNode): RenderedPage {
       createElement(SiteFooter),
     ),
   );
-  const toText = (markup: string) =>
-    decode(
-      markup
-        .replace(/<script[\s\S]*?<\/script>/g, " ")
-        .replace(/<[^>]+>/g, " "),
-    )
-      .replace(/\s+/g, " ")
-      .trim();
-  // Disclosures are not nested, so a lazy match keeps only each summary.
-  const collapsed = html.replace(
-    /<details[^>]*>\s*(<summary>[\s\S]*?<\/summary>)[\s\S]*?<\/details>/g,
-    "$1",
-  );
+  const visible = html
+    .replace(/<script[\s\S]*?<\/script>/g, " ")
+    .replace(/<[^>]+>/g, " ");
   return {
     path,
     html,
-    text: toText(html),
-    glance: toText(collapsed),
+    text: decode(visible).replace(/\s+/g, " ").trim(),
     ids: new Set([...html.matchAll(/\sid="([^"]+)"/g)].map((m) => m[1])),
     hrefs: [...html.matchAll(/\shref="([^"]+)"/g)].map((m) => decode(m[1])),
   };

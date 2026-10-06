@@ -14,9 +14,8 @@
  *   hm-metric-tiles                             Outcome figures as tiles
  *   hm-groups, hm-ref-list, hm-ref              Grouped pull requests or references
  *   hm-launches                                 Shipped work as tiles: title, result, one line, refs
+ *   hm-feature                                  The lead piece of work: story, before and after rows
  *   hm-loop                                     A repeating sequence of numbered steps as tiles
- *   hm-impact-cards                             Impact as cards with a collapsed details toggle
- *   hm-disclosure                               Collapsed content: inline toggle or bottom pane
  *   hm-years                                    Year and line rows without rules
  *   hm-hero, hm-hero-split                      First-screen hero with a proof panel
  *   hm-social                                   GitHub, LinkedIn and X brand marks
@@ -550,6 +549,63 @@ html {
   }
 }
 
+/* ---------- Feature: the lead piece of work in a panel ---------- */
+.hm-feature {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: clamp(24px, 4vw, 56px);
+  padding: clamp(24px, 3vw, 40px);
+  background: var(--pearl-warm);
+}
+.hm-feature-main {
+  display: grid;
+  gap: var(--space-4);
+  align-content: start;
+}
+.hm-feature-main .hm-meta {
+  margin-top: 0;
+}
+.hm-feature-line {
+  color: var(--graphite-soft);
+  font-size: var(--text-small);
+  line-height: 1.6;
+}
+.hm-feature-rows {
+  display: grid;
+  gap: var(--space-5);
+  align-content: start;
+  margin: 0;
+}
+.hm-feature-rows > div {
+  display: grid;
+  grid-template-columns: 76px minmax(0, 1fr);
+  gap: var(--space-4);
+}
+.hm-feature-rows dt {
+  align-self: start;
+  padding-top: 4px;
+}
+.hm-feature-rows > div:last-child dt {
+  color: var(--cobalt-dark);
+}
+.hm-feature-rows dd {
+  margin: 0;
+  color: var(--graphite);
+  font-size: var(--text-body);
+  line-height: 1.55;
+}
+@media (max-width: 860px) {
+  .hm-feature {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 480px) {
+  .hm-feature-rows > div {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+}
+
 /*
  * Loop: a repeating sequence. Each numbered step is a tile; a step with
  * several systems spans the row and lays them out in columns. A shared row
@@ -629,172 +685,5 @@ html {
   .hm-loop-step--wide .hm-loop-systems,
   .hm-loop-shared {
     grid-template-columns: 1fr;
-  }
-}
-
-/* ---------- Impact cards: result or one line first, the rest collapsed ---------- */
-.hm-impact-cards {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--space-3);
-}
-.hm-impact-card {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-4);
-}
-.hm-impact-card h3 {
-  font-size: var(--text-h4);
-  font-weight: 500;
-  letter-spacing: -0.01em;
-  line-height: var(--leading-snug);
-}
-.hm-impact-result {
-  display: grid;
-  gap: 6px;
-}
-.hm-impact-result-value {
-  font-family: var(--font-mono);
-  font-size: clamp(28px, 3vw, 40px);
-  font-weight: 500;
-  letter-spacing: -0.03em;
-  line-height: 1.05;
-  color: var(--cobalt-dark);
-  font-variant-numeric: tabular-nums;
-}
-.hm-impact-result-label,
-.hm-impact-line {
-  color: var(--graphite);
-  font-size: var(--text-body);
-  line-height: 1.5;
-}
-.hm-impact-rows {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: grid;
-  gap: var(--space-3);
-}
-.hm-impact-rows li {
-  display: grid;
-  gap: 2px;
-  color: var(--graphite-soft);
-  font-size: var(--text-small);
-  line-height: 1.5;
-}
-.hm-impact-row-name {
-  color: var(--graphite);
-  font-weight: 500;
-}
-.hm-impact-card .hm-disclosure {
-  margin-top: auto;
-}
-.hm-impact-ref-group {
-  display: grid;
-  gap: 4px;
-}
-@media (max-width: 760px) {
-  .hm-impact-cards {
-    grid-template-columns: 1fr;
-  }
-}
-
-/*
- * Disclosure: native details and summary. The arrow turns to show the state;
- * the summary is the 44px hit target.
- */
-.hm-disclosure > summary {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-4);
-  min-height: 44px;
-  cursor: pointer;
-  list-style: none;
-}
-.hm-disclosure > summary::-webkit-details-marker {
-  display: none;
-}
-.hm-disclosure > summary:focus-visible {
-  outline: 2px solid var(--cobalt);
-  outline-offset: 3px;
-}
-.hm-disclosure-arrow {
-  flex: none;
-  color: var(--cobalt-dark);
-  transition: transform var(--dur-base) var(--ease-out);
-}
-.hm-disclosure[open] > summary .hm-disclosure-arrow {
-  transform: rotate(180deg);
-}
-.hm-disclosure-body {
-  display: grid;
-  gap: var(--space-4);
-}
-.hm-disclosure-body p {
-  color: var(--graphite-soft);
-  font-size: var(--text-small);
-  line-height: 1.55;
-}
-.hm-disclosure--inline > summary {
-  justify-content: flex-start;
-  gap: var(--space-2);
-  min-height: 44px;
-  margin-bottom: -10px;
-  font-family: var(--font-mono);
-  font-size: var(--text-label);
-  font-weight: 500;
-  letter-spacing: var(--tracking-label);
-  text-transform: uppercase;
-  color: var(--cobalt-dark);
-}
-.hm-disclosure--inline > summary:hover .hm-disclosure-title {
-  text-decoration: underline;
-}
-.hm-disclosure--inline[open] > .hm-disclosure-body {
-  padding-top: var(--space-2);
-  padding-bottom: var(--space-2);
-}
-.hm-disclosure--pane > summary {
-  padding: clamp(20px, 2.4vw, 28px);
-  background: var(--pearl-warm);
-}
-.hm-disclosure--pane .hm-disclosure-title {
-  transition: color var(--dur-fast) var(--ease-inout);
-}
-.hm-disclosure--pane > summary:hover .hm-disclosure-title {
-  color: var(--cobalt-dark);
-}
-.hm-disclosure--pane > summary:hover .hm-disclosure-arrow {
-  transform: translateY(3px);
-}
-.hm-disclosure--pane[open] > summary:hover .hm-disclosure-arrow {
-  transform: rotate(180deg) translateY(3px);
-}
-.hm-disclosure--pane > summary .hm-disclosure-arrow {
-  font-size: var(--text-h4);
-}
-.hm-disclosure-text {
-  display: grid;
-  gap: 4px;
-}
-.hm-disclosure--pane .hm-disclosure-title {
-  color: var(--graphite);
-  font-size: var(--text-h4);
-  font-weight: 500;
-  letter-spacing: -0.01em;
-}
-.hm-disclosure-summary {
-  color: var(--graphite-soft);
-  font-size: var(--text-small);
-  line-height: 1.5;
-}
-.hm-disclosure--pane[open] > .hm-disclosure-body {
-  padding-top: var(--space-3);
-}
-@media (prefers-reduced-motion: reduce) {
-  .hm-disclosure-arrow,
-  .hm-disclosure--pane .hm-disclosure-title {
-    transition: none;
   }
 }

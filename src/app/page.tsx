@@ -3,9 +3,9 @@ import Image from "next/image";
 import {
   ArrowLink,
   Button,
-  Disclosure,
-  ImpactCards,
+  Feature,
   InlineLinks,
+  Launches,
   Ledger,
   Loop,
   OneLiners,
@@ -115,29 +115,28 @@ export default function Home() {
         }
       >
         <div className="hm-stack">
-          <ImpactCards
-            items={firecrawl.cards.map((card) => ({
-              title: card.title,
-              result: card.result,
-              line: card.line,
-              rows: card.rows?.map((row) => ({
-                name: row.name,
-                line: row.line,
-                refs: pullRequestRefs(row.prs),
-              })),
-              more: card.more && {
-                text: card.more.text,
-                refs: pullRequestRefs(card.more.prs),
-              },
-            }))}
+          <Feature
+            meta={firecrawl.rewrite.meta}
+            title={firecrawl.rewrite.title}
+            line={firecrawl.rewrite.line}
+            rows={firecrawl.rewrite.rows}
+            refs={pullRequestRefs(firecrawl.rewrite.prs)}
           />
-          <Disclosure
-            variant="pane"
-            label={firecrawl.loopLabel}
-            summary={firecrawl.loopSummary}
-          >
+          <div>
+            <Subhead>{firecrawl.loopLabel}</Subhead>
             <Loop steps={firecrawl.loop} shared={firecrawl.shared} />
-          </Disclosure>
+          </div>
+          <div>
+            <Subhead>{firecrawl.changesLabel}</Subhead>
+            <Launches
+              items={firecrawl.changes.map((change) => ({
+                title: change.title,
+                line: change.line,
+                result: change.result,
+                refs: pullRequestRefs(change.prs),
+              }))}
+            />
+          </div>
         </div>
       </Panel>
 
