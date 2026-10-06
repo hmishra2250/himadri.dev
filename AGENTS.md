@@ -68,7 +68,7 @@ Every other path from earlier versions is retired in `src/lib/routes.ts` and red
 
 - `design-system/` is the himadri.dev Design System and the single source for the site's look. Read `design-system/readme.md` before any UI change.
 - `src/styles/globals.css` imports its tokens, `components/components.css` and `components/additions.css` directly. Do not copy design-system CSS into `src/`.
-- Build pages from the typed components in `src/components/ds/` (`Panel`, `Tile`, `NoteTile`, `Ledger`, `OneLiners`, `MetricTiles`, `RefGroups`, `Years`, `Subhead`, `Button`, `ArrowLink`, `InlineLinks`, `SocialLinks`). They emit only documented `hm-*` classes. Avoid inline styles and one-off classes.
+- Build pages from the typed components in `src/components/ds/` (`Panel`, `Tile`, `NoteTile`, `Ledger`, `OneLiners`, `MetricTiles`, `Launches`, `RefGroups`, `Years`, `Subhead`, `Button`, `ArrowLink`, `InlineLinks`, `SocialLinks`). They emit only documented `hm-*` classes. Avoid inline styles and one-off classes.
 - To add a pattern: add its CSS to `design-system/components/additions.css`, a component to `src/components/ds/`, and a row to the readme's "v3 additions" table, then use it.
 - Visual rules: pearl, graphite and one cobalt accent; IBM Plex Sans, with Plex Mono only for indices, labels, dates, status, provenance and figures; one 1080px column on one left edge; square corners; no shadows, gradients or entrance animation; light only.
 - Sections are framed panels with the label cut into the top edge. Inside a panel, space and soft fills separate things; do not add horizontal rules.

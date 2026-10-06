@@ -4,12 +4,12 @@ import {
   ArrowLink,
   Button,
   InlineLinks,
+  Launches,
   Ledger,
   MetricTiles,
   NoteTile,
   OneLiners,
   Panel,
-  RefGroups,
   Subhead,
   Tile,
   Years,
@@ -23,19 +23,12 @@ import {
   now,
   pullRequestUrl,
   shipped,
-  type PullRequest,
 } from "@/content/site";
 import { buildPageMetadata } from "@/lib/seo";
 
 export const dynamic = "error";
 
 export const metadata: Metadata = buildPageMetadata("/");
-
-const prRef = (pr: PullRequest) => ({
-  text: pr.summary,
-  label: `${pr.repo} #${pr.number}`,
-  href: pullRequestUrl(pr),
-});
 
 export default function Home() {
   return (
@@ -111,7 +104,7 @@ export default function Home() {
         intro={firecrawl.intro}
         aside={
           <ArrowLink href={links.firecrawlPullRequests}>
-            All {firecrawl.pullRequestCount} merged PRs
+            Open-source pull requests
           </ArrowLink>
         }
       >
@@ -127,13 +120,20 @@ export default function Home() {
               })),
             }))}
           />
-          <RefGroups
-            intro={`${firecrawl.pullRequestCount} pull requests merged across ${firecrawl.repositoryCount} open-source repositories. A selection:`}
-            groups={firecrawl.groups.map((group) => ({
-              title: group.title,
-              refs: group.prs.map(prRef),
-            }))}
-          />
+          <div>
+            <Subhead>{firecrawl.launchesLabel}</Subhead>
+            <Launches
+              items={firecrawl.launches.map((launch) => ({
+                title: launch.title,
+                line: launch.line,
+                refs: launch.prs.map((pr) => ({
+                  label: `${pr.repo} #${pr.number}`,
+                  href: pullRequestUrl(pr),
+                  title: pr.summary,
+                })),
+              }))}
+            />
+          </div>
           <NoteTile label="Not public">{firecrawl.notPublic}</NoteTile>
         </div>
       </Panel>

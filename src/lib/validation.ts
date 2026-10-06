@@ -33,6 +33,10 @@ export const bannedCopyPatterns: ReadonlyArray<readonly [RegExp, string]> = [
     "per-block anonymized caveat",
   ],
   [/\(Contract\)/, "contract label"],
+  [
+    /21%\s*(?:to|→)\s*100%|tool-naming fix took|became a company goal/i,
+    "unsupported figure (see the work catalogue)",
+  ],
 ];
 
 export const homeSectionIds = new Set<string>(
@@ -134,7 +138,7 @@ export function validateContent(): string[] {
 
   const prKeys = new Set<string>();
   const allPrs = [
-    ...site.firecrawl.groups.flatMap((group) => group.prs),
+    ...site.firecrawl.launches.flatMap((launch) => launch.prs),
     ...site.firecrawl.outcomes.flatMap((outcome) => outcome.prs ?? []),
   ];
   for (const pr of allPrs) {
@@ -147,9 +151,6 @@ export function validateContent(): string[] {
     }
     if (prKeys.has(key)) errors.push(`pull request listed twice: ${key}`);
     prKeys.add(key);
-  }
-  if (allPrs.length > site.firecrawl.pullRequestCount) {
-    errors.push("more pull requests listed than the stated merged count");
   }
 
   if (site.now.also.length === 0) {

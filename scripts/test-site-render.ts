@@ -53,8 +53,8 @@ for (const href of prLinks) {
   );
 }
 assert(
-  prLinks.length >= 12,
-  `expected at least 12 pull request links, found ${prLinks.length}`,
+  prLinks.length >= 10,
+  `expected at least 10 pull request links, found ${prLinks.length}`,
 );
 
 for (const page of [home, resume]) {

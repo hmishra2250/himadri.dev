@@ -7,7 +7,7 @@ The design system for **himadri.dev**, the site of Himadri Mishra, AI engineer. 
 ## How the site uses it
 
 - `src/styles/globals.css` imports the tokens (except `fonts.css`), `components/components.css` and `components/additions.css` from this folder. IBM Plex is loaded with `next/font` instead of the Google Fonts import.
-- `src/components/ds/` holds typed React components that emit only the classes documented here: `Panel`, `Tile`, `NoteTile`, `Ledger`, `OneLiners`, `MetricTiles`, `RefGroups`, `Years`, `Subhead`, `Button`, `ArrowLink`, `InlineLinks`, `SocialLinks`, `SocialIcon`.
+- `src/components/ds/` holds typed React components that emit only the classes documented here: `Panel`, `Tile`, `NoteTile`, `Ledger`, `OneLiners`, `MetricTiles`, `Launches`, `RefGroups`, `Years`, `Subhead`, `Button`, `ArrowLink`, `InlineLinks`, `SocialLinks`, `SocialIcon`.
 - Build pages from those components. Add a new pattern here first (CSS in `components/additions.css`, a component in `src/components/ds/`, a line in this readme), then use it.
 
 ## Index
@@ -34,6 +34,7 @@ The design system for **himadri.dev**, the site of Himadri Mishra, AI engineer. 
 | Metric tiles | `hm-metric-tiles`, `hm-metric-tile*`, `hm-refs`, `hm-ref` | `MetricTiles` | Outcome figures with what was measured and links to the work that delivered them. |
 | Reference groups | `hm-groups`, `hm-group`, `hm-ref-list`, `hm-ref`, `hm-groups-intro` | `RefGroups` | Columns of pull requests or references: a plain line, then a mono reference link. |
 | Years | `hm-years`, `hm-years-year`, `hm-years-name` | `Years` | Year and one-line rows. |
+| Launches | `hm-launches` with `hm-tile`, `hm-refs`, `hm-ref` | `Launches` | Shipped work as tiles: a title, one line on what changed, and links to the evidence. |
 | Subhead | `hm-label hm-label--ink hm-subhead` | `Subhead` | A mono label that introduces a list inside a panel. |
 | Hero | `hm-hero`, `hm-hero-split`, `hm-hero-main`, `hm-hero-facts`, `hm-hero-portrait`, `hm-hero-who`, `hm-hero-name` | (page) | The first screen: identity, the statement as h1, the facts line and an action on the left; a `Ledger` on the right. It fills the first screen so the first panel starts after a scroll. |
 | Social | `hm-social`, `hm-social-link`, `hm-social--github|linkedin|x`, `hm-social-icon`, `hm-footer-social` | `SocialLinks`, `SocialIcon` | GitHub, LinkedIn and X as brand marks: 44px square targets, accessible names, the channel colour fills on hover. |
@@ -48,7 +49,7 @@ The design system for **himadri.dev**, the site of Himadri Mishra, AI engineer. 
 - **Sentence case everywhere.** Uppercase only in mono labels, via CSS.
 - **One message per layer.** Do not repeat the statement or the facts line elsewhere on the page.
 - **Proof is a link.** Prefer a public pull request, repository or page over a description. Private work is described by what it does, with one privacy line in the footer rather than a caveat on every block.
-- **Numbers** carry what was measured and the run count, and come from an approved source.
+- **Impact over volume.** Show what changed and link the evidence; do not lead with pull request or commit counts. A number carries what was measured and the run count, and comes from an approved source.
 - **No em dashes, no emoji, no superlatives.** Unicode arrows are the only glyphs: → internal, ↗ external, ↓ in-page, ← back.
 
 ## Visual foundations

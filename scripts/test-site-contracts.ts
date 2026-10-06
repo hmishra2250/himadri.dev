@@ -64,6 +64,8 @@ const mustFail: Array<[string, string]> = [
   ["AI Product Engineer (Contract)", "contract label"],
   ["Agents \u2014 and tools.", "em dash"],
   ["It's an agent.", "contraction"],
+  ["Agent discovery rose from 21% to 100%.", "unsupported figure"],
+  ["A tool-naming fix took adoption from 0 to 48.", "unsupported figure"],
 ];
 for (const [text, reason] of mustFail) {
   assert(

@@ -88,10 +88,24 @@ export const shipped = {
   items: [
     {
       when: "Now",
-      text: "A coding agent that turns a Slack or Jira request into a tested, reviewed pull request",
+      text: "Main engineer on a production AI product whose answers cite their sources",
+      href: "/#now",
+      source: "Mudita Studios",
+      proof: "mudita-main-engineer",
+    },
+    {
+      when: "Jul",
+      text: "A coding agent, built from an empty repository, that turns a chat or ticket request into a reviewed pull request",
       href: "/#now",
       source: "Mudita Studios",
       proof: "mudita-coding-agent",
+    },
+    {
+      when: "Aug",
+      text: "Agents reached Firecrawl's paper index in 48 of 48 test runs, up from 0, after a six-repository launch in one day",
+      href: "https://github.com/firecrawl/skills/pull/10",
+      source: "Firecrawl, open source",
+      proof: "firecrawl-index-skill",
     },
     {
       when: "Sep",
@@ -99,20 +113,6 @@ export const shipped = {
       href: "https://agentexperience.tech/",
       source: "agentexperience.tech",
       proof: "public-agent-experience-guide",
-    },
-    {
-      when: "May-Sep",
-      text: "87 merged pull requests across Firecrawl's MCP server, CLI, SDKs and docs",
-      href: "https://github.com/pulls?q=is%3Apr+author%3Ahmishra2250+org%3Afirecrawl+is%3Amerged",
-      source: "Firecrawl, open source",
-      proof: "firecrawl-programme",
-    },
-    {
-      when: "May",
-      text: "Qwen3.6-35B at 43 tokens per second on an 8 GB laptop GPU",
-      href: "https://github.com/hmishra2250/qwen-3.6-35b-consumer-gpu",
-      source: "Open source",
-      proof: "public-consumer-gpu-inference",
     },
   ] satisfies ShippedItem[],
 };
@@ -123,13 +123,15 @@ export const now = {
     name: "Mudita Studios",
     meta: "AI Product Engineer · since May 2026",
     items: [
-      "A coding agent that takes a Slack or Jira request to a tested, reviewed draft pull request. It works in a sandbox, tests its change in a real browser, and a second model checks the result before a person reviews it.",
-      "A research product in production where every claim in a report cites a source or is marked unverifiable, on a sandboxed agent runtime with spend limits and tracing.",
+      "Built a coding agent from an empty repository: a Slack or Jira request becomes a tested draft pull request, checked in a real browser and by a second model before a person reviews it.",
+      "Main engineer on a production AI product whose answers cite their sources: its data connectors, the end-to-end test harness and release gates, and security hardening.",
+      "Set up the delivery platform for a second product: CI/CD, preview environments and daily browser smoke tests.",
     ],
     note: "Client work is private, so I describe what it does.",
     proof: [
       "mudita-coding-agent",
-      "mudita-research-product",
+      "mudita-main-engineer",
+      "mudita-delivery-platform",
     ] satisfies ProofClaimId[],
   },
   agentExperience: {
@@ -181,12 +183,12 @@ export const now = {
   also: [
     {
       name: "Talkies",
-      line: "Local dictation and meeting transcription for Linux. Hold a key, speak, and the text is pasted where you are typing; Whisper runs on my own GPU, so no audio leaves the machine.",
+      line: "Local dictation and meeting transcription for Linux: hold a key, speak, and the text lands where you are typing. No audio leaves the machine.",
       meta: "Private repo",
     },
     {
       name: "laptop-powersave",
-      line: "Battery tiers for a laptop that doubles as an always-on server. Losing AC power caps the CPU and powers down idle devices on its own; one command then releases the GPU without a reboot.",
+      line: "Battery tiers for a laptop that doubles as an always-on server: it caps the CPU on battery and releases the GPU without a reboot.",
       meta: "Private repo",
     },
     {
@@ -210,27 +212,37 @@ export const now = {
   ] satisfies OneLiner[],
 };
 
+export type Launch = {
+  title: string;
+  line: string;
+  prs: PullRequest[];
+};
+
 export const firecrawl = {
   label: "Previously",
   title: "Agent Experience at Firecrawl.",
   intro:
-    "From May to September 2026 I owned the Agent Experience programme: measuring how agents discover and use Firecrawl, and shipping the fixes across its open-source MCP server, CLI, SDKs and docs.",
+    "From May to September 2026 I owned the Agent Experience programme: measuring whether AI agents find, choose and correctly use Firecrawl, then shipping the fixes across its MCP server, CLI, SDKs, docs and website.",
   proof: "firecrawl-programme" satisfies ProofClaimId,
   outcomes: [
     {
-      value: "21% → 100%",
-      label: "Agent discovery rate, 158-run experiment",
-      proof: "firecrawl-discovery-and-skills",
+      value: "15 / 15",
+      label:
+        "Claude Code trials that chose Firecrawl over its built-in web search after I added routing instructions to the MCP server",
+      proof: "firecrawl-routing-instructions",
+      prs: [
+        {
+          repo: "firecrawl-mcp-server",
+          number: 240,
+          summary: "Routing instructions for agents",
+        },
+      ],
     },
     {
-      value: "3% → 82%",
-      label: "Skill delivery rate",
-      proof: "firecrawl-discovery-and-skills",
-    },
-    {
-      value: "0% → 100%",
-      label: "Life Sciences index adoption after a tool-naming fix, 48 runs",
-      proof: "firecrawl-index-adoption",
+      value: "0 → 48 / 48",
+      label:
+        "Test runs where agents reached the research paper index, before and after the skill shipped",
+      proof: "firecrawl-index-skill",
       prs: [
         {
           repo: "skills",
@@ -244,90 +256,94 @@ export const firecrawl = {
         },
       ],
     },
-  ] satisfies Outcome[],
-  pullRequestCount: 87,
-  repositoryCount: 6,
-  groups: [
     {
-      title: "Hosted MCP access",
+      value: "21",
+      label:
+        "Fixes to docs, website and API in one week, each traced to a finding in the weekly agent reports I built",
+      proof: "firecrawl-insights-to-fixes",
+      prs: [
+        {
+          repo: "firecrawl",
+          number: 4552,
+          summary: "JSON answers for unknown API paths",
+        },
+        {
+          repo: "firecrawl-docs",
+          number: 1365,
+          summary: "Crawl accounting matched to the API",
+        },
+      ],
+    },
+  ] satisfies Outcome[],
+  launchesLabel: "What shipped",
+  launches: [
+    {
+      title: "Hosted MCP for every way agents connect",
+      line: "A keyless trial, OAuth sign-in for connector directories, and an OAuth-only search profile for the marketplace, across seven repositories, without breaking existing users.",
       prs: [
         {
           repo: "firecrawl-mcp-server",
-          number: 332,
-          summary: "An OAuth-only search profile for the hosted server",
-        },
-        {
-          repo: "firecrawl-mcp-server",
           number: 308,
-          summary: "Deterministic keyless and account endpoints",
+          summary: "Hosted endpoints",
         },
         {
           repo: "firecrawl-mcp-server",
-          number: 304,
-          summary: "Moved the server onto upstream FastMCP",
+          number: 332,
+          summary: "OAuth-only search",
         },
-        {
-          repo: "cli",
-          number: 155,
-          summary: "Secure credential setup for hosted MCP in the CLI",
-        },
+        { repo: "cli", number: 155, summary: "Secure setup" },
       ],
     },
     {
       title: "Errors an agent can recover from",
+      line: "Quota, invalid-key and account-only failures now tell the agent what to do next, in the text it actually reads.",
       prs: [
         {
           repo: "firecrawl-mcp-server",
           number: 359,
-          summary: "Recovery links in the message text agents actually read",
+          summary: "Recovery links",
         },
         {
           repo: "firecrawl-mcp-server",
           number: 365,
-          summary: "Invalid-key recovery that reaches the agent",
+          summary: "Invalid-key recovery",
+        },
+        { repo: "firecrawl", number: 4211, summary: "Quota recovery details" },
+      ],
+    },
+    {
+      title: "Tool text written for agents",
+      line: "Neutral tool descriptions guarded in CI, deprecated tools hidden with migration guidance, and SDK fixes for calls agents often get wrong.",
+      prs: [
+        {
+          repo: "firecrawl-mcp-server",
+          number: 340,
+          summary: "Neutral metadata",
         },
         {
-          repo: "firecrawl",
-          number: 4552,
-          summary: "JSON answers for unknown and wrong-method API paths",
+          repo: "firecrawl-mcp-server",
+          number: 361,
+          summary: "Extract deprecation",
         },
         {
           repo: "firecrawl",
           number: 3579,
-          summary:
-            "A helpful SDK error when an agent reads the wrong search field",
+          summary: "SDK error agents can read",
         },
       ],
     },
     {
-      title: "Tools and docs written for agents",
+      title: "Docs that match the product",
+      line: "Removed documentation for tools that did not exist, aligned billing and crawl rules with the API, and added CI that runs the code samples.",
       prs: [
-        {
-          repo: "firecrawl-mcp-server",
-          number: 361,
-          summary: "Hid the deprecated Extract tool, with migration guidance",
-        },
-        {
-          repo: "firecrawl-docs",
-          number: 1380,
-          summary: "Docs checks in CI, with a lint that runs the code samples",
-        },
-        {
-          repo: "firecrawl",
-          number: 3577,
-          summary: "Top-level V2 methods on the JavaScript SDK client",
-        },
-        {
-          repo: "firecrawl-mcp-server",
-          number: 397,
-          summary: "A 'when to use this server' section in the README",
-        },
+        { repo: "firecrawl-docs", number: 1380, summary: "Docs CI" },
+        { repo: "firecrawl-docs", number: 1234, summary: "Setup by outcome" },
       ],
     },
-  ] satisfies { title: string; prs: PullRequest[] }[],
+  ] satisfies Launch[],
   notPublicProof: "firecrawl-not-public" satisfies ProofClaimId,
   notPublic:
-    "A daily benchmark of whether agents pick and correctly use Firecrawl, the sandboxed experiment harness behind these results, and Agent Experience ownership of the Developer Index and the Government and Legal launches.",
+    "The measurement behind these changes: a daily benchmark of whether six coding agents choose Firecrawl, weekly reports with every quote checked against the raw run, and a sandboxed experiment harness.",
 };
 
 export const before = {

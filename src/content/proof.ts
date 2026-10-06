@@ -34,7 +34,7 @@ export const proofClaims = [
   {
     id: "mudita-coding-agent",
     claim:
-      "Built a coding agent that turns Slack and Jira requests into GitHub draft pull requests, with sandboxed execution, browser checks, a second-model judge and human review.",
+      "Built a coding agent from an empty repository that turns Slack and Jira requests into GitHub draft pull requests, with sandboxed execution, browser checks, a second-model judge and human review.",
     sourcePath: resume,
     sourceLocator: "Mudita Studios, bullets 2 and 3",
     sourceType: "resume",
@@ -42,11 +42,51 @@ export const proofClaims = [
     approvedForPublicUse: true,
   },
   {
-    id: "mudita-research-product",
+    id: "mudita-main-engineer",
     claim:
-      "Main contributor to a research product in production with source-backed answers, claim checks, citation regression tests and a sandboxed agent runtime with spend limits and tracing.",
+      "Main engineer on a research product in production: data connectors, source-backed answers, claim checks, citation regression tests, and the end-to-end test harness and release gates.",
     sourcePath: resume,
     sourceLocator: "Mudita Studios, bullet 4",
+    sourceType: "resume",
+    confidentialityLevel: "public",
+    approvedForPublicUse: true,
+  },
+  {
+    id: "mudita-delivery-platform",
+    claim:
+      "Set up the delivery platform for a second product: CI/CD, preview environments and daily browser smoke tests.",
+    sourcePath: resume,
+    sourceLocator: "Mudita Studios, bullet 5",
+    sourceType: "resume",
+    confidentialityLevel: "public",
+    approvedForPublicUse: true,
+  },
+  {
+    id: "firecrawl-routing-instructions",
+    claim:
+      "After routing instructions were added to the MCP server, Claude Code used Firecrawl instead of its built-in web search in 15 of 15 trials (Codex used Firecrawl in 10 of 15).",
+    sourcePath: "https://github.com/firecrawl/firecrawl-mcp-server/pull/240",
+    sourceLocator: "Pull request description, test results",
+    sourceType: "public-profile",
+    confidentialityLevel: "public",
+    approvedForPublicUse: true,
+  },
+  {
+    id: "firecrawl-index-skill",
+    claim:
+      "With the research-index skill delivered, agents reached the paper index in 48 of 48 biomedical test runs, against 0 of 48 without it; the six-repository launch merged on one day.",
+    sourcePath: "https://github.com/firecrawl/skills/pull/10",
+    sourceLocator: "Pull request description, measured results",
+    sourceType: "public-profile",
+    confidentialityLevel: "public",
+    approvedForPublicUse: true,
+  },
+  {
+    id: "firecrawl-insights-to-fixes",
+    claim:
+      "Findings from the weekly agent reports drove 21 fixes across docs, website and API in one week, each traced to a cited finding.",
+    sourcePath: resume,
+    sourceLocator: "Firecrawl, bullet 6",
     sourceType: "resume",
     confidentialityLevel: "public",
     approvedForPublicUse: true,
@@ -62,31 +102,11 @@ export const proofClaims = [
     approvedForPublicUse: true,
   },
   {
-    id: "firecrawl-discovery-and-skills",
-    claim:
-      "Experiments drove shipped fixes: agent discovery rose from 21% to 100%, and skill delivery from 3% to 82%.",
-    sourcePath: resume,
-    sourceLocator: "Firecrawl, bullet 3",
-    sourceType: "resume",
-    confidentialityLevel: "public",
-    approvedForPublicUse: true,
-  },
-  {
-    id: "firecrawl-index-adoption",
-    claim:
-      "A tool-naming fix took Life Sciences index adoption from 0 to 48 of 48 test runs.",
-    sourcePath: resume,
-    sourceLocator: "Firecrawl, bullet 5",
-    sourceType: "resume",
-    confidentialityLevel: "public",
-    approvedForPublicUse: true,
-  },
-  {
     id: "firecrawl-not-public",
     claim:
-      "Built a daily benchmark of agent tool choice and a sandboxed experiment harness; Agent Experience owner for the Developer Index and the Government and Legal launches.",
+      "Built a daily benchmark of whether agents recommend and correctly use Firecrawl, weekly reports with quote-checked findings, and a sandboxed experiment harness.",
     sourcePath: resume,
-    sourceLocator: "Firecrawl, bullets 2, 3 and 5",
+    sourceLocator: "Firecrawl, bullets 2, 3 and 6",
     sourceType: "resume",
     confidentialityLevel: "public",
     approvedForPublicUse: true,
