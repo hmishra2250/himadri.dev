@@ -1,127 +1,75 @@
 import { existsSync } from "node:fs";
 import { join } from "node:path";
-import { caseStudies } from "../src/content/case-studies";
-import { interviewAnswers } from "../src/content/interview";
-import { notes } from "../src/content/notes";
-import { principles } from "../src/content/principles";
 import { profile } from "../src/content/profile";
-import { stackOpinions } from "../src/content/stack-opinions";
 import {
   publicRoutes,
-  routeManifest,
-  routeIsEnabled,
   retiredRedirectRoutes,
+  routeIsEnabled,
 } from "../src/lib/routes";
-import { validateInternalHrefFragment } from "./lib/fragment-links";
+import { renderSite } from "./lib/render-site";
 
 const errors: string[] = [];
-const routePaths = new Set(routeManifest.map((route) => route.path));
-const publicPaths = new Set(publicRoutes.map((route) => route.path));
 
-for (const path of ["/", "/case-studies", "/resume", "/contact", "/notes"]) {
-  if (!publicPaths.has(path))
-    errors.push(`Required public path missing: ${path}`);
-}
-
-for (const route of routeManifest) {
-  if (!route.enabled && (route.includeInSitemap || route.includeInNav)) {
-    errors.push(`Disabled route exposed in sitemap or nav: ${route.path}`);
+for (const required of ["/", "/resume"]) {
+  if (!publicRoutes.some((route) => route.path === required)) {
+    errors.push(`required public route missing: ${required}`);
   }
 }
-
 for (const route of retiredRedirectRoutes) {
-  if (route.redirectTo) {
-    errors.push(
-      ...validateInternalHrefFragment({
-        href: route.redirectTo,
-        owner: `retired route ${route.path}`,
-      }),
-    );
+  if (routeIsEnabled(route.path)) {
+    errors.push(`retired route is enabled: ${route.path}`);
   }
 }
-
-for (const study of caseStudies) {
-  const path = `/case-studies/${study.slug}`;
-  if (study.routeEnabled && !routePaths.has(path))
-    errors.push(`Enabled case study route missing from manifest: ${path}`);
+if (!existsSync(join(process.cwd(), "public", profile.resumePath))) {
+  errors.push(`resume PDF missing: public${profile.resumePath}`);
+}
+if (!existsSync(join(process.cwd(), "public/images/himadri-portrait.png"))) {
+  errors.push("portrait missing: public/images/himadri-portrait.png");
 }
 
-for (const answer of interviewAnswers) {
-  for (const source of answer.sourceCards) {
-    errors.push(
-      ...validateInternalHrefFragment({
-        href: source.href,
-        owner: `interview source card ${answer.id}`,
-      }),
-    );
+const pages = renderSite();
+const idsByPath = new Map(pages.map((page) => [page.path, page.ids]));
+let checked = 0;
+
+for (const page of pages) {
+  for (const href of page.hrefs) {
+    checked += 1;
+    if (href.startsWith("https://")) continue;
+    if (href.startsWith("/_next/")) continue;
+    if (href.startsWith("#")) {
+      if (!page.ids.has(href.slice(1))) {
+        errors.push(`${page.path}: in-page link to missing id ${href}`);
+      }
+      continue;
+    }
+    if (!href.startsWith("/")) {
+      errors.push(`${page.path}: link must be https or local: ${href}`);
+      continue;
+    }
+    const [path, fragment] = href.split("#");
+    const target = path || "/";
+    const isAsset = /\.(pdf|png)$/.test(target);
+    if (isAsset) {
+      if (!existsSync(join(process.cwd(), "public", target))) {
+        errors.push(`${page.path}: link to missing file ${href}`);
+      }
+      continue;
+    }
+    if (!routeIsEnabled(target)) {
+      errors.push(`${page.path}: link to a page that is not enabled: ${href}`);
+      continue;
+    }
+    if (fragment && !idsByPath.get(target)?.has(fragment)) {
+      errors.push(`${page.path}: link to missing section ${href}`);
+    }
   }
-}
-
-for (const note of notes) {
-  for (const link of note.relatedLinks) {
-    errors.push(
-      ...validateInternalHrefFragment({
-        href: link.href,
-        owner: `note link ${note.id}`,
-      }),
-    );
-  }
-}
-
-for (const principle of principles) {
-  errors.push(
-    ...validateInternalHrefFragment({
-      href: principle.href,
-      owner: `principle link ${principle.id}`,
-    }),
-  );
-}
-
-for (const opinion of stackOpinions) {
-  errors.push(
-    ...validateInternalHrefFragment({
-      href: opinion.relatedHref,
-      owner: `stack opinion link ${opinion.id}`,
-    }),
-  );
-}
-
-for (const retiredPath of [
-  "/interview-me",
-  "/principles",
-  "/challenges",
-  "/challenges/debug-this-agent",
-  "/challenges/cost-anatomy",
-  "/challenges/dag-execution-simulator",
-  "/challenges/deck-ir-previewer",
-  "/case-studies/agentic-market-research-platform",
-  "/case-studies/ml-infra-rescue",
-  "/case-studies/computer-vision-product-systems",
-  "/case-studies/high-performance-ar-and-vision",
-]) {
-  if (routeIsEnabled(retiredPath)) {
-    errors.push(`Retired route remains enabled: ${retiredPath}`);
-  }
-  if (publicPaths.has(retiredPath)) {
-    errors.push(`Retired route remains public: ${retiredPath}`);
-  }
-}
-
-if (
-  !profile.resumePath.startsWith("/resume/") ||
-  !profile.resumePath.endsWith(".pdf")
-) {
-  errors.push(`Unexpected resume path: ${profile.resumePath}`);
-}
-
-const resumeAssetPath = join("public", profile.resumePath);
-if (!existsSync(resumeAssetPath)) {
-  errors.push(`Missing public resume asset: ${resumeAssetPath}`);
 }
 
 if (errors.length > 0) {
-  console.error("Link validation failed:");
+  console.error("Link check failed:");
   for (const error of errors) console.error(`- ${error}`);
   process.exit(1);
 }
-console.log("Link validation passed.");
+console.log(
+  `Link check passed: ${checked} links across ${pages.length} pages; every local link and section exists.`,
+);

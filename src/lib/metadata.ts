@@ -2,9 +2,11 @@ import { profile } from "@/content/profile";
 
 export const siteConfig = {
   name: "Himadri Mishra",
-  title: "Himadri Mishra | Agent Experience Engineer & AI Product Engineer",
+  title: "Himadri Mishra | AI Engineer: Agents, MCP Servers, CLIs and SDKs",
   description:
-    "AI product engineer working across Agent Experience, MCP and developer tools, agentic workflows, evaluation and recovery, grounded in ML infrastructure, search and computer vision.",
+    "I build AI products at Mudita Studios and work on Agent Experience in the open: agents, MCP servers, CLIs and SDKs.",
   url: "https://www.himadri.dev",
   author: profile.name,
+  ogImageAlt:
+    "Himadri Mishra: I build agents, and the MCP servers, CLIs and SDKs they run on.",
 };

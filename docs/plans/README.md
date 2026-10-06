@@ -2,6 +2,10 @@
 
 This directory contains the durable planning artifacts for the portfolio implementation. Read it as a sequence, not as a flat folder.
 
+## Current plan
+
+`portfolio-one-page-2026-10.md` (October 2026) supersedes the route model and page set in every plan below. The site is now one homepage plus `/resume`; the older plans are kept for history.
+
 ## Source context
 
 Start with these files outside this directory:

@@ -33,10 +33,7 @@ errors.push(...assertSeoRegistryMatchesPublicRoutes());
 
 for (const route of routeManifest) {
   if (
-    (route.kind === "api" ||
-      route.status === "internal" ||
-      route.status === "deferred" ||
-      !route.enabled) &&
+    (route.status === "retired" || !route.enabled) &&
     routeSeoEntries.some((entry) => entry.path === route.path)
   ) {
     errors.push(`SEO registry exposes non-public route: ${route.path}`);

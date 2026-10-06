@@ -1,347 +1,121 @@
-import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
-import { currentWork } from "../src/content/current-work";
-import { selectedWork } from "../src/content/selected-work";
-import { currentWorkMetrics, metrics } from "../src/content/metrics";
-import { practice } from "../src/content/practice";
-import { profile } from "../src/content/profile";
-import { buildCanonicalUrl, getRouteSeo } from "../src/lib/seo";
-import { claimById } from "../src/content/proof";
+/**
+ * Checks a running server (next start or next dev). It does not start one.
+ *   CHECK_BASE_URL=http://127.0.0.1:3010 npm run test:design:http
+ */
 import {
+  getRetiredRouteDestination,
   publicRoutes,
   retiredRedirectRoutes,
-  getRetiredRouteDestination,
 } from "../src/lib/routes";
+import { siteConfig } from "../src/lib/metadata";
+import { checkCopy } from "../src/lib/validation";
 
-const base = process.env.CHECK_BASE_URL || "http://127.0.0.1:3010";
-function visibleText(markup: string) {
-  return markup
-    .replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, "")
-    .replace(/<[^>]*>/g, " ")
-    .replace(/&(?:#x27|#39|apos);/g, "'")
+const base = process.env.CHECK_BASE_URL ?? "http://127.0.0.1:3010";
+const failures: string[] = [];
+const assert = (condition: unknown, message: string) => {
+  if (!condition) failures.push(message);
+};
+
+const visibleText = (html: string) =>
+  html
+    .replace(/<script[\s\S]*?<\/script>/g, " ")
+    .replace(/<style[\s\S]*?<\/style>/g, " ")
+    .replace(/<[^>]+>/g, " ")
     .replace(/&amp;/g, "&")
-    .replace(/&quot;/g, '"')
-    .replace(/&lt;/g, "<")
-    .replace(/&gt;/g, ">")
+    .replace(/&#x27;|&#39;/g, "'")
     .replace(/\s+/g, " ");
-}
+
 async function main() {
-  const homeResponse = await fetch(base);
-  assert.equal(homeResponse.status, 200);
-  const home = await homeResponse.text();
-  const stylesheets = [
-    ...new Set(
-      [
-        ...home.matchAll(/<link\b[^>]*rel="stylesheet"[^>]*href="([^"]+)"/g),
-      ].map((match) => match[1].replace(/&amp;/g, "&")),
-    ),
-  ];
-  assert.ok(stylesheets.length, "Homepage references a stylesheet");
-  const styles: string[] = [];
-  for (const path of stylesheets) {
-    const response = await fetch(new URL(path, base));
-    assert.equal(response.status, 200, `Stylesheet ${path}`);
-    styles.push(await response.text());
-  }
-  const css = styles.join("\n");
-  assert.match(css, /--pearl:\s*#f6f7f8\b/i, "Deployed pearl shell");
-  assert.match(css, /--cobalt:\s*#2855d8\b/i, "Deployed cobalt accent");
-  for (const selector of [
-    ".home-page",
-    ".editorial-route",
-    ".contact-resume",
-    ".contact-linkedin",
-  ]) {
-    assert.ok(css.includes(selector), `Missing design styles: ${selector}`);
-  }
-  assert.match(
-    css,
-    /\.about-route \.principle-record\{[^}]*grid-template-columns:minmax\(0,1fr\)/,
-    "Served About principles stack without a competing auto-width column",
-  );
-  const text = visibleText(home);
-  for (const copy of [
-    practice.eyebrow,
-    practice.headline,
-    practice.secondaryHeadline,
-    practice.summary,
-  ]) {
-    assert.ok(text.includes(copy), `Missing approved hero copy: ${copy}`);
-  }
-  for (const item of selectedWork) {
-    assert.ok(home.includes(`id="${item.id}"`));
-    for (const copy of [
-      item.title,
-      item.summary,
-      item.engineering,
-      item.category,
-      item.linkLabel,
-    ])
-      assert.ok(text.includes(copy), `Missing static highlight ${copy}`);
-    assert.ok(home.includes(`href="${item.href}"`));
-    for (const proof of item.proofIds.map(claimById))
-      if (proof.publicLabelRequired)
-        assert.ok(text.includes(proof.publicLabel!));
-  }
-  for (const metric of metrics)
-    assert.ok(
-      !text.includes(metric.value),
-      `No historical metric on Home: ${metric.id}`,
-    );
-  for (const system of currentWork.reviewedSystems) {
-    assert.ok(home.includes(`href="/case-studies#${system.id}"`));
-    assert.ok(text.includes(system.summary));
-    assert.ok(text.includes(system.publicLabel));
-  }
-  assert.equal((home.match(/class="system-link"/g) || []).length, 3);
-  assert.ok(home.includes('class="button primary" href="/case-studies"'));
-  assert.ok(text.includes("More shipped agent systems."));
-  assert.ok(home.includes("project-feature"));
-  assert.ok(text.includes("backend, frontend, ML and computer vision"));
-  assert.equal((home.match(/<article\b/g) || []).length, 3);
-  assert.doesNotMatch(
-    text,
-    /Historical AI product system|Agent experience, end to end|Shipped systems\.|Explore my public work/,
-  );
-  assert.ok(text.includes(currentWork.publicProjects[0].summary));
-  assert.ok(home.includes('href="/case-studies"'));
-  assert.ok(
-    home.includes('class="home-page"'),
-    "Homepage uses accepted design",
-  );
-  assert.ok(
-    home.includes("/images/himadri-portrait.png"),
-    "Original portrait is rendered",
-  );
-  const portrait = await fetch(`${base}/images/himadri-portrait.png`);
-  assert.equal(portrait.status, 200);
-  assert.deepEqual(
-    Buffer.from(await portrait.arrayBuffer()),
-    readFileSync("public/images/himadri-portrait.png"),
-  );
+  const stylesheets = new Set<string>();
+
   for (const route of publicRoutes) {
-    const response = await fetch(`${base}${route.path}`);
-    assert.equal(response.status, 200, route.path);
+    const response = await fetch(new URL(route.path, base));
+    assert(
+      response.status === 200,
+      `${route.path} returned ${response.status}`,
+    );
     const html = await response.text();
-    assert.doesNotMatch(
-      visibleText(html),
-      /\u2014|&mdash;|&#8212;|&#x2014;/i,
-      `${route.path}: no em dashes`,
+    assert(
+      (html.match(/<main[\s>]/g) ?? []).length === 1,
+      `${route.path}: one main`,
     );
-    assert.doesNotMatch(
-      visibleText(html),
-      /\b(?:[a-z]+n['’]t|(?:i|you|we|they)['’](?:m|re|ve|ll|d)|(?:it|that|there|here|what|who|he|she|let)['’]s)\b/i,
-      `${route.path}: no contractions`,
+    assert(
+      (html.match(/<h1[\s>]/g) ?? []).length === 1,
+      `${route.path}: one h1`,
     );
-    const header = html.match(/<header\b[\s\S]*?<\/header>/)?.[0];
-    assert.ok(header, `${route.path}: shared header is present`);
-    for (const destination of [
-      "/case-studies",
-      "/about",
-      "/resume",
-      "/contact",
-    ]) {
-      assert.ok(
-        header.includes(`href="${destination}"`),
-        `${route.path}: navigation to ${destination}`,
-      );
-    }
-    const navHrefs = [...header.matchAll(/<a\b[^>]*href="([^"]+)"/g)].map(
-      (match) => match[1],
-    );
-    assert.deepEqual(
-      navHrefs.slice(1),
-      [
-        "/case-studies",
-        profile.agentExperience,
-        "/about",
-        "/resume",
-        "/contact",
-      ],
-      `${route.path}: external guide follows Work`,
-    );
-    assert.ok(
-      header.includes(
-        'aria-label="Agent Experience (external website)">Agent Experience</a>',
+    const canonical = new URL(route.path, siteConfig.url).toString();
+    assert(
+      [canonical, canonical.replace(/\/$/, "")].some((href) =>
+        html.includes(`<link rel="canonical" href="${href}"`),
       ),
-      `${route.path}: external destination is named`,
+      `${route.path}: canonical link missing`,
     );
-    const footer = html.match(/<footer\b[\s\S]*?<\/footer>/)?.[0];
-    assert.ok(
-      footer?.includes(`href="${profile.agentExperience}"`),
-      `${route.path}: footer links to field guide`,
+    assert(
+      /<meta name="description" content="[^"]+"/.test(html),
+      `${route.path}: description missing`,
     );
-    if (route.path === "/notes") {
-      assert.ok(
-        visibleText(html).includes("Read the Agent Experience field guide"),
-      );
+    assert(!html.includes("mailto:"), `${route.path}: publishes an email`);
+    for (const error of checkCopy(visibleText(html), `served ${route.path}`)) {
+      failures.push(error);
     }
-    const seo = getRouteSeo(route.path);
-    const canonical = html.match(/<link rel="canonical" href="([^"]+)"/);
-    assert.ok(canonical, `${route.path}: static canonical`);
-    assert.equal(
-      new URL(canonical[1]).href,
-      buildCanonicalUrl(seo.canonicalPath),
-      `${route.path}: canonical destination`,
-    );
-    const description = html.match(
-      /<meta name="description" content="([^"]+)"/,
-    );
-    assert.equal(
-      description && visibleText(description[1]),
-      seo.description,
-      `${route.path}: static description`,
-    );
-    assert.doesNotMatch(html, /<meta name="robots" content="[^"]*noindex/);
-    if (route.path === "/case-studies") {
-      const rendered = visibleText(html);
-      assert.ok(rendered.includes("AI products"));
-      assert.ok(
-        html.indexOf('id="supporting-contributions-title"') >
-          html.indexOf('id="governed-knowledge-mcp-service"'),
-        "Supporting work follows AI products in served HTML",
-      );
-      assert.ok(
-        html.indexOf('id="supporting-contributions-title"') <
-          html.indexOf('id="public-work"'),
-        "Supporting work precedes public work in served HTML",
-      );
-      assert.ok(html.includes('class="work-index"'));
-      assert.equal(
-        (html.match(/class="work-record(?: work-record-featured)?"/g) || [])
-          .length,
-        9,
-      );
-      assert.doesNotMatch(
-        html,
-        /class="eyebrow"|method-grid|work-column|Detailed case study/,
-      );
-      for (const item of [
-        ...currentWork.reviewedSystems,
-        ...currentWork.methodCards,
-      ])
-        for (const copy of [
-          item.title,
-          item.summary,
-          item.status,
-          item.limitations,
-          item.publicLabel,
-        ])
-          assert.ok(rendered.includes(copy), `Missing archive copy ${copy}`);
-      for (const brief of practice.recentWorkCases) {
-        assert.ok(html.includes(`id="${brief.id}"`));
-        for (const copy of [brief.title, brief.summary])
-          assert.ok(rendered.includes(copy), `Missing contribution ${copy}`);
-      }
-      for (const project of currentWork.publicProjects) {
-        assert.ok(html.includes(`href="${project.href}"`));
-        for (const copy of [
-          project.title,
-          project.summary,
-          project.status,
-          project.limitations,
-        ])
-          assert.ok(rendered.includes(copy), `Missing public project ${copy}`);
-      }
-      for (const id of [
-        "agent-tools",
-        "ai-workflows",
-        "earlier-work",
-        "public-work",
-      ])
-        assert.ok(html.includes(`id="${id}"`));
-      assert.doesNotMatch(
-        rendered,
-        /systems (?:currently )?in development|not deployed|integration remains gated/i,
-      );
-      for (const system of currentWork.reviewedSystems)
-        assert.ok(rendered.includes(system.status));
-      for (const method of currentWork.methodCards) {
-        for (const copy of [
-          method.impact,
-          method.measurement,
-          ...method.details,
-        ])
-          assert.ok(
-            rendered.includes(copy),
-            `Missing engineering detail ${copy}`,
-          );
-        const article = html
-          .split(`id="${method.id}">`)[1]
-          ?.split("</article>")[0];
-        assert.ok(article, `Missing method ${method.id}`);
-        assert.doesNotMatch(article, /work-result-label/);
-        assert.doesNotMatch(article.replace(/<[^>]*>|&#[^;]+;/g, ""), /\d/);
-      }
-      for (const metric of currentWorkMetrics)
-        for (const copy of [metric.label, metric.context])
-          assert.ok(
-            !rendered.includes(copy),
-            `Unexpected numeric panel ${copy}`,
-          );
-    }
-    assert.equal(
-      (html.match(/<main\b/g) || []).length,
-      1,
-      `${route.path}: one main landmark`,
-    );
-    assert.equal(
-      (html.match(/<h1\b/g) || []).length,
-      1,
-      `${route.path}: one H1`,
-    );
-    assert.ok(
-      html.includes('class="site-header"'),
-      `${route.path}: shared header`,
-    );
-    assert.ok(html.includes('class="footer"'), `${route.path}: shared footer`);
-    assert.ok(
-      html.includes(`href="${profile.x}"`),
-      `${route.path}: X link in shell`,
-    );
-  }
-  for (const pathname of ["/", "/contact"]) {
-    const html = await (await fetch(`${base}${pathname}`)).text();
-    for (const kind of ["email", "github", "resume", "x", "linkedin"]) {
-      assert.ok(
-        html.includes(`contact-${kind}`),
-        `${pathname}: ${kind} button`,
-      );
-    }
-    for (const href of [
-      `mailto:${profile.email}`,
-      profile.github,
-      profile.resumePath,
-      profile.x,
-      profile.linkedin,
-    ]) {
-      assert.ok(html.includes(`href="${href}"`), `${pathname}: ${href}`);
+    for (const match of html.matchAll(
+      /<link rel="stylesheet" href="([^"]+)"/g,
+    )) {
+      stylesheets.add(match[1]);
     }
   }
+
+  let css = "";
+  for (const href of stylesheets) {
+    css += await (await fetch(new URL(href, base))).text();
+  }
+  for (const token of [
+    "--pearl:#f6f7f8",
+    "--cobalt:#2855d8",
+    ".hm-section-bar",
+    ".site-oneliners",
+  ]) {
+    assert(
+      css.replace(/\s/g, "").includes(token),
+      `served CSS is missing ${token}`,
+    );
+  }
+
+  const portrait = await fetch(new URL("/images/himadri-portrait.png", base));
+  assert(portrait.status === 200, "portrait is not served");
+
   for (const route of retiredRedirectRoutes) {
-    const response = await fetch(`${base}${route.path}`, {
+    const response = await fetch(new URL(route.path, base), {
       redirect: "manual",
     });
-    assert.equal(response.status, 308, `${route.path}: permanent redirect`);
-    const location = response.headers.get("location");
-    assert.ok(location, `${route.path}: redirect destination`);
-    const destination = new URL(location, base);
-    const expected = new URL(getRetiredRouteDestination(route.path), base);
-    assert.equal(
-      destination.pathname + destination.hash,
-      expected.pathname + expected.hash,
+    assert(
+      response.status === 308,
+      `${route.path} returned ${response.status}, expected 308`,
+    );
+    const location = response.headers.get("location") ?? "";
+    const expected = getRetiredRouteDestination(route.path);
+    assert(
+      location === expected || location.endsWith(expected),
+      `${route.path} redirects to ${location}, expected ${expected}`,
     );
   }
-  const missingStudy = await fetch(`${base}/case-studies/not-a-real-study`, {
+
+  const unknown = await fetch(new URL("/case-studies/not-a-page", base), {
     redirect: "manual",
   });
-  assert.equal(missingStudy.status, 404, "Unknown studies remain missing");
+  assert(
+    unknown.status === 404,
+    `unknown case-study URL returned ${unknown.status}, expected 404`,
+  );
+
+  if (failures.length > 0) {
+    console.error(`HTTP design check failed against ${base}:`);
+    for (const failure of failures) console.error(`- ${failure}`);
+    process.exit(1);
+  }
   console.log(
-    `Design HTTP contracts passed for ${publicRoutes.length} public routes, served design CSS, approved work copy, original portrait and five contact actions.`,
+    `HTTP design check passed against ${base}: ${publicRoutes.length} pages, ${retiredRedirectRoutes.length} redirects, design tokens served.`,
   );
 }
 
-main().catch((error: unknown) => {
-  console.error(error);
-  process.exitCode = 1;
-});
+void main();

@@ -1,39 +1,24 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
+import { IBM_Plex_Mono, IBM_Plex_Sans } from "next/font/google";
 import "@/styles/globals.css";
 import { GoogleAnalytics } from "@/components/analytics/GoogleAnalytics";
-import { Footer } from "@/components/layout/Footer";
-import { Navbar } from "@/components/layout/Navbar";
+import { SiteFooter } from "@/components/site/SiteFooter";
+import { SiteHeader } from "@/components/site/SiteHeader";
 import { siteConfig } from "@/lib/metadata";
 import { buildRootJsonLd, escapeJsonLd } from "@/lib/structured-data";
 
-const go = localFont({
-  src: [
-    {
-      path: "./fonts/Go-Regular.woff2",
-      weight: "400",
-      style: "normal",
-    },
-    {
-      path: "./fonts/Go-Bold.woff2",
-      weight: "700",
-      style: "normal",
-    },
-  ],
-  variable: "--font-go",
+const plexSans = IBM_Plex_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  style: ["normal", "italic"],
+  variable: "--font-plex-sans",
   display: "swap",
 });
 
-const goMono = localFont({
-  preload: false,
-  src: [
-    {
-      path: "./fonts/Go-Mono.woff2",
-      weight: "400",
-      style: "normal",
-    },
-  ],
-  variable: "--font-go-mono",
+const plexMono = IBM_Plex_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  variable: "--font-plex-mono",
   display: "swap",
 });
 
@@ -55,7 +40,7 @@ export const metadata: Metadata = {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Himadri Mishra, senior AI engineer building production agentic systems.",
+        alt: siteConfig.ogImageAlt,
       },
     ],
   },
@@ -66,7 +51,7 @@ export const metadata: Metadata = {
     images: [
       {
         url: "/og-image.png",
-        alt: "Himadri Mishra, senior AI engineer building production agentic systems.",
+        alt: siteConfig.ogImageAlt,
       },
     ],
   },
@@ -83,14 +68,14 @@ export default function RootLayout({
   const jsonLd = escapeJsonLd(JSON.stringify(buildRootJsonLd()));
 
   return (
-    <html lang="en" className={`${go.variable} ${goMono.variable}`}>
+    <html lang="en" className={`${plexSans.variable} ${plexMono.variable}`}>
       <body>
         <a className="skip-link" href="#main-content">
           Skip to content
         </a>
-        <Navbar />
+        <SiteHeader />
         <main id="main-content">{children}</main>
-        <Footer />
+        <SiteFooter />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: jsonLd }}

@@ -4,7 +4,6 @@ import nextConfig from "../next.config";
 import {
   assetRedirectRoutes,
   enabledRoutes,
-  getNavHref,
   getRetiredRouteDestination,
   navRoutes,
   publicRoutes,
@@ -14,237 +13,112 @@ import {
 import { profile } from "../src/content/profile";
 
 const errors: string[] = [];
+
+// Every retired URL and where it must land. Old links keep working.
 const retiredRedirectExpectations = new Map<string, string>([
-  ["/interview-me", "/about"],
-  ["/principles", "/about"],
-  ["/challenges", "/case-studies#agentic-market-research-platform"],
-  [
-    "/challenges/debug-this-agent",
-    "/case-studies#agentic-market-research-platform",
-  ],
-  ["/challenges/cost-anatomy", "/case-studies#ml-infra-rescue"],
-  [
-    "/challenges/dag-execution-simulator",
-    "/case-studies#agentic-market-research-platform",
-  ],
-  [
-    "/challenges/deck-ir-previewer",
-    "/case-studies#agentic-market-research-platform",
-  ],
-  [
-    "/case-studies/agentic-market-research-platform",
-    "/case-studies#agentic-market-research-platform",
-  ],
-  ["/case-studies/ml-infra-rescue", "/case-studies#ml-infra-rescue"],
-  [
-    "/case-studies/computer-vision-product-systems",
-    "/case-studies#computer-vision-product-systems",
-  ],
-  [
-    "/case-studies/high-performance-ar-and-vision",
-    "/case-studies#high-performance-ar-and-vision",
-  ],
+  ["/case-studies", "/#firecrawl"],
+  ["/case-studies/agentic-market-research-platform", "/#before"],
+  ["/case-studies/ml-infra-rescue", "/#before"],
+  ["/case-studies/computer-vision-product-systems", "/#before"],
+  ["/case-studies/high-performance-ar-and-vision", "/#before"],
+  ["/about", "/#before"],
+  ["/notes", "/"],
+  ["/contact", "/"],
+  ["/interview-me", "/"],
+  ["/principles", "/"],
+  ["/challenges", "/"],
+  ["/challenges/debug-this-agent", "/"],
+  ["/challenges/cost-anatomy", "/"],
+  ["/challenges/dag-execution-simulator", "/"],
+  ["/challenges/deck-ir-previewer", "/"],
+  ["/hiring-packet", "/"],
 ]);
+
 const appDir = join(process.cwd(), "src/app");
-const legacyResumeAssetSource = "/resume/Himadri_Latest_Resume_April_2026.pdf";
-const legacyResumeAssetPath = join(
-  process.cwd(),
-  "public/resume/Himadri_Latest_Resume_April_2026.pdf",
-);
-const canonicalResumeAssetPath = join(
-  process.cwd(),
-  "public",
-  profile.resumePath,
-);
-
-function routeToPageFile(path: string) {
-  if (path === "/") return join(appDir, "page.tsx");
-  return join(appDir, path.slice(1), "page.tsx");
-}
-
-function hasDynamicCaseStudyHandler(path: string) {
-  return (
-    path.startsWith("/case-studies/") &&
-    existsSync(join(appDir, "case-studies/[slug]/page.tsx"))
-  );
-}
+const pageFile = (path: string) =>
+  join(appDir, ...path.split("/").filter(Boolean), "page.tsx");
 
 for (const route of enabledRoutes) {
-  if (route.kind === "api") continue;
-  const pageFile = routeToPageFile(route.path);
-  if (!existsSync(pageFile) && !hasDynamicCaseStudyHandler(route.path)) {
-    errors.push(`enabled route missing page implementation: ${route.path}`);
+  if (!existsSync(pageFile(route.path))) {
+    errors.push(`enabled route has no page: ${route.path}`);
   }
 }
-
-for (const route of routeManifest) {
-  if (!route.enabled && (route.includeInNav || route.includeInSitemap)) {
-    errors.push(`disabled route exposed publicly: ${route.path}`);
-  }
-  if (route.kind === "api" && (route.includeInNav || route.includeInSitemap)) {
-    errors.push(`api route exposed in nav or sitemap: ${route.path}`);
-  }
+if (existsSync(join(appDir, "api"))) {
+  errors.push("src/app/api must not exist: the site has no API routes");
 }
 
-const navHrefExpectations = new Map<string, string>([
-  ["/case-studies", "/case-studies"],
-  ["/about", "/about"],
-  ["/resume", "/resume"],
-  ["/contact", "/contact"],
-]);
-const navRoutePaths = new Set(navRoutes.map((route) => route.path));
-for (const [path, destination] of navHrefExpectations) {
-  const route = navRoutes.find((entry) => entry.path === path);
-  if (!route) {
-    errors.push(`expected nav route missing: ${path}`);
+const publicPaths = publicRoutes.map((route) => route.path).sort();
+if (JSON.stringify(publicPaths) !== JSON.stringify(["/", "/resume"])) {
+  errors.push(`public routes must be exactly / and /resume: ${publicPaths}`);
+}
+const navPaths = navRoutes.map((route) => route.path);
+if (JSON.stringify(navPaths) !== JSON.stringify(["/resume"])) {
+  errors.push(`nav routes must be exactly /resume: ${navPaths}`);
+}
+
+const retiredPaths = new Set(retiredRedirectRoutes.map((route) => route.path));
+for (const [source, destination] of retiredRedirectExpectations) {
+  if (!retiredPaths.has(source)) {
+    errors.push(`missing retired route: ${source}`);
     continue;
   }
-  const actualHref = getNavHref(route);
-  if (actualHref !== destination) {
-    errors.push(
-      `nav route ${path} href is ${actualHref}, expected ${destination}`,
-    );
+  const actual = getRetiredRouteDestination(source);
+  if (actual !== destination) {
+    errors.push(`${source} redirects to ${actual}, expected ${destination}`);
   }
 }
-for (const route of navRoutes) {
-  if (!navHrefExpectations.has(route.path)) {
-    errors.push(`unexpected nav route: ${route.path}`);
+for (const path of retiredPaths) {
+  if (!retiredRedirectExpectations.has(path)) {
+    errors.push(`retired route has no expectation in this test: ${path}`);
   }
 }
-for (const route of routeManifest) {
-  if (route.navHref && !navRoutePaths.has(route.path)) {
-    errors.push(`navHref appears on non-nav route: ${route.path}`);
-  }
-}
-
-const publicPaths = new Set(publicRoutes.map((route) => route.path));
-for (const requiredPath of [
-  "/",
-  "/about",
-  "/case-studies",
-  "/notes",
-  "/resume",
-  "/contact",
-]) {
-  if (!publicPaths.has(requiredPath)) {
-    errors.push(
-      `retained public route missing from sitemap set: ${requiredPath}`,
-    );
-  }
-}
-
-for (const [path, destination] of retiredRedirectExpectations) {
-  if (publicPaths.has(path)) {
-    errors.push(`retired route remains public: ${path}`);
-  }
-  const manifestRoute = retiredRedirectRoutes.find(
-    (route) => route.path === path,
-  );
-  if (!manifestRoute) {
-    errors.push(`retired route missing manifest redirect: ${path}`);
-  }
+for (const bad of ["/", "/does-not-exist"]) {
   try {
-    const actualDestination = getRetiredRouteDestination(path);
-    if (actualDestination !== destination) {
-      errors.push(
-        `retired route ${path} redirects to ${actualDestination}, expected ${destination}`,
-      );
-    }
-  } catch (error) {
-    errors.push(error instanceof Error ? error.message : String(error));
-  }
-}
-
-function expectRedirectLookupFailure(path: string, expected: RegExp) {
-  try {
-    getRetiredRouteDestination(path);
-    errors.push(`expected retired redirect lookup to fail for ${path}`);
-  } catch (error) {
-    const message = error instanceof Error ? error.message : String(error);
-    if (!expected.test(message)) {
-      errors.push(
-        `retired redirect lookup for ${path} failed with unexpected message: ${message}`,
-      );
-    }
-  }
-}
-
-expectRedirectLookupFailure("/", /not retired/);
-expectRedirectLookupFailure("/not-a-real-route", /Unknown route/);
-
-if (existsSync(legacyResumeAssetPath)) {
-  errors.push(
-    `legacy resume asset is still publicly available: ${legacyResumeAssetPath}`,
-  );
-}
-
-if (!existsSync(canonicalResumeAssetPath)) {
-  errors.push(`canonical resume asset missing: ${canonicalResumeAssetPath}`);
-}
-
-const legacyResumeRedirect = assetRedirectRoutes.find(
-  (route) => route.source === legacyResumeAssetSource,
-);
-if (!legacyResumeRedirect) {
-  errors.push(
-    `legacy resume asset redirect missing: ${legacyResumeAssetSource}`,
-  );
-} else {
-  if (legacyResumeRedirect.destination !== profile.resumePath) {
-    errors.push(
-      `legacy resume asset redirects to ${legacyResumeRedirect.destination}, expected ${profile.resumePath}`,
-    );
-  }
-  if (!legacyResumeRedirect.permanent) {
-    errors.push(
-      `legacy resume asset redirect must be permanent: ${legacyResumeAssetSource}`,
-    );
+    getRetiredRouteDestination(bad);
+    errors.push(`retired lookup must fail for ${bad}`);
+  } catch {
+    // expected
   }
 }
 
 async function main() {
-  const redirects = await nextConfig.redirects?.();
-  const redirectMap = new Map(
-    redirects?.map((redirect) => [redirect.source, redirect.destination]) ?? [],
-  );
-  for (const [path, destination] of retiredRedirectExpectations) {
-    if (redirectMap.get(path) !== destination) {
-      errors.push(
-        `next.config redirect for ${path} is ${redirectMap.get(path) ?? "<missing>"}, expected ${destination}`,
-      );
+  const redirects = await nextConfig.redirects!();
+  for (const [source, destination] of retiredRedirectExpectations) {
+    const redirect = redirects.find((entry) => entry.source === source);
+    if (!redirect) errors.push(`next.config has no redirect for ${source}`);
+    else if (redirect.destination !== destination || !redirect.permanent) {
+      errors.push(`next.config redirect for ${source} is wrong`);
+    }
+  }
+  for (const asset of assetRedirectRoutes) {
+    const redirect = redirects.find((entry) => entry.source === asset.source);
+    if (!redirect?.permanent || redirect.destination !== asset.destination) {
+      errors.push(`asset redirect missing or not permanent: ${asset.source}`);
     }
   }
 
-  const nextLegacyResumeRedirect = redirects?.find(
-    (redirect) => redirect.source === legacyResumeAssetSource,
-  );
-  if (!nextLegacyResumeRedirect) {
-    errors.push(
-      `next.config redirect missing for legacy resume asset: ${legacyResumeAssetSource}`,
-    );
-  } else {
-    if (nextLegacyResumeRedirect.destination !== profile.resumePath) {
-      errors.push(
-        `next.config legacy resume asset redirect is ${nextLegacyResumeRedirect.destination}, expected ${profile.resumePath}`,
-      );
-    }
-    if (!nextLegacyResumeRedirect.permanent) {
-      errors.push(
-        `next.config legacy resume asset redirect must be permanent: ${legacyResumeAssetSource}`,
-      );
-    }
+  if (
+    existsSync(
+      join(process.cwd(), "public/resume/Himadri_Latest_Resume_April_2026.pdf"),
+    )
+  ) {
+    errors.push("legacy resume PDF must not be published");
+  }
+  if (!existsSync(join(process.cwd(), "public", profile.resumePath))) {
+    errors.push(`canonical resume PDF is missing: ${profile.resumePath}`);
+  }
+  if (routeManifest.some((route) => route.path.startsWith("/api"))) {
+    errors.push("route manifest must not contain API routes");
   }
 
   if (errors.length > 0) {
-    console.error("Route smoke validation failed:");
+    console.error("Route smoke test failed:");
     for (const error of errors) console.error(`- ${error}`);
     process.exit(1);
   }
-
-  console.log("Route smoke validation passed.");
+  console.log(
+    `Route smoke test passed: 2 public pages, ${retiredRedirectExpectations.size} retired URLs redirect, resume asset in place.`,
+  );
 }
 
-main().catch((error: unknown) => {
-  console.error(error);
-  process.exit(1);
-});
+void main();

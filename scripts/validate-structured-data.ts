@@ -65,7 +65,7 @@ const allowedExternalValues = new Set([
   "https://schema.org",
   profile.linkedin,
   profile.github,
-  `mailto:${profile.email}`,
+  profile.x,
 ]);
 const disallowedSubstrings = [
   "/api/interview",

@@ -29,3 +29,7 @@ pnpm-debug.log*
 # TypeScript
 *.tsbuildinfo
 .vercel
+
+# Local copy of the claude.ai/design project "himadri.dev Design System".
+# The site uses the port in src/styles/design-system.css; see AGENTS.md.
+design-system/

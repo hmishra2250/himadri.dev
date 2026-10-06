@@ -12,6 +12,7 @@ const eslintConfig = [
       "docs/**",
       ".omx/**",
       ".claude/**",
+      "design-system/**",
     ],
   },
 ];

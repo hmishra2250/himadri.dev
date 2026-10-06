@@ -4,7 +4,7 @@ import { readFileSync } from "node:fs";
 const manifest = JSON.parse(
   readFileSync(".next/prerender-manifest.json", "utf8"),
 );
-for (const route of ["/", "/case-studies", "/resume"]) {
+for (const route of ["/", "/resume"]) {
   const entry = manifest.routes[route];
   assert.ok(entry, `${route} must be prerendered at build time`);
   assert.equal(
@@ -15,7 +15,7 @@ for (const route of ["/", "/case-studies", "/resume"]) {
   assert.ok(!manifest.dynamicRoutes[route]);
 }
 console.log(
-  "Home and Work are statically prerendered, with no request-time content rendering.",
+  "Home and Resume are statically prerendered, with no request-time content rendering.",
 );
 
 const resumeHtml = readFileSync(".next/server/app/resume.html", "utf8");
