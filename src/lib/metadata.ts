@@ -8,7 +8,7 @@ export const siteConfig = {
   url: "https://www.himadri.dev",
   author: profile.name,
   /** Versioned so link previews (X, LinkedIn, Slack) fetch the current card */
-  ogImage: "/og/himadri-dev-2026-10.png",
+  ogImage: "/og/himadri-dev-2026-10-11.png",
   ogImageAlt:
     "Himadri Mishra: I build agents, and the MCP servers, CLIs and SDKs they run on.",
 };
