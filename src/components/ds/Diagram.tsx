@@ -70,7 +70,7 @@ export function DiagramFigure({
   );
 }
 
-/** A node: optional mono index, a Plex Sans name and up to two sublabel lines. */
+/** A node: optional mono index top left, then a centred name and up to two sublabel lines. */
 export function DgNode({
   x,
   y,
@@ -99,15 +99,16 @@ export function DgNode({
           {index}
         </text>
       ) : null}
-      <text className="hm-dg-name" x={x + 10} y={nameY}>
+      <text className="hm-dg-name" x={x + w / 2} y={nameY} textAnchor="middle">
         {name}
       </text>
       {(sub ?? []).map((line, i) => (
         <text
           key={line}
           className="hm-dg-sub"
-          x={x + 10}
+          x={x + w / 2}
           y={nameY + 20 + i * 15}
+          textAnchor="middle"
         >
           {line}
         </text>

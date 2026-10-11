@@ -77,13 +77,12 @@ export type BeforeAfterDiagram = {
   label: string;
   title: string;
   desc: string;
-  before: { agent: DiagramNode; server: DiagramNode; edge: string };
+  before: { label: string; agent: DiagramNode; server: DiagramNode };
   after: {
+    label: string;
     agent: DiagramNode;
     account: DiagramNode;
     keyless: DiagramNode;
-    accountEdge: string;
-    keylessEdge: string;
   };
 };
 
@@ -216,16 +215,18 @@ export const work = {
       title: "The hosted MCP server, before and after",
       desc: "Before, an agent reached one server with an API key in the URL and an OAuth flow that was mis-wired and often failed. After, an agent signs in with Firecrawl OAuth to an account endpoint, or uses a keyless endpoint that needs no account.",
       before: {
+        label: "BEFORE",
         agent: { name: "Agent", sub: ["any client"] },
-        server: { name: "Server", sub: ["key in the URL"] },
-        edge: "OAUTH MIS-WIRED",
+        server: {
+          name: "One server",
+          sub: ["key in the URL", "OAuth mis-wired"],
+        },
       },
       after: {
+        label: "AFTER",
         agent: { name: "Agent", sub: ["any client"] },
-        account: { name: "Account endpoint" },
-        keyless: { name: "Keyless endpoint" },
-        accountEdge: "OAUTH",
-        keylessEdge: "NO ACCOUNT",
+        account: { name: "Account endpoint", sub: ["Firecrawl OAuth"] },
+        keyless: { name: "Keyless endpoint", sub: ["no account needed"] },
       },
     } satisfies BeforeAfterDiagram,
     prs: [

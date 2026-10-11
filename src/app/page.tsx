@@ -84,44 +84,38 @@ export default function Home() {
       <RouteJsonLd path="/" />
 
       <section className="hm-wrap hm-hero">
-        <div className="hm-split">
-          <div>
-            <div className="hm-hero-id">
-              <div className="hm-hero-who">
-                <span className="hm-hero-name">{hero.name}</span>
-                <Label>
-                  {hero.role}, 8+ years · {hero.location}
-                </Label>
-              </div>
-            </div>
-            <h1 className="hm-display hm-hero-statement">{hero.punchline}</h1>
-            <div className="hm-stack hm-hero-copy">
-              <p className="hm-lead">
-                <Text segments={hero.lead} />
-              </p>
-              <p className="hm-prose">
-                <Text segments={hero.latest} />
-              </p>
-            </div>
-            <div className="hm-page-actions hm-hero-actions">
-              <Button href="#work" variant="primary" arrow="↓">
-                {hero.actions.work}
-              </Button>
-              <Button href={links.resume}>{hero.actions.resume}</Button>
-            </div>
+        <span className="hm-portrait hm-hero-photo">
+          <Image
+            src="/images/himadri-portrait.png"
+            alt={hero.name}
+            width={460}
+            height={460}
+            sizes="(max-width: 860px) 128px, 264px"
+            priority
+          />
+        </span>
+        <div className="hm-hero-id">
+          <div className="hm-hero-who">
+            <span className="hm-hero-name">{hero.name}</span>
+            <Label>
+              {hero.role}, 8+ years · {hero.location}
+            </Label>
           </div>
-          <div>
-            <span className="hm-portrait hm-hero-photo">
-              <Image
-                src="/images/himadri-portrait.png"
-                alt={hero.name}
-                width={460}
-                height={460}
-                sizes="(max-width: 860px) 160px, 320px"
-                priority
-              />
-            </span>
-          </div>
+        </div>
+        <h1 className="hm-h1 hm-hero-statement">{hero.punchline}</h1>
+        <div className="hm-stack hm-hero-copy">
+          <p className="hm-lead">
+            <Text segments={hero.lead} />
+          </p>
+          <p className="hm-prose">
+            <Text segments={hero.latest} />
+          </p>
+        </div>
+        <div className="hm-page-actions hm-hero-actions">
+          <Button href="#work" variant="primary" arrow="↓">
+            {hero.actions.work}
+          </Button>
+          <Button href={links.resume}>{hero.actions.resume}</Button>
         </div>
       </section>
 

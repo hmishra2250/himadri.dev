@@ -18,7 +18,7 @@ import type {
  */
 
 const A = 12; // left column x
-const B = 220; // right column x
+const B = 212; // right column x
 const W = 152; // column width
 
 /**
@@ -110,9 +110,9 @@ export function HarnessLoopFigure({ diagram }: { diagram: LoopDiagram }) {
 }
 
 /**
- * The hosted MCP server before and after the rebuild: one server reached
- * with a key in the URL, then an account endpoint behind OAuth and a keyless
- * endpoint that needs no account.
+ * The hosted MCP server before and after the rebuild, side by side: one
+ * server reached with a key in the URL, then an account endpoint behind
+ * OAuth and a keyless endpoint that needs no account.
  */
 export function BeforeAfterFigure({
   diagram,
@@ -127,26 +127,23 @@ export function BeforeAfterFigure({
       title={diagram.title}
       desc={diagram.desc}
       width={384}
-      height={232}
+      height={240}
     >
-      <text className="hm-dg-label" x={0} y={12}>
-        BEFORE
+      <text className="hm-dg-label" x={A} y={12}>
+        {before.label}
       </text>
-      <DgEdge diagram={id} d="M164,52 H220" />
-      <DgNode x={A} y={24} w={W} h={56} tone="input" {...before.agent} />
-      <DgNode x={B} y={24} w={W} h={56} {...before.server} />
-      <DgLabel x={168} y={68} text={before.edge} />
+      <DgEdge diagram={id} d="M92,72 V112" />
+      <DgNode x={A} y={24} w={160} h={48} tone="input" {...before.agent} />
+      <DgNode x={A} y={112} w={160} h={64} {...before.server} />
 
-      <text className="hm-dg-label" x={0} y={116}>
-        AFTER
+      <text className="hm-dg-label" x={B} y={12}>
+        {after.label}
       </text>
-      <DgEdge diagram={id} d="M164,156 H220" tone="focal" />
-      <DgEdge diagram={id} d="M164,204 H220" />
-      <DgNode x={A} y={128} w={W} h={96} tone="input" {...after.agent} />
-      <DgNode x={B} y={128} w={W} h={40} tone="focal" {...after.account} />
-      <DgNode x={B} y={184} w={W} h={40} {...after.keyless} />
-      <DgLabel x={168} y={140} text={after.accountEdge} tone="focal" />
-      <DgLabel x={168} y={220} text={after.keylessEdge} />
+      <DgEdge diagram={id} d="M292,72 V112" tone="focal" />
+      <DgEdge diagram={id} d="M212,48 H196 V208 H212" />
+      <DgNode x={B} y={24} w={160} h={48} tone="input" {...after.agent} />
+      <DgNode x={B} y={112} w={160} h={48} tone="focal" {...after.account} />
+      <DgNode x={B} y={184} w={160} h={48} {...after.keyless} />
     </DiagramFigure>
   );
 }

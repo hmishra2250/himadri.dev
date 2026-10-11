@@ -72,6 +72,7 @@ Pulled from claude.ai/design on 11 October 2026; see `SYNC.md`.
 - `src/styles/globals.css` imports the tokens (except `fonts.css`), `components/components.css` (the v2 file, unchanged) and `components/additions.css`. IBM Plex is loaded with `next/font` instead of the Google Fonts import.
 - `src/components/ds/` holds typed React server components that emit only the classes documented here: `Button`, `ArrowLink`, `Label`, `Status`, `Section`, `PageHeader`, `DiagramFigure` (with `DgNode`, `DgEdge`, `DgLabel`, `DgZone`), `WorkRows`, `SystemGrid`, `SystemCard`, `Timeline`, `Evidence`, `DocumentPages`, `SocialLinks`.
 - The home page follows the UI kit's Home: the hero with the shipped strip, then numbered sections (Selected work, Latest, Built on the side): the work first, what is new second, side projects last. The introduction is one positioning paragraph and one proof line. One page and `/resume`, so there is no Work, Notes, About or Contact page and no contact block; WorkRows render without accordions, so nothing on the page is hidden.
+- The header shows the HM mark (the favicon: white Plex Sans 600 on a cobalt square) in place of the name and role, at the owner's request; the name appears once, in the introduction. Diagram node names and sublabels are centred.
 - The footer has no colophon or copyright line, and no page carries notes about the site itself (fonts, formats, how it was built).
 - The JSX under `components/` and the UI kit are references for claude.ai/design previews; the site does not import them.
 
@@ -83,7 +84,8 @@ In `components/additions.css`. Add a pattern there, with a component in `src/com
 |---|---|---|---|
 | Scroll offset | `html`, `.hm-section[id]` | | In-page links scroll smoothly; the section rule lands below the sticky header. |
 | Skip link | `hm-skip-link` | (layout) | Skip to content. |
-| Hero | `hm-hero`, `hm-hero-who`, `hm-hero-name`, `hm-hero-photo`, `hm-hero-copy`, `hm-hero-actions` | (page) | The UI kit's inline hero values. With no role line, the statement takes the role line's 40px offset, and as a sentence it runs the width over two balanced lines instead of v2's 17ch. The portrait sits beside the introduction at 320px (160px on phones) with a plain crop. Figure notes use graphite-soft for contrast. |
+| Hero | `hm-hero`, `hm-hero-who`, `hm-hero-name`, `hm-hero-photo`, `hm-hero-copy`, `hm-hero-actions` | (page) | The introduction fits the first screen: the statement at `hm-h1` a step below display size, and the paragraphs flowing around the portrait floated right (264px, 128px above the text on phones). Figure notes use graphite-soft for contrast. |
+| Header mark | `hm-brand--mark`, `hm-brand-mark` | (site) | The favicon's HM on a 32px cobalt square as the home link. |
 | Lead piece | `hm-stack`, `hm-figure-label`, `hm-follow` | (page) | A section's lead piece beside an `hm-figure`, as in the kit's Selected engineering. Its title is an `hm-h3`, below the section's h2, and its bullets are 16px. |
 | Sublist | `hm-sublist`, `hm-sublist-bar`, `hm-more` | (page) | A mono label over a second list inside a section, with an optional link on the right; `hm-more` is a small line of further links under a list. |
 | Wide list split | `hm-split--4-8` | (page) | A narrow intro beside a timeline, as in the kit's Background. |

@@ -8,7 +8,8 @@
  *
  *   scroll offset                 In-page links scroll smoothly and clear the sticky header
  *   hm-skip-link                  Skip to content
- *   hm-hero, hm-hero-photo        Home hero: spacing, a two-line statement, the portrait
+ *   hm-hero, hm-hero-photo        The introduction: text around the portrait, fits the first screen
+ *   hm-brand-mark                 The HM mark in the header
  *   hm-stack                      A column of content with v2's 16px rhythm
  *   hm-figure-label               Label at the top of an hm-figure
  *   hm-follow                     Space between a section's lead piece and what follows
@@ -71,12 +72,19 @@ html {
   font-weight: 600;
   letter-spacing: -0.01em;
 }
-/* The portrait beside the introduction: a plain crop, smaller on phones */
+/*
+ * The introduction fits the first screen: the statement a step below display
+ * size, and the text flowing around the portrait on the right.
+ */
+.hm-hero {
+  padding-top: clamp(32px, 4vw, 48px);
+  padding-bottom: 8px;
+}
 .hm-hero-photo {
-  width: 100%;
-  max-width: 320px;
+  float: right;
+  width: clamp(160px, 19vw, 264px);
   aspect-ratio: 1 / 1;
-  margin-left: auto;
+  margin: 4px 0 24px clamp(24px, 4vw, 48px);
 }
 .hm-hero-photo img {
   width: 100%;
@@ -84,14 +92,36 @@ html {
   object-fit: cover;
   transform: none;
 }
-.hm-hero .hm-split {
-  align-items: start;
+.hm-hero-statement.hm-h1 {
+  font-size: clamp(36px, 4.1vw, 58px);
 }
 @media (max-width: 860px) {
   .hm-hero-photo {
-    max-width: 160px;
-    margin-left: 0;
+    float: none;
+    display: block;
+    width: 128px;
+    margin: 0 0 20px;
   }
+}
+/* The header mark: the favicon's HM on a cobalt square, in place of the name */
+.hm-brand--mark {
+  align-items: center;
+}
+.hm-brand-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: var(--cobalt);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+.hm-brand--mark:hover .hm-brand-mark {
+  background: var(--cobalt-dark);
 }
 /* Figure notes read at 4.2:1 in muted on pearl-warm; graphite-soft clears 4.5:1 */
 .hm-figure-note {
@@ -104,7 +134,7 @@ html {
  * sentence, so it runs the width and balances over two lines.
  */
 .hm-hero-id + .hm-hero-statement {
-  margin-top: 40px;
+  margin-top: 28px;
   max-width: none;
 }
 
@@ -133,10 +163,10 @@ html {
   gap: 16px;
 }
 .hm-hero-copy {
-  margin-top: 32px;
+  margin-top: 24px;
 }
 .hm-hero-actions {
-  margin-top: 28px;
+  margin-top: 24px;
 }
 .hm-more {
   margin-top: 24px;
