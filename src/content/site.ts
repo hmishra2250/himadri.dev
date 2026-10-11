@@ -460,7 +460,7 @@ export const projects = {
   side: [
     {
       name: "Talkies",
-      line: "Dictation and meeting transcription for Linux. Hold a key, talk, and the text lands wherever the cursor is. Nothing leaves the machine.",
+      line: "Dictation for Linux: hold a key, speak, and the text is pasted at your cursor. Speech is transcribed on your own machine, and meetings can be transcribed too.",
       meta: "2026",
     },
     {
@@ -478,12 +478,12 @@ export const projects = {
     },
     {
       name: "laptop-powersave",
-      line: "Battery profiles for a laptop that doubles as a home server. It caps the CPU on battery and frees the GPU without a reboot.",
+      line: "Battery modes for a Linux laptop that doubles as a home server: it caps the CPU when the charger is unplugged and powers down the idle NVIDIA GPU without a reboot.",
       meta: "2026",
     },
     {
       name: "cctv-edge",
-      line: "A local CCTV console with on-device object detection, sized for a small Intel mini PC.",
+      line: "A local web console for a Dahua-compatible NVR: live view, Frigate object detection and archive backfill, with nothing exposed to the internet. Sized for a small Intel mini PC.",
       meta: "2026",
     },
   ] satisfies OneLiner[],
