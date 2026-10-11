@@ -460,7 +460,7 @@ export const projects = {
   side: [
     {
       name: "Talkies",
-      line: "Dictation for Linux: hold a key, speak, and the text is pasted at your cursor. Speech is transcribed on your own machine, and meetings can be transcribed too.",
+      line: "Dictation for Linux: hold a key, speak, and the text is pasted at your cursor. Speech is transcribed on your own machine.",
       meta: "2026",
     },
     {
@@ -483,7 +483,7 @@ export const projects = {
     },
     {
       name: "cctv-edge",
-      line: "A local web console for a Dahua-compatible NVR: live view, Frigate object detection and archive backfill, with nothing exposed to the internet. Sized for a small Intel mini PC.",
+      line: "A local web console for a Dahua-compatible NVR: live view, Frigate detection and archive backfill, nothing exposed to the internet.",
       meta: "2026",
     },
   ] satisfies OneLiner[],
