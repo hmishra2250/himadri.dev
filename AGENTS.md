@@ -47,7 +47,7 @@ Every other path from earlier versions is retired in `src/lib/routes.ts` and red
 ## Content and proof model
 
 - Everything the site says lives in `src/content/site.ts`, in reading order.
-- To add a side project, add a one-liner at the top of `projects.side`. Leave out `href` while the repository is private; the row then renders as plain text.
+- To add a side project, add a one-liner at the top of `projects.side`. Leave out `href` while the repository is private; the row then renders as plain text. Talkies, laptop-powersave and cctv-edge went public on 2026-10-12.
 - Lead with impact, as before-and-after percentages where a measurement exists. Not everything needs a number: describe a system by what it does and what it led to. Do not lead with pull request, commit or fix counts. Keep figures at body size in the text, never as large display numbers; only titles are set large.
 - Every company-specific statement and every number references a claim in `src/content/proof.ts` through a `proof` id. Claims must be approved and public, and sourced from the current resume, a public URL, or a `work-record` (the owner's description of private work by what it does). A `work-record` claim is the owner's own account and stands on its own; it may not carry figures, so every number needs the resume or a public source. Never name private repositories in a source.
 - Merged pull requests and public repositories are their own proof: link them.

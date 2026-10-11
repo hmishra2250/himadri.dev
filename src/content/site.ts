@@ -460,6 +460,7 @@ export const projects = {
   side: [
     {
       name: "Talkies",
+      href: `${github}/talkies`,
       line: "Dictation for Linux: hold a key, speak, and the text is pasted at your cursor. Speech is transcribed on your own machine.",
       meta: "2026",
     },
@@ -478,11 +479,13 @@ export const projects = {
     },
     {
       name: "laptop-powersave",
+      href: `${github}/laptop-powersave`,
       line: "Battery modes for a Linux laptop that doubles as a home server: it caps the CPU when the charger is unplugged and powers down the idle NVIDIA GPU without a reboot.",
       meta: "2026",
     },
     {
       name: "cctv-edge",
+      href: `${github}/cctv-edge`,
       line: "A local web console for a Dahua-compatible NVR: live view, Frigate detection and archive backfill, nothing exposed to the internet.",
       meta: "2026",
     },
