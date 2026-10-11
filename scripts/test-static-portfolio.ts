@@ -1,5 +1,7 @@
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
+import { join } from "node:path";
+import { renderSite } from "./lib/render-site";
 
 const manifest = JSON.parse(
   readFileSync(".next/prerender-manifest.json", "utf8"),
@@ -18,7 +20,30 @@ console.log(
   "Home and Resume are statically prerendered, with no request-time content rendering.",
 );
 
-const resumeHtml = readFileSync(".next/server/app/resume.html", "utf8");
+/*
+ * The prerendered HTML lives at .next/server/app/resume.html in a local
+ * build. Vercel's build of Next.js 16.4 keeps it elsewhere or not at all, so
+ * look in the known places and otherwise render the page from its components
+ * (the same markup the build prerenders).
+ */
+const candidates = [
+  ".next/server/app/resume.html",
+  ".next/server/app/resume/index.html",
+  ".next/server/app/resume/page.html",
+  ".vercel/output/static/resume.html",
+  ".vercel/output/static/resume/index.html",
+];
+const built = candidates.find((path) => existsSync(join(process.cwd(), path)));
+let resumeHtml: string;
+if (built) {
+  resumeHtml = readFileSync(built, "utf8");
+} else {
+  resumeHtml = renderSite()[1].html;
+  console.log(
+    "Prerendered resume HTML is not on disk in this build; checking the rendered page instead.",
+  );
+}
+
 assert.ok(
   !resumeHtml.includes("<iframe"),
   "Resume pages render in the page flow, not an iframe",
