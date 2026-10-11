@@ -21,7 +21,7 @@ const routeSeoData = {
     openGraphTitle: "Himadri Mishra | AI Engineer",
     openGraphDescription:
       "What I work on now, the Agent Experience programme I ran at Firecrawl with its merged pull requests, and the production ML before that.",
-    lastModified: "2026-10-06",
+    lastModified: "2026-10-12",
   },
   "/resume": {
     title: "Resume",
@@ -31,7 +31,7 @@ const routeSeoData = {
     openGraphTitle: "Resume | Himadri Mishra",
     openGraphDescription:
       "Read or download the resume for Himadri Mishra, AI engineer: agents, MCP servers, CLIs and SDKs.",
-    lastModified: "2026-10-06",
+    lastModified: "2026-10-12",
   },
 } satisfies Record<string, Omit<RouteSeo, "path">>;
 
