@@ -47,9 +47,10 @@ export const bannedCopyPatterns: ReadonlyArray<readonly [RegExp, string]> = [
   ],
 ];
 
-export const homeSectionIds = new Set<string>(
-  site.sections.map((section) => section.id),
-);
+export const homeSectionIds = new Set<string>([
+  ...site.sections.map((section) => section.id),
+  ...site.anchors,
+]);
 
 type Found = { path: string; value: unknown };
 

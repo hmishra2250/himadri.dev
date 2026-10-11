@@ -134,7 +134,28 @@ export const hero = {
     { text: "paired A/B test", href: prLink("firecrawl-mcp-server", 340) },
     ". Firecrawl's Claude and Codex connectors run on it.",
   ] satisfies Segment[],
-  actions: { work: "See selected work", resume: "Resume" },
+  action: "See selected work",
+  /** The selected work, as an index at the foot of the first screen */
+  index: [
+    {
+      label: "01 · Mudita Studios",
+      title: "A coding agent for Slack and Jira requests",
+      line: "A ticket in, a draft pull request out, checked outside the sandbox.",
+      href: "/#coding-agent",
+    },
+    {
+      label: "02 · Firecrawl",
+      title: "The hosted MCP server, rebuilt",
+      line: "Sign-in that works, and agents load half the tokens.",
+      href: "/#hosted-mcp",
+    },
+    {
+      label: "03 · Firecrawl",
+      title: "The Agent Experience harness",
+      line: "Real coding agents test every release before it ships.",
+      href: "/#harness",
+    },
+  ] satisfies { label: string; title: string; line: string; href: string }[],
   proof: [
     "resume-summary",
     "firecrawl-yc",
@@ -146,6 +167,8 @@ export const hero = {
 
 /** A substantial piece of work: a figure, what it does, and its evidence. */
 export type WorkRecord = {
+  /** Anchor on the home page */
+  id: string;
   status: string;
   title: string;
   story: string;
@@ -167,6 +190,7 @@ export const work = {
   label: "Selected work",
   title: "What I built.",
   featured: {
+    id: "coding-agent",
     status: "Mudita Studios · since May 2026",
     title:
       "A coding agent that answers Slack and Jira requests with pull requests",
@@ -203,6 +227,7 @@ export const work = {
     proof: ["mudita-coding-agent"] satisfies ProofClaimId[],
   },
   mcp: {
+    id: "hosted-mcp",
     status: "Firecrawl · July 2026",
     title: "Firecrawl's hosted MCP server, rebuilt",
     story:
@@ -260,6 +285,7 @@ export const work = {
     ] satisfies ProofClaimId[],
   } satisfies WorkRecord & { diagram: BeforeAfterDiagram },
   harness: {
+    id: "harness",
     status: "Firecrawl · May to September 2026",
     title: "The Agent Experience harness",
     story:
@@ -506,6 +532,9 @@ export const sections = [
   { id: "latest", label: "Latest" },
   { id: "projects", label: "Built on the side" },
 ] as const;
+
+/** Every in-page anchor besides the sections, for link validation */
+export const anchors = [work.featured.id, work.mcp.id, work.harness.id];
 
 /** Every pull request the page cites, for validation */
 export const pullRequests = (): PullRequest[] => [

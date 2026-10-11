@@ -8,7 +8,8 @@
  *
  *   scroll offset                 In-page links scroll smoothly and clear the sticky header
  *   hm-skip-link                  Skip to content
- *   hm-hero, hm-hero-photo        The introduction: text around the portrait, fits the first screen
+ *   hm-hero, hm-hero-photo, hm-hero-index  The introduction fills the first screen, with a work index at its foot
+ *   section rules off             Space separates sections; the bar keeps its index and label
  *   hm-brand-mark                 The HM mark in the header
  *   hm-stack                      A column of content with v2's 16px rhythm
  *   hm-figure-label               Label at the top of an hm-figure
@@ -73,18 +74,28 @@ html {
   letter-spacing: -0.01em;
 }
 /*
- * The introduction fits the first screen: the statement a step below display
- * size, and the text flowing around the portrait on the right.
+ * The introduction fills the first screen and the next section starts
+ * below it: the statement at full width, the paragraphs flowing around the
+ * portrait floated right, and an index of the selected work at the foot.
  */
 .hm-hero {
-  padding-top: clamp(32px, 4vw, 48px);
-  padding-bottom: 8px;
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100svh - var(--nav-height));
+  padding-top: clamp(28px, 3.5vw, 44px);
+  padding-bottom: clamp(24px, 3vw, 40px);
+}
+.hm-hero-copy {
+  margin-top: 24px;
+}
+.hm-hero-copy > * + * {
+  margin-top: 16px;
 }
 .hm-hero-photo {
   float: right;
   width: clamp(160px, 19vw, 264px);
   aspect-ratio: 1 / 1;
-  margin: 4px 0 24px clamp(24px, 4vw, 48px);
+  margin: 4px 0 20px clamp(24px, 4vw, 48px);
 }
 .hm-hero-photo img {
   width: 100%;
@@ -95,13 +106,47 @@ html {
 .hm-hero-statement.hm-h1 {
   font-size: clamp(36px, 4.1vw, 58px);
 }
+.hm-hero-index {
+  clear: both;
+  margin-top: clamp(40px, 7vh, 88px);
+}
+.hm-hero-index dd {
+  font-size: 16px;
+}
+.hm-hero-index dd a {
+  color: var(--graphite);
+  font-weight: 500;
+}
+.hm-fact-line {
+  display: block;
+  margin-top: 4px;
+  color: var(--graphite-soft);
+  font-size: 15px;
+}
+.hm-hero-index dd a:hover {
+  color: var(--cobalt-dark);
+}
 @media (max-width: 860px) {
+  .hm-hero {
+    min-height: 0;
+  }
   .hm-hero-photo {
     float: none;
     display: block;
     width: 128px;
     margin: 0 0 20px;
   }
+}
+/* The header's Resume is v2's small quiet button; the nav anchor rule wins otherwise */
+.hm-nav a.hm-button--sm {
+  min-height: 36px;
+  padding: 0 14px;
+  font-size: 14px;
+}
+/* Space, not rules, between sections */
+.hm-section-bar {
+  border-top: 0;
+  padding-top: 0;
 }
 /* The header mark: the favicon's HM on a cobalt square, in place of the name */
 .hm-brand--mark {
@@ -161,12 +206,6 @@ html {
   justify-content: space-between;
   align-items: baseline;
   gap: 16px;
-}
-.hm-hero-copy {
-  margin-top: 24px;
-}
-.hm-hero-actions {
-  margin-top: 24px;
 }
 .hm-more {
   margin-top: 24px;

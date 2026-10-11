@@ -84,16 +84,6 @@ export default function Home() {
       <RouteJsonLd path="/" />
 
       <section className="hm-wrap hm-hero">
-        <span className="hm-portrait hm-hero-photo">
-          <Image
-            src="/images/himadri-portrait.png"
-            alt={hero.name}
-            width={460}
-            height={460}
-            sizes="(max-width: 860px) 128px, 264px"
-            priority
-          />
-        </span>
         <div className="hm-hero-id">
           <div className="hm-hero-who">
             <span className="hm-hero-name">{hero.name}</span>
@@ -103,20 +93,40 @@ export default function Home() {
           </div>
         </div>
         <h1 className="hm-h1 hm-hero-statement">{hero.punchline}</h1>
-        <div className="hm-stack hm-hero-copy">
+        <div className="hm-hero-copy">
+          <span className="hm-portrait hm-hero-photo">
+            <Image
+              src="/images/himadri-portrait.png"
+              alt={hero.name}
+              width={460}
+              height={460}
+              sizes="(max-width: 860px) 128px, 264px"
+              priority
+            />
+          </span>
           <p className="hm-lead">
             <Text segments={hero.lead} />
           </p>
           <p className="hm-prose">
             <Text segments={hero.latest} />
           </p>
+          <div className="hm-page-actions hm-hero-actions">
+            <Button href="#work" variant="primary" arrow="↓">
+              {hero.action}
+            </Button>
+          </div>
         </div>
-        <div className="hm-page-actions hm-hero-actions">
-          <Button href="#work" variant="primary" arrow="↓">
-            {hero.actions.work}
-          </Button>
-          <Button href={links.resume}>{hero.actions.resume}</Button>
-        </div>
+        <dl className="hm-facts hm-hero-index" style={{ "--cols": 3 } as never}>
+          {hero.index.map((item) => (
+            <div className="hm-fact" key={item.href}>
+              <dt>{item.label}</dt>
+              <dd>
+                <a href={item.href}>{item.title}</a>
+                <span className="hm-fact-line">{item.line}</span>
+              </dd>
+            </div>
+          ))}
+        </dl>
       </section>
 
       <Section
@@ -131,7 +141,12 @@ export default function Home() {
         }
       >
         <SystemGrid columns={2}>
-          <SystemCard status={featured.status} title={featured.title} wide>
+          <SystemCard
+            id={featured.id}
+            status={featured.status}
+            title={featured.title}
+            wide
+          >
             <div className="hm-system-split">
               <div className="hm-stack">
                 <p>{featured.story}</p>
@@ -145,7 +160,7 @@ export default function Home() {
               </div>
             </div>
           </SystemCard>
-          <SystemCard status={mcp.status} title={mcp.title}>
+          <SystemCard id={mcp.id} status={mcp.status} title={mcp.title}>
             <div className="hm-figure hm-figure--diagram">
               <Label tone="ink" className="hm-figure-label">
                 {mcp.diagram.label}
@@ -160,7 +175,11 @@ export default function Home() {
               <Evidence items={evidence(mcp.prs)} />
             </div>
           </SystemCard>
-          <SystemCard status={harness.status} title={harness.title}>
+          <SystemCard
+            id={harness.id}
+            status={harness.status}
+            title={harness.title}
+          >
             <div className="hm-figure hm-figure--diagram">
               <Label tone="ink" className="hm-figure-label">
                 {harness.diagram.label}

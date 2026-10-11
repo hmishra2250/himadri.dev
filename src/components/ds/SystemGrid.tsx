@@ -21,11 +21,13 @@ export function SystemGrid({
  * not a link and does not fill on hover. A wide card spans the grid's row.
  */
 export function SystemCard({
+  id,
   status,
   title,
   wide,
   children,
 }: {
+  id?: string;
   status: string;
   title: string;
   wide?: boolean;
@@ -33,6 +35,7 @@ export function SystemCard({
 }) {
   return (
     <article
+      id={id}
       className={
         wide
           ? "hm-system hm-system--static hm-system--wide"
