@@ -244,12 +244,23 @@ export default function Home() {
         index="02"
         label={latest.label}
         title={latest.title}
-        intro={latest.intro}
         aside={
           <ArrowLink href={links.agentExperienceGuides}>All guides</ArrowLink>
         }
       >
-        <div className="hm-measure">
+        <div className="hm-split hm-split--5-7">
+          <div className="hm-stack">
+            <p className="hm-prose">{latest.intro}</p>
+            <ul className="hm-bullets">
+              {latest.more.map((link) => (
+                <li key={link.href}>
+                  <a className="hm-link" href={link.href}>
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
           <Timeline
             items={latest.items.map((item) => ({
               years: item.date,
@@ -261,16 +272,6 @@ export default function Home() {
               ),
             }))}
           />
-          <p className="hm-prose hm-more">
-            {latest.more.map((link, index) => (
-              <span key={link.href}>
-                {index ? " · " : ""}
-                <a className="hm-link" href={link.href}>
-                  {link.label}
-                </a>
-              </span>
-            ))}
-          </p>
         </div>
       </Section>
 

@@ -90,7 +90,8 @@ In `components/additions.css`. Add a pattern there, with a component in `src/com
 | Header mark | `hm-brand--mark`, `hm-brand-mark` | (site) | The favicon's HM on a 32px cobalt square as the home link. |
 | Lead piece | `hm-stack`, `hm-figure-label`, `hm-follow` | (page) | A section's lead piece beside an `hm-figure`, as in the kit's Selected engineering. Its title is an `hm-h3`, below the section's h2, and its bullets are 16px. |
 | Sublist | `hm-sublist`, `hm-sublist-bar`, `hm-more` | (page) | A mono label over a second list inside a section, with an optional link on the right; `hm-more` is a small line of further links under a list. |
-| Wide list split | `hm-split--4-8` | (page) | A narrow intro beside a timeline, as in the kit's Background. |
+| Link | `hm-link`, `.hm-hero-copy p a` | (page) | A link inside running text: cobalt-dark with a soft underline, cobalt on hover. |
+| Wide list split | `hm-split--4-8`, `hm-split--5-7` | (page) | A narrow intro beside a timeline, as in the kit's Background; Latest uses 5:7. |
 | Bullet label | `hm-bullets strong` | (page) | A lead-in label inside a bullet. |
 | Compact rows | `hm-rows--compact` | `WorkRows` | Rows for long lists: 20px titles that wrap long repository names, 18px padding. |
 | Static row | `hm-row--static`, `hm-row-summary-wrap` | `WorkRows` | A row without a link, for work with no public page; summaries align under the title. |

@@ -119,17 +119,16 @@ export const hero = {
   punchline: "I build agents, and the MCP servers, CLIs and SDKs they run on.",
   /** One positioning paragraph: now, in the open, before */
   lead: [
-    "I build AI products at Mudita Studios and write ",
+    "I build AI products at ",
+    { text: "Mudita Studios", href: "/#coding-agent" },
+    " and write ",
     { text: "Agent Experience", href: links.agentExperience },
     ", a guide to how agents find, choose and use software. Before that I was at Firecrawl (YC S22), and before agents I did production ML, starting in 2018.",
   ] satisfies Segment[],
   /** One proof line with its evidence */
   latest: [
     "The last big thing I shipped: ",
-    {
-      text: "Firecrawl's hosted MCP server",
-      href: prLink("firecrawl-mcp-server", 308),
-    },
+    { text: "Firecrawl's hosted MCP server", href: "/#hosted-mcp" },
     ", rebuilt so that sign-in works and agents load half the tool-metadata tokens, with no drop in task success in a ",
     { text: "paired A/B test", href: prLink("firecrawl-mcp-server", 340) },
     ". Firecrawl's Claude and Codex connectors run on it.",

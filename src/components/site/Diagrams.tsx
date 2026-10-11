@@ -45,13 +45,13 @@ export function CodingAgentFigure({
     >
       <DgZone x={1} y={92} w={382} h={116} label={diagram.zone} />
 
-      <DgEdge diagram={id} d="M140,60 V124" />
-      <DgEdge diagram={id} d="M164,140 H220" />
-      <DgEdge diagram={id} d="M220,164 H164" tone="return" />
-      <DgEdge diagram={id} d="M296,180 V244" />
-      <DgEdge diagram={id} d="M296,300 V336" />
-      <DgEdge diagram={id} d="M220,364 H164" />
-      <DgEdge diagram={id} d="M40,336 V180" tone="return" />
+      <DgEdge diagram={id} d="M88,60 V124" />
+      <DgEdge diagram={id} d="M164,136 H212" />
+      <DgEdge diagram={id} d="M212,168 H164" tone="return" />
+      <DgEdge diagram={id} d="M288,180 V244" />
+      <DgEdge diagram={id} d="M288,300 V336" />
+      <DgEdge diagram={id} d="M212,364 H164" />
+      <DgEdge diagram={id} d="M88,336 V180" tone="return" />
 
       <DgNode x={A} y={4} w={W} h={56} tone="input" {...nodes.request} />
       <DgNode x={A} y={124} w={W} h={56} {...nodes.agent} />
@@ -60,10 +60,10 @@ export function CodingAgentFigure({
       <DgNode x={B} y={336} w={W} h={56} {...nodes.draft} />
       <DgNode x={A} y={336} w={W} h={56} {...nodes.person} />
 
-      <DgLabel x={167} y={178} text={edges.revise} />
-      <DgLabel x={208} y={226} text={edges.patch} />
-      <DgLabel x={304} y={318} text={edges.pass} />
-      <DgLabel x={48} y={272} text={edges.reply} />
+      <DgLabel x={165} y={192} text={edges.revise} />
+      <DgLabel x={296} y={212} text={edges.patch} />
+      <DgLabel x={296} y={318} text={edges.pass} />
+      <DgLabel x={96} y={262} text={edges.reply} />
     </DiagramFigure>
   );
 }

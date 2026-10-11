@@ -114,6 +114,28 @@ html {
 .hm-lead--soft {
   color: var(--graphite-soft);
 }
+/* Links in running text read as links: cobalt with a soft underline */
+.hm-link,
+.hm-hero-copy p a {
+  color: var(--cobalt-dark);
+  text-decoration: underline;
+  text-decoration-color: rgba(40, 85, 216, 0.35);
+  text-underline-offset: 0.16em;
+}
+.hm-link:hover,
+.hm-hero-copy p a:hover {
+  color: var(--cobalt);
+  text-decoration-color: var(--cobalt);
+}
+/* A narrow column beside a wide list */
+.hm-split--5-7 {
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+}
+@media (max-width: 860px) {
+  .hm-split--5-7 {
+    grid-template-columns: 1fr;
+  }
+}
 /* The selected work as link cards at the foot of the first screen */
 .hm-hero-index {
   clear: both;
