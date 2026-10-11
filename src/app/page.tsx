@@ -107,7 +107,7 @@ export default function Home() {
           <p className="hm-lead">
             <Text segments={hero.lead} />
           </p>
-          <p className="hm-prose">
+          <p className="hm-lead hm-lead--soft">
             <Text segments={hero.latest} />
           </p>
           <div className="hm-page-actions hm-hero-actions">
@@ -116,17 +116,20 @@ export default function Home() {
             </Button>
           </div>
         </div>
-        <dl className="hm-facts hm-hero-index" style={{ "--cols": 3 } as never}>
-          {hero.index.map((item) => (
-            <div className="hm-fact" key={item.href}>
-              <dt>{item.label}</dt>
-              <dd>
-                <a href={item.href}>{item.title}</a>
-                <span className="hm-fact-line">{item.line}</span>
-              </dd>
-            </div>
-          ))}
-        </dl>
+        <div className="hm-hero-index">
+          <SystemGrid>
+            {hero.index.map((item) => (
+              <SystemCard
+                key={item.href}
+                href={item.href}
+                status={item.label}
+                title={item.title}
+              >
+                <p>{item.line}</p>
+              </SystemCard>
+            ))}
+          </SystemGrid>
+        </div>
       </section>
 
       <Section

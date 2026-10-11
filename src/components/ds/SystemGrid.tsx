@@ -17,22 +17,42 @@ export function SystemGrid({
 }
 
 /**
- * A system card that holds its own links (evidence), so the card itself is
- * not a link and does not fill on hover. A wide card spans the grid's row.
+ * A system card. With an href it is v2's link card: the whole card links,
+ * fills pearl-warm on hover and ends with an action line. Without one it
+ * holds its own links (evidence) and does not fill. A wide card spans the row.
  */
 export function SystemCard({
   id,
   status,
   title,
   wide,
+  href,
+  action = "Read more",
   children,
 }: {
   id?: string;
   status: string;
   title: string;
   wide?: boolean;
+  href?: string;
+  action?: string;
   children: ReactNode;
 }) {
+  if (href) {
+    return (
+      <a className="hm-system" href={href}>
+        <Status>{status}</Status>
+        <h3 className="hm-h4 hm-system-title">{title}</h3>
+        {children}
+        <span className="hm-system-action">
+          {action}
+          <span className="hm-button-icon" aria-hidden="true">
+            →
+          </span>
+        </span>
+      </a>
+    );
+  }
   return (
     <article
       id={id}
