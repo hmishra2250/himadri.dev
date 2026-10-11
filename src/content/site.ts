@@ -1,12 +1,16 @@
 import type { ProofClaimId } from "./proof";
 
 /**
- * Everything the one-page site says, in reading order.
+ * Everything the one-page site says, in reading order: the introduction,
+ * selected work, what is new, and side projects.
  *
- * To add a side project, put a new entry at the top of `projects.side`: one line,
- * and a link once the repository is public. Company-specific statements and
- * numbers carry a `proof` id from ./proof.ts.
+ * To add a side project, put a new entry at the top of `projects.side`: one
+ * line, and a link once the repository is public. Company-specific statements
+ * and numbers carry a `proof` id from ./proof.ts.
  */
+
+/** Running text with inline links */
+export type Segment = string | { text: string; href: string };
 
 export type ExternalLink = {
   label: string;
@@ -68,6 +72,20 @@ export type LoopDiagram = {
   note?: string;
 };
 
+/** A before-and-after figure: one server, then two endpoints */
+export type BeforeAfterDiagram = {
+  label: string;
+  title: string;
+  desc: string;
+  before: { label: string; agent: DiagramNode; server: DiagramNode };
+  after: {
+    label: string;
+    agent: DiagramNode;
+    account: DiagramNode;
+    keyless: DiagramNode;
+  };
+};
+
 export type TimelineEntry = {
   years: string;
   name: string;
@@ -82,6 +100,7 @@ export const links = {
   linkedin: "https://www.linkedin.com/in/hmishra2250/",
   x: "https://x.com/hmishra2250",
   agentExperience: "https://agentexperience.tech/",
+  agentExperienceGuides: "https://agentexperience.tech/insights/",
   resume: "/resume",
   firecrawlPullRequests:
     "https://github.com/pulls?q=is%3Apr+author%3Ahmishra2250+org%3Afirecrawl+is%3Amerged",
@@ -90,75 +109,95 @@ export const links = {
 export const pullRequestUrl = (pr: PullRequest) =>
   `https://github.com/firecrawl/${pr.repo}/pull/${pr.number}`;
 
+const prLink = (repo: string, number: number) =>
+  pullRequestUrl({ repo, number, summary: "" });
+
 export const hero = {
   name: "Himadri Mishra",
   role: "AI engineer",
   location: "Remote, India",
   punchline: "I build agents, and the MCP servers, CLIs and SDKs they run on.",
-  facts:
-    "AI engineer, 8+ years. I build AI products at Mudita Studios and work in the open on Agent Experience: whether agents find, choose and correctly use the tools they are given. Previously at Firecrawl (YC S22).",
-  proof: "resume-summary" satisfies ProofClaimId,
-  ycProof: "firecrawl-yc" satisfies ProofClaimId,
+  /** One positioning paragraph: now, in the open, before */
+  lead: [
+    "I build AI products at ",
+    { text: "Mudita Studios", href: "/#coding-agent" },
+    " and write ",
+    { text: "Agent Experience", href: links.agentExperience },
+    ", a guide to how agents find, choose and use software. Before that I was at Firecrawl (YC S22), and before agents I did production ML, starting in 2018.",
+  ] satisfies Segment[],
+  /** One proof line with its evidence */
+  latest: [
+    "The last big thing I shipped: ",
+    { text: "Firecrawl's hosted MCP server", href: "/#hosted-mcp" },
+    ", rebuilt so that sign-in works and agents load half the tool-metadata tokens, with no drop in task success in a ",
+    { text: "paired A/B test", href: prLink("firecrawl-mcp-server", 340) },
+    ". Firecrawl's Claude and Codex connectors run on it.",
+  ] satisfies Segment[],
+  action: "See selected work",
+  /** The selected work, as an index at the foot of the first screen */
+  index: [
+    {
+      label: "01 · Mudita Studios",
+      title: "A coding agent for Slack and Jira requests",
+      line: "A ticket in, a draft pull request out, checked outside the sandbox.",
+      href: "/#coding-agent",
+    },
+    {
+      label: "02 · Firecrawl",
+      title: "The hosted MCP server, rebuilt",
+      line: "Sign-in that works, and agents load half the tokens.",
+      href: "/#hosted-mcp",
+    },
+    {
+      label: "03 · Firecrawl",
+      title: "The Agent Experience harness",
+      line: "Real coding agents test every release before it ships.",
+      href: "/#harness",
+    },
+  ] satisfies { label: string; title: string; line: string; href: string }[],
+  proof: [
+    "resume-summary",
+    "firecrawl-yc",
+    "firecrawl-hosted-mcp",
+    "firecrawl-neutral-metadata",
+    "firecrawl-connectors",
+  ] satisfies ProofClaimId[],
 };
 
-export type ShippedItem = {
-  when: string;
-  /** Where it shipped, shown as the item's status */
-  source: string;
+/** A substantial piece of work: a figure, what it does, and its evidence. */
+export type WorkRecord = {
+  /** Anchor on the home page */
+  id: string;
+  status: string;
+  title: string;
+  story: string;
+  points: string[];
+  prs: PullRequest[];
+  proof: ProofClaimId[];
+};
+
+/** A compact row of supporting work with its own links */
+export type WorkRow = {
+  meta: string;
   title: string;
   text: string;
-  /** Where the evidence lives: a public link or a homepage section */
-  href: string;
-  /** Link text for href */
-  go: string;
-  proof?: ProofClaimId;
+  links: ExternalLink[];
+  proof: ProofClaimId[];
 };
 
-/** The hero's strip of recently shipped work, newest first. */
-export const shipped = {
-  label: "Recently shipped",
-  period: "2026",
-  items: [
-    {
-      when: "Sep",
-      source: "agentexperience.tech",
-      title: "A field guide to Agent Experience",
-      text: "With a readiness rubric and a public MCP server.",
-      href: "https://agentexperience.tech/",
-      go: "Read the guide",
-      proof: "public-agent-experience-guide",
-    },
-    {
-      when: "Jul",
-      source: "Mudita Studios",
-      title: "A coding agent, from an empty repository",
-      text: "From a Slack or Jira request to a tested draft pull request.",
-      href: "/#now",
-      go: "How it works",
-      proof: "mudita-coding-agent",
-    },
-    {
-      when: "Jul",
-      source: "Firecrawl",
-      title: "Firecrawl's hosted MCP server, rebuilt",
-      text: "Firecrawl's Claude and Codex connectors run on it, and agents load half the tokens with no loss in task success.",
-      href: "https://github.com/firecrawl/firecrawl-mcp-server/pull/308",
-      go: "firecrawl-mcp-server #308",
-      proof: "firecrawl-hosted-mcp",
-    },
-  ] satisfies ShippedItem[],
-};
-
-export const now = {
-  label: "Now",
-  title: "What I work on.",
-  mudita: {
-    name: "Mudita Studios",
-    meta: "AI Product Engineer · since May 2026",
-    items: [
-      "Built a coding agent from an empty repository.",
-      "Main engineer on a production AI product whose answers cite their sources: its data connectors, the end-to-end test harness and release gates, and security hardening.",
-      "Set up the delivery platform for a second product: CI/CD, preview environments and daily browser smoke tests.",
+export const work = {
+  label: "Selected work",
+  title: "What I built.",
+  featured: {
+    id: "coding-agent",
+    status: "Mudita Studios · since May 2026",
+    title:
+      "A coding agent that answers Slack and Jira requests with pull requests",
+    story:
+      "Someone asks for a change in Slack or Jira. The agent reads the ticket, works in a fresh sandbox that has no credentials, writes the change and its tests, and runs them. A second model that did not write the code reviews the diff and can send it back. Only a patch leaves the sandbox.",
+    points: [
+      "Then come the checks the agent cannot touch: the project's own tests run again outside the sandbox, pages get checked in a real browser, and a new test has to fail on the old code before a pull request opens.",
+      "The bot cannot merge. A person reviews the draft, and a reply in the same Slack thread updates the same pull request.",
     ],
     diagram: {
       label: "Inside the coding agent",
@@ -184,354 +223,267 @@ export const now = {
       },
       note: "The agent cannot commit or push, and each new test must fail on the old code before a pull request opens.",
     } satisfies CodingAgentDiagram,
-    proof: [
-      "mudita-coding-agent",
-      "mudita-main-engineer",
-      "mudita-delivery-platform",
-    ] satisfies ProofClaimId[],
+    proof: ["mudita-coding-agent"] satisfies ProofClaimId[],
   },
-};
-
-export const inTheOpen = {
-  label: "In the open",
-  title: "Agent Experience, in the open.",
-  proof: "public-agent-experience-guide" satisfies ProofClaimId,
-  items: [
-    {
-      name: "Agent Experience field guide",
-      href: "https://agentexperience.tech/",
-      line: "How AI agents experience a product while acting for a person.",
-      meta: "Published guide",
-    },
-    {
-      name: "Open Agent-Readiness Rubric",
-      href: "https://agentexperience.tech/insights/agent-readiness-rubric/",
-      line: "Checks one real job an agent does across six tracks and gives a profile, not one score.",
-      meta: "Open rubric",
-    },
-    {
-      name: "Public MCP server",
-      href: "https://agentexperience.tech/connect/",
-      line: "A read-only endpoint any agent can query for a bounded audit.",
-      meta: "MCP server",
-    },
-    {
-      name: "MCP tool-description test cases",
-      href: "https://agentexperience.tech/resources/mcp-tool-description-test-cases/",
-      line: "Copyable cases for tool selection, inputs, results and recovery.",
-      meta: "Test cases",
-    },
-    {
-      name: "awesome-agent-experience",
-      href: `${github}/awesome-agent-experience`,
-      line: "Sources on tool use, discovery and evaluation.",
-      meta: "Curated list",
-    },
-  ] satisfies OneLiner[],
-};
-
-/** One point inside a work card; an optional lead-in label. */
-export type WorkPoint = { label?: string; text: string };
-
-export type WorkCard = {
-  title: string;
-  /** Mono status above the title */
-  status: string;
-  /** What it is and why it mattered, in two or three sentences */
-  story?: string;
-  points: WorkPoint[];
-  prs: PullRequest[];
-  proof: ProofClaimId[];
-};
-
-export const firecrawl = {
-  label: "Previously",
-  title: "Agent Experience at Firecrawl.",
-  intro: "From May to September 2026 I owned Agent Experience at Firecrawl.",
-  proof: ["firecrawl-programme"] satisfies ProofClaimId[],
-  harness: {
-    label: "Inside the harness",
-    title: "Inside the Agent Experience harness",
-    desc: "A loop of six steps, pin the builds, run real agents, keep every trace, check then judge, report findings and fix the product, then back to the first step to re-test; new releases enter at the first step, and search checks without agents feed the findings.",
-    entry: "NEW RELEASES",
-    retest: "RE-TEST",
-    stations: [
-      {
-        name: "Pin the builds",
-      },
-      {
-        name: "Run real agents",
-      },
-      {
-        name: "Keep every trace",
-      },
-      {
-        name: "Check, then judge",
-      },
-      {
-        name: "Report findings",
-      },
-      { name: "Fix the product" },
+  mcp: {
+    id: "hosted-mcp",
+    status: "Firecrawl · July 2026",
+    title: "Firecrawl's hosted MCP server, rebuilt",
+    story:
+      "The old server took the API key in the URL, and its OAuth flow was wired wrong, so sign-in failed a lot. I rebuilt it on Firecrawl's own OAuth with two endpoints: one for accounts and one that needs no account at all. An agent can start without signing up, and when a tool does need an account it gets told what to do next.",
+    points: [
+      "Agents now load half the tool-metadata tokens, and task success stayed the same in a paired A/B test. Firecrawl's Claude and Codex connectors run on this server.",
     ],
-    side: { name: "Search checks, no agents" },
-    note: "Agents: Claude Code, Codex, Cursor and OpenCode, in sandboxes.",
-  } satisfies LoopDiagram,
-  cards: [
+    diagram: {
+      label: "Before and after",
+      title: "The hosted MCP server, before and after",
+      desc: "Before, an agent reached one server with an API key in the URL and an OAuth flow that was mis-wired and often failed. After, an agent signs in with Firecrawl OAuth to an account endpoint, or uses a keyless endpoint that needs no account.",
+      before: {
+        label: "BEFORE",
+        agent: { name: "Agent", sub: ["any client"] },
+        server: {
+          name: "One server",
+          sub: ["key in the URL", "OAuth mis-wired"],
+        },
+      },
+      after: {
+        label: "AFTER",
+        agent: { name: "Agent", sub: ["any client"] },
+        account: { name: "Account endpoint", sub: ["Firecrawl OAuth"] },
+        keyless: { name: "Keyless endpoint", sub: ["no account needed"] },
+      },
+    } satisfies BeforeAfterDiagram,
+    prs: [
+      {
+        repo: "firecrawl-mcp-server",
+        number: 308,
+        summary: "Keyless and account endpoints",
+      },
+      {
+        repo: "firecrawl-mcp-server",
+        number: 332,
+        summary: "OAuth-only search endpoint",
+      },
+      {
+        repo: "firecrawl-mcp-server",
+        number: 363,
+        summary: "Keyless recovery",
+      },
+      {
+        repo: "firecrawl-docs",
+        number: 1158,
+        summary: "Hosted connection modes",
+      },
+    ],
+    proof: [
+      "firecrawl-hosted-mcp",
+      "firecrawl-hosted-mcp-endpoints",
+      "firecrawl-hosted-mcp-rebuild",
+      "firecrawl-connectors",
+      "firecrawl-neutral-metadata",
+    ] satisfies ProofClaimId[],
+  } satisfies WorkRecord & { diagram: BeforeAfterDiagram },
+  harness: {
+    id: "harness",
+    status: "Firecrawl · May to September 2026",
+    title: "The Agent Experience harness",
+    story:
+      "This is how Firecrawl found out whether agents could actually use its tools. Before a release shipped, real coding agents (Claude Code, Codex, Cursor, OpenCode) ran the candidate build and the published one in sandboxes set up the way users set them up, and the two were compared in a paired A/B test.",
+    points: [
+      "Every tool call, page read and answer was kept raw, and every quote in a weekly report was checked against the run it came from.",
+      "What the runs found went into the docs, the API, the MCP server and the website, and the next run tested the fix.",
+    ],
+    diagram: {
+      label: "Inside the harness",
+      title: "Inside the Agent Experience harness",
+      desc: "A loop of six steps, pin the builds, run real agents, keep every trace, check then judge, report findings and fix the product, then back to the first step to re-test; new releases enter at the first step, and search checks without agents feed the findings.",
+      entry: "NEW RELEASES",
+      retest: "RE-TEST",
+      stations: [
+        { name: "Pin the builds" },
+        { name: "Run real agents" },
+        { name: "Keep every trace" },
+        { name: "Check, then judge" },
+        { name: "Report findings" },
+        { name: "Fix the product" },
+      ],
+      side: { name: "Search checks, no agents" },
+      note: "Agents: Claude Code, Codex, Cursor and OpenCode, in sandboxes.",
+    } satisfies LoopDiagram,
+    prs: [
+      {
+        repo: "firecrawl-mcp-server",
+        number: 340,
+        summary: "A/B test of neutral tool descriptions",
+      },
+    ],
+    proof: [
+      "firecrawl-programme",
+      "firecrawl-measurement",
+      "firecrawl-harness",
+      "firecrawl-insight-fixes",
+    ] satisfies ProofClaimId[],
+  } satisfies WorkRecord & { diagram: LoopDiagram },
+  alsoLabel: "Also",
+  also: [
     {
-      title: "The Agent Experience harness",
-      status: "Built from the first commit",
-      story:
-        "The lab behind the programme. The rule was that every release goes through an A/B test first, and for every launch it uncovered issues that went into the product.",
-      points: [
-        {
-          label: "Daily discoverability",
-          text: "runs across six agent lanes, on a dashboard whose discovery metric fed the company's top-of-funnel goals.",
-        },
-        {
-          label: "Weekly Deep Insights",
-          text: "reads every trace from one full daily run, judges the pages agents read, and checks each quote against the raw runs.",
-        },
-        {
-          label: "Retrievability",
-          text: "whether Firecrawl's pages show up in search, load and carry the answer, with no agents involved.",
-        },
-        {
-          label: "Experiments",
-          text: "pre-registered statistics, judges, cost caps and false-discovery-rate control.",
-        },
-        {
-          label: "Access",
-          text: "a CLI, the dashboard and the company's knowledge system, where other teams query results and draft experiments.",
-        },
-      ],
-      prs: [
-        {
-          repo: "firecrawl-mcp-server",
-          number: 340,
-          summary: "A/B test of neutral tool descriptions",
-        },
-        {
-          repo: "skills",
-          number: 10,
-          summary: "A/B results for the research-index skill",
-        },
-      ],
-      proof: ["firecrawl-measurement", "firecrawl-harness"],
+      meta: "Mudita Studios",
+      title: "The research product",
+      text: "Main engineer on a product whose answers cite their sources: the data connectors, the end-to-end test harness and the release gates. I also set up CI/CD, preview environments and daily browser smoke tests for a second product.",
+      links: [],
+      proof: ["mudita-main-engineer", "mudita-delivery-platform"],
     },
     {
-      title: "The hosted MCP server, rebuilt",
-      status: "Shipped system, Jul 2026",
-      story:
-        "The hosted server mixed API keys in URLs with an OAuth flow that was wired in wrong, and sign-in failed often. I rebuilt it from first principles on Firecrawl's OAuth, reusing what worked, as one train of pull requests.",
-      points: [
-        {
-          label: "Leaner",
-          text: "A/B tested before and after: half the tokens an agent loads from the server, with no loss in task success.",
-        },
-        {
-          label: "Keyless",
-          text: "agents start without an account; when a tool needs one, they finish with keyless tools or give the person a clear next step.",
-        },
-        {
-          label: "Fewer errors",
-          text: "sign-in no longer falls back to keys in URLs, and an invalid key no longer returns an empty tool list.",
-        },
-      ],
-      prs: [
-        {
-          repo: "firecrawl-mcp-server",
-          number: 308,
-          summary: "Keyless and account endpoints",
-        },
-        {
-          repo: "firecrawl-mcp-server",
-          number: 332,
-          summary: "OAuth-only search endpoint",
-        },
-        {
-          repo: "firecrawl",
-          number: 3973,
-          summary: "MCP activity and OAuth revocation",
-        },
-        { repo: "cli", number: 155, summary: "Secure MCP credential setup" },
-        {
-          repo: "firecrawl-docs",
-          number: 1158,
-          summary: "Hosted connection modes",
-        },
-        {
-          repo: "firecrawl-mcp-server",
-          number: 363,
-          summary: "Keyless recovery",
-        },
-      ],
-      proof: [
-        "firecrawl-hosted-mcp",
-        "firecrawl-hosted-mcp-endpoints",
-        "firecrawl-connectors",
-        "firecrawl-neutral-metadata",
-        "firecrawl-hosted-mcp-rebuild",
-      ],
+      meta: "Firecrawl · launches",
+      title: "The paper index",
+      text: "With the research-index skill, agents reached Firecrawl's new biomedical paper index in all 48 test runs. Without it, none did.",
+      links: [{ label: "skills #10", href: prLink("skills", 10) }],
+      proof: ["firecrawl-index-skill", "firecrawl-launch-dri"],
     },
     {
-      title: "Launches, tool calls and recovery",
-      status: "Launch DRI",
-      points: [
+      meta: "Firecrawl · tool calls",
+      title: "Search routing",
+      text: "With routing instructions in the server, every Claude Code run used Firecrawl's search instead of the built-in one, and two thirds of Codex runs did, over 15 runs each.",
+      links: [
         {
-          label: "Launches",
-          text: "Agent Experience DRI for Life Sciences, Developer Index, and Government and Legal. With the Life Sciences skill, agents reached the new paper index in 100% of test runs, up from 0%.",
-        },
-        {
-          label: "Tool calls",
-          text: "Claude Code sent 0% → 100% of searches to Firecrawl for MCP users (Codex: 0% → 67%).",
-        },
-        {
-          label: "Recovery",
-          text: "spent limits and wrong keys now tell the agent how to recover instead of ending the task.",
+          label: "firecrawl-mcp-server #240",
+          href: prLink("firecrawl-mcp-server", 240),
         },
       ],
-      prs: [
-        {
-          repo: "firecrawl-mcp-server",
-          number: 368,
-          summary: "Separate the paper tools from the research category",
-        },
-        {
-          repo: "firecrawl-mcp-server",
-          number: 380,
-          summary: "Name the developer index",
-        },
-        {
-          repo: "firecrawl-mcp-server",
-          number: 240,
-          summary: "Routing instructions for agents",
-        },
-        {
-          repo: "firecrawl-mcp-server",
-          number: 365,
-          summary: "Invalid-key recovery",
-        },
-        {
-          repo: "firecrawl-mcp-server",
-          number: 359,
-          summary: "Recovery links",
-        },
-        { repo: "firecrawl", number: 4211, summary: "Quota recovery details" },
-      ],
-      proof: [
-        "firecrawl-launch-dri",
-        "firecrawl-index-skill",
-        "firecrawl-routing-instructions",
-      ],
+      proof: ["firecrawl-routing-instructions"],
     },
     {
-      title: "Insights that reached production",
-      status: "Shipped fixes",
-      points: [
+      meta: "Firecrawl · recovery",
+      title: "Errors an agent can act on",
+      text: "A spent limit or a wrong key now comes back with what to do next instead of ending the task, and API errors come back as JSON rather than HTML pages.",
+      links: [
         {
-          text: "Pricing, billing and benchmark pages that agents quoted wrongly now state them correctly.",
+          label: "firecrawl-mcp-server #365",
+          href: prLink("firecrawl-mcp-server", 365),
         },
-        {
-          text: "Docs agents copy from: samples run in CI, API names left untranslated, legacy pages dated, and the capabilities page linked.",
-        },
-        { text: "API errors come back as JSON instead of HTML pages." },
-        {
-          text: "Website pricing and benchmark content rewritten as text agents can read.",
-        },
-      ],
-      prs: [
-        {
-          repo: "firecrawl-docs",
-          number: 1363,
-          summary: "Benchmark date and scope",
-        },
-        {
-          repo: "firecrawl-docs",
-          number: 1370,
-          summary: "Failed-request billing",
-        },
-        { repo: "firecrawl-docs", number: 1365, summary: "Crawl accounting" },
-        { repo: "firecrawl-docs", number: 1380, summary: "Docs CI" },
-        {
-          repo: "firecrawl-docs",
-          number: 1393,
-          summary: "Untranslated API identifiers",
-        },
-        { repo: "firecrawl", number: 4552, summary: "JSON errors" },
+        { label: "firecrawl #4211", href: prLink("firecrawl", 4211) },
+        { label: "firecrawl #4552", href: prLink("firecrawl", 4552) },
       ],
       proof: ["firecrawl-insight-fixes"],
     },
-  ] satisfies WorkCard[],
-};
-
-export const before = {
-  label: "Before that",
-  title: "Production ML, before agents.",
-  timeline: [
+  ] satisfies WorkRow[],
+  beforeLabel: "Before agents",
+  before: [
     {
-      years: "2025-2026",
+      years: "2025 to 2026",
       name: "Knit",
-      line: "Senior AI Engineer. Architected the AI pipeline of the research platform: the shared core library, data ingestion, the analysis and memo pipeline, and agentic deck generation. Report turnaround went from 2-3 days to under an hour.",
+      line: "Senior AI Engineer. I designed the AI pipeline of its research platform. Reports that took 2-3 days started taking under an hour.",
       proof: "knit-turnaround",
     },
     {
-      years: "2023-2024",
+      years: "2023 to 2024",
       name: "Epic! for Kids",
-      line: "Senior Research Engineer. Search, recommendations and the ML platform behind them.",
+      line: "Senior Research Engineer. Search and recommendations for a children's reading app, and the ML platform under them.",
       proof: "epic-search",
     },
     {
-      years: "2019-2023",
-      name: "Osmo",
-      line: "Senior Research Engineer. Computer vision for educational worksheets, across India and US teams.",
+      years: "2018 to 2023",
+      name: "Osmo and Whodat",
+      line: "Computer vision: worksheet recognition for a kids' learning product, and a feature detector for augmented reality.",
       proof: "osmo-cv",
     },
     {
-      years: "2018-2019",
-      name: "Whodat",
-      line: "Deep Learning Engineer. A C++ visual feature detector for augmented reality.",
-      proof: "whodat-vision",
-    },
-    {
-      years: "2013-2018",
+      years: "2013 to 2018",
       name: "IIT (BHU) Varanasi",
-      line: "Computer Science. SN Bose Scholar: research intern at UC Berkeley with Professor Dawn Song.",
+      line: "Computer Science. SN Bose Scholar, with a research internship at UC Berkeley under Professor Dawn Song.",
       proof: "education-sn-bose",
     },
   ] satisfies TimelineEntry[],
 };
 
-/** After the main work: side projects, then earlier open source. */
+export type LatestItem = {
+  date: string;
+  title: string;
+  href: string;
+  /** Mono label: Guide, Release, Experiment */
+  kind: string;
+};
+
+/** What is new, selected by hand; newest first. */
+export const latest = {
+  label: "Latest",
+  title: "What I have written lately.",
+  intro:
+    "Agent Experience is my guide to how agents use software. It comes with an open readiness rubric and a public MCP server you can point an agent at.",
+  proof: "public-agent-experience-guide" satisfies ProofClaimId,
+  items: [
+    {
+      date: "08 Oct 2026",
+      title: "Five meanings of agent experience",
+      href: "https://agentexperience.tech/insights/meanings-of-agent-experience/",
+      kind: "Guide",
+    },
+    {
+      date: "08 Oct 2026",
+      title: "What does an AX engineer do?",
+      href: "https://agentexperience.tech/insights/what-does-an-ax-engineer-do/",
+      kind: "Guide",
+    },
+    {
+      date: "08 Oct 2026",
+      title: "Agent readiness scores compared",
+      href: "https://agentexperience.tech/insights/agent-readiness-scores-compared/",
+      kind: "Guide",
+    },
+    {
+      date: "08 Oct 2026",
+      title: "How to expose a 3,000-operation API to agents",
+      href: "https://agentexperience.tech/insights/large-api-surfaces-for-agents/",
+      kind: "Guide",
+    },
+  ] satisfies LatestItem[],
+  more: [
+    {
+      label: "The Open Agent-Readiness Rubric",
+      href: "https://agentexperience.tech/insights/agent-readiness-rubric/",
+    },
+    {
+      label: "Connect to the public MCP server",
+      href: "https://agentexperience.tech/connect/",
+    },
+    {
+      label: "MCP tool-description test cases",
+      href: "https://agentexperience.tech/resources/mcp-tool-description-test-cases/",
+    },
+  ] satisfies ExternalLink[],
+};
+
+/** Side projects, the distinctive ones first, then earlier open source. */
 export const projects = {
-  label: "Side projects",
+  label: "Built on the side",
   title: "Built on the side.",
   side: [
     {
       name: "Talkies",
-      line: "Local dictation and meeting transcription for Linux: hold a key, speak, and the text lands where you type.",
-      meta: "2026",
-    },
-    {
-      name: "laptop-powersave",
-      line: "Battery tiers for a laptop that doubles as a server: it caps the CPU and releases the GPU without a reboot.",
-      meta: "2026",
-    },
-    {
-      name: "cctv-edge",
-      line: "A local-first CCTV console with on-device object detection, on a Raspberry Pi 5.",
+      line: "Dictation for Linux: hold a key, speak, and the text is pasted at your cursor. Speech is transcribed on your own machine.",
       meta: "2026",
     },
     {
       name: "Qwen3.6-35B on an 8 GB laptop GPU",
       href: `${github}/qwen-3.6-35b-consumer-gpu`,
-      line: "43 tokens per second with 128K context, with launch scripts, a tuning guide and a coding benchmark.",
+      line: "A 35B model running on a laptop GPU at 43 tokens per second with 128K context, with the launch scripts, a tuning guide and a coding benchmark.",
       meta: "2026",
       proof: "public-consumer-gpu-inference",
     },
     {
       name: "ubuntu-maclike-touchpad",
       href: `${github}/ubuntu-maclike-touchpad`,
-      line: "macOS-style touchpad gestures on Ubuntu: three-finger drag, four-finger workspace switching and pinch zoom.",
+      line: "Mac-style touchpad gestures on Ubuntu: three-finger drag, four-finger workspace switching, pinch to zoom.",
+      meta: "2026",
+    },
+    {
+      name: "laptop-powersave",
+      line: "Battery modes for a Linux laptop that doubles as a home server: it caps the CPU when the charger is unplugged and powers down the idle NVIDIA GPU without a reboot.",
+      meta: "2026",
+    },
+    {
+      name: "cctv-edge",
+      line: "A local web console for a Dahua-compatible NVR: live view, Frigate detection and archive backfill, nothing exposed to the internet.",
       meta: "2026",
     },
   ] satisfies OneLiner[],
@@ -546,7 +498,7 @@ export const projects = {
     {
       name: "Botnet-Detection-using-Machine-Learning",
       href: `${github}/Botnet-Detection-using-Machine-Learning`,
-      line: "My bachelor's project.",
+      line: "my bachelor's project",
       meta: "178 stars",
     },
     {
@@ -575,9 +527,16 @@ export const footer = {
 };
 
 export const sections = [
-  { id: "now", label: "Now" },
-  { id: "open", label: "In the open" },
-  { id: "firecrawl", label: "Previously" },
-  { id: "before", label: "Before that" },
-  { id: "projects", label: "Side projects" },
+  { id: "work", label: "Selected work" },
+  { id: "latest", label: "Latest" },
+  { id: "projects", label: "Built on the side" },
 ] as const;
+
+/** Every in-page anchor besides the sections, for link validation */
+export const anchors = [work.featured.id, work.mcp.id, work.harness.id];
+
+/** Every pull request the page cites, for validation */
+export const pullRequests = (): PullRequest[] => [
+  ...work.mcp.prs,
+  ...work.harness.prs,
+];

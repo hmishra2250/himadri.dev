@@ -72,7 +72,7 @@ export const proofClaims = [
   {
     id: "firecrawl-routing-instructions",
     claim:
-      "Before the routing instructions, 0% of search queries from MCP-only users went to Firecrawl; after them, Claude Code used Firecrawl instead of its built-in web search in 100% of trials and Codex used Firecrawl in 67%.",
+      "Before the routing instructions, 0% of search queries from MCP-only users went to Firecrawl; after them, Claude Code used Firecrawl instead of its built-in web search in 100% of trials (15 of 15 runs) and Codex in 67% (10 of 15 runs).",
     sourcePath: "https://github.com/firecrawl/firecrawl-mcp-server/pull/240",
     sourceLocator: "Pull request description, test results",
     sourceType: "public-profile",
@@ -82,7 +82,7 @@ export const proofClaims = [
   {
     id: "firecrawl-index-skill",
     claim:
-      "With the research-index skill installed, agents reached the paper index in 100% of biomedical test runs, against 0% without it.",
+      "With the research-index skill installed, agents reached the paper index in 100% of biomedical test runs (all 48), against 0% without it (none of 48).",
     sourcePath: "https://github.com/firecrawl/skills/pull/10",
     sourceLocator: "Pull request description, measured results",
     sourceType: "public-profile",

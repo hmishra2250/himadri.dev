@@ -32,7 +32,7 @@ Public routes:
 - `/`
 - `/resume`
 
-Every other path from earlier versions is retired in `src/lib/routes.ts` and redirects permanently to the matching homepage section (`/#now`, `/#firecrawl`, `/#before`) or to `/`. There are no API routes.
+Every other path from earlier versions is retired in `src/lib/routes.ts` and redirects permanently to the selected work section (`/#work`) or to `/`. There are no API routes.
 
 ## Route rules
 
@@ -57,8 +57,9 @@ Every other path from earlier versions is retired in `src/lib/routes.ts` and red
 
 `src/lib/validation.ts` enforces these, and `npm run validate:content` fails when they break.
 
-- One message per layer: the punchline is the only h1 and appears once; the facts line appears once.
-- Present tense for Mudita Studios and Agent Experience; "Previously" only for Firecrawl.
+- One message per layer: the punchline is the only h1 and appears once; the positioning paragraph appears once.
+- Present tense for Mudita Studios and Agent Experience; "Previously" or "Before that" only for Firecrawl.
+- Write titles and descriptions the way `~/humanize.md` asks: say what the thing does in plain words, no slogans, no lead-in labels for rhythm, no corporate phrasing; results as sentences. Contractions stay out because the validator rejects them.
 - No public job-search signal: no "open to", "hire me", or job-search email.
 - No public email address.
 - No Mudita Studios product names; describe what the work does.
@@ -69,12 +70,13 @@ Every other path from earlier versions is retired in `src/lib/routes.ts` and red
 
 - `design-system/` is the himadri.dev Design System and the single source for the site's look. It follows the claude.ai/design project (v2); `design-system/SYNC.md` records the differences. Read `design-system/readme.md` before any UI change.
 - `src/styles/globals.css` imports its tokens, `components/components.css` and `components/additions.css` directly. Do not copy design-system CSS into `src/`.
-- Build pages from the typed components in `src/components/ds/` (`Button`, `ArrowLink`, `Label`, `Status`, `Section`, `PageHeader`, `Portrait`, `DiagramFigure` with `DgNode`, `DgEdge`, `DgLabel` and `DgZone`, `WorkRows`, `SystemGrid`, `SystemCard`, `Timeline`, `ShipStrip`, `Evidence`, `DocumentPages`, `SocialLinks`). They emit only documented `hm-*` classes. Avoid inline styles and one-off classes.
+- Build pages from the typed components in `src/components/ds/` (`Button`, `ArrowLink`, `Label`, `Status`, `Section`, `PageHeader`, `DiagramFigure` with `DgNode`, `DgEdge`, `DgLabel` and `DgZone`, `WorkRows`, `SystemGrid`, `SystemCard`, `Timeline`, `Evidence`, `DocumentPages`, `SocialLinks`). They emit only documented `hm-*` classes. Avoid inline styles and one-off classes.
 - Change v2 patterns in the claude.ai/design project and pull them; do not edit `components/components.css` here. To add a site-only pattern: add its CSS to `design-system/components/additions.css`, a component to `src/components/ds/`, and a row to the readme's "Site additions" table, then use it.
 - Visual rules: pearl, graphite and one cobalt accent; IBM Plex Sans, with Plex Mono only for indices, labels, dates, status, provenance and figures; one 1080px column on one left edge; square corners; no shadows, gradients or entrance animation; light only.
-- Rules, not cards: each section opens with a graphite rule carrying its mono index and label, rows are separated by hairlines, and pearl-warm fills are only for figures and the shipped strip.
+- Space, not rules, between sections: each section opens with its mono index and label (no graphite rule, at the owner's request); rows are separated by hairlines, and pearl-warm fills are only for figures.
+- The header's home link is the HM mark (the favicon), not the name; the name appears once, in the introduction.
 - Icons: the only icons are the header marks in `src/components/ds/SocialLinks.tsx`: the Agent Experience AX monogram (official raster mark, never recoloured) and the GitHub, LinkedIn and X brand marks (Simple Icons paths, CC0). Add no others without updating the design system readme.
-- The hero follows the UI kit's Home: identity, the statement as h1, the facts line (which defines Agent Experience) beside one action, then the "Recently shipped" strip with at least one measured result. "Recent work" scrolls to section 01; the header carries the resume. Nothing on the page sits behind an accordion.
+- The hero follows the UI kit's Home: identity, the statement as h1, one positioning paragraph (now, in the open, before), one proof line with its evidence links, one action (the header carries the only Resume button) and the portrait, then the three selected works as link cards at the foot of the first screen. Sections: 01 Selected work (a featured record, two substantial records with figures, compact rows, a short "Before agents" block), 02 Latest (hand-picked guides), 03 Built on the side. Nothing on the page sits behind an accordion.
 - Diagrams follow the diagram-design method in v2 tokens (see the readme, "Site additions"). Draw a system from its code, not from memory: every node and arrow must match how it works, and every word lives in `src/content/site.ts`.
 - `design-system/ui_kits/` (the v2 UI kit, a six-page reference) is git-ignored. `design-system/SYNC.md` records how the folder differs from the claude.ai/design project; push changes back with `/design-sync`.
 

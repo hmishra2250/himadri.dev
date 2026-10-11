@@ -5,7 +5,11 @@ import {
   DgZone,
   DiagramFigure,
 } from "@/components/ds";
-import type { CodingAgentDiagram, LoopDiagram } from "@/content/site";
+import type {
+  BeforeAfterDiagram,
+  CodingAgentDiagram,
+  LoopDiagram,
+} from "@/content/site";
 
 /*
  * The site's two system diagrams. Geometry lives here on a 4px grid in a
@@ -14,7 +18,7 @@ import type { CodingAgentDiagram, LoopDiagram } from "@/content/site";
  */
 
 const A = 12; // left column x
-const B = 220; // right column x
+const B = 212; // right column x
 const W = 152; // column width
 
 /**
@@ -41,13 +45,13 @@ export function CodingAgentFigure({
     >
       <DgZone x={1} y={92} w={382} h={116} label={diagram.zone} />
 
-      <DgEdge diagram={id} d="M140,60 V124" />
-      <DgEdge diagram={id} d="M164,140 H220" />
-      <DgEdge diagram={id} d="M220,164 H164" tone="return" />
-      <DgEdge diagram={id} d="M296,180 V244" />
-      <DgEdge diagram={id} d="M296,300 V336" />
-      <DgEdge diagram={id} d="M220,364 H164" />
-      <DgEdge diagram={id} d="M40,336 V180" tone="return" />
+      <DgEdge diagram={id} d="M88,60 V124" />
+      <DgEdge diagram={id} d="M164,136 H212" />
+      <DgEdge diagram={id} d="M212,168 H164" tone="return" />
+      <DgEdge diagram={id} d="M288,180 V244" />
+      <DgEdge diagram={id} d="M288,300 V336" />
+      <DgEdge diagram={id} d="M212,364 H164" />
+      <DgEdge diagram={id} d="M88,336 V180" tone="return" />
 
       <DgNode x={A} y={4} w={W} h={56} tone="input" {...nodes.request} />
       <DgNode x={A} y={124} w={W} h={56} {...nodes.agent} />
@@ -56,10 +60,10 @@ export function CodingAgentFigure({
       <DgNode x={B} y={336} w={W} h={56} {...nodes.draft} />
       <DgNode x={A} y={336} w={W} h={56} {...nodes.person} />
 
-      <DgLabel x={167} y={178} text={edges.revise} />
-      <DgLabel x={208} y={226} text={edges.patch} />
-      <DgLabel x={304} y={318} text={edges.pass} />
-      <DgLabel x={48} y={272} text={edges.reply} />
+      <DgLabel x={165} y={192} text={edges.revise} />
+      <DgLabel x={296} y={212} text={edges.patch} />
+      <DgLabel x={296} y={318} text={edges.pass} />
+      <DgLabel x={96} y={262} text={edges.reply} />
     </DiagramFigure>
   );
 }
@@ -101,6 +105,45 @@ export function HarnessLoopFigure({ diagram }: { diagram: LoopDiagram }) {
 
       <DgLabel x={96} y={16} text={diagram.entry} />
       <DgLabel x={96} y={108} text={diagram.retest} tone="focal" />
+    </DiagramFigure>
+  );
+}
+
+/**
+ * The hosted MCP server before and after the rebuild, side by side: one
+ * server reached with a key in the URL, then an account endpoint behind
+ * OAuth and a keyless endpoint that needs no account.
+ */
+export function BeforeAfterFigure({
+  diagram,
+}: {
+  diagram: BeforeAfterDiagram;
+}) {
+  const id = "hosted-mcp";
+  const { before, after } = diagram;
+  return (
+    <DiagramFigure
+      id={id}
+      title={diagram.title}
+      desc={diagram.desc}
+      width={384}
+      height={240}
+    >
+      <text className="hm-dg-label" x={A} y={12}>
+        {before.label}
+      </text>
+      <DgEdge diagram={id} d="M92,72 V112" />
+      <DgNode x={A} y={24} w={160} h={48} tone="input" {...before.agent} />
+      <DgNode x={A} y={112} w={160} h={64} {...before.server} />
+
+      <text className="hm-dg-label" x={B} y={12}>
+        {after.label}
+      </text>
+      <DgEdge diagram={id} d="M292,72 V112" tone="focal" />
+      <DgEdge diagram={id} d="M212,48 H196 V208 H212" />
+      <DgNode x={B} y={24} w={160} h={48} tone="input" {...after.agent} />
+      <DgNode x={B} y={112} w={160} h={48} tone="focal" {...after.account} />
+      <DgNode x={B} y={184} w={160} h={48} {...after.keyless} />
     </DiagramFigure>
   );
 }

@@ -47,9 +47,10 @@ export const bannedCopyPatterns: ReadonlyArray<readonly [RegExp, string]> = [
   ],
 ];
 
-export const homeSectionIds = new Set<string>(
-  site.sections.map((section) => section.id),
-);
+export const homeSectionIds = new Set<string>([
+  ...site.sections.map((section) => section.id),
+  ...site.anchors,
+]);
 
 type Found = { path: string; value: unknown };
 
@@ -151,7 +152,7 @@ export function validateContent(): string[] {
   }
 
   const prKeys = new Set<string>();
-  const allPrs = site.firecrawl.cards.flatMap((card) => card.prs);
+  const allPrs = site.pullRequests();
   for (const pr of allPrs) {
     const key = `${pr.repo}#${pr.number}`;
     if (!Number.isInteger(pr.number) || pr.number <= 0) {

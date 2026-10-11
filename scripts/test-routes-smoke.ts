@@ -16,12 +16,12 @@ const errors: string[] = [];
 
 // Every retired URL and where it must land. Old links keep working.
 const retiredRedirectExpectations = new Map<string, string>([
-  ["/case-studies", "/#firecrawl"],
-  ["/case-studies/agentic-market-research-platform", "/#before"],
-  ["/case-studies/ml-infra-rescue", "/#before"],
-  ["/case-studies/computer-vision-product-systems", "/#before"],
-  ["/case-studies/high-performance-ar-and-vision", "/#before"],
-  ["/about", "/#before"],
+  ["/case-studies", "/#work"],
+  ["/case-studies/agentic-market-research-platform", "/#work"],
+  ["/case-studies/ml-infra-rescue", "/#work"],
+  ["/case-studies/computer-vision-product-systems", "/#work"],
+  ["/case-studies/high-performance-ar-and-vision", "/#work"],
+  ["/about", "/#work"],
   ["/notes", "/"],
   ["/contact", "/"],
   ["/interview-me", "/"],

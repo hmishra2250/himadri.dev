@@ -1,11 +1,5 @@
 import { readFileSync } from "node:fs";
-import {
-  firecrawl,
-  hero,
-  inTheOpen,
-  projects,
-  sections,
-} from "../src/content/site";
+import { hero, latest, projects, sections, work } from "../src/content/site";
 import { checkCopy } from "../src/lib/validation";
 import { renderSite } from "./lib/render-site";
 
@@ -25,7 +19,17 @@ assert(
   "home h1 must be the punchline",
 );
 assert(count(home.text, hero.punchline) === 1, "punchline must appear once");
-assert(count(home.text, hero.facts) === 1, "facts line must appear once");
+// Links inside the paragraph render with spaces around them, so check each
+// run of plain text, trimmed of its punctuation, appears exactly once
+for (const segment of hero.lead) {
+  if (typeof segment !== "string") continue;
+  const run = segment.replace(/^[\s,.:;]+|[\s,.:;]+$/g, "").trim();
+  if (run.length < 12) continue;
+  assert(
+    count(home.text, run) === 1,
+    `the positioning paragraph must appear once: ${run.slice(0, 40)}`,
+  );
+}
 assert(
   (resume.html.match(/<h1[\s>]/g) ?? []).length === 1,
   "resume must have one h1",
@@ -35,26 +39,27 @@ for (const section of sections) {
   assert(home.ids.has(section.id), `home is missing section #${section.id}`);
 }
 
-for (const item of [
-  ...inTheOpen.items,
-  ...projects.side,
-  ...projects.earlier,
-]) {
+for (const item of [...projects.side, ...projects.earlier]) {
   assert(home.text.includes(item.name), `row not rendered: ${item.name}`);
   if (item.href) {
     assert(home.hrefs.includes(item.href), `row link missing: ${item.name}`);
   }
 }
 
-assert(
-  firecrawl.cards.length === 4,
-  "Firecrawl shows four pieces of work: the harness, then three cards",
-);
-for (const card of firecrawl.cards) {
-  assert(home.text.includes(card.title), `card missing: ${card.title}`);
-  for (const point of card.points) {
-    assert(home.text.includes(point.text), `card point missing: ${point.text}`);
+for (const record of [work.featured, work.mcp, work.harness]) {
+  assert(home.text.includes(record.title), `record missing: ${record.title}`);
+  for (const point of record.points) {
+    assert(home.text.includes(point), `record point missing: ${point}`);
   }
+}
+for (const row of work.also) {
+  assert(home.text.includes(row.title), `row missing: ${row.title}`);
+  for (const link of row.links) {
+    assert(home.hrefs.includes(link.href), `row link missing: ${link.label}`);
+  }
+}
+for (const item of latest.items) {
+  assert(home.hrefs.includes(item.href), `latest link missing: ${item.title}`);
 }
 const prLinks = home.hrefs.filter((href) => href.includes("/pull/"));
 for (const href of prLinks) {
@@ -64,8 +69,8 @@ for (const href of prLinks) {
   );
 }
 assert(
-  prLinks.length >= 10,
-  `expected at least 10 pull request links, found ${prLinks.length}`,
+  prLinks.length >= 8,
+  `expected at least 8 pull request links, found ${prLinks.length}`,
 );
 
 for (const page of [home, resume]) {

@@ -4,7 +4,9 @@ export const profile = {
   name: hero.name,
   role: "AI Engineer",
   headline: hero.punchline,
-  positioning: hero.facts,
+  positioning: hero.lead
+    .map((segment) => (typeof segment === "string" ? segment : segment.text))
+    .join(""),
   location: hero.location,
   linkedin: links.linkedin,
   github: links.github,

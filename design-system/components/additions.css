@@ -8,11 +8,15 @@
  *
  *   scroll offset                 In-page links scroll smoothly and clear the sticky header
  *   hm-skip-link                  Skip to content
- *   hm-hero                       Home hero: spacing, and a two-line statement
+ *   hm-hero, hm-hero-photo, hm-hero-index  The introduction fills the first screen, with a work index at its foot
+ *   section rules off             Space separates sections; the bar keeps its index and label
+ *   hm-brand-mark                 The HM mark in the header
  *   hm-stack                      A column of content with v2's 16px rhythm
  *   hm-figure-label               Label at the top of an hm-figure
  *   hm-follow                     Space between a section's lead piece and what follows
- *   hm-sublist                    A labelled list inside a section
+ *   hm-sublist, hm-sublist-bar    A labelled list inside a section, with an optional link on the right
+ *   hm-hero-copy, hm-hero-actions The introduction's paragraph and action spacing
+ *   hm-more                       A small line of further links under a list
  *   hm-split--4-8                 Narrow intro column beside a wide list
  *   hm-bullets strong             Lead-in label inside a bullet
  *   hm-rows--compact              Rows for long lists: h4-size titles, tighter padding
@@ -23,7 +27,6 @@
  *   hm-systems--2, hm-system--wide Two-column system grid with a full-width lead card
  *   hm-system--static             A system card that holds its own links
  *   hm-evidence, hm-evidence-block Pull requests as ruled rows: what changed, then the reference
- *   hm-ship-label                 Label and year in the shipped strip head
  *   hm-social                     Agent Experience, GitHub, LinkedIn and X marks in the header
  *   hm-footer-brand, hm-footer-col Footer columns
  *   hm-document, hm-doc-page      The resume's page image inside an hm-figure
@@ -71,12 +74,134 @@ html {
   letter-spacing: -0.01em;
 }
 /*
+ * The introduction fills the first screen and the next section starts
+ * below it: the statement at full width, the paragraphs flowing around the
+ * portrait floated right, and an index of the selected work at the foot.
+ */
+.hm-hero {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100svh - var(--nav-height));
+  padding-top: clamp(24px, 3vw, 36px);
+  padding-bottom: clamp(20px, 2.5vw, 32px);
+}
+.hm-hero-copy {
+  margin-top: 24px;
+}
+.hm-hero-copy > * + * {
+  margin-top: 16px;
+}
+.hm-hero-photo {
+  float: right;
+  width: clamp(160px, 19vw, 264px);
+  aspect-ratio: 1 / 1;
+  margin: 4px 0 20px clamp(24px, 4vw, 48px);
+}
+.hm-hero-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: none;
+}
+.hm-hero-statement.hm-h1 {
+  font-size: clamp(36px, 4.1vw, 58px);
+}
+/* One boundary for the paragraphs: the photo's edge, with a tidy rag */
+.hm-hero-copy p {
+  max-width: none;
+  text-wrap: pretty;
+}
+.hm-lead--soft {
+  color: var(--graphite-soft);
+}
+/* Links in running text read as links: cobalt with a soft underline */
+.hm-link,
+.hm-hero-copy p a {
+  color: var(--cobalt-dark);
+  text-decoration: underline;
+  text-decoration-color: rgba(40, 85, 216, 0.35);
+  text-underline-offset: 0.16em;
+}
+.hm-link:hover,
+.hm-hero-copy p a:hover {
+  color: var(--cobalt);
+  text-decoration-color: var(--cobalt);
+}
+/* A narrow column beside a wide list */
+.hm-split--5-7 {
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+}
+@media (max-width: 860px) {
+  .hm-split--5-7 {
+    grid-template-columns: 1fr;
+  }
+}
+/* The selected work as link cards at the foot of the first screen */
+.hm-hero-index {
+  clear: both;
+  margin-top: clamp(28px, 4.5vh, 48px);
+}
+.hm-hero-index .hm-system {
+  padding: 22px 24px 20px;
+  gap: 10px;
+}
+.hm-hero-index .hm-system-action {
+  padding-top: 6px;
+}
+@media (max-width: 860px) {
+  .hm-hero {
+    min-height: 0;
+  }
+  .hm-hero-photo {
+    float: none;
+    display: block;
+    width: 128px;
+    margin: 0 0 20px;
+  }
+}
+/* The header's Resume is v2's small quiet button; the nav anchor rule wins otherwise */
+.hm-nav a.hm-button--sm {
+  min-height: 36px;
+  padding: 0 14px;
+  font-size: 14px;
+}
+/* Space, not rules, between sections */
+.hm-section-bar {
+  border-top: 0;
+  padding-top: 0;
+}
+/* The header mark: the favicon's HM on a cobalt square, in place of the name */
+.hm-brand--mark {
+  align-items: center;
+}
+.hm-brand-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: var(--cobalt);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+.hm-brand--mark:hover .hm-brand-mark {
+  background: var(--cobalt-dark);
+}
+/* Figure notes read at 4.2:1 in muted on pearl-warm; graphite-soft clears 4.5:1 */
+.hm-figure-note {
+  color: var(--graphite-soft);
+}
+
+/*
  * With no role line, the statement takes the role line's 40px offset. v2
  * caps the statement at 17ch for a two-word statement; this one is a
  * sentence, so it runs the width and balances over two lines.
  */
 .hm-hero-id + .hm-hero-statement {
-  margin-top: 40px;
+  margin-top: 24px;
   max-width: none;
 }
 
@@ -97,6 +222,16 @@ html {
   display: grid;
   gap: 14px;
   margin-top: clamp(40px, 5vw, 56px);
+}
+.hm-sublist-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+}
+.hm-more {
+  margin-top: 24px;
+  font-size: 15px;
 }
 .hm-split--4-8 {
   grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
@@ -337,13 +472,6 @@ html {
   font-size: 12px;
   color: var(--muted);
   white-space: nowrap;
-}
-
-/* Shipped strip head */
-.hm-ship-label {
-  display: flex;
-  gap: 12px;
-  align-items: baseline;
 }
 
 /* Social profiles: brand marks, square 44px targets, channel colour on hover */
