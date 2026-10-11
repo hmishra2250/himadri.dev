@@ -483,7 +483,7 @@ export const projects = {
     },
     {
       name: "cctv-edge",
-      line: "A local CCTV console with on-device object detection, built for a Raspberry Pi 5.",
+      line: "A local CCTV console with on-device object detection, sized for a small Intel mini PC.",
       meta: "2026",
     },
   ] satisfies OneLiner[],
