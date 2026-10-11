@@ -1,5 +1,11 @@
 import { readFileSync } from "node:fs";
-import { before, firecrawl, hero, now, sections } from "../src/content/site";
+import {
+  firecrawl,
+  hero,
+  inTheOpen,
+  projects,
+  sections,
+} from "../src/content/site";
 import { checkCopy } from "../src/lib/validation";
 import { renderSite } from "./lib/render-site";
 
@@ -29,19 +35,20 @@ for (const section of sections) {
   assert(home.ids.has(section.id), `home is missing section #${section.id}`);
 }
 
-for (const item of [...now.also, ...before.openSource]) {
-  assert(home.text.includes(item.name), `one-liner not rendered: ${item.name}`);
+for (const item of [
+  ...inTheOpen.items,
+  ...projects.side,
+  ...projects.earlier,
+]) {
+  assert(home.text.includes(item.name), `row not rendered: ${item.name}`);
   if (item.href) {
-    assert(
-      home.hrefs.includes(item.href),
-      `one-liner link missing: ${item.name}`,
-    );
+    assert(home.hrefs.includes(item.href), `row link missing: ${item.name}`);
   }
 }
 
 assert(
   firecrawl.cards.length === 4,
-  "Firecrawl shows four work cards: two wide, two side by side",
+  "Firecrawl shows four pieces of work: the harness, then three cards",
 );
 for (const card of firecrawl.cards) {
   assert(home.text.includes(card.title), `card missing: ${card.title}`);
@@ -75,7 +82,14 @@ for (const page of [home, resume]) {
   );
 }
 
-const words = home.text.split(/\s+/).length;
+// Words a reader sees, not glyphs: arrows and separators do not count, and
+// SVG titles and descriptions are for screen readers, not on screen
+const words = home.html
+  .replace(/<(title|desc)\b[^>]*>[\s\S]*?<\/\1>/g, " ")
+  .replace(/<script[\s\S]*?<\/script>/g, " ")
+  .replace(/<[^>]+>/g, " ")
+  .split(/\s+/)
+  .filter((token) => /[\p{L}\p{N}]/u.test(token)).length;
 assert(words <= 1200, `homepage has ${words} words; keep it under 1,200`);
 
 const pageSource = readFileSync("src/app/page.tsx", "utf8");

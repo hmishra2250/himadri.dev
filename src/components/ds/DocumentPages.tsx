@@ -3,20 +3,18 @@ import Image from "next/image";
 export type DocumentPage = { src: string; width: number; height: number };
 
 /**
- * A document's pages as images in the page flow, on a framed panel, so the
- * window scrolls naturally. The PDF link keeps selectable text one click away.
+ * A document's pages as images in the page flow, on an hm-figure, so the
+ * window scrolls naturally. The page header carries the download.
  */
 export function DocumentPages({
   label,
   pages,
-  pdf,
 }: {
   label: string;
   pages: readonly DocumentPage[];
-  pdf: string;
 }) {
   return (
-    <div className="hm-doc-panel">
+    <div className="hm-figure">
       {pages.map((page, index) => (
         <Image
           key={page.src}
@@ -26,12 +24,13 @@ export function DocumentPages({
           height={page.height}
           sizes="(max-width: 960px) 100vw, 880px"
           priority={index === 0}
-          alt={`${label}, page ${index + 1} of ${pages.length}. The PDF has selectable text.`}
+          alt={
+            pages.length > 1
+              ? `${label}, page ${index + 1} of ${pages.length}`
+              : label
+          }
         />
       ))}
-      <p className="hm-document-help">
-        Prefer selectable text? <a href={pdf}>Open the PDF</a>.
-      </p>
     </div>
   );
 }

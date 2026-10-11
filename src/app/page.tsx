@@ -1,27 +1,36 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import {
   ArrowLink,
   Button,
-  InlineLinks,
-  Ledger,
-  OneLiners,
-  Panel,
-  Subhead,
-  Tile,
-  WorkCards,
-  Years,
+  Evidence,
+  Label,
+  Portrait,
+  Section,
+  ShipStrip,
+  Status,
+  SystemCard,
+  SystemGrid,
+  Timeline,
+  WorkRows,
 } from "@/components/ds";
 import { RouteJsonLd } from "@/components/seo/RouteJsonLd";
+import {
+  CodingAgentFigure,
+  HarnessLoopFigure,
+} from "@/components/site/Diagrams";
 import {
   before,
   firecrawl,
   hero,
+  inTheOpen,
   links,
   now,
+  projects,
   pullRequestUrl,
   shipped,
+  type OneLiner,
   type PullRequest,
+  type WorkCard,
 } from "@/content/site";
 import { buildPageMetadata } from "@/lib/seo";
 
@@ -29,80 +38,110 @@ export const dynamic = "error";
 
 export const metadata: Metadata = buildPageMetadata("/");
 
-const pullRequestRefs = (prs: readonly PullRequest[]) =>
+const evidence = (prs: readonly PullRequest[]) =>
   prs.map((pr) => ({
-    label: `${pr.repo} #${pr.number}`,
+    label: pr.summary,
+    reference: `${pr.repo} #${pr.number}`,
     href: pullRequestUrl(pr),
-    title: pr.summary,
   }));
 
+const rows = (items: readonly OneLiner[]) =>
+  items.map((item) => ({
+    title: item.name,
+    summary: item.line,
+    meta: item.meta,
+    href: item.href,
+  }));
+
+function Points({ card }: { card: WorkCard }) {
+  return (
+    <ul className="hm-bullets">
+      {card.points.map((point) => (
+        <li key={point.text}>
+          {point.label ? <strong>{point.label}: </strong> : null}
+          {point.text}
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+function PullRequests({ prs }: { prs: readonly PullRequest[] }) {
+  return (
+    <div className="hm-evidence-block">
+      <Evidence items={evidence(prs)} />
+    </div>
+  );
+}
+
 export default function Home() {
+  const [lead, ...cards] = firecrawl.cards;
+
   return (
     <>
       <RouteJsonLd path="/" />
 
       <section className="hm-wrap hm-hero">
-        <div className="hm-hero-split">
-          <div className="hm-hero-main">
-            <div className="hm-hero-id">
-              <span className="hm-portrait hm-hero-portrait">
-                <Image
-                  src="/images/himadri-portrait.png"
-                  alt={hero.name}
-                  width={460}
-                  height={460}
-                  priority
-                />
-              </span>
-              <div className="hm-hero-who">
-                <span className="hm-hero-name">{hero.name}</span>
-                <span className="hm-label">{hero.location}</span>
-              </div>
-            </div>
-            <h1 className="hm-display hm-hero-statement">{hero.punchline}</h1>
-            <p className="hm-lead hm-hero-facts">{hero.facts}</p>
-            <div className="hm-page-actions">
-              <Button href={links.resume}>Resume</Button>
-            </div>
+        <div className="hm-hero-id">
+          <Portrait alt={hero.name} />
+          <div className="hm-hero-who">
+            <span className="hm-hero-name">{hero.name}</span>
+            <Label>{hero.location}</Label>
           </div>
-
-          <Ledger
-            label={shipped.label}
-            items={shipped.items}
-            cta={{ label: "Recent work", href: "#now" }}
-          />
         </div>
+        <h1 className="hm-display hm-hero-statement">{hero.punchline}</h1>
+        <div className="hm-hero-foot">
+          <p className="hm-lead">{hero.facts}</p>
+          <div className="hm-page-actions">
+            <Button href="#now" variant="primary" arrow="↓">
+              Recent work
+            </Button>
+          </div>
+        </div>
+        <ShipStrip
+          label={shipped.label}
+          period={shipped.period}
+          items={shipped.items}
+        />
       </section>
 
-      <Panel id="now" index="01" label="Now" title={now.title}>
-        <div className="hm-split hm-split--even">
-          <Tile title={now.mudita.name} meta={now.mudita.meta}>
+      <Section id="now" index="01" label={now.label} title={now.title}>
+        <article className="hm-split">
+          <div className="hm-stack">
+            <Status>{now.mudita.meta}</Status>
+            <h3 className="hm-h3">{now.mudita.name}</h3>
             <ul className="hm-bullets">
               {now.mudita.items.map((item) => (
                 <li key={item}>{item}</li>
               ))}
             </ul>
-          </Tile>
-          <Tile
-            title={now.agentExperience.name}
-            meta={now.agentExperience.meta}
-          >
-            <ul className="hm-bullets">
-              {now.agentExperience.items.map((segments, index) => (
-                <li key={index}>
-                  <InlineLinks segments={segments} />
-                </li>
-              ))}
-            </ul>
-          </Tile>
-        </div>
-        <Subhead>{now.alsoLabel}</Subhead>
-        <OneLiners items={now.also} />
-      </Panel>
+          </div>
+          <div className="hm-figure hm-figure--diagram">
+            <Label tone="ink" className="hm-figure-label">
+              {now.mudita.diagram.label}
+            </Label>
+            <CodingAgentFigure diagram={now.mudita.diagram} />
+          </div>
+        </article>
+      </Section>
 
-      <Panel
-        id="firecrawl"
+      <Section
+        id="open"
         index="02"
+        label={inTheOpen.label}
+        title={inTheOpen.title}
+        aside={
+          <ArrowLink href={links.agentExperience}>
+            agentexperience.tech
+          </ArrowLink>
+        }
+      >
+        <WorkRows items={rows(inTheOpen.items)} />
+      </Section>
+
+      <Section
+        id="firecrawl"
+        index="03"
         label={firecrawl.label}
         title={firecrawl.title}
         intro={firecrawl.intro}
@@ -112,21 +151,58 @@ export default function Home() {
           </ArrowLink>
         }
       >
-        <WorkCards
-          items={firecrawl.cards.map((card) => ({
-            title: card.title,
-            meta: card.meta,
-            story: card.story,
-            points: card.points,
-            refs: pullRequestRefs(card.prs),
-            wide: card.wide,
-          }))}
-        />
-      </Panel>
+        <article className="hm-split">
+          <div className="hm-stack">
+            <Status>{lead.status}</Status>
+            <h3 className="hm-h3">{lead.title}</h3>
+            {lead.story ? <p className="hm-prose">{lead.story}</p> : null}
+            <Points card={lead} />
+            <PullRequests prs={lead.prs} />
+          </div>
+          <div className="hm-figure hm-figure--diagram">
+            <Label tone="ink" className="hm-figure-label">
+              {firecrawl.harness.label}
+            </Label>
+            <HarnessLoopFigure diagram={firecrawl.harness} />
+          </div>
+        </article>
+        <div className="hm-follow">
+          <SystemGrid columns={2}>
+            {cards.map((card, index) =>
+              index === 0 ? (
+                <SystemCard
+                  key={card.title}
+                  status={card.status}
+                  title={card.title}
+                  wide
+                >
+                  <div className="hm-system-split">
+                    <div className="hm-stack">
+                      {card.story ? <p>{card.story}</p> : null}
+                      <Points card={card} />
+                    </div>
+                    <Evidence items={evidence(card.prs)} />
+                  </div>
+                </SystemCard>
+              ) : (
+                <SystemCard
+                  key={card.title}
+                  status={card.status}
+                  title={card.title}
+                >
+                  {card.story ? <p>{card.story}</p> : null}
+                  <Points card={card} />
+                  <PullRequests prs={card.prs} />
+                </SystemCard>
+              ),
+            )}
+          </SystemGrid>
+        </div>
+      </Section>
 
-      <Panel
+      <Section
         id="before"
-        index="03"
+        index="04"
         label={before.label}
         title={before.title}
         aside={
@@ -135,10 +211,32 @@ export default function Home() {
           </ArrowLink>
         }
       >
-        <Years items={before.timeline} />
-        <Subhead>{before.openSourceLabel}</Subhead>
-        <OneLiners items={before.openSource} />
-      </Panel>
+        <div className="hm-measure">
+          <Timeline
+            items={before.timeline.map((entry) => ({
+              years: entry.years,
+              event: (
+                <>
+                  <strong>{entry.name}</strong>, {entry.line}
+                </>
+              ),
+            }))}
+          />
+        </div>
+      </Section>
+
+      <Section
+        id="projects"
+        index="05"
+        label={projects.label}
+        title={projects.title}
+      >
+        <WorkRows items={rows(projects.side)} />
+        <div className="hm-sublist">
+          <Label tone="ink">{projects.earlierLabel}</Label>
+          <WorkRows items={rows(projects.earlier)} />
+        </div>
+      </Section>
     </>
   );
 }

@@ -143,4 +143,4 @@ The project is configured for Vercel deployment from the connected repository. T
 
 Home and Work reject request-time content rendering and are prerendered at build time. `npm run build` checks the prerender manifest; `test:privacy-contract` checks the curated/full-archive split, proof references and Server Component source boundaries. `test:design:http` checks content and links in raw HTTP HTML with scripts removed, including metadata, disclosures and archive anchors. Core content does not depend on hydration, browser data fetching or client-side filters. Existing Next.js navigation and optional analytics are not a promise of zero JavaScript.
 
-The current information architecture is defined in `docs/plans/agent-experience-first-design.md` and `DESIGN.md`.
+The current information architecture is defined in `docs/plans/portfolio-one-page-2026-10.md`, and the design in `design-system/readme.md`.
