@@ -82,20 +82,28 @@ html {
   display: flex;
   flex-direction: column;
   min-height: calc(100svh - var(--nav-height));
-  padding-top: clamp(24px, 3vw, 36px);
-  padding-bottom: clamp(20px, 2.5vw, 32px);
+  padding-top: clamp(20px, 2.5vw, 28px);
+  padding-bottom: clamp(16px, 2vw, 24px);
 }
 .hm-hero-copy {
-  margin-top: 24px;
+  margin-top: 20px;
 }
 .hm-hero-copy > * + * {
-  margin-top: 16px;
+  margin-top: 14px;
+}
+/* The introduction's type, a step below the system's lead and body sizes,
+   so the whole first screen fits a 1440x790 laptop view */
+.hm-hero-copy .hm-lead {
+  font-size: clamp(17px, 1.4vw, 20px);
+}
+.hm-hero-copy .hm-lead--soft {
+  font-size: clamp(16px, 1.25vw, 18px);
 }
 .hm-hero-photo {
   float: right;
-  width: clamp(160px, 19vw, 264px);
+  width: clamp(160px, 17vw, 240px);
   aspect-ratio: 1 / 1;
-  margin: 4px 0 20px clamp(24px, 4vw, 48px);
+  margin: 4px 0 16px clamp(24px, 4vw, 48px);
 }
 .hm-hero-photo img {
   width: 100%;
@@ -104,7 +112,7 @@ html {
   transform: none;
 }
 .hm-hero-statement.hm-h1 {
-  font-size: clamp(36px, 4.1vw, 58px);
+  font-size: clamp(34px, 3.6vw, 52px);
 }
 /* One boundary for the paragraphs: the photo's edge, with a tidy rag */
 .hm-hero-copy p {
@@ -139,11 +147,11 @@ html {
 /* The selected work as link cards at the foot of the first screen */
 .hm-hero-index {
   clear: both;
-  margin-top: clamp(28px, 4.5vh, 48px);
+  margin-top: clamp(24px, 3.5vh, 36px);
 }
 .hm-hero-index .hm-system {
-  padding: 22px 24px 20px;
-  gap: 10px;
+  padding: 18px 22px 16px;
+  gap: 8px;
 }
 .hm-hero-index .hm-system-action {
   padding-top: 6px;
@@ -201,7 +209,7 @@ html {
  * sentence, so it runs the width and balances over two lines.
  */
 .hm-hero-id + .hm-hero-statement {
-  margin-top: 24px;
+  margin-top: 20px;
   max-width: none;
 }
 

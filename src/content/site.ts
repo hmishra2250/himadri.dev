@@ -129,7 +129,7 @@ export const hero = {
   latest: [
     "The last big thing I shipped: ",
     { text: "Firecrawl's hosted MCP server", href: "/#hosted-mcp" },
-    ", rebuilt so that sign-in works and agents load half the tool-metadata tokens, with no drop in task success in a ",
+    ", rebuilt so sign-in works and agents load half the tool-metadata tokens, with no drop in task success in a ",
     { text: "paired A/B test", href: prLink("firecrawl-mcp-server", 340) },
     ". Firecrawl's Claude and Codex connectors run on it.",
   ] satisfies Segment[],
@@ -194,9 +194,9 @@ export const work = {
     title:
       "A coding agent that answers Slack and Jira requests with pull requests",
     story:
-      "Someone asks for a change in Slack or Jira. The agent reads the ticket, works in a fresh sandbox that has no credentials, writes the change and its tests, and runs them. A second model that did not write the code reviews the diff and can send it back. Only a patch leaves the sandbox.",
+      "Someone asks for a change in Slack or Jira. The agent reads the ticket, works in a fresh sandbox with no credentials, writes the change and its tests, and runs them. A second model that did not write the code reviews the diff and can send it back. Only a patch leaves the sandbox.",
     points: [
-      "Then come the checks the agent cannot touch: the project's own tests run again outside the sandbox, pages get checked in a real browser, and a new test has to fail on the old code before a pull request opens.",
+      "Then the checks the agent cannot touch: the project's tests run again outside the sandbox, pages are checked in a real browser, and a new test must fail on the old code before a pull request opens.",
       "The bot cannot merge. A person reviews the draft, and a reply in the same Slack thread updates the same pull request.",
     ],
     diagram: {
@@ -230,9 +230,9 @@ export const work = {
     status: "Firecrawl · July 2026",
     title: "Firecrawl's hosted MCP server, rebuilt",
     story:
-      "The old server took the API key in the URL, and its OAuth flow was wired wrong, so sign-in failed a lot. I rebuilt it on Firecrawl's own OAuth with two endpoints: one for accounts and one that needs no account at all. An agent can start without signing up, and when a tool does need an account it gets told what to do next.",
+      "The old server took the API key in the URL, and its OAuth flow was wired wrong, so sign-in failed a lot. I rebuilt it on Firecrawl's own OAuth with two endpoints: one for accounts and one that needs none. An agent can start without signing up, and when a tool needs an account it is told what to do next.",
     points: [
-      "Agents now load half the tool-metadata tokens, and task success stayed the same in a paired A/B test. Firecrawl's Claude and Codex connectors run on this server.",
+      "Agents now load half the tool-metadata tokens, and task success stayed the same in a paired A/B test. Firecrawl's Claude and Codex connectors run on it.",
     ],
     diagram: {
       label: "Before and after",
@@ -288,10 +288,10 @@ export const work = {
     status: "Firecrawl · May to September 2026",
     title: "The Agent Experience harness",
     story:
-      "This is how Firecrawl found out whether agents could actually use its tools. Before a release shipped, real coding agents (Claude Code, Codex, Cursor, OpenCode) ran the candidate build and the published one in sandboxes set up the way users set them up, and the two were compared in a paired A/B test.",
+      "This is how Firecrawl found out whether agents could actually use its tools. Before a release shipped, real coding agents (Claude Code, Codex, Cursor, OpenCode) ran the candidate build against the published one in sandboxes set up like a user's, and a paired A/B test compared them.",
     points: [
       "Every tool call, page read and answer was kept raw, and every quote in a weekly report was checked against the run it came from.",
-      "What the runs found went into the docs, the API, the MCP server and the website, and the next run tested the fix.",
+      "What the runs found went into the docs, API, MCP server and website, and the next run tested the fix.",
     ],
     diagram: {
       label: "Inside the harness",
@@ -329,7 +329,7 @@ export const work = {
     {
       meta: "Mudita Studios",
       title: "The research product",
-      text: "Main engineer on a product whose answers cite their sources: the data connectors, the end-to-end test harness and the release gates. I also set up CI/CD, preview environments and daily browser smoke tests for a second product.",
+      text: "Main engineer on a product whose answers cite their sources: data connectors, the test harness and release gates. I also set up CI/CD, preview environments and daily browser smoke tests for a second product.",
       links: [],
       proof: ["mudita-main-engineer", "mudita-delivery-platform"],
     },
@@ -343,7 +343,7 @@ export const work = {
     {
       meta: "Firecrawl · tool calls",
       title: "Search routing",
-      text: "With routing instructions in the server, every Claude Code run used Firecrawl's search instead of the built-in one, and two thirds of Codex runs did, over 15 runs each.",
+      text: "With routing instructions in the server, every Claude Code run and two thirds of Codex runs used Firecrawl's search instead of the built-in one, over 15 runs each.",
       links: [
         {
           label: "firecrawl-mcp-server #240",
@@ -355,7 +355,7 @@ export const work = {
     {
       meta: "Firecrawl · recovery",
       title: "Errors an agent can act on",
-      text: "A spent limit or a wrong key now comes back with what to do next instead of ending the task, and API errors come back as JSON rather than HTML pages.",
+      text: "A spent limit or a wrong key now returns what to do next instead of ending the task, and API errors come back as JSON, not HTML pages.",
       links: [
         {
           label: "firecrawl-mcp-server #365",
@@ -372,7 +372,7 @@ export const work = {
     {
       years: "2025 to 2026",
       name: "Knit",
-      line: "Senior AI Engineer. I designed the AI pipeline of its research platform. Reports that took 2-3 days started taking under an hour.",
+      line: "Senior AI Engineer. I designed the AI pipeline of its research platform; reports that took 2-3 days now take under an hour.",
       proof: "knit-turnaround",
     },
     {
@@ -384,7 +384,7 @@ export const work = {
     {
       years: "2018 to 2023",
       name: "Osmo and Whodat",
-      line: "Computer vision: worksheet recognition for a kids' learning product, and a feature detector for augmented reality.",
+      line: "Computer vision: worksheet recognition for a kids' learning product, and feature detection for augmented reality.",
       proof: "osmo-cv",
     },
     {
@@ -409,7 +409,7 @@ export const latest = {
   label: "Latest",
   title: "What I have written lately.",
   intro:
-    "Agent Experience is my guide to how agents use software. It comes with an open readiness rubric and a public MCP server you can point an agent at.",
+    "Agent Experience is my guide to how agents use software. It comes with an open readiness rubric and a public MCP server any agent can query.",
   proof: "public-agent-experience-guide" satisfies ProofClaimId,
   items: [
     {
@@ -498,7 +498,7 @@ export const projects = {
     {
       name: "Botnet-Detection-using-Machine-Learning",
       href: `${github}/Botnet-Detection-using-Machine-Learning`,
-      line: "my bachelor's project",
+      line: "Botnet detection with classical machine learning, my bachelor's project.",
       meta: "178 stars",
     },
     {

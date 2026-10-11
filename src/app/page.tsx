@@ -282,22 +282,10 @@ export default function Home() {
         title={projects.title}
       >
         <WorkRows items={rows(projects.side)} />
-        <p className="hm-prose hm-more">
-          {projects.earlierLabel}:{" "}
-          {projects.earlier.map((item, index) => (
-            <span key={item.name}>
-              {index ? ", " : ""}
-              <a className="hm-link" href={item.href}>
-                {item.name}
-              </a>
-              {item.line === "my bachelor's project"
-                ? ", my bachelor's project"
-                : ""}{" "}
-              ({item.meta})
-            </span>
-          ))}
-          .
-        </p>
+        <div className="hm-sublist">
+          <Label tone="ink">{projects.earlierLabel}</Label>
+          <WorkRows items={rows(projects.earlier)} />
+        </div>
       </Section>
     </>
   );
