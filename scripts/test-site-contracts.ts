@@ -103,7 +103,7 @@ assert(
   checkHref("https://github.com/hmishra2250", "fixture").length === 0,
   "https link rejected",
 );
-assert(checkHref("/#now", "fixture").length === 0, "/#now rejected");
+assert(checkHref("/#work", "fixture").length === 0, "/#work rejected");
 assert(
   checkHref("/#missing", "fixture").length > 0,
   "unknown section accepted",

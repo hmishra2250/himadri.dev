@@ -15,9 +15,7 @@ export {
 export { DocumentPages, type DocumentPage } from "./DocumentPages";
 export { Evidence, type EvidenceItem } from "./Evidence";
 export { Label, Status } from "./Label";
-export { Portrait } from "./Portrait";
 export { PageHeader, Section } from "./Section";
-export { ShipStrip, type ShipItem } from "./ShipStrip";
 export { SocialIcon, SocialLinks } from "./SocialLinks";
 export { SystemCard, SystemGrid } from "./SystemGrid";
 export { Timeline, type TimelineItem } from "./Timeline";

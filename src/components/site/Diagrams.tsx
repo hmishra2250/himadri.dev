@@ -5,7 +5,11 @@ import {
   DgZone,
   DiagramFigure,
 } from "@/components/ds";
-import type { CodingAgentDiagram, LoopDiagram } from "@/content/site";
+import type {
+  BeforeAfterDiagram,
+  CodingAgentDiagram,
+  LoopDiagram,
+} from "@/content/site";
 
 /*
  * The site's two system diagrams. Geometry lives here on a 4px grid in a
@@ -101,6 +105,48 @@ export function HarnessLoopFigure({ diagram }: { diagram: LoopDiagram }) {
 
       <DgLabel x={96} y={16} text={diagram.entry} />
       <DgLabel x={96} y={108} text={diagram.retest} tone="focal" />
+    </DiagramFigure>
+  );
+}
+
+/**
+ * The hosted MCP server before and after the rebuild: one server reached
+ * with a key in the URL, then an account endpoint behind OAuth and a keyless
+ * endpoint that needs no account.
+ */
+export function BeforeAfterFigure({
+  diagram,
+}: {
+  diagram: BeforeAfterDiagram;
+}) {
+  const id = "hosted-mcp";
+  const { before, after } = diagram;
+  return (
+    <DiagramFigure
+      id={id}
+      title={diagram.title}
+      desc={diagram.desc}
+      width={384}
+      height={232}
+    >
+      <text className="hm-dg-label" x={0} y={12}>
+        BEFORE
+      </text>
+      <DgEdge diagram={id} d="M164,52 H220" />
+      <DgNode x={A} y={24} w={W} h={56} tone="input" {...before.agent} />
+      <DgNode x={B} y={24} w={W} h={56} {...before.server} />
+      <DgLabel x={168} y={68} text={before.edge} />
+
+      <text className="hm-dg-label" x={0} y={116}>
+        AFTER
+      </text>
+      <DgEdge diagram={id} d="M164,156 H220" tone="focal" />
+      <DgEdge diagram={id} d="M164,204 H220" />
+      <DgNode x={A} y={128} w={W} h={96} tone="input" {...after.agent} />
+      <DgNode x={B} y={128} w={W} h={40} tone="focal" {...after.account} />
+      <DgNode x={B} y={184} w={W} h={40} {...after.keyless} />
+      <DgLabel x={168} y={140} text={after.accountEdge} tone="focal" />
+      <DgLabel x={168} y={220} text={after.keylessEdge} />
     </DiagramFigure>
   );
 }

@@ -51,28 +51,28 @@ export const routeManifest: RouteManifestEntry[] = [
 
   // Retired in the October 2026 one-page redesign. Old links land on the
   // matching section of the homepage.
-  retired("/case-studies", "Work", "/#firecrawl"),
+  retired("/case-studies", "Work", "/#work"),
   retired(
     "/case-studies/agentic-market-research-platform",
     "Agentic Market Research Platform",
-    "/#before",
+    "/#work",
   ),
   retired(
     "/case-studies/ml-infra-rescue",
     "ML Infrastructure Rescue",
-    "/#before",
+    "/#work",
   ),
   retired(
     "/case-studies/computer-vision-product-systems",
     "Computer Vision Product Systems",
-    "/#before",
+    "/#work",
   ),
   retired(
     "/case-studies/high-performance-ar-and-vision",
     "High-Performance AR and Vision",
-    "/#before",
+    "/#work",
   ),
-  retired("/about", "About", "/#before"),
+  retired("/about", "About", "/#work"),
   retired("/notes", "Notes", "/"),
   retired("/contact", "Contact", "/"),
   retired("/interview-me", "Interview Me", "/"),
