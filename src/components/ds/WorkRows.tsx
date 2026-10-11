@@ -8,12 +8,13 @@ export type WorkRowItem = {
 };
 
 /**
- * Numbered rows under a graphite rule. A row with a link opens it (↗); a row
- * without one is plain text. Summaries are always visible.
+ * Numbered rows under a graphite rule, compact for long lists. A row with a
+ * link opens it (↗); a row without one is plain text. Summaries are always
+ * visible.
  */
 export function WorkRows({ items }: { items: readonly WorkRowItem[] }) {
   return (
-    <div className="hm-rows">
+    <div className="hm-rows hm-rows--compact">
       {items.map((item, index) => {
         const num = String(index + 1).padStart(2, "0");
         const cells = (

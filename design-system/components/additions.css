@@ -8,16 +8,18 @@
  *
  *   scroll offset                 In-page links scroll smoothly and clear the sticky header
  *   hm-skip-link                  Skip to content
- *   hm-hero                       Home hero spacing; the statement follows the identity
+ *   hm-hero                       Home hero: spacing, and a two-line statement
  *   hm-stack                      A column of content with v2's 16px rhythm
- *   hm-feature-title              Title of a section's lead piece of work
  *   hm-figure-label               Label at the top of an hm-figure
  *   hm-follow                     Space between a section's lead piece and what follows
  *   hm-sublist                    A labelled list inside a section
  *   hm-split--4-8                 Narrow intro column beside a wide list
  *   hm-bullets strong             Lead-in label inside a bullet
+ *   hm-rows--compact              Rows for long lists: h4-size titles, tighter padding
  *   hm-row--static                A row without a link (a private project)
  *   hm-row-summary-wrap           Aligns a row summary under the row title
+ *   hm-pipeline--vertical fix     Keeps the rail continuous on phones
+ *   hm-systems--2, hm-system--wide Two-column system grid with a full-width lead card
  *   hm-system--static             A system card that holds its own links
  *   hm-evidence, hm-evidence-block Pull requests as ruled rows: what changed, then the reference
  *   hm-ship-label                 Label and year in the shipped strip head
@@ -67,9 +69,14 @@ html {
   font-weight: 600;
   letter-spacing: -0.01em;
 }
-/* With no role line, the statement takes the role line's 40px offset */
+/*
+ * With no role line, the statement takes the role line's 40px offset. v2
+ * caps the statement at 17ch for a two-word statement; this one is a
+ * sentence, so it runs the width and balances over two lines.
+ */
 .hm-hero-id + .hm-hero-statement {
   margin-top: 40px;
+  max-width: none;
 }
 
 /* Lead piece of work in a section: v2 values, set inline in the UI kit */
@@ -77,10 +84,6 @@ html {
   display: grid;
   gap: 16px;
   align-content: start;
-}
-.hm-feature-title {
-  font-weight: 500;
-  letter-spacing: -0.028em;
 }
 .hm-figure-label {
   display: flex;
@@ -109,6 +112,25 @@ html {
   font-weight: 500;
   color: var(--graphite);
 }
+/* A lead piece reads at body size; cards keep v2's small bullets */
+.hm-split > .hm-stack > .hm-bullets li {
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+/* Rows for long lists: h4-size titles and tighter padding */
+.hm-rows--compact .hm-row-trigger {
+  padding: 18px 0;
+}
+.hm-rows--compact .hm-row-title {
+  font-size: 20px;
+  letter-spacing: -0.01em;
+  overflow-wrap: anywhere;
+}
+.hm-rows--compact .hm-row-summary {
+  margin-top: -10px;
+  padding-bottom: 18px;
+}
 
 /* Rows: a row without a link, and a summary aligned under the title */
 .hm-row--static .hm-row-trigger {
@@ -128,6 +150,42 @@ html {
 @media (max-width: 720px) {
   .hm-row-summary-wrap {
     grid-template-columns: 36px minmax(0, 1fr);
+  }
+}
+
+/*
+ * Vertical pipelines: v2's phone rule (.hm-pipeline:not(.hm-pipeline--wrap))
+ * adds a 24px row gap, which breaks the rail between steps. Push upstream.
+ */
+.hm-pipeline.hm-pipeline--vertical:not(.hm-pipeline--wrap) {
+  row-gap: 0;
+}
+
+/* Two-column system grid; a wide card spans the row with its own split */
+.hm-systems--2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.hm-system--wide {
+  grid-column: 1 / -1;
+}
+.hm-system-split {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  gap: clamp(24px, 4vw, 48px);
+  align-items: start;
+}
+@media (max-width: 900px) {
+  .hm-systems--2,
+  .hm-system-split {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 720px) {
+  .hm-system {
+    padding: 22px 20px;
+  }
+  .hm-figure {
+    padding: 22px 20px;
   }
 }
 
@@ -159,11 +217,12 @@ html {
 }
 .hm-evidence a {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: baseline;
-  gap: 12px;
-  min-height: 40px;
-  padding: 9px 0;
+  gap: 2px 12px;
+  min-height: 38px;
+  padding: 8px 0;
   border-bottom: 1px solid var(--hairline);
   color: var(--graphite);
   font-size: 14px;
@@ -179,19 +238,6 @@ html {
   font-size: 12px;
   color: var(--muted);
   white-space: nowrap;
-}
-/* In a card column or on a phone, the reference sits under the change */
-.hm-system .hm-evidence a {
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 2px;
-}
-@media (max-width: 720px) {
-  .hm-evidence a {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 2px;
-  }
 }
 
 /* Shipped strip head */

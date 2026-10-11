@@ -106,7 +106,7 @@ export default function Home() {
         <article className="hm-split">
           <div className="hm-stack">
             <Status>{now.mudita.meta}</Status>
-            <h3 className="hm-h2 hm-feature-title">{now.mudita.name}</h3>
+            <h3 className="hm-h3">{now.mudita.name}</h3>
             <ul className="hm-bullets">
               {now.mudita.items.map((item) => (
                 <li key={item}>{item}</li>
@@ -156,7 +156,7 @@ export default function Home() {
         <article className="hm-split">
           <div className="hm-stack">
             <Status>{lead.status}</Status>
-            <h3 className="hm-h2 hm-feature-title">{lead.title}</h3>
+            <h3 className="hm-h3">{lead.title}</h3>
             {lead.story ? <p className="hm-prose">{lead.story}</p> : null}
             <Points card={lead} />
             <PullRequests prs={lead.prs} />
@@ -171,18 +171,35 @@ export default function Home() {
           ) : null}
         </article>
         <div className="hm-follow">
-          <SystemGrid>
-            {cards.map((card) => (
-              <SystemCard
-                key={card.title}
-                status={card.status}
-                title={card.title}
-              >
-                {card.story ? <p>{card.story}</p> : null}
-                <Points card={card} />
-                <PullRequests prs={card.prs} />
-              </SystemCard>
-            ))}
+          <SystemGrid columns={2}>
+            {cards.map((card, index) =>
+              index === 0 ? (
+                <SystemCard
+                  key={card.title}
+                  status={card.status}
+                  title={card.title}
+                  wide
+                >
+                  <div className="hm-system-split">
+                    <div className="hm-stack">
+                      {card.story ? <p>{card.story}</p> : null}
+                      <Points card={card} />
+                    </div>
+                    <Evidence items={evidence(card.prs)} />
+                  </div>
+                </SystemCard>
+              ) : (
+                <SystemCard
+                  key={card.title}
+                  status={card.status}
+                  title={card.title}
+                >
+                  {card.story ? <p>{card.story}</p> : null}
+                  <Points card={card} />
+                  <PullRequests prs={card.prs} />
+                </SystemCard>
+              ),
+            )}
           </SystemGrid>
         </div>
       </Section>

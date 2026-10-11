@@ -82,12 +82,15 @@ In `components/additions.css`. Add a pattern there, with a component in `src/com
 |---|---|---|---|
 | Scroll offset | `html`, `.hm-section[id]` | | In-page links scroll smoothly; the section rule lands below the sticky header. |
 | Skip link | `hm-skip-link` | (layout) | Skip to content. |
-| Hero | `hm-hero`, `hm-hero-who`, `hm-hero-name` | (page) | The UI kit's inline hero values. With no role line, the statement takes the role line's 40px offset. |
-| Lead piece | `hm-stack`, `hm-feature-title`, `hm-figure-label`, `hm-follow` | (page) | A section's lead piece beside an `hm-figure`, as in the kit's Selected engineering. |
+| Hero | `hm-hero`, `hm-hero-who`, `hm-hero-name` | (page) | The UI kit's inline hero values. With no role line, the statement takes the role line's 40px offset, and as a sentence it runs the width over two balanced lines instead of v2's 17ch. |
+| Lead piece | `hm-stack`, `hm-figure-label`, `hm-follow` | (page) | A section's lead piece beside an `hm-figure`, as in the kit's Selected engineering. Its title is an `hm-h3`, below the section's h2, and its bullets are 16px. |
 | Sublist | `hm-sublist` | (page) | A mono label over a second list inside a section. |
 | Wide list split | `hm-split--4-8` | (page) | A narrow intro beside a timeline, as in the kit's Background. |
 | Bullet label | `hm-bullets strong` | (page) | A lead-in label inside a bullet. |
+| Compact rows | `hm-rows--compact` | `WorkRows` | Rows for long lists: 20px titles that wrap long repository names, 18px padding. |
 | Static row | `hm-row--static`, `hm-row-summary-wrap` | `WorkRows` | A row without a link, for work with no public page; summaries align under the title. |
+| Pipeline rail fix | `.hm-pipeline.hm-pipeline--vertical:not(.hm-pipeline--wrap)` | `Pipeline` | Keeps the vertical rail continuous on phones, where v2's phone rule adds a row gap. Push upstream. |
+| Two-column grid | `hm-systems--2`, `hm-system--wide`, `hm-system-split` | `SystemGrid`, `SystemCard` | A two-column system grid; a wide card spans the row with its story beside its evidence. |
 | Static system card | `hm-system--static`, `hm-system-title` | `SystemCard` | A card that holds its own links, so it is not a link and does not fill on hover. |
 | Evidence | `hm-evidence`, `hm-evidence-ref`, `hm-evidence-block` | `Evidence` | Pull requests as ruled rows after the contact list: what changed, then the mono reference. Stacks in a card column and on phones. |
 | Shipped strip head | `hm-ship-label` | `ShipStrip` | Label and period in the strip head. |
