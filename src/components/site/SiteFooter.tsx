@@ -1,18 +1,18 @@
 import Link from "next/link";
 import { footer, hero, sections, socials } from "@/content/site";
 import { navRoutes } from "@/lib/routes";
-import { SocialIcon } from "@/components/ds";
 
 export function SiteFooter() {
+  const elsewhere = [...socials, ...footer.elsewhere];
   return (
-    <footer className="hm-footer-band">
+    <footer className="hm-footer">
       <div className="hm-wrap">
-        <div className="hm-grid" style={{ rowGap: 32 }}>
-          <div style={{ gridColumn: "1 / 7" }}>
+        <div className="hm-grid">
+          <div className="hm-footer-brand">
             <p className="hm-footer-name">{hero.name}</p>
             <p className="hm-footer-role">{footer.role}</p>
           </div>
-          <nav style={{ gridColumn: "7 / 10" }} aria-label="On this site">
+          <nav className="hm-footer-col" aria-label="On this site">
             <span className="hm-label">On this site</span>
             <ul className="hm-footer-list">
               {sections.map((section) => (
@@ -27,18 +27,10 @@ export function SiteFooter() {
               ))}
             </ul>
           </nav>
-          <nav style={{ gridColumn: "10 / 13" }} aria-label="Elsewhere">
+          <nav className="hm-footer-col" aria-label="Elsewhere">
             <span className="hm-label">Elsewhere</span>
             <ul className="hm-footer-list">
-              {socials.map((social) => (
-                <li key={social.id}>
-                  <a className="hm-footer-social" href={social.href}>
-                    <SocialIcon id={social.id} />
-                    {social.label}
-                  </a>
-                </li>
-              ))}
-              {footer.elsewhere.map((link) => (
+              {elsewhere.map((link) => (
                 <li key={link.href}>
                   <a href={link.href}>
                     {link.label} <span aria-hidden="true">↗</span>
@@ -50,6 +42,7 @@ export function SiteFooter() {
         </div>
         <div className="hm-footer-bottom">
           <span>© 2026 {hero.name}</span>
+          <span>{footer.colophon}</span>
         </div>
       </div>
     </footer>

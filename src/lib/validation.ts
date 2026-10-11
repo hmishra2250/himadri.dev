@@ -160,8 +160,8 @@ export function validateContent(): string[] {
     prKeys.add(key);
   }
 
-  if (site.now.also.length === 0) {
-    errors.push("now.also must list at least one project");
+  if (site.inTheOpen.also.length === 0) {
+    errors.push("inTheOpen.also must list at least one project");
   }
 
   return errors;

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { DocumentPages } from "@/components/ds";
+import { DocumentPages, PageHeader } from "@/components/ds";
 import { RouteJsonLd } from "@/components/seo/RouteJsonLd";
 import { TrackedAnchor } from "@/components/ui/TrackedLink";
 import { profile } from "@/content/profile";
@@ -13,14 +13,13 @@ export default function ResumePage() {
     <>
       <RouteJsonLd path="/resume" />
       <section className="hm-wrap hm-document" aria-labelledby="resume-title">
-        <div className="hm-page-header">
-          <span className="hm-label hm-label--cobalt">Resume</span>
-          <div className="hm-page-header-body">
-            <h1 id="resume-title" className="hm-h1">
-              {profile.name}
-            </h1>
-            <p className="hm-lead">{profile.headline}</p>
-            <div className="hm-page-actions">
+        <PageHeader
+          id="resume-title"
+          label="Resume"
+          title={profile.name}
+          intro={profile.headline}
+          actions={
+            <>
               <TrackedAnchor
                 className="hm-button hm-button--primary"
                 href={resumeDocument.pdf}
@@ -48,9 +47,9 @@ export default function ResumePage() {
                   ↓
                 </span>
               </TrackedAnchor>
-            </div>
-          </div>
-        </div>
+            </>
+          }
+        />
         <DocumentPages
           label={resumeDocument.label}
           pages={resumeDocument.pages}

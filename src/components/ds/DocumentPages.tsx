@@ -3,7 +3,7 @@ import Image from "next/image";
 export type DocumentPage = { src: string; width: number; height: number };
 
 /**
- * A document's pages as images in the page flow, on a framed panel, so the
+ * A document's pages as images in the page flow, on an hm-figure, so the
  * window scrolls naturally. The PDF link keeps selectable text one click away.
  */
 export function DocumentPages({
@@ -16,7 +16,7 @@ export function DocumentPages({
   pdf: string;
 }) {
   return (
-    <div className="hm-doc-panel">
+    <div className="hm-figure">
       {pages.map((page, index) => (
         <Image
           key={page.src}

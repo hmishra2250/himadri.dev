@@ -3,12 +3,10 @@ import type { ProofClaimId } from "./proof";
 /**
  * Everything the one-page site says, in reading order.
  *
- * To add a side project, put a new entry at the top of `now.also`: one line,
+ * To add a side project, put a new entry at the top of `inTheOpen.also`: one line,
  * and a link once the repository is public. Company-specific statements and
  * numbers carry a `proof` id from ./proof.ts.
  */
-
-export type Segment = string | { text: string; href: string };
 
 export type ExternalLink = {
   label: string;
@@ -31,6 +29,9 @@ export type PullRequest = {
   /** Plain-language summary of what the change did */
   summary: string;
 };
+
+/** A step in a pipeline figure */
+export type Step = { title: string; detail?: string };
 
 export type TimelineEntry = {
   years: string;
@@ -66,124 +67,134 @@ export const hero = {
 
 export type ShippedItem = {
   when: string;
+  /** Where it shipped, shown as the item's status */
+  source: string;
+  title: string;
   text: string;
   /** Where the evidence lives: a public link or a homepage section */
   href: string;
-  source: string;
+  /** Link text for href */
+  go: string;
   proof?: ProofClaimId;
 };
 
-/** The hero's proof panel: one line per item, newest first. */
+/** The hero's strip of recently shipped work, newest first. */
 export const shipped = {
-  label: "Shipped in 2026",
+  label: "Recently shipped",
+  period: "2026",
   items: [
     {
-      when: "Now",
-      text: "Main engineer on a production AI product whose answers cite their sources",
-      href: "/#now",
-      source: "Mudita Studios",
-      proof: "mudita-main-engineer",
-    },
-    {
       when: "Sep",
-      text: "A field guide to Agent Experience, a readiness rubric and a public MCP server",
-      href: "https://agentexperience.tech/",
       source: "agentexperience.tech",
+      title: "A field guide to Agent Experience",
+      text: "With a readiness rubric and a public MCP server.",
+      href: "https://agentexperience.tech/",
+      go: "Read the guide",
       proof: "public-agent-experience-guide",
     },
     {
       when: "Jul",
-      text: "A coding agent, built from an empty repository, that turns a chat or ticket request into a reviewed pull request",
-      href: "/#now",
       source: "Mudita Studios",
+      title: "A coding agent, from an empty repository",
+      text: "From a Slack or Jira request to a tested draft pull request.",
+      href: "/#now",
+      go: "How it works",
       proof: "mudita-coding-agent",
     },
     {
       when: "Jul",
-      text: "Rewrote Firecrawl's hosted MCP server, which its Claude and Codex connectors run on",
+      source: "Firecrawl",
+      title: "Firecrawl's hosted MCP server, rebuilt",
+      text: "The server its Claude and Codex connectors run on.",
       href: "https://github.com/firecrawl/firecrawl-mcp-server/pull/308",
-      source: "Firecrawl, open source",
+      go: "firecrawl-mcp-server #308",
       proof: "firecrawl-hosted-mcp-endpoints",
     },
   ] satisfies ShippedItem[],
 };
 
 export const now = {
+  label: "Now",
   title: "What I work on.",
   mudita: {
     name: "Mudita Studios",
     meta: "AI Product Engineer · since May 2026",
     items: [
-      "Built a coding agent from an empty repository: a Slack or Jira request becomes a tested draft pull request, checked in a real browser and by a second model before a person reviews it.",
+      "Built a coding agent from an empty repository that turns a Slack or Jira request into a tested draft pull request.",
       "Main engineer on a production AI product whose answers cite their sources: its data connectors, the end-to-end test harness and release gates, and security hardening.",
       "Set up the delivery platform for a second product: CI/CD, preview environments and daily browser smoke tests.",
     ],
+    figureLabel: "Inside the coding agent",
+    steps: [
+      { title: "Request", detail: "From Slack or Jira" },
+      {
+        title: "Sandboxed run",
+        detail: "Writes and tests the change",
+      },
+      { title: "Browser check" },
+      { title: "Second-model judge" },
+      { title: "Draft pull request", detail: "A person reviews it" },
+    ] satisfies Step[],
     proof: [
       "mudita-coding-agent",
       "mudita-main-engineer",
       "mudita-delivery-platform",
     ] satisfies ProofClaimId[],
   },
-  agentExperience: {
-    name: "Agent Experience, in the open",
-    meta: "How agents find, use and recover with the tools they are given",
-    proof: "public-agent-experience-guide" satisfies ProofClaimId,
-    items: [
-      [
-        { text: "agentexperience.tech", href: "https://agentexperience.tech/" },
-        ": my field guide, with an ",
-        {
-          text: "agent-readiness rubric",
-          href: "https://agentexperience.tech/insights/agent-readiness-rubric/",
-        },
-        " and guides on ",
-        {
-          text: "tool descriptions",
-          href: "https://agentexperience.tech/insights/tool-descriptions/",
-        },
-        " and ",
-        {
-          text: "designing for recovery",
-          href: "https://agentexperience.tech/insights/design-for-recovery/",
-        },
-        ".",
-      ],
-      [
-        "A public, read-only MCP server any agent can query. ",
-        { text: "Connect", href: "https://agentexperience.tech/connect/" },
-        ".",
-      ],
-      [
-        {
-          text: "Test cases for MCP tool descriptions",
-          href: "https://agentexperience.tech/resources/mcp-tool-description-test-cases/",
-        },
-        ".",
-      ],
-      [
-        {
-          text: "awesome-agent-experience",
-          href: `${github}/awesome-agent-experience`,
-        },
-        ": sources on tool use, discovery and evaluation.",
-      ],
-    ] satisfies Segment[][],
-  },
-  alsoLabel: "Also",
+};
+
+export const inTheOpen = {
+  label: "In the open",
+  title: "Agent Experience, in the open.",
+  intro: "How agents find, use and recover with the tools they are given.",
+  proof: "public-agent-experience-guide" satisfies ProofClaimId,
+  items: [
+    {
+      name: "Agent Experience field guide",
+      href: "https://agentexperience.tech/",
+      line: "Guidance on how AI agents experience a product while acting for a person.",
+      meta: "Published guide",
+    },
+    {
+      name: "Open Agent-Readiness Rubric",
+      href: "https://agentexperience.tech/insights/agent-readiness-rubric/",
+      line: "Checks one real job an agent does, across six tracks, and gives a profile instead of one score.",
+      meta: "Open rubric",
+    },
+    {
+      name: "Public MCP server",
+      href: "https://agentexperience.tech/connect/",
+      line: "A read-only endpoint any agent can query for a bounded audit.",
+      meta: "MCP server",
+    },
+    {
+      name: "MCP tool-description test cases",
+      href: "https://agentexperience.tech/resources/mcp-tool-description-test-cases/",
+      line: "Copyable cases for tool selection, inputs, results and recovery.",
+      meta: "Test cases",
+    },
+    {
+      name: "awesome-agent-experience",
+      href: `${github}/awesome-agent-experience`,
+      line: "Sources on tool use, discovery and evaluation.",
+      meta: "Curated list",
+    },
+  ] satisfies OneLiner[],
+  alsoLabel: "Side projects",
   also: [
     {
       name: "Talkies",
-      line: "Local dictation and meeting transcription for Linux: hold a key, speak, and the text lands where you are typing. No audio leaves the machine.",
+      line: "Local dictation and meeting transcription for Linux: hold a key, speak, and the text lands where you type.",
       meta: "2026",
     },
     {
       name: "laptop-powersave",
-      line: "Battery tiers for a laptop that doubles as an always-on server: it caps the CPU on battery and releases the GPU without a reboot.",
+      line: "Battery tiers for a laptop that doubles as a server: it caps the CPU and releases the GPU without a reboot.",
       meta: "2026",
     },
     {
       name: "cctv-edge",
-      line: "A local-first CCTV console with live view and on-device object detection, built to run on a Raspberry Pi 5.",
+      line: "A local-first CCTV console with on-device object detection, on a Raspberry Pi 5.",
       meta: "2026",
     },
     {
@@ -207,28 +218,30 @@ export type WorkPoint = { label?: string; text: string };
 
 export type WorkCard = {
   title: string;
-  meta?: string;
+  /** Mono status above the title */
+  status: string;
   /** What it is and why it mattered, in two or three sentences */
   story?: string;
   points: WorkPoint[];
   prs: PullRequest[];
-  /** Full-width card for the largest pieces of work */
-  wide?: boolean;
+  /** The lead card's figure: how the system works, step by step */
+  steps?: Step[];
   proof: ProofClaimId[];
 };
 
 export const firecrawl = {
   label: "Previously",
   title: "Agent Experience at Firecrawl.",
+  figureLabel: "Inside the harness",
   intro:
     "From May to September 2026 I owned Agent Experience at Firecrawl: whether coding agents find it, choose it and use it correctly.",
   proof: ["firecrawl-programme"] satisfies ProofClaimId[],
   cards: [
     {
       title: "The Agent Experience harness",
-      meta: "Built from the first commit",
+      status: "Built from the first commit",
       story:
-        "The lab behind the programme. It runs real coding agents (Claude Code, Codex, Cursor, OpenCode and others, on several models) in sandboxes against any version of Firecrawl's MCP server, CLI, SDKs and skills. The rule was that every release goes through an A/B test first, and for every launch it uncovered issues that went into the product.",
+        "The lab behind the programme, running real coding agents such as Claude Code, Codex, Cursor and OpenCode. The rule was that every release goes through an A/B test first, and for every launch it uncovered issues that went into the product.",
       points: [
         {
           label: "Daily discoverability",
@@ -240,7 +253,7 @@ export const firecrawl = {
         },
         {
           label: "Retrievability",
-          text: "shows where Firecrawl's pages rank for the questions agents search, through Firecrawl and a search-results API.",
+          text: "where Firecrawl's pages rank for the questions agents search.",
         },
         {
           label: "Experiments",
@@ -248,7 +261,7 @@ export const firecrawl = {
         },
         {
           label: "Access",
-          text: "from a CLI, the dashboard, or the company's knowledge system, where other teams and their agents query results and draft experiments.",
+          text: "a CLI, the dashboard and the company's knowledge system, where other teams query results and draft experiments.",
         },
       ],
       prs: [
@@ -263,14 +276,25 @@ export const firecrawl = {
           summary: "A/B results for the research-index skill",
         },
       ],
-      wide: true,
+      steps: [
+        {
+          title: "Pin the builds",
+          detail: "Any version of the MCP server, CLI, SDKs or skills",
+        },
+        {
+          title: "Run real agents",
+          detail: "In sandboxes, on several models",
+        },
+        { title: "Judge the runs" },
+        { title: "Report what changed" },
+      ],
       proof: ["firecrawl-measurement", "firecrawl-harness"],
     },
     {
       title: "The hosted MCP server, rebuilt",
-      meta: "Jul 2026",
+      status: "Shipped system, Jul 2026",
       story:
-        "The hosted server mixed API keys in URLs with an OAuth flow that was wired in wrong, and sign-in failed often. I rebuilt it from first principles on Firecrawl's OAuth, reusing what worked: the grants database, separate keyless and account endpoints, delegated credentials, infrastructure and CLI setup, shipped as one train of pull requests. It serves Firecrawl's Claude and Codex connectors.",
+        "The hosted server mixed API keys in URLs with an OAuth flow that was wired in wrong, and sign-in failed often. I rebuilt it from first principles on Firecrawl's OAuth, reusing what worked, as one train of pull requests. It serves Firecrawl's Claude and Codex connectors.",
       points: [
         {
           label: "Leaner",
@@ -278,7 +302,7 @@ export const firecrawl = {
         },
         {
           label: "Keyless",
-          text: "agents start without an account, and when a tool needs one they finish with the keyless tools or hand the person a clear next step.",
+          text: "agents start without an account; when a tool needs one, they finish with keyless tools or give the person a clear next step.",
         },
         {
           label: "Fewer errors",
@@ -313,7 +337,6 @@ export const firecrawl = {
           summary: "Keyless recovery",
         },
       ],
-      wide: true,
       proof: [
         "firecrawl-hosted-mcp",
         "firecrawl-hosted-mcp-endpoints",
@@ -324,6 +347,7 @@ export const firecrawl = {
     },
     {
       title: "Launches, tool calls and recovery",
+      status: "Launch DRI",
       points: [
         {
           label: "Launches",
@@ -374,8 +398,7 @@ export const firecrawl = {
     },
     {
       title: "Insights that reached production",
-      story:
-        "Fixes from the daily runs, retrievability and Deep Insights, shipped across the docs, the API and the website.",
+      status: "Shipped fixes",
       points: [
         {
           text: "Pricing, billing and benchmark pages that agents quoted wrongly now state them correctly.",
@@ -416,6 +439,8 @@ export const firecrawl = {
 export const before = {
   label: "Before that",
   title: "Production ML, before agents.",
+  intro:
+    "Search, recommendations, computer vision, and the AI pipeline of a research platform.",
   timeline: [
     {
       years: "2025-2026",
@@ -481,7 +506,8 @@ export const socials = [
 ] as const satisfies readonly { id: SocialId; label: string; href: string }[];
 
 export const footer = {
-  role: "AI engineer. Agents, MCP servers, CLIs and SDKs.",
+  role: "AI engineer, Remote, India.",
+  colophon: "Set in IBM Plex Sans and IBM Plex Mono.",
   elsewhere: [
     { label: "Agent Experience", href: links.agentExperience },
   ] satisfies ExternalLink[],
@@ -489,6 +515,7 @@ export const footer = {
 
 export const sections = [
   { id: "now", label: "Now" },
+  { id: "open", label: "In the open" },
   { id: "firecrawl", label: "Previously" },
   { id: "before", label: "Before that" },
 ] as const;
