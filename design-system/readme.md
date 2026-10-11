@@ -70,8 +70,9 @@ Tabs (Work filter), DecisionFork and MetricStrip (case study, from `case-studies
 Pulled from claude.ai/design on 11 October 2026; see `SYNC.md`.
 
 - `src/styles/globals.css` imports the tokens (except `fonts.css`), `components/components.css` (the v2 file, unchanged) and `components/additions.css`. IBM Plex is loaded with `next/font` instead of the Google Fonts import.
-- `src/components/ds/` holds typed React server components that emit only the classes documented here: `Button`, `ArrowLink`, `Label`, `Status`, `Section`, `PageHeader`, `Portrait`, `Pipeline`, `WorkRows`, `SystemGrid`, `SystemCard`, `Timeline`, `ShipStrip`, `Evidence`, `DocumentPages`, `SocialLinks`.
-- The home page follows the UI kit's Home: the hero with the shipped strip, then numbered sections (Now, In the open, Previously, Before that). One page and `/resume`, so there is no Work, Notes, About or Contact page and no contact block; WorkRows render without accordions, so nothing on the page is hidden.
+- `src/components/ds/` holds typed React server components that emit only the classes documented here: `Button`, `ArrowLink`, `Label`, `Status`, `Section`, `PageHeader`, `Portrait`, `DiagramFigure` (with `DgNode`, `DgEdge`, `DgLabel`, `DgZone`), `WorkRows`, `SystemGrid`, `SystemCard`, `Timeline`, `ShipStrip`, `Evidence`, `DocumentPages`, `SocialLinks`.
+- The home page follows the UI kit's Home: the hero with the shipped strip, then numbered sections (Now, In the open, Previously, Before that, Side projects): main work first, side work last. One page and `/resume`, so there is no Work, Notes, About or Contact page and no contact block; WorkRows render without accordions, so nothing on the page is hidden.
+- The footer has no colophon or copyright line, and no page carries notes about the site itself (fonts, formats, how it was built).
 - The JSX under `components/` and the UI kit are references for claude.ai/design previews; the site does not import them.
 
 ## Site additions
@@ -89,11 +90,12 @@ In `components/additions.css`. Add a pattern there, with a component in `src/com
 | Bullet label | `hm-bullets strong` | (page) | A lead-in label inside a bullet. |
 | Compact rows | `hm-rows--compact` | `WorkRows` | Rows for long lists: 20px titles that wrap long repository names, 18px padding. |
 | Static row | `hm-row--static`, `hm-row-summary-wrap` | `WorkRows` | A row without a link, for work with no public page; summaries align under the title. |
-| Pipeline rail fix | `.hm-pipeline.hm-pipeline--vertical:not(.hm-pipeline--wrap)` | `Pipeline` | Keeps the vertical rail continuous on phones, where v2's phone rule adds a row gap. Push upstream. |
+| Diagrams | `hm-diagram`, `hm-diagram-svg`, `hm-dg-*`, `hm-figure--diagram` | `DiagramFigure`, `DgNode`, `DgEdge`, `DgLabel`, `DgZone` | System diagrams drawn with the diagram-design method (Cathryn Lavery): every node earns its place, one accent for the focal path, orthogonal connectors, labels on masks, a 4px grid. Skinned to v2: Plex Sans names, Plex Mono labels, square corners, pearl boxes on the pearl-warm figure, cobalt only on one or two elements. Inline SVG with a title and description; it scales to its column, and on phones the figure gives it the width. |
+| Reading width | `hm-measure` | (page) | Keeps a long list, such as the timeline, to 760px on the one left edge. |
 | Two-column grid | `hm-systems--2`, `hm-system--wide`, `hm-system-split` | `SystemGrid`, `SystemCard` | A two-column system grid; a wide card spans the row with its story beside its evidence. |
 | Static system card | `hm-system--static`, `hm-system-title` | `SystemCard` | A card that holds its own links, so it is not a link and does not fill on hover. |
 | Evidence | `hm-evidence`, `hm-evidence-ref`, `hm-evidence-block` | `Evidence` | Pull requests as ruled rows after the contact list: what changed, then the mono reference. Stacks in a card column and on phones. |
 | Shipped strip head | `hm-ship-label` | `ShipStrip` | Label and period in the strip head. |
 | Header marks | `hm-social`, `hm-social-link`, `hm-social--github|linkedin|x|ax`, `hm-social-icon`, `hm-social-mark` | `SocialLinks` | The only icons: the Agent Experience AX monogram (official raster mark, never recoloured) and the GitHub, LinkedIn and X brand marks (Simple Icons paths, CC0), as 44px targets in the header. |
 | Footer columns | `hm-footer-brand`, `hm-footer-col` | (site) | The UI kit's inline footer columns. |
-| Document pages | `hm-document`, `hm-doc-page`, `hm-document-help` | `DocumentPages` | The resume's page image on an `hm-figure`, with a link to the selectable-text PDF. |
+| Document pages | `hm-document`, `hm-doc-page` | `DocumentPages` | The resume's page image on an `hm-figure`; the page header carries the download. |

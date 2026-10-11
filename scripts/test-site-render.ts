@@ -1,9 +1,9 @@
 import { readFileSync } from "node:fs";
 import {
-  before,
   firecrawl,
   hero,
   inTheOpen,
+  projects,
   sections,
 } from "../src/content/site";
 import { checkCopy } from "../src/lib/validation";
@@ -37,8 +37,8 @@ for (const section of sections) {
 
 for (const item of [
   ...inTheOpen.items,
-  ...inTheOpen.also,
-  ...before.openSource,
+  ...projects.side,
+  ...projects.earlier,
 ]) {
   assert(home.text.includes(item.name), `row not rendered: ${item.name}`);
   if (item.href) {
@@ -82,8 +82,12 @@ for (const page of [home, resume]) {
   );
 }
 
-// Words, not glyphs: arrows and separators do not count toward reading load
-const words = home.text
+// Words a reader sees, not glyphs: arrows and separators do not count, and
+// SVG titles and descriptions are for screen readers, not on screen
+const words = home.html
+  .replace(/<(title|desc)\b[^>]*>[\s\S]*?<\/\1>/g, " ")
+  .replace(/<script[\s\S]*?<\/script>/g, " ")
+  .replace(/<[^>]+>/g, " ")
   .split(/\s+/)
   .filter((token) => /[\p{L}\p{N}]/u.test(token)).length;
 assert(words <= 1200, `homepage has ${words} words; keep it under 1,200`);

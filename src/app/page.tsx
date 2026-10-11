@@ -4,7 +4,6 @@ import {
   Button,
   Evidence,
   Label,
-  Pipeline,
   Portrait,
   Section,
   ShipStrip,
@@ -16,12 +15,17 @@ import {
 } from "@/components/ds";
 import { RouteJsonLd } from "@/components/seo/RouteJsonLd";
 import {
+  CodingAgentFigure,
+  HarnessLoopFigure,
+} from "@/components/site/Diagrams";
+import {
   before,
   firecrawl,
   hero,
   inTheOpen,
   links,
   now,
+  projects,
   pullRequestUrl,
   shipped,
   type OneLiner,
@@ -92,7 +96,6 @@ export default function Home() {
             <Button href="#now" variant="primary" arrow="↓">
               Recent work
             </Button>
-            <Button href={links.resume}>Resume</Button>
           </div>
         </div>
         <ShipStrip
@@ -113,11 +116,11 @@ export default function Home() {
               ))}
             </ul>
           </div>
-          <div className="hm-figure">
+          <div className="hm-figure hm-figure--diagram">
             <Label tone="ink" className="hm-figure-label">
-              {now.mudita.figureLabel}
+              {now.mudita.diagram.label}
             </Label>
-            <Pipeline vertical steps={now.mudita.steps} />
+            <CodingAgentFigure diagram={now.mudita.diagram} />
           </div>
         </article>
       </Section>
@@ -127,7 +130,6 @@ export default function Home() {
         index="02"
         label={inTheOpen.label}
         title={inTheOpen.title}
-        intro={inTheOpen.intro}
         aside={
           <ArrowLink href={links.agentExperience}>
             agentexperience.tech
@@ -135,10 +137,6 @@ export default function Home() {
         }
       >
         <WorkRows items={rows(inTheOpen.items)} />
-        <div className="hm-sublist">
-          <Label tone="ink">{inTheOpen.alsoLabel}</Label>
-          <WorkRows items={rows(inTheOpen.also)} />
-        </div>
       </Section>
 
       <Section
@@ -161,14 +159,12 @@ export default function Home() {
             <Points card={lead} />
             <PullRequests prs={lead.prs} />
           </div>
-          {lead.steps ? (
-            <div className="hm-figure">
-              <Label tone="ink" className="hm-figure-label">
-                {firecrawl.figureLabel}
-              </Label>
-              <Pipeline vertical steps={lead.steps} />
-            </div>
-          ) : null}
+          <div className="hm-figure hm-figure--diagram">
+            <Label tone="ink" className="hm-figure-label">
+              {firecrawl.harness.label}
+            </Label>
+            <HarnessLoopFigure diagram={firecrawl.harness} />
+          </div>
         </article>
         <div className="hm-follow">
           <SystemGrid columns={2}>
@@ -215,10 +211,7 @@ export default function Home() {
           </ArrowLink>
         }
       >
-        <div className="hm-split hm-split--4-8">
-          <div className="hm-stack">
-            <p className="hm-prose">{before.intro}</p>
-          </div>
+        <div className="hm-measure">
           <Timeline
             items={before.timeline.map((entry) => ({
               years: entry.years,
@@ -230,9 +223,18 @@ export default function Home() {
             }))}
           />
         </div>
+      </Section>
+
+      <Section
+        id="projects"
+        index="05"
+        label={projects.label}
+        title={projects.title}
+      >
+        <WorkRows items={rows(projects.side)} />
         <div className="hm-sublist">
-          <Label tone="ink">{before.openSourceLabel}</Label>
-          <WorkRows items={rows(before.openSource)} />
+          <Label tone="ink">{projects.earlierLabel}</Label>
+          <WorkRows items={rows(projects.earlier)} />
         </div>
       </Section>
     </>

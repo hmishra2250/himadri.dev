@@ -18,7 +18,8 @@
  *   hm-rows--compact              Rows for long lists: h4-size titles, tighter padding
  *   hm-row--static                A row without a link (a private project)
  *   hm-row-summary-wrap           Aligns a row summary under the row title
- *   hm-pipeline--vertical fix     Keeps the rail continuous on phones
+ *   hm-measure                    Keeps a long list (the timeline) to a reading width
+ *   hm-diagram, hm-dg-*           System diagrams: diagram-design's method in v2 tokens
  *   hm-systems--2, hm-system--wide Two-column system grid with a full-width lead card
  *   hm-system--static             A system card that holds its own links
  *   hm-evidence, hm-evidence-block Pull requests as ruled rows: what changed, then the reference
@@ -153,12 +154,110 @@ html {
   }
 }
 
+/* A long list kept to a reading width on the one left edge */
+.hm-measure {
+  max-width: 760px;
+}
+
 /*
- * Vertical pipelines: v2's phone rule (.hm-pipeline:not(.hm-pipeline--wrap))
- * adds a 24px row gap, which breaks the rail between steps. Push upstream.
+ * System diagrams: diagram-design's method (one accent, orthogonal
+ * connectors, labels on masks, a 4px grid) in the v2 tokens. Plex Sans
+ * names, Plex Mono labels, square corners; cobalt only for the focal path.
+ * The SVG scales to its column; on phones the figure gives it the width.
  */
-.hm-pipeline.hm-pipeline--vertical:not(.hm-pipeline--wrap) {
-  row-gap: 0;
+.hm-diagram {
+  margin: 0;
+}
+.hm-diagram-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.hm-diagram .hm-figure-note {
+  margin-top: 16px;
+  line-height: 1.5;
+}
+.hm-dg-box {
+  fill: var(--pearl);
+  stroke: var(--graphite);
+  stroke-width: 1;
+}
+.hm-dg-node--input .hm-dg-box {
+  stroke: var(--hairline-strong);
+}
+.hm-dg-node--focal .hm-dg-box {
+  fill: color-mix(in srgb, var(--cobalt) 7%, var(--pearl));
+  stroke: var(--cobalt);
+  stroke-width: 1.5;
+}
+.hm-dg-node--dashed .hm-dg-box {
+  fill: none;
+  stroke: var(--graphite-soft);
+  stroke-dasharray: 4 3;
+}
+.hm-dg-name {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 500;
+  fill: var(--graphite);
+}
+.hm-dg-node--focal .hm-dg-name {
+  fill: var(--cobalt-dark);
+}
+.hm-dg-sub {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  fill: var(--graphite-soft);
+}
+.hm-dg-index {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  fill: var(--cobalt-dark);
+}
+.hm-dg-label {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  fill: var(--graphite-soft);
+}
+.hm-dg-tag--focal .hm-dg-label {
+  fill: var(--cobalt-dark);
+}
+.hm-dg-mask {
+  fill: var(--pearl-warm);
+}
+.hm-dg-zone-box {
+  fill: none;
+  stroke: var(--graphite-soft);
+  stroke-dasharray: 5 4;
+}
+.hm-dg-edge {
+  fill: none;
+  stroke: var(--graphite-soft);
+  stroke-width: 1.5;
+}
+.hm-dg-edge--focal {
+  stroke: var(--cobalt);
+}
+.hm-dg-edge--return {
+  stroke-dasharray: 5 4;
+}
+.hm-dg-head {
+  fill: var(--graphite-soft);
+}
+.hm-dg-head--focal {
+  fill: var(--cobalt);
+}
+@media (max-width: 720px) {
+  .hm-figure--diagram {
+    padding: 20px 4px;
+  }
+  .hm-figure--diagram > .hm-figure-label,
+  .hm-figure--diagram .hm-figure-note {
+    padding-inline: 12px;
+  }
 }
 
 /* Two-column system grid; a wide card spans the row with its own split */
@@ -318,13 +417,4 @@ html {
   height: auto;
   outline: 1px solid var(--hairline);
   background: #fff;
-}
-.hm-document-help {
-  font-family: var(--font-mono);
-  font-size: var(--text-label);
-  color: var(--muted);
-}
-.hm-document-help a {
-  text-decoration: underline;
-  text-decoration-color: var(--hairline-strong);
 }

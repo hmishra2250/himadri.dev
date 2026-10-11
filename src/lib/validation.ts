@@ -41,6 +41,10 @@ export const bannedCopyPatterns: ReadonlyArray<readonly [RegExp, string]> = [
     /client work is private|work is private|not public|private repo|full record is below|a few highlights/i,
     "meta note about the page; say the work, not what is hidden",
   ],
+  [
+    /\bset in (?:ibm )?plex\b|©|\(c\) \d{4}|all rights reserved|selectable text|this (?:site|page) (?:is|was) built/i,
+    "meta note about the site (colophon, copyright, format help); say the work",
+  ],
 ];
 
 export const homeSectionIds = new Set<string>(
@@ -160,8 +164,8 @@ export function validateContent(): string[] {
     prKeys.add(key);
   }
 
-  if (site.inTheOpen.also.length === 0) {
-    errors.push("inTheOpen.also must list at least one project");
+  if (site.projects.side.length === 0) {
+    errors.push("projects.side must list at least one project");
   }
 
   return errors;

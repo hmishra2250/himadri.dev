@@ -47,7 +47,7 @@ Every other path from earlier versions is retired in `src/lib/routes.ts` and red
 ## Content and proof model
 
 - Everything the site says lives in `src/content/site.ts`, in reading order.
-- To add a side project, add a one-liner at the top of `inTheOpen.also`. Leave out `href` while the repository is private; the row then renders as plain text.
+- To add a side project, add a one-liner at the top of `projects.side`. Leave out `href` while the repository is private; the row then renders as plain text.
 - Lead with impact, as before-and-after percentages where a measurement exists. Not everything needs a number: describe a system by what it does and what it led to. Do not lead with pull request, commit or fix counts. Keep figures at body size in the text, never as large display numbers; only titles are set large.
 - Every company-specific statement and every number references a claim in `src/content/proof.ts` through a `proof` id. Claims must be approved and public, and sourced from the current resume, a public URL, or a `work-record` (the owner's description of private work by what it does). A `work-record` claim is the owner's own account and stands on its own; it may not carry figures, so every number needs the resume or a public source. Never name private repositories in a source.
 - Merged pull requests and public repositories are their own proof: link them.
@@ -63,18 +63,19 @@ Every other path from earlier versions is retired in `src/lib/routes.ts` and red
 - No public email address.
 - No Mudita Studios product names; describe what the work does.
 - No retired metrics (48-72h, 10x, 93% to 98%). Knit reads "2-3 days to under an hour".
-- No "(Contract)" labels and no meta notes about the page ("client work is private", "not public", "a few highlights"). Describe the work and its impact; leave out what is hidden.
+- No "(Contract)" labels and no meta notes about the page ("client work is private", "not public", "a few highlights") or the site (a colophon, a copyright line, help text about file formats). Describe the work and its impact; leave out what is hidden.
 
 ## Design system
 
 - `design-system/` is the himadri.dev Design System and the single source for the site's look. It follows the claude.ai/design project (v2); `design-system/SYNC.md` records the differences. Read `design-system/readme.md` before any UI change.
 - `src/styles/globals.css` imports its tokens, `components/components.css` and `components/additions.css` directly. Do not copy design-system CSS into `src/`.
-- Build pages from the typed components in `src/components/ds/` (`Button`, `ArrowLink`, `Label`, `Status`, `Section`, `PageHeader`, `Portrait`, `Pipeline`, `WorkRows`, `SystemGrid`, `SystemCard`, `Timeline`, `ShipStrip`, `Evidence`, `DocumentPages`, `SocialLinks`). They emit only documented `hm-*` classes. Avoid inline styles and one-off classes.
+- Build pages from the typed components in `src/components/ds/` (`Button`, `ArrowLink`, `Label`, `Status`, `Section`, `PageHeader`, `Portrait`, `DiagramFigure` with `DgNode`, `DgEdge`, `DgLabel` and `DgZone`, `WorkRows`, `SystemGrid`, `SystemCard`, `Timeline`, `ShipStrip`, `Evidence`, `DocumentPages`, `SocialLinks`). They emit only documented `hm-*` classes. Avoid inline styles and one-off classes.
 - Change v2 patterns in the claude.ai/design project and pull them; do not edit `components/components.css` here. To add a site-only pattern: add its CSS to `design-system/components/additions.css`, a component to `src/components/ds/`, and a row to the readme's "Site additions" table, then use it.
 - Visual rules: pearl, graphite and one cobalt accent; IBM Plex Sans, with Plex Mono only for indices, labels, dates, status, provenance and figures; one 1080px column on one left edge; square corners; no shadows, gradients or entrance animation; light only.
 - Rules, not cards: each section opens with a graphite rule carrying its mono index and label, rows are separated by hairlines, and pearl-warm fills are only for figures and the shipped strip.
 - Icons: the only icons are the header marks in `src/components/ds/SocialLinks.tsx`: the Agent Experience AX monogram (official raster mark, never recoloured) and the GitHub, LinkedIn and X brand marks (Simple Icons paths, CC0). Add no others without updating the design system readme.
-- The hero follows the UI kit's Home: identity, the statement as h1, the facts line beside the actions, then the "Recently shipped" strip. "Recent work" scrolls to section 01. Nothing on the page sits behind an accordion.
+- The hero follows the UI kit's Home: identity, the statement as h1, the facts line (which defines Agent Experience) beside one action, then the "Recently shipped" strip with at least one measured result. "Recent work" scrolls to section 01; the header carries the resume. Nothing on the page sits behind an accordion.
+- Diagrams follow the diagram-design method in v2 tokens (see the readme, "Site additions"). Draw a system from its code, not from memory: every node and arrow must match how it works, and every word lives in `src/content/site.ts`.
 - `design-system/ui_kits/` (the v2 UI kit, a six-page reference) is git-ignored. `design-system/SYNC.md` records how the folder differs from the claude.ai/design project; push changes back with `/design-sync`.
 
 ## Confidentiality constraints

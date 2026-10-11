@@ -4,10 +4,17 @@
  * these components only emit the documented hm-* classes.
  */
 export { ArrowLink, Button } from "./Actions";
+export {
+  DgEdge,
+  DgLabel,
+  DgNode,
+  DgZone,
+  DiagramFigure,
+  type DiagramTone,
+} from "./Diagram";
 export { DocumentPages, type DocumentPage } from "./DocumentPages";
 export { Evidence, type EvidenceItem } from "./Evidence";
 export { Label, Status } from "./Label";
-export { Pipeline, type PipelineStep } from "./Pipeline";
 export { Portrait } from "./Portrait";
 export { PageHeader, Section } from "./Section";
 export { ShipStrip, type ShipItem } from "./ShipStrip";

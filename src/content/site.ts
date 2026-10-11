@@ -3,7 +3,7 @@ import type { ProofClaimId } from "./proof";
 /**
  * Everything the one-page site says, in reading order.
  *
- * To add a side project, put a new entry at the top of `inTheOpen.also`: one line,
+ * To add a side project, put a new entry at the top of `projects.side`: one line,
  * and a link once the repository is public. Company-specific statements and
  * numbers carry a `proof` id from ./proof.ts.
  */
@@ -30,8 +30,43 @@ export type PullRequest = {
   summary: string;
 };
 
-/** A step in a pipeline figure */
-export type Step = { title: string; detail?: string };
+/** A node in a diagram: a short name and up to two sublabel lines */
+export type DiagramNode = { name: string; sub?: string[] };
+
+/** The coding agent figure. Words only; the geometry lives in the component. */
+export type CodingAgentDiagram = {
+  label: string;
+  title: string;
+  /** One sentence for screen readers */
+  desc: string;
+  zone: string;
+  nodes: Record<
+    "request" | "agent" | "reviewer" | "checks" | "draft" | "person",
+    DiagramNode
+  >;
+  edges: Record<"revise" | "patch" | "pass" | "reply", string>;
+  note?: string;
+};
+
+/** A loop figure: six stations clockwise, an entry, a return and a side input */
+export type LoopDiagram = {
+  label: string;
+  title: string;
+  /** One sentence for screen readers */
+  desc: string;
+  entry: string;
+  retest: string;
+  stations: [
+    DiagramNode,
+    DiagramNode,
+    DiagramNode,
+    DiagramNode,
+    DiagramNode,
+    DiagramNode,
+  ];
+  side: DiagramNode;
+  note?: string;
+};
 
 export type TimelineEntry = {
   years: string;
@@ -61,8 +96,9 @@ export const hero = {
   location: "Remote, India",
   punchline: "I build agents, and the MCP servers, CLIs and SDKs they run on.",
   facts:
-    "AI engineer, 8+ years. I build AI products at Mudita Studios and work on Agent Experience in the open. Previously at Firecrawl.",
+    "AI engineer, 8+ years. I build AI products at Mudita Studios and work in the open on Agent Experience: whether agents find, choose and correctly use the tools they are given. Previously at Firecrawl (YC S22).",
   proof: "resume-summary" satisfies ProofClaimId,
+  ycProof: "firecrawl-yc" satisfies ProofClaimId,
 };
 
 export type ShippedItem = {
@@ -105,10 +141,10 @@ export const shipped = {
       when: "Jul",
       source: "Firecrawl",
       title: "Firecrawl's hosted MCP server, rebuilt",
-      text: "The server its Claude and Codex connectors run on.",
+      text: "Firecrawl's Claude and Codex connectors run on it, and agents load half the tokens with no loss in task success.",
       href: "https://github.com/firecrawl/firecrawl-mcp-server/pull/308",
       go: "firecrawl-mcp-server #308",
-      proof: "firecrawl-hosted-mcp-endpoints",
+      proof: "firecrawl-hosted-mcp",
     },
   ] satisfies ShippedItem[],
 };
@@ -120,21 +156,34 @@ export const now = {
     name: "Mudita Studios",
     meta: "AI Product Engineer · since May 2026",
     items: [
-      "Built a coding agent from an empty repository that turns a Slack or Jira request into a tested draft pull request.",
+      "Built a coding agent from an empty repository.",
       "Main engineer on a production AI product whose answers cite their sources: its data connectors, the end-to-end test harness and release gates, and security hardening.",
       "Set up the delivery platform for a second product: CI/CD, preview environments and daily browser smoke tests.",
     ],
-    figureLabel: "Inside the coding agent",
-    steps: [
-      { title: "Request", detail: "From Slack or Jira" },
-      {
-        title: "Sandboxed run",
-        detail: "Writes and tests the change",
+    diagram: {
+      label: "Inside the coding agent",
+      title: "Inside the coding agent",
+      desc: "A request in Slack starts a coding agent in a sandbox with no credentials; a second model reviews its diff and can send it back; only the patch leaves; checks outside the agent's reach run before a draft pull request goes to a person, whose reply sends the work back.",
+      zone: "SANDBOX · NO KEYS",
+      nodes: {
+        request: { name: "Request", sub: ["Slack · Jira ticket"] },
+        agent: { name: "Coding agent", sub: ["explores, codes, tests"] },
+        reviewer: { name: "Second model", sub: ["reviews the diff"] },
+        checks: {
+          name: "Independent checks",
+          sub: ["tests · browser · proof"],
+        },
+        draft: { name: "Draft pull request", sub: ["bot cannot merge"] },
+        person: { name: "Person reviews", sub: ["merges or replies"] },
       },
-      { title: "Browser check" },
-      { title: "Second-model judge" },
-      { title: "Draft pull request", detail: "A person reviews it" },
-    ] satisfies Step[],
+      edges: {
+        revise: "REVISE",
+        patch: "PATCH ONLY",
+        pass: "PASS",
+        reply: "REPLY · SAME PR",
+      },
+      note: "The agent cannot commit or push, and each new test must fail on the old code before a pull request opens.",
+    } satisfies CodingAgentDiagram,
     proof: [
       "mudita-coding-agent",
       "mudita-main-engineer",
@@ -146,19 +195,18 @@ export const now = {
 export const inTheOpen = {
   label: "In the open",
   title: "Agent Experience, in the open.",
-  intro: "How agents find, use and recover with the tools they are given.",
   proof: "public-agent-experience-guide" satisfies ProofClaimId,
   items: [
     {
       name: "Agent Experience field guide",
       href: "https://agentexperience.tech/",
-      line: "Guidance on how AI agents experience a product while acting for a person.",
+      line: "How AI agents experience a product while acting for a person.",
       meta: "Published guide",
     },
     {
       name: "Open Agent-Readiness Rubric",
       href: "https://agentexperience.tech/insights/agent-readiness-rubric/",
-      line: "Checks one real job an agent does, across six tracks, and gives a profile instead of one score.",
+      line: "Checks one real job an agent does across six tracks and gives a profile, not one score.",
       meta: "Open rubric",
     },
     {
@@ -180,37 +228,6 @@ export const inTheOpen = {
       meta: "Curated list",
     },
   ] satisfies OneLiner[],
-  alsoLabel: "Side projects",
-  also: [
-    {
-      name: "Talkies",
-      line: "Local dictation and meeting transcription for Linux: hold a key, speak, and the text lands where you type.",
-      meta: "2026",
-    },
-    {
-      name: "laptop-powersave",
-      line: "Battery tiers for a laptop that doubles as a server: it caps the CPU and releases the GPU without a reboot.",
-      meta: "2026",
-    },
-    {
-      name: "cctv-edge",
-      line: "A local-first CCTV console with on-device object detection, on a Raspberry Pi 5.",
-      meta: "2026",
-    },
-    {
-      name: "Qwen3.6-35B on an 8 GB laptop GPU",
-      href: `${github}/qwen-3.6-35b-consumer-gpu`,
-      line: "43 tokens per second with 128K context, with launch scripts, a tuning guide and a coding benchmark.",
-      meta: "2026",
-      proof: "public-consumer-gpu-inference",
-    },
-    {
-      name: "ubuntu-maclike-touchpad",
-      href: `${github}/ubuntu-maclike-touchpad`,
-      line: "macOS-style touchpad gestures on Ubuntu: three-finger drag, four-finger workspace switching and pinch zoom.",
-      meta: "2026",
-    },
-  ] satisfies OneLiner[],
 };
 
 /** One point inside a work card; an optional lead-in label. */
@@ -224,24 +241,47 @@ export type WorkCard = {
   story?: string;
   points: WorkPoint[];
   prs: PullRequest[];
-  /** The lead card's figure: how the system works, step by step */
-  steps?: Step[];
   proof: ProofClaimId[];
 };
 
 export const firecrawl = {
   label: "Previously",
   title: "Agent Experience at Firecrawl.",
-  figureLabel: "Inside the harness",
-  intro:
-    "From May to September 2026 I owned Agent Experience at Firecrawl: whether coding agents find it, choose it and use it correctly.",
+  intro: "From May to September 2026 I owned Agent Experience at Firecrawl.",
   proof: ["firecrawl-programme"] satisfies ProofClaimId[],
+  harness: {
+    label: "Inside the harness",
+    title: "Inside the Agent Experience harness",
+    desc: "A loop of six steps, pin the builds, run real agents, keep every trace, check then judge, report findings and fix the product, then back to the first step to re-test; new releases enter at the first step, and search checks without agents feed the findings.",
+    entry: "NEW RELEASES",
+    retest: "RE-TEST",
+    stations: [
+      {
+        name: "Pin the builds",
+      },
+      {
+        name: "Run real agents",
+      },
+      {
+        name: "Keep every trace",
+      },
+      {
+        name: "Check, then judge",
+      },
+      {
+        name: "Report findings",
+      },
+      { name: "Fix the product" },
+    ],
+    side: { name: "Search checks, no agents" },
+    note: "Agents: Claude Code, Codex, Cursor and OpenCode, in sandboxes.",
+  } satisfies LoopDiagram,
   cards: [
     {
       title: "The Agent Experience harness",
       status: "Built from the first commit",
       story:
-        "The lab behind the programme, running real coding agents such as Claude Code, Codex, Cursor and OpenCode. The rule was that every release goes through an A/B test first, and for every launch it uncovered issues that went into the product.",
+        "The lab behind the programme. The rule was that every release goes through an A/B test first, and for every launch it uncovered issues that went into the product.",
       points: [
         {
           label: "Daily discoverability",
@@ -249,15 +289,15 @@ export const firecrawl = {
         },
         {
           label: "Weekly Deep Insights",
-          text: "reads every trace of the week, judges the pages agents read, and checks each quote against the raw runs.",
+          text: "reads every trace from one full daily run, judges the pages agents read, and checks each quote against the raw runs.",
         },
         {
           label: "Retrievability",
-          text: "where Firecrawl's pages rank for the questions agents search.",
+          text: "whether Firecrawl's pages show up in search, load and carry the answer, with no agents involved.",
         },
         {
           label: "Experiments",
-          text: "pin the builds under test and use judges, cost caps and false-discovery-rate control.",
+          text: "pre-registered statistics, judges, cost caps and false-discovery-rate control.",
         },
         {
           label: "Access",
@@ -276,25 +316,13 @@ export const firecrawl = {
           summary: "A/B results for the research-index skill",
         },
       ],
-      steps: [
-        {
-          title: "Pin the builds",
-          detail: "Any version of the MCP server, CLI, SDKs or skills",
-        },
-        {
-          title: "Run real agents",
-          detail: "In sandboxes, on several models",
-        },
-        { title: "Judge the runs" },
-        { title: "Report what changed" },
-      ],
       proof: ["firecrawl-measurement", "firecrawl-harness"],
     },
     {
       title: "The hosted MCP server, rebuilt",
       status: "Shipped system, Jul 2026",
       story:
-        "The hosted server mixed API keys in URLs with an OAuth flow that was wired in wrong, and sign-in failed often. I rebuilt it from first principles on Firecrawl's OAuth, reusing what worked, as one train of pull requests. It serves Firecrawl's Claude and Codex connectors.",
+        "The hosted server mixed API keys in URLs with an OAuth flow that was wired in wrong, and sign-in failed often. I rebuilt it from first principles on Firecrawl's OAuth, reusing what worked, as one train of pull requests.",
       points: [
         {
           label: "Leaner",
@@ -439,8 +467,6 @@ export const firecrawl = {
 export const before = {
   label: "Before that",
   title: "Production ML, before agents.",
-  intro:
-    "Search, recommendations, computer vision, and the AI pipeline of a research platform.",
   timeline: [
     {
       years: "2025-2026",
@@ -473,8 +499,44 @@ export const before = {
       proof: "education-sn-bose",
     },
   ] satisfies TimelineEntry[],
-  openSourceLabel: "Earlier open source",
-  openSource: [
+};
+
+/** After the main work: side projects, then earlier open source. */
+export const projects = {
+  label: "Side projects",
+  title: "Built on the side.",
+  side: [
+    {
+      name: "Talkies",
+      line: "Local dictation and meeting transcription for Linux: hold a key, speak, and the text lands where you type.",
+      meta: "2026",
+    },
+    {
+      name: "laptop-powersave",
+      line: "Battery tiers for a laptop that doubles as a server: it caps the CPU and releases the GPU without a reboot.",
+      meta: "2026",
+    },
+    {
+      name: "cctv-edge",
+      line: "A local-first CCTV console with on-device object detection, on a Raspberry Pi 5.",
+      meta: "2026",
+    },
+    {
+      name: "Qwen3.6-35B on an 8 GB laptop GPU",
+      href: `${github}/qwen-3.6-35b-consumer-gpu`,
+      line: "43 tokens per second with 128K context, with launch scripts, a tuning guide and a coding benchmark.",
+      meta: "2026",
+      proof: "public-consumer-gpu-inference",
+    },
+    {
+      name: "ubuntu-maclike-touchpad",
+      href: `${github}/ubuntu-maclike-touchpad`,
+      line: "macOS-style touchpad gestures on Ubuntu: three-finger drag, four-finger workspace switching and pinch zoom.",
+      meta: "2026",
+    },
+  ] satisfies OneLiner[],
+  earlierLabel: "Earlier open source",
+  earlier: [
     {
       name: "NTM-One-Shot-TF",
       href: `${github}/NTM-One-Shot-TF`,
@@ -506,8 +568,7 @@ export const socials = [
 ] as const satisfies readonly { id: SocialId; label: string; href: string }[];
 
 export const footer = {
-  role: "AI engineer, Remote, India.",
-  colophon: "Set in IBM Plex Sans and IBM Plex Mono.",
+  role: "AI engineer.",
   elsewhere: [
     { label: "Agent Experience", href: links.agentExperience },
   ] satisfies ExternalLink[],
@@ -518,4 +579,5 @@ export const sections = [
   { id: "open", label: "In the open" },
   { id: "firecrawl", label: "Previously" },
   { id: "before", label: "Before that" },
+  { id: "projects", label: "Side projects" },
 ] as const;

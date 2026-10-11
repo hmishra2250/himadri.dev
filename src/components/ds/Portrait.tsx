@@ -9,6 +9,7 @@ export function Portrait({ alt }: { alt: string }) {
         alt={alt}
         width={460}
         height={460}
+        sizes="88px"
         priority
       />
     </span>

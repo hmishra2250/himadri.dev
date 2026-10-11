@@ -173,6 +173,16 @@ export const proofClaims = [
     approvedForPublicUse: true,
   },
   {
+    id: "firecrawl-yc",
+    claim:
+      "Firecrawl is a Y Combinator company from the Summer 2022 batch (S22).",
+    sourcePath: "https://www.ycombinator.com/companies/firecrawl",
+    sourceLocator: "Company page, batch",
+    sourceType: "public-profile",
+    confidentialityLevel: "public",
+    approvedForPublicUse: true,
+  },
+  {
     id: "firecrawl-programme",
     claim:
       "Owned the Agent Experience programme at Firecrawl: measuring and improving how AI agents discover, choose and correctly use Firecrawl.",
