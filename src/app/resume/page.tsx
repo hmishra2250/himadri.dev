@@ -53,7 +53,6 @@ export default function ResumePage() {
         <DocumentPages
           label={resumeDocument.label}
           pages={resumeDocument.pages}
-          pdf={resumeDocument.pdf}
         />
       </section>
     </>

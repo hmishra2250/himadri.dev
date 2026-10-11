@@ -77,6 +77,9 @@ const mustFail: Array<[string, string]> = [
   ["Agent discovery rose from 21% to 100%.", "unsupported figure"],
   ["A tool-naming fix took adoption from 0 to 48.", "unsupported figure"],
   ["Client work is private, so I describe what it does.", "meta note"],
+  ["Set in IBM Plex Sans and IBM Plex Mono.", "colophon"],
+  ["© 2026 Himadri Mishra", "copyright line"],
+  ["Prefer selectable text? Open the PDF.", "format help"],
 ];
 for (const [text, reason] of mustFail) {
   assert(

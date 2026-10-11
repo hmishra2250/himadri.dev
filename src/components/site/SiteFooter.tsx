@@ -40,10 +40,6 @@ export function SiteFooter() {
             </ul>
           </nav>
         </div>
-        <div className="hm-footer-bottom">
-          <span>© 2026 {hero.name}</span>
-          <span>{footer.colophon}</span>
-        </div>
       </div>
     </footer>
   );

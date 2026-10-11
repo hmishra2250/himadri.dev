@@ -30,9 +30,14 @@ assert.ok(
 assert.match(resumeHtml, /resume-1\.png/);
 assert.match(resumeHtml, /<a[^>]*download="Himadri_Mishra_Resume\.pdf"/);
 assert.match(resumeHtml, /<a[^>]*download="Himadri_Mishra_CV\.pdf"/);
+assert.match(
+  resumeHtml,
+  /<a[^>]*href="\/resume\/Himadri_Mishra_Resume\.pdf"/,
+  "The resume links to its PDF",
+);
 assert.ok(
-  resumeHtml.includes("Open the PDF"),
-  "Each document needs a link to its selectable-text PDF",
+  !resumeHtml.includes("selectable text"),
+  "No help text about file formats",
 );
 console.log(
   "Resume is static: the one-page resume in the page flow, its download, and a link to the full CV.",
