@@ -254,9 +254,10 @@ export const proofClaims = [
   {
     id: "public-agent-experience-guide",
     claim:
-      "Publishes the Agent Experience field guide, an agent-readiness rubric and a public read-only MCP server.",
+      "Publishes the Agent Experience field guide, an agent-readiness rubric, an evidence register of 40 public findings, the rules of ax-check (50 checks, documented ahead of release), a fortnightly digest and a public read-only MCP server.",
     sourcePath: "https://agentexperience.tech/",
-    sourceLocator: "Home page, rubric and connect pages",
+    sourceLocator:
+      "Home page; /evidence/ (40 records), /checks/ (50 rules), /changes/ (edition 1, 8 Oct 2026), /connect/",
     sourceType: "public-profile",
     confidentialityLevel: "public",
     approvedForPublicUse: true,
