@@ -129,7 +129,7 @@ export const hero = {
   latest: [
     "The last big thing I shipped: ",
     { text: "Firecrawl's hosted MCP server", href: "/#hosted-mcp" },
-    ", rebuilt so sign-in works and agents load half the tool-metadata tokens, with no drop in task success in a ",
+    ", rebuilt so sign-in works and agents load half the tool-metadata tokens with no drop in task success, in a ",
     { text: "paired A/B test", href: prLink("firecrawl-mcp-server", 340) },
     ". Firecrawl's Claude and Codex connectors run on it.",
   ] satisfies Segment[],
@@ -196,8 +196,8 @@ export const work = {
     story:
       "Someone asks for a change in Slack or Jira. The agent reads the ticket, works in a fresh sandbox with no credentials, writes the change and its tests, and runs them. A second model that did not write the code reviews the diff and can send it back. Only a patch leaves the sandbox.",
     points: [
-      "Then the checks the agent cannot touch: the project's tests run again outside the sandbox, pages are checked in a real browser, and a new test must fail on the old code before a pull request opens.",
-      "The bot cannot merge. A person reviews the draft, and a reply in the same Slack thread updates the same pull request.",
+      "Then the checks the agent cannot touch: the project's tests run again outside the sandbox, pages are checked in a real browser, and a new test must fail on the old code first.",
+      "The bot cannot merge. A person reviews the draft, and a reply in the same thread updates the same pull request.",
     ],
     diagram: {
       label: "Inside the coding agent",
@@ -230,7 +230,7 @@ export const work = {
     status: "Firecrawl · July 2026",
     title: "Firecrawl's hosted MCP server, rebuilt",
     story:
-      "The old server took the API key in the URL, and its OAuth flow was wired wrong, so sign-in failed a lot. I rebuilt it on Firecrawl's own OAuth with two endpoints: one for accounts and one that needs none. An agent can start without signing up, and when a tool needs an account it is told what to do next.",
+      "The old server took the API key in the URL, and its OAuth flow was wired wrong, so sign-in failed a lot. I rebuilt it on Firecrawl's OAuth with two endpoints: one for accounts and one that needs none, so an agent can start without signing up and is told what to do when a tool needs an account.",
     points: [
       "Agents now load half the tool-metadata tokens, and task success stayed the same in a paired A/B test. Firecrawl's Claude and Codex connectors run on it.",
     ],
@@ -288,10 +288,10 @@ export const work = {
     status: "Firecrawl · May to September 2026",
     title: "The Agent Experience harness",
     story:
-      "This is how Firecrawl found out whether agents could actually use its tools. Before a release shipped, real coding agents (Claude Code, Codex, Cursor, OpenCode) ran the candidate build against the published one in sandboxes set up like a user's, and a paired A/B test compared them.",
+      "How Firecrawl found out whether agents could use its tools. Before a release shipped, real coding agents (Claude Code, Codex, Cursor, OpenCode) ran the candidate build against the published one in sandboxes set up like a user's, in a paired A/B test.",
     points: [
-      "Every tool call, page read and answer was kept raw, and every quote in a weekly report was checked against the run it came from.",
-      "What the runs found went into the docs, API, MCP server and website, and the next run tested the fix.",
+      "Every tool call, page read and answer was kept raw, and every quote in a weekly report was checked against its run.",
+      "What the runs found went into the docs, API, MCP server and website, and the next run tested it.",
     ],
     diagram: {
       label: "Inside the harness",
@@ -329,7 +329,7 @@ export const work = {
     {
       meta: "Mudita Studios",
       title: "The research product",
-      text: "Main engineer on a product whose answers cite their sources: data connectors, the test harness and release gates. I also set up CI/CD, preview environments and daily browser smoke tests for a second product.",
+      text: "Main engineer on a product whose answers cite their sources: data connectors, the test harness and release gates. I also set up CI/CD, previews and daily browser smoke tests for a second product.",
       links: [],
       proof: ["mudita-main-engineer", "mudita-delivery-platform"],
     },
@@ -378,7 +378,7 @@ export const work = {
     {
       years: "2023 to 2024",
       name: "Epic! for Kids",
-      line: "Senior Research Engineer. Search and recommendations for a children's reading app, and the ML platform under them.",
+      line: "Senior Research Engineer. Search and recommendations for a children's reading app, and their ML platform.",
       proof: "epic-search",
     },
     {
@@ -409,29 +409,35 @@ export const latest = {
   label: "Latest",
   title: "What I have written lately.",
   intro:
-    "Agent Experience is my guide to how agents use software. It comes with an open readiness rubric and a public MCP server any agent can query.",
+    "Agent Experience is my guide to how agents use software, with an open readiness rubric, an evidence register, a checker and a public MCP server.",
   proof: "public-agent-experience-guide" satisfies ProofClaimId,
   items: [
     {
-      date: "08 Oct 2026",
-      title: "Five meanings of agent experience",
-      href: "https://agentexperience.tech/insights/meanings-of-agent-experience/",
-      kind: "Guide",
-    },
-    {
-      date: "08 Oct 2026",
+      date: "12 Oct 2026",
       title: "What does an AX engineer do?",
       href: "https://agentexperience.tech/insights/what-does-an-ax-engineer-do/",
       kind: "Guide",
     },
     {
-      date: "08 Oct 2026",
+      date: "11 Oct 2026",
+      title: "Five meanings of agent experience",
+      href: "https://agentexperience.tech/insights/meanings-of-agent-experience/",
+      kind: "Guide",
+    },
+    {
+      date: "09 Oct 2026",
       title: "Agent readiness scores compared",
       href: "https://agentexperience.tech/insights/agent-readiness-scores-compared/",
       kind: "Guide",
     },
     {
       date: "08 Oct 2026",
+      title: "What changed in AX, edition 1",
+      href: "https://agentexperience.tech/changes/",
+      kind: "Digest",
+    },
+    {
+      date: "30 Sep 2026",
       title: "How to expose a 3,000-operation API to agents",
       href: "https://agentexperience.tech/insights/large-api-surfaces-for-agents/",
       kind: "Guide",
@@ -443,12 +449,17 @@ export const latest = {
       href: "https://agentexperience.tech/insights/agent-readiness-rubric/",
     },
     {
-      label: "Connect to the public MCP server",
-      href: "https://agentexperience.tech/connect/",
+      label: "The evidence register: 40 public findings",
+      href: "https://agentexperience.tech/evidence/",
     },
     {
-      label: "MCP tool-description test cases",
-      href: "https://agentexperience.tech/resources/mcp-tool-description-test-cases/",
+      label:
+        "ax-check: 50 rules for tool descriptions, CLIs and agent instructions",
+      href: "https://agentexperience.tech/checks/",
+    },
+    {
+      label: "Connect to the public MCP server",
+      href: "https://agentexperience.tech/connect/",
     },
   ] satisfies ExternalLink[],
 };
@@ -467,14 +478,14 @@ export const projects = {
     {
       name: "Qwen3.6-35B on an 8 GB laptop GPU",
       href: `${github}/qwen-3.6-35b-consumer-gpu`,
-      line: "A 35B model running on a laptop GPU at 43 tokens per second with 128K context, with the launch scripts, a tuning guide and a coding benchmark.",
+      line: "A 35B model on a laptop GPU at 43 tokens per second with 128K context, with launch scripts, a tuning guide and a coding benchmark.",
       meta: "2026",
       proof: "public-consumer-gpu-inference",
     },
     {
       name: "ubuntu-maclike-touchpad",
       href: `${github}/ubuntu-maclike-touchpad`,
-      line: "Mac-style touchpad gestures on Ubuntu: three-finger drag, four-finger workspace switching, pinch to zoom.",
+      line: "Mac-style touchpad gestures on Ubuntu: three-finger drag, four-finger workspace switching, pinch zoom.",
       meta: "2026",
     },
     {
